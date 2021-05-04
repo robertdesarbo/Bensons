@@ -1,7 +1,7 @@
 <!-- ============================================================== -->
 <!-- Main wrapper - style you can find in pages.scss -->
 <!-- ============================================================== -->
-<div class="main-container" [dir]="dir" [ngClass]="{'minisidebar': minisidebar, 'boxed': boxed, 'danger': danger, 'blue': blue, 'green': green, 'horizontal' : horizontal }">
+<div class="main-container" [dir]="dir" class="blue">
 
         <!-- ============================================================== -->
         <!-- Topbar - style you can find in header.scss -->
@@ -23,45 +23,16 @@
                         </b>
                         <!--End Logo icon -->
                         <!-- Logo text -->
-                        <span fxShow="false" fxShow.gt-xs>
-                            <!-- dark Logo text -->
-                            <img src="assets/images/logo-text.png" alt="homepage" class="dark-logo">
-                            <!-- Light Logo text -->
-                            <img src="assets/images/logo-light-text.png" class="light-logo" alt="homepage">
+                        <span>
+                            Benson's Empire State Sports
                         </span>
                     </a>
                 </div>
-                <!-- ============================================================== -->
-                <!-- sidebar toggle -->
-                <!-- ============================================================== -->
-
-                <button mat-icon-button (click)="snav.toggle()" class="sidebar-toggle"
-                    value="sidebarclosed">
-                    <mat-icon>menu</mat-icon>
-                </button>
-                <!-- ============================================================== -->
-                <!-- Search - style you can find in header.scss -->
-                <!-- ============================================================== -->
-                <button mat-icon-button class="srh-btn" (click)="showSearch = !showSearch">
-                    <mat-icon>search</mat-icon>
-                </button>
-                <form class="app-search" [ngClass]="{'show-search': showSearch}">
-                    <input type="text" class="form-control" placeholder="Search &amp; enter">
-                    <a class="cl-srh-btn" (click)="showSearch = !showSearch">
-                        <i class="ti-close"></i>
-                    </a>
-                </form>
                 <span fxFlex></span>
                 <!-- ============================================================== -->
                 <!-- app header component - style you can find in header.scss / header.component.ts-->
                 <!-- ============================================================== -->
-                <div *ngIf="!horizontal else horizontalheader">
-                    <app-vertical-header></app-vertical-header>
-                </div>
-
-                <ng-template #horizontalheader>
-                    <app-horizontal-header></app-horizontal-header>
-                </ng-template>
+                <app-vertical-header></app-vertical-header>
 
                 <!-- ============================================================== -->
                 <!-- Right sidebar toggle - style you can find in rightsidebar.component.scss -->
