@@ -7,14 +7,52 @@
         <mat-card>
             <mat-card-content>
                 <!-- Row -->
-                <div fxLayout="row" fxLayoutWrap="wrap">
-                    <!-- column -->
-                    <div fxFlex.gt-sm="50" fxFlex.gt-xs="50">
-                        Starter Page
+                <div fxLayout="row wrap" class="align-items-center">
+                    <div fxFlex.gt-md="25" fxFlex.gt-lg="25" fxFlex="100">
+                        <mat-form-field>
+                            <input matInput (keyup)="applyFilter($event.target.value)" placeholder="Search Field">
+                        </mat-form-field>
                     </div>
                 </div>
             </mat-card-content>
         </mat-card>
     </div>
     <!-- column -->
+</div>
+<div fxLayout="row wrap">
+    <div fxFlex="100">
+        <mat-card>
+            <mat-card-content>
+                <div class="table-responsive">
+                    <table mat-table [dataSource]="dataSource" class="table no-wrap">
+                        <ng-container matColumnDef="name">
+                            <th mat-header-cell *matHeaderCellDef> Name </th>
+                            <td mat-cell *matCellDef="let element"> {{element.name}} </td>
+                        </ng-container>
+
+                        <ng-container matColumnDef="address">
+                            <th mat-header-cell *matHeaderCellDef> Address </th>
+                            <td mat-cell *matCellDef="let element"> {{element.address}} {{element.city}} {{element.state}} {{element.zip}} </td>
+                        </ng-container>
+
+                        <ng-container matColumnDef="information">
+                            <th mat-header-cell *matHeaderCellDef> Information </th>
+                            <td mat-cell *matCellDef="let element">
+                                <mat-icon class="material-icons-outlined" *ngIf=element.alcohol>sports_bar</mat-icon>
+                                <mat-icon class="material-icons-outlined" *ngIf=element.private_property>public_off</mat-icon>
+                            </td>
+                        </ng-container>
+
+                        <ng-container matColumnDef="notes">
+                            <th mat-header-cell *matHeaderCellDef> Notes </th>
+                            <td mat-cell *matCellDef="let element"> {{element.notes}} </td>
+                        </ng-container>
+
+                        <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>
+                        <tr mat-row *matRowDef="let row; columns: displayedColumns;"></tr>
+                    </table>
+                </div>
+            </mat-card-content>
+        </mat-card>
+    </div>
 </div>
