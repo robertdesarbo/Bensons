@@ -75,6 +75,13 @@ import { PerfectScrollbarConfigInterface } from 'ngx-perfect-scrollbar';
 
 import { TranslateLoader, TranslateModule } from '@ngx-translate/core';
 import { TranslateHttpLoader } from '@ngx-translate/http-loader';
+import { StandingsComponent } from './pages/standings/standings.component';
+import { FieldsComponent } from './pages/fields/fields.component';
+import { RulesComponent } from './pages/rules/rules.component';
+import { SchedulePreferenceComponent } from './pages/schedule-preference/schedule-preference.component';
+import { BulletinBoardComponent } from './pages/bulletin-board/bulletin-board.component';
+import { MvpVotingComponent } from './pages/mvp-voting/mvp-voting.component';
+import { SchedulesComponent } from './pages/schedules/schedules.component';
 
 
 export function HttpLoaderFactory(http: HttpClient) {
@@ -98,7 +105,14 @@ const DEFAULT_PERFECT_SCROLLBAR_CONFIG: PerfectScrollbarConfigInterface = {
         AppBreadcrumbComponent,
         HorizontalAppHeaderComponent,
         AdminComponent,
-        HomeComponent
+        HomeComponent,
+        StandingsComponent,
+        FieldsComponent,
+        RulesComponent,
+        SchedulePreferenceComponent,
+        BulletinBoardComponent,
+        MvpVotingComponent,
+        SchedulesComponent
     ],
     imports: [
         MatAutocompleteModule,
