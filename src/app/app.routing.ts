@@ -18,6 +18,11 @@ export const AppRoutes: Routes = [
         component: FullComponent,
         children: [
             {
+                path: '',
+                redirectTo: '/home',
+                pathMatch: 'full'
+            },                
+            {
                 path: 'home',
                 component: HomeComponent,
                 data: {
