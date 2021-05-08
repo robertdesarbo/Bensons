@@ -7,11 +7,12 @@ export class Field {
         public zip: number,
         public alcohol: boolean,
         public private_property: boolean,
+        public pets: boolean,
         public notes?: string) {
         }
 
         public static from(field: Field): Field {
             return new Field(field.name, field.address, field.city, field.state,
-                field.zip, field.alcohol, field.private_property, field.notes);
+                field.zip, field.alcohol, field.private_property, field.pets, field.notes);
         }
 }
