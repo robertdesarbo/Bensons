@@ -1,4 +1,4 @@
-import { Team } from 'src/app/models/Team.model';
+import { Team } from 'src/app/models/team.model';
 
 export class Standings {
     protected constructor(

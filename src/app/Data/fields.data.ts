@@ -1,5 +1,5 @@
 
-import { Field } from 'src/app/models/Field.model';
+import { Field } from 'src/app/models/field.model';
 
 const fields: Field[] = [
     {

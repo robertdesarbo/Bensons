@@ -2,7 +2,7 @@ import { Component, OnInit, Inject, Optional, ViewChild, AfterViewInit } from '@
 import { MatTableDataSource, MatTable } from '@angular/material/table';
 import { MatSort } from '@angular/material/sort';
 
-import { Field } from 'src/app/models/Field.model';
+import { Field } from 'src/app/models/field.model';
 
 import { fields } from 'src/app/Data/fields.data';
 

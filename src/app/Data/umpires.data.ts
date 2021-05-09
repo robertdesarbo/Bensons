@@ -1,5 +1,5 @@
 
-import { Umpire } from 'src/app/models/Umpire.model';
+import { Umpire } from 'src/app/models/umpire.model';
 
 const umpires: Umpire[] = [
     {

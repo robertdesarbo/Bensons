@@ -2,10 +2,10 @@ import { Component, OnInit, ViewChild } from '@angular/core';
 import { MatTableDataSource, MatTable } from '@angular/material/table';
 import { MatSort } from '@angular/material/sort';
 
-import { Schedule } from 'src/app/models/Schedule.model';
-import { Team } from 'src/app/models/Team.model';
-import { Field } from 'src/app/models/Field.model';
-import { Umpire } from 'src/app/models/Umpire.model';
+import { Schedule } from 'src/app/models/schedule.model';
+import { Team } from 'src/app/models/team.model';
+import { Field } from 'src/app/models/field.model';
+import { Umpire } from 'src/app/models/umpire.model';
 
 import { teams } from 'src/app/Data/teams.data';
 import { fields } from 'src/app/Data/fields.data';

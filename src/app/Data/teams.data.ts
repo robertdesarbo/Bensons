@@ -1,5 +1,5 @@
 
-import { Team } from 'src/app/models/Team.model';
+import { Team } from 'src/app/models/team.model';
 
 const teams: Team[] = [
     {

@@ -2,8 +2,8 @@ import { Component, OnInit, Inject, Optional, ViewChild, AfterViewInit } from '@
 import { MatTableDataSource, MatTable } from '@angular/material/table';
 import { MatSort } from '@angular/material/sort';
 
-import { Team } from 'src/app/models/Team.model';
-import { Standings } from 'src/app/models/Standings.model';
+import { Team } from 'src/app/models/team.model';
+import { Standings } from 'src/app/models/standings.model';
 
 import { teams } from 'src/app/Data/teams.data';
 

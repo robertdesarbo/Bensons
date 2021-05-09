@@ -1,6 +1,6 @@
-import { Team } from 'src/app/models/Team.model';
-import { Umpire } from 'src/app/models/Umpire.model';
-import { Field } from 'src/app/models/Field.model';
+import { Team } from 'src/app/models/team.model';
+import { Umpire } from 'src/app/models/umpire.model';
+import { Field } from 'src/app/models/field.model';
 
 export class Schedule {
     protected constructor(

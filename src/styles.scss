@@ -8,10 +8,14 @@ div.navbar-header
     }
 }
 
-mat-card-content.title {
-    border-left: 2px solid $header-border;
+mat-toolbar {
+    border-left: 3px solid $header-border;
 }
 
-mat-toolbar {
-    border-left: 2px solid $header-border;
+.navbar-brand {
+    mat-icon {
+        color: white;
+        font-size: 1.5rem;
+        margin-top: 3px;
+    }
 }
