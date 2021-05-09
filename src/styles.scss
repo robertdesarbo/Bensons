@@ -8,7 +8,10 @@ div.navbar-header
     }
 }
 
-mat-card-title {
-    border-bottom: 2px solid $topbar;
-    padding: 0px 0px 5px 0px;
+mat-card-content.title {
+    border-left: 2px solid $header-border;
+}
+
+mat-toolbar {
+    border-left: 2px solid $header-border;
 }
