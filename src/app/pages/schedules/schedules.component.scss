@@ -1,0 +1,13 @@
+@import '../../../assets/styles/variable';
+
+.game-winner {
+    font-weight: 500;
+}
+
+mat-icon.game-delayed {
+    color: $warning;
+}
+
+mat-icon.game-complete {
+    color: $success;
+}

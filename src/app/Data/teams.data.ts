@@ -4,36 +4,80 @@ import { Team } from 'src/app/models/Team.model';
 const teams: Team[] = [
     {
         name: 'Grapeville Insurance',
-        abbreviation: 'GIA'
+        abbreviation: 'GIA',
+        division: 'c/d'
     },
     {
         name: 'Cake Eaters',
-        abbreviation: 'CAK'
+        abbreviation: 'CAK',
+        division: 'c/d'
     },
     {
         name: 'Habitat 4 Instanity',
-        abbreviation: 'H4I'
+        abbreviation: 'H4I',
+        division: 'c/d'
     },
     {
         name: 'Heavy Hitters',
-        abbreviation: 'HHS'
+        abbreviation: 'HHS',
+        division: 'c/d'
     },
     {
         name: 'The Big Sticks',
-        abbreviation: 'TBS'
+        abbreviation: 'TBS',
+        division: 'c/d'
     },
     {
         name: 'Takeover Sun',
-        abbreviation: 'TKS'
+        abbreviation: 'TKS',
+        division: 'c/d'
     },
     {
         name: 'The Pubbers',
-        abbreviation: 'PUB'
+        abbreviation: 'PUB',
+        division: 'c/d'
     },
     {
         name: 'Brew Jays',
-        abbreviation: 'BRJ'
-    }
+        abbreviation: 'BRJ',
+        division: 'c/d'
+    },
+
+    {
+        name: 'Fake Blunters',
+        abbreviation: 'FAK',
+        division: 'e'
+    },
+    {
+        name: 'I\'d Hit It',
+        abbreviation: 'HIT',
+        division: 'e'
+    },
+    {
+        name: '518 Ballers',
+        abbreviation: '518',
+        division: 'e'
+    },
+    {
+        name: 'Misfits',
+        abbreviation: 'MIS',
+        division: 'e'
+    },
+    {
+        name: 'Turntable Brewing',
+        abbreviation: 'TTB',
+        division: 'e'
+    },
+    {
+        name: 'Five Star Sunday',
+        abbreviation: 'FVS',
+        division: 'e'
+    },
+    {
+        name: 'Backdoor Sliders SUN',
+        abbreviation: 'BCS',
+        division: 'e'
+    },
 ];
 
 export { teams };

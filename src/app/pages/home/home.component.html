@@ -1,105 +1,203 @@
-<mat-card>
-    <mat-card-content>
-        <ul class="timeline">
-            <li>
-                <div class="timeline-badge success">
-                    <mat-icon class="material-icons-outlined">pets</mat-icon>
-                </div>
-                <div class="timeline-panel">
-                    <div class="timeline-heading">
-                        <h4 class="timeline-title">Registration Open</h4>
-                        <p>
-                            <small class="text-muted">
-                                <i class="fa fa-clock-o"></i> 4/10/2021</small>
-                        </p>
-                    </div>
-                    <div class="timeline-body">
-                        <p>Registration for Sunday Softball Opens!</p>
-                    </div>
-                </div>
-            </li>
-            <li class="timeline-inverted">
-                <div class="timeline-badge warning">
-                    <img class="img-responsive" alt="user" src="assets/images/users/2.jpg" alt="img"> </div>
-                <div class="timeline-panel">
-                    <div class="timeline-heading">
-                        <h4 class="timeline-title">Ritesh Deshmukh</h4>
-                    </div>
-                    <div class="timeline-body">
-                        <p>
-                            <img class="img-responsive" alt="user" src="assets/images/users/3.jpg" alt="img">
-                        </p>
-                        <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit. Laudantium maiores odit qui est tempora
-                            eos, nostrum provident explicabo dignissimos debitis vel! Adipisci eius voluptates, ad aut recusandae
-                            minus eaque facere.</p>
-                    </div>
-                </div>
-            </li>
-            <li>
-                <div class="timeline-badge danger">
-                    <i class="fa fa-bomb"></i>
-                </div>
-                <div class="timeline-panel">
-                    <div class="timeline-heading">
-                        <h4 class="timeline-title">Lorem ipsum dolor</h4>
-                    </div>
-                    <div class="timeline-body">
-                        <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit. Repellendus numquam facilis enim eaque,
-                            tenetur nam id qui vel velit similique nihil iure molestias aliquam, voluptatem totam quaerat,
-                            magni commodi quisquam.</p>
-                    </div>
-                </div>
-            </li>
-            <li class="timeline-inverted">
-                <div class="timeline-panel">
-                    <div class="timeline-heading">
-                        <h4 class="timeline-title">Lorem ipsum dolor</h4>
-                    </div>
-                    <div class="timeline-body">
-                        <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit. Voluptates est quaerat asperiores sapiente,
-                            eligendi, nihil. Itaque quos, alias sapiente rerum quas odit! Aperiam officiis quidem delectus
-                            libero, omnis ut debitis!</p>
-                    </div>
-                </div>
-            </li>
-            <li>
-                <div class="timeline-badge info">
-                    <i class="fa fa-save"></i>
-                </div>
-                <div class="timeline-panel">
-                    <div class="timeline-heading">
-                        <h4 class="timeline-title">Lorem ipsum dolor</h4>
-                    </div>
-                    <div class="timeline-body">
-                        <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit. Nobis minus modi quam ipsum alias at est
-                            molestiae excepturi delectus nesciunt, quibusdam debitis amet, beatae consequuntur impedit nulla
-                            qui! Laborum, atque.</p>
-                        <hr>
-                        <button mat-icon-button [matMenuTriggerFor]="menu2">
-                            <mat-icon>more_horiz</mat-icon>
+<!-- ============================================================== -->
+<div fxLayout="row" fxLayoutWrap="wrap">
+    <div fxFlex.gt-sm="33.33" fxFlex.gt-xs="100" fxFlex="100">
+        <mat-card>
+            <mat-card-content>
+                <!-- Row -->
+                <div class="d-flex no-block">
+                    <!-- column -->
+                    <div class="m-r-10 no-shrink">
+                        <button mat-fab mat-card-icon class="shadow-none bg-inverse  bg-success">
+                            <mat-icon>groups</mat-icon>
                         </button>
-                        <mat-menu #menu2="matMenu">
-                            <button mat-menu-item>Item 1</button>
-                            <button mat-menu-item>Item 2</button>
-                        </mat-menu>
+                    </div>
+                    <!-- column -->
+                    <div>
+                        <h3 class="m-0">{{ total_teams }}</h3>
+                        <h6 class="text-muted m-0">Teams</h6>
                     </div>
                 </div>
-            </li>
-            <li class="timeline-inverted">
-                <div class="timeline-badge success">
-                    <i class="fa fa-graduation-cap"></i>
-                </div>
-                <div class="timeline-panel">
-                    <div class="timeline-heading">
-                        <h4 class="timeline-title">Lorem ipsum dolor</h4>
+            </mat-card-content>
+        </mat-card>
+    </div>
+    <div fxFlex.gt-sm="33.33" fxFlex.gt-xs="100" fxFlex="100">
+        <mat-card>
+            <mat-card-content>
+                <!-- Row -->
+                <div class="d-flex no-block">
+                    <!-- column -->
+                    <div class="m-r-10 no-shrink">
+                        <button mat-fab color="warn" mat-card-icon class="shadow-none  bg-warning">
+                            <mat-icon>people</mat-icon>
+                        </button>
                     </div>
-                    <div class="timeline-body">
-                        <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit. Deserunt obcaecati, quaerat tempore officia
-                            voluptas debitis consectetur culpa amet, accusamus dolorum fugiat, animi dicta aperiam, enim
-                            incidunt quisquam maxime neque eaque.</p>
+                    <!-- column -->
+                    <div>
+                        <h3 class="m-0">{{ total_players }}</h3>
+                        <h6 class="text-muted m-0">Players</h6>
                     </div>
+
                 </div>
-            </li>
-        </ul>
-    </mat-card-content>
-</mat-card>
+            </mat-card-content>
+        </mat-card>
+    </div>
+    <div fxFlex.gt-sm="33.34" fxFlex.gt-xs="100" fxFlex="100">
+        <mat-card>
+            <mat-card-content>
+                <!-- Row -->
+                <div class="d-flex no-block">
+                    <!-- column -->
+                    <div class="m-r-10 no-shrink">
+                        <button mat-fab color="accent" mat-card-icon class="shadow-none">
+                            <mat-icon>map</mat-icon>
+                        </button>
+                    </div>
+                    <!-- column -->
+                    <div>
+                        <h3 class="m-0">{{ total_fields }}</h3>
+                        <h6 class="text-muted m-0">Fields</h6>
+                    </div>
+
+                </div>
+            </mat-card-content>
+        </mat-card>
+    </div>
+</div>
+
+<div fxLayout="row wrap">
+
+    <div fxFlex.gt-sm="66.66" fxFlex.gt-xs="100" fxFlex="100">
+        <mat-card>
+            <mat-card-content>
+                <mat-card-title>League Information</mat-card-title>
+                <mat-list>
+                    <mat-list-item> GAMES PLAYED AT 15 LOCATIONS </mat-list-item>
+                    <mat-list-item> TEAMS ARE ALLOWED INPUT - scheduling preferences—particular days/particular times</mat-list-item>
+                    <mat-list-item> 1 UMPIRE </mat-list-item>
+                    <mat-list-item> GAME TIMES - 6:00 / 6:15 / 6:30 / 7:30 / 8:00 / 8:15 / 9:00 / 9:15 </mat-list-item>
+                    <mat-list-item> FREE - Advertising for team sponsors on Sponsors page. </mat-list-item>
+                    <mat-list-item> LEAGUE HAS $2M - Liability insurance policy </mat-list-item>
+                </mat-list>
+            </mat-card-content>
+        </mat-card>
+    </div>
+
+    <div fxFlex.gt-sm="33.33" fxFlex.gt-xs="100" fxFlex="100">
+        <mat-card>
+            <mat-card-content>
+                <mat-card-title>League Timeline</mat-card-title>
+                <ul class="timeline">
+                    <li>
+                        <div class="timeline-badge info">
+                            <mat-icon class="material-icons-outlined">import_contacts</mat-icon>
+                        </div>
+                        <div class="timeline-panel">
+                            <div class="timeline-heading">
+                                <h4 class="timeline-title">Registration Starts</h4>
+                                <p>
+                                    <small class="text-muted">
+                                        <i class="fa fa-clock-o"></i> 4/10/2021
+                                    </small>
+                                </p>
+                            </div>
+                            <div class="timeline-body">
+                                <p>Registration for Sunday Softball Opens!</p>
+                            </div>
+                        </div>
+                    </li>
+                    <li class="timeline-inverted">
+                        <div class="timeline-badge info">
+                            <mat-icon class="material-icons-outlined">sports_baseball</mat-icon>
+                        </div>
+                        <div class="timeline-panel">
+                            <div class="timeline-heading">
+                                <h4 class="timeline-title">Opening Day</h4>
+                                <p>
+                                    <small class="text-muted">
+                                        <i class="fa fa-clock-o"></i> 4/25/2021
+                                    </small>
+                                </p>
+                            </div>
+                            <div class="timeline-body">
+                                <p>Registration for Sunday Softball begins!</p>
+                            </div>
+                        </div>
+                    </li>
+                    <li>
+                        <div class="timeline-badge danger">
+                            <mat-icon class="material-icons-outlined">event_busy</mat-icon>
+                        </div>
+                        <div class="timeline-panel">
+                            <div class="timeline-heading">
+                                <h4 class="timeline-title">Registration Closed</h4>
+                                <p>
+                                    <small class="text-muted">
+                                        <i class="fa fa-clock-o"></i> 5/01/2021
+                                    </small>
+                                </p>
+                            </div>
+                            <div class="timeline-body">
+                                <p>No new teams can be added after this point.</p>
+                            </div>
+                        </div>
+                    </li>
+                    <li class="timeline-inverted">
+                        <div class="timeline-badge warning">
+                            <mat-icon class="material-icons-outlined">paid</mat-icon>
+                        </div>
+                        <div class="timeline-panel">
+                            <div class="timeline-heading">
+                                <h4 class="timeline-title">Paid in Full</h4>
+                                <p>
+                                    <small class="text-muted">
+                                        <i class="fa fa-clock-o"></i> 5/05/2021
+                                    </small>
+                                </p>
+                            </div>
+                            <div class="timeline-body">
+                                <p>Full payment for team is due.</p>
+                            </div>
+                        </div>
+                    </li>
+                    <li>
+                        <div class="timeline-badge info">
+                            <mat-icon class="material-icons-outlined">groups</mat-icon>
+                        </div>
+                        <div class="timeline-panel">
+                            <div class="timeline-heading">
+                                <h4 class="timeline-title">Rosters Due</h4>
+                                <p>
+                                    <small class="text-muted">
+                                        <i class="fa fa-clock-o"></i> 5/10/2021
+                                    </small>
+                                </p>
+                            </div>
+                            <div class="timeline-body">
+                                <p>Final rosters are to be handed in.</p>
+                            </div>
+                        </div>
+                    </li>
+                    <li class="timeline-inverted">
+                        <div class="timeline-badge success">
+                            <mat-icon class="material-icons-outlined">emoji_events</mat-icon>
+                        </div>
+                        <div class="timeline-panel">
+                            <div class="timeline-heading">
+                                <h4 class="timeline-title">Playsoffs</h4>
+                                <p>
+                                    <small class="text-muted">
+                                        <i class="fa fa-clock-o"></i> 6/14/2021
+                                    </small>
+                                </p>
+                            </div>
+                            <div class="timeline-body">
+                                <p>Top 4 teams make playoffs, best 2-3 series.</p>
+                            </div>
+                        </div>
+                    </li>
+                </ul>
+            </mat-card-content>
+        </mat-card>
+    </div>
+
+</div>

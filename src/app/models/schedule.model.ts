@@ -8,11 +8,16 @@ export class Schedule {
         public away: Team,
         public date: Date,
         public field: Field,
-        public umpires: Umpire[]) {
+        public umpires: Umpire[],
+        public home_score?: number,
+        public away_score?: number,
+        public delayed?: boolean,
+        public reschudled?: boolean) {
         }
 
         public static from(schedule: Schedule): Schedule {
             return new Schedule(schedule.home, schedule.away, schedule.date,
-                schedule.field, schedule.umpires);
+                schedule.field, schedule.umpires, schedule.home_score, schedule.away_score,
+                schedule.delayed, schedule.reschudled);
+            }
         }
-}

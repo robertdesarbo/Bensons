@@ -6,7 +6,8 @@ Timeline page
     position: relative;
     padding: 20px 0 20px;
     list-style: none;
-    max-width: 25rem;
+    max-width: 60rem;
+    margin: 0 10%;
 }
 
 .timeline:before {
@@ -48,12 +49,23 @@ Timeline page
 .timeline > li > .timeline-panel {
     float: left;
     position: relative;
-    width: 40%;
+    width: 45%;
+    margin-top: 5px;
     padding: 15px;
     border: 1px solid $border;
     border-radius: $radius;
     -webkit-box-shadow: 0 1px 6px rgba(0, 0, 0, 0.05);
     box-shadow: 0 1px 6px rgba(0, 0, 0, 0.05);
+
+    .timeline-heading {
+        h1, h2, h3, h4 {
+            margin-bottom: 0;
+        }
+
+        p {
+            margin: .5rem 0;
+        }
+    }
 }
 
 .timeline > li > .timeline-panel:before {
@@ -94,6 +106,10 @@ Timeline page
     line-height: 50px;
     color: #fff;
     overflow: hidden;
+
+    mat-icon {
+        margin-top: 12px;
+    }
 }
 
 .timeline > li.timeline-inverted > .timeline-panel {

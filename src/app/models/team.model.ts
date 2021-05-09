@@ -3,7 +3,7 @@ export class Team {
         public name: string,
         public abbreviation: string,
         public league?: string,
-        public division?: number) {
+        public division?: string) {
         }
 
         public static from(team: Team): Team {

@@ -4,9 +4,10 @@ table{
 
 .mat-column-notes {
     word-wrap: break-word !important;
-    white-space: unset !important;
-    flex: 0 0 25% !important;
+    white-space: normal !important;
+    flex: 0 0 25 !important;
     width: 25% !important;
+    min-width: 150px;
     overflow-wrap: break-word;
     word-wrap: break-word;
 
@@ -16,4 +17,8 @@ table{
     -moz-hyphens: auto;
     -webkit-hyphens: auto;
     hyphens: auto;
+}
+
+.mat-column-information {
+    text-align: right;
 }

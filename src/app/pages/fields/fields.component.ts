@@ -17,7 +17,7 @@ export class FieldsComponent implements OnInit {
     @ViewChild(MatSort, { static: true }) sort: MatSort = Object.create(null);
 
     searchText: any;
-    displayedColumns: string[] = ['name', 'address', 'information', 'notes'];
+    displayedColumns: string[] = ['name', 'address', 'notes', 'information'];
     dataSource = new MatTableDataSource<Field>(fields);
 
   constructor() { }

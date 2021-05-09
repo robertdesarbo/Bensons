@@ -7,7 +7,7 @@ import { Standings } from 'src/app/models/Standings.model';
 
 import { teams } from 'src/app/Data/teams.data';
 
-const standings: Standings[] = [
+const standings_c_d: Standings[] = [
     {
         rank: 1,
         team: teams.find(element => element.abbreviation == 'GIA') as Team,
@@ -82,6 +82,72 @@ const standings: Standings[] = [
     }
 ];
 
+const standings_e: Standings[] = [
+    {
+        rank: 1,
+        team: teams.find(element => element.abbreviation == 'FAK') as Team,
+        won: 0,
+        lost: 0,
+        win_percentage: 0,
+        games_behind: 0,
+        games_played: 0
+    },
+    {
+        rank: 2,
+        team: teams.find(element => element.abbreviation == 'HIT') as Team,
+        won: 0,
+        lost: 0,
+        win_percentage: 0,
+        games_behind: 0,
+        games_played: 0
+    },
+    {
+        rank: 3,
+        team: teams.find(element => element.abbreviation == '518') as Team,
+        won: 0,
+        lost: 0,
+        win_percentage: 0,
+        games_behind: 0,
+        games_played: 0
+    },
+    {
+        rank: 4,
+        team: teams.find(element => element.abbreviation == 'MIS') as Team,
+        won: 0,
+        lost: 0,
+        win_percentage: 0,
+        games_behind: 0,
+        games_played: 1
+    },
+    {
+        rank: 5,
+        team: teams.find(element => element.abbreviation == 'TTB') as Team,
+        won: 0,
+        lost: 0,
+        win_percentage: .85,
+        games_behind: 0,
+        games_played: 0
+    },
+    {
+        rank: 6,
+        team: teams.find(element => element.abbreviation == 'FVS') as Team,
+        won: 0,
+        lost: 1,
+        win_percentage: 0,
+        games_behind: 0,
+        games_played: 0
+    },
+    {
+        rank: 7,
+        team: teams.find(element => element.abbreviation == 'BCS') as Team,
+        won: 1,
+        lost: 0,
+        win_percentage: 0,
+        games_behind: 0,
+        games_played: 0
+    }
+];
+
 @Component({
     selector: 'app-standings',
     templateUrl: './standings.component.html',
@@ -93,12 +159,18 @@ export class StandingsComponent implements OnInit {
     @ViewChild(MatSort, { static: true }) sort: MatSort = Object.create(null);
     searchText: any;
     displayedColumns: string[] = ['rank', 'team', 'won', 'lost', 'win_percentage', 'games_behind', 'games_played'];
-    dataSource = new MatTableDataSource<Standings>(standings);
+
+    dataSource_divison_c_d = new MatTableDataSource<Standings>(standings_c_d);
+    dataSource_divison_e = new MatTableDataSource<Standings>(standings_e);
 
     constructor() { }
 
     ngOnInit(): void {
-        this.dataSource.filterPredicate = (data: Standings, filter: string) => {
+        this.dataSource_divison_c_d.filterPredicate = (data: Standings, filter: string) => {
+            return data.team.name.toLowerCase().includes(filter);
+        };
+
+        this.dataSource_divison_e.filterPredicate = (data: Standings, filter: string) => {
             return data.team.name.toLowerCase().includes(filter);
         };
 
@@ -113,11 +185,13 @@ export class StandingsComponent implements OnInit {
     }
 
     ngAfterViewInit(): void {
-        this.dataSource.sort = this.sort;
+        this.dataSource_divison_c_d.sort = this.sort;
+        this.dataSource_divison_e.sort = this.sort;
     }
 
     applyFilter(filterValue: string): void {
-        this.dataSource.filter = filterValue.trim().toLowerCase();
+        this.dataSource_divison_c_d.filter = filterValue.trim().toLowerCase();
+        this.dataSource_divison_e.filter = filterValue.trim().toLowerCase();
     }
 
 }
