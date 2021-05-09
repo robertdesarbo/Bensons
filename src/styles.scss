@@ -1,9 +1,14 @@
 /* You can add global styles to this file, and also import other style files */
+@import 'assets/styles/variable';
 
 div.navbar-header
 {
     span {
-        font-family: Roboto, sans-serif;
         color: white;
     }
+}
+
+mat-card-title {
+    border-bottom: 2px solid $topbar;
+    padding: 0px 0px 5px 0px;
 }
