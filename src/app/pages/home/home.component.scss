@@ -49,8 +49,8 @@
 
                     color: white;
                     font-weight: 800;
-                    font-size: 4rem;
-                    line-height: 4rem;
+                    font-size: 3.5rem;
+                    line-height: 3.5rem;
                     position: unset;
                     display: inline-block;
                     margin: 0;
@@ -68,7 +68,7 @@
             border-radius: 3px;
             z-index: 1;
             filter: drop-shadow(2px 4px 6px black);
-            top: 50%;
+            bottom: 10%;
 
             span {
                 font-size: 1.25rem;
