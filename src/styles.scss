@@ -1,21 +1,27 @@
 /* You can add global styles to this file, and also import other style files */
 @import 'assets/styles/variable';
 
-div.navbar-header
-{
-    span {
-        color: white;
-    }
-}
-
 mat-toolbar {
     border-left: 3px solid $header-border;
 }
 
-.navbar-brand {
-    mat-icon {
-        color: $header-border;
-        font-size: 1.65rem;
-        margin-top: 3px;
+div.navbar-header
+{
+    button {
+        display: inline-block;
+    }
+
+    a {
+        &.navbar-brand {
+            display: inline-block;
+            vertical-align: middle;
+            color: white;
+
+            mat-icon {
+                color: $header-border;
+                font-size: 1.65rem;
+                margin-top: 3px;
+            }
+        }
     }
 }

@@ -12,18 +12,18 @@
                 <!-- Logo - style you can find in header.scss -->
                 <!-- ============================================================== -->
                 <div class="navbar-header">
+                    <button mat-icon-button (click)="snav.toggle()" class="sidebar-toggle"
+                        value="sidebarclosed">
+                        <mat-icon>menu</mat-icon>
+                    </button>
+
                     <a class="navbar-brand" href="/">
-                        <!-- Logo icon -->
-                        <b>
-                            <mat-icon class="material-icons-outlined">sports_baseball</mat-icon>
-                        </b>
-                        <!--End Logo icon -->
-                        <!-- Logo text -->
                         <span>
                             Benson's Empire State Sports
                         </span>
                     </a>
                 </div>
+
                 <span fxFlex></span>
                 <!-- ============================================================== -->
                 <!-- app header component - style you can find in header.scss / header.component.ts-->
