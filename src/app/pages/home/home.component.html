@@ -27,27 +27,7 @@
                 <div class="d-flex no-block">
                     <!-- column -->
                     <div class="m-r-10 no-shrink">
-                        <button mat-fab mat-card-icon class="shadow-none bg-inverse  bg-success">
-                            <mat-icon>groups</mat-icon>
-                        </button>
-                    </div>
-                    <!-- column -->
-                    <div>
-                        <h3 class="m-0">{{ total_teams }}</h3>
-                        <h6 class="text-muted m-0">Teams</h6>
-                    </div>
-                </div>
-            </mat-card-content>
-        </mat-card>
-    </div>
-    <div fxFlex.gt-sm="25" fxFlex.gt-xs="50" fxFlex="50">
-        <mat-card>
-            <mat-card-content>
-                <!-- Row -->
-                <div class="d-flex no-block">
-                    <!-- column -->
-                    <div class="m-r-10 no-shrink">
-                        <button mat-fab mat-card-icon class="shadow-none bg-inverse  bg-success">
+                        <button mat-fab color="accent" mat-card-icon class="shadow-none bg-inverse">
                             <mat-icon>groups</mat-icon>
                         </button>
                     </div>
@@ -67,7 +47,27 @@
                 <div class="d-flex no-block">
                     <!-- column -->
                     <div class="m-r-10 no-shrink">
-                        <button mat-fab color="warn" mat-card-icon class="shadow-none  bg-warning">
+                        <button mat-fab mat-card-icon class="shadow-none bg-inverse bg-success">
+                            <mat-icon>groups</mat-icon>
+                        </button>
+                    </div>
+                    <!-- column -->
+                    <div>
+                        <h3 class="m-0">{{ total_teams }}</h3>
+                        <h6 class="text-muted m-0">Teams</h6>
+                    </div>
+                </div>
+            </mat-card-content>
+        </mat-card>
+    </div>
+    <div fxFlex.gt-sm="25" fxFlex.gt-xs="50" fxFlex="50">
+        <mat-card>
+            <mat-card-content>
+                <!-- Row -->
+                <div class="d-flex no-block">
+                    <!-- column -->
+                    <div class="m-r-10 no-shrink">
+                        <button mat-fab color="warn" mat-card-icon class="shadow-none bg-success">
                             <mat-icon>people</mat-icon>
                         </button>
                     </div>
@@ -122,14 +122,13 @@
 
         <mat-card>
             <mat-card-content>
-                <mat-card-title>Looking for a team?</mat-card-title>
+                <mat-card-title>Softball League Divisions</mat-card-title>
                 <mat-list>
-                    <mat-list-item> GAMES PLAYED AT 15 LOCATIONS </mat-list-item>
-                    <mat-list-item> TEAMS ARE ALLOWED INPUT - scheduling preferences—particular days/particular times</mat-list-item>
-                    <mat-list-item> 1 UMPIRE </mat-list-item>
-                    <mat-list-item> GAME TIMES - 6:00 / 6:15 / 6:30 / 7:30 / 8:00 / 8:15 / 9:00 / 9:15 </mat-list-item>
-                    <mat-list-item> FREE - Advertising for team sponsors on Sponsors page. </mat-list-item>
-                    <mat-list-item> LEAGUE HAS $2M - Liability insurance policy </mat-list-item>
+                    <mat-list-item> Coed - Slow-Pitch - 7 & 3 </mat-list-item>
+                    <mat-list-item> Coed - Slow-Pitch - C</mat-list-item>
+                    <mat-list-item> Coed - Slow-Pitch - D</mat-list-item>
+                    <mat-list-item> Coed - Slow-Pitch - E  </mat-list-item>
+                    <mat-list-item> Men’s - Modified "B" </mat-list-item>
                 </mat-list>
             </mat-card-content>
         </mat-card>
@@ -147,7 +146,7 @@
                         </div>
                         <div class="timeline-panel">
                             <div class="timeline-heading">
-                                <h4 class="timeline-title">Registration Starts</h4>
+                                <h5 class="timeline-title">Registration Starts</h5>
                                 <p>
                                     <small class="text-muted">
                                         <i class="fa fa-clock-o"></i> 4/10/2021
@@ -165,7 +164,7 @@
                         </div>
                         <div class="timeline-panel">
                             <div class="timeline-heading">
-                                <h4 class="timeline-title">Opening Day</h4>
+                                <h5 class="timeline-title">Opening Day</h5>
                                 <p>
                                     <small class="text-muted">
                                         <i class="fa fa-clock-o"></i> 4/25/2021
@@ -173,7 +172,7 @@
                                 </p>
                             </div>
                             <div class="timeline-body">
-                                <p>Registration for Sunday Softball begins!</p>
+                                <p>Tentative start date for first week of games</p>
                             </div>
                         </div>
                     </li>
@@ -183,7 +182,7 @@
                         </div>
                         <div class="timeline-panel">
                             <div class="timeline-heading">
-                                <h4 class="timeline-title">Registration Closed</h4>
+                                <h5 class="timeline-title">Registration Closed</h5>
                                 <p>
                                     <small class="text-muted">
                                         <i class="fa fa-clock-o"></i> 5/01/2021
@@ -191,7 +190,7 @@
                                 </p>
                             </div>
                             <div class="timeline-body">
-                                <p>No new teams can be added after this point.</p>
+                                <p>No new teams can be added to the season.</p>
                             </div>
                         </div>
                     </li>
@@ -201,7 +200,7 @@
                         </div>
                         <div class="timeline-panel">
                             <div class="timeline-heading">
-                                <h4 class="timeline-title">Paid in Full</h4>
+                                <h5 class="timeline-title">Paid in Full</h5>
                                 <p>
                                     <small class="text-muted">
                                         <i class="fa fa-clock-o"></i> 5/05/2021
@@ -209,7 +208,7 @@
                                 </p>
                             </div>
                             <div class="timeline-body">
-                                <p>Full payment for team is due.</p>
+                                <p>All teams must be paid in full before this point.</p>
                             </div>
                         </div>
                     </li>
@@ -219,7 +218,7 @@
                         </div>
                         <div class="timeline-panel">
                             <div class="timeline-heading">
-                                <h4 class="timeline-title">Rosters Due</h4>
+                                <h5 class="timeline-title">Rosters Due</h5>
                                 <p>
                                     <small class="text-muted">
                                         <i class="fa fa-clock-o"></i> 5/10/2021
@@ -227,7 +226,7 @@
                                 </p>
                             </div>
                             <div class="timeline-body">
-                                <p>Final rosters are to be handed in.</p>
+                                <p>Final updated rosters are due, no new players beyond this date.</p>
                             </div>
                         </div>
                     </li>
@@ -237,7 +236,7 @@
                         </div>
                         <div class="timeline-panel">
                             <div class="timeline-heading">
-                                <h4 class="timeline-title">Playsoffs</h4>
+                                <h5 class="timeline-title">Playsoffs</h5>
                                 <p>
                                     <small class="text-muted">
                                         <i class="fa fa-clock-o"></i> 6/14/2021
@@ -245,7 +244,7 @@
                                 </p>
                             </div>
                             <div class="timeline-body">
-                                <p>Top 4 teams make playoffs, best 2-3 series.</p>
+                                <p>Top 4 teams from each division make playoffs, best 2 or 3 series.</p>
                             </div>
                         </div>
                     </li>

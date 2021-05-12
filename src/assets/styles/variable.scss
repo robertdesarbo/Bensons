@@ -7,7 +7,7 @@ File: scss
 // Variables
 
 $bodyfont: 'Roboto', sans-serif;
-$headingfont: 'Open Sans', sans-serif;
+$headingfont: 'Poppins', sans-serif;
 @import '~@angular/material/theming';
 
 /*Material Theme Colors*/
@@ -26,7 +26,7 @@ $foreground: map-get($theme, foreground);
 
 /*Theme Colors*/
 
-$topbar: #2196f3;
+$topbar: #1e88e5;
 $sidebar: #fff;
 $sidebar-white: #e5edef;
 $sidebar-alt: #f2f6f8;
@@ -42,13 +42,13 @@ $font-16: 16px;
 $light-text: #a6b7bf;
 $themecolor: black;
 $themecolor-alt: #26c6da;
-$themecolor-dark: #028ee1;
+$themecolor-dark: #1e88e5;
 
 /*bootstrap Color*/
 $danger: #fc4b6c;
-$success: rgb(17 173 43);
+$success: #1e88e5;
 $warning: #ffb22b;
-$primary: #7460ee;
+$primary: #1e88e5;
 $info: #1e88e5;
 $inverse: #2f3d4a;
 $muted: #99abb4;
