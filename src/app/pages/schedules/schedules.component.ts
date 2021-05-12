@@ -2,6 +2,9 @@ import { Component, OnInit, ViewChild } from '@angular/core';
 import { MatTableDataSource, MatTable } from '@angular/material/table';
 import { MatSort } from '@angular/material/sort';
 
+import {Observable} from 'rxjs';
+import {map} from 'rxjs/operators';
+
 import { Schedule } from 'src/app/models/schedule.model';
 import { Team } from 'src/app/models/team.model';
 import { Field } from 'src/app/models/field.model';
@@ -89,6 +92,7 @@ export class SchedulesComponent implements OnInit {
     searchText: any;
     displayedColumns: string[] = ['status', 'home', 'away', 'date', 'field', 'umpires', 'outcome'];
     dataSource = new MatTableDataSource<Schedule>(schedule);
+    noData = this.dataSource.connect().pipe(map(data => data.length === 0));
 
     constructor() { }
 

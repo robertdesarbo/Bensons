@@ -91,6 +91,10 @@
                         <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>
                         <tr mat-row *matRowDef="let row; columns: displayedColumns;"></tr>
                     </table>
+
+                    <div *ngIf="noData | async" class="no-records">
+    No records found
+  </div>
                 </div>
             </mat-card-content>
         </mat-card>
