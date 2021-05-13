@@ -4,7 +4,7 @@ import { MatSort } from '@angular/material/sort';
 
 import { Field } from 'src/app/models/field.model';
 
-import { fields } from 'src/app/Data/fields.data';
+import { fields } from 'src/app/data/fields.data';
 
 @Component({
   selector: 'app-fields',

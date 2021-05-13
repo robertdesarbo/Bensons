@@ -1,12 +1,13 @@
+import { Division } from 'src/app/models/division.model';
+
 export class Team {
     protected constructor(
         public name: string,
         public abbreviation: string,
-        public league?: string,
-        public division?: string) {
+        public division: Division) {
         }
 
         public static from(team: Team): Team {
-            return new Team(team.name, team.abbreviation, team.league, team.division);
+            return new Team(team.name, team.abbreviation, team.division);
         }
     }

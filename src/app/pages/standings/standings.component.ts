@@ -5,7 +5,7 @@ import { MatSort } from '@angular/material/sort';
 import { Team } from 'src/app/models/team.model';
 import { Standings } from 'src/app/models/standings.model';
 
-import { teams } from 'src/app/Data/teams.data';
+import { teams } from 'src/app/data/teams.data';
 
 const standings_c_d: Standings[] = [
     {

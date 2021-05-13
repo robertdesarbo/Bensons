@@ -1,6 +1,7 @@
 import { Component, OnInit, ViewChild } from '@angular/core';
 import { MatTableDataSource, MatTable } from '@angular/material/table';
 import { MatSort } from '@angular/material/sort';
+import { FormBuilder, FormControl, FormGroup } from '@angular/forms';
 
 import {Observable} from 'rxjs';
 import {map} from 'rxjs/operators';
@@ -10,9 +11,9 @@ import { Team } from 'src/app/models/team.model';
 import { Field } from 'src/app/models/field.model';
 import { Umpire } from 'src/app/models/umpire.model';
 
-import { teams } from 'src/app/Data/teams.data';
-import { fields } from 'src/app/Data/fields.data';
-import { umpires } from 'src/app/Data/umpires.data';
+import { teams } from 'src/app/data/teams.data';
+import { fields } from 'src/app/data/fields.data';
+import { umpires } from 'src/app/data/umpires.data';
 
 const schedule: Schedule[] = [
     {
@@ -86,7 +87,6 @@ const schedule: Schedule[] = [
 })
 export class SchedulesComponent implements OnInit {
 
-
     @ViewChild(MatTable, { static: true }) table: MatTable<Schedule> = Object.create(null);
     @ViewChild(MatSort, { static: true }) sort: MatSort = Object.create(null);
     searchText: any;
@@ -94,13 +94,29 @@ export class SchedulesComponent implements OnInit {
     dataSource = new MatTableDataSource<Schedule>(schedule);
     noData = this.dataSource.connect().pipe(map(data => data.length === 0));
 
-    constructor() { }
+    readonly formControl: FormGroup;
+
+    constructor(private formBuilder: FormBuilder) {
+        this.dataSource.filterPredicate = ((data: Schedule, filter) => {
+            const teamSearch = !filter.team || data.home.name.toLowerCase().includes(filter.team) || data.away.name.toLowerCase().includes(filter.team);
+            const divisionSearch = !filter.division || data.home.division.name.toLowerCase().includes(filter.division) || data.away.division.name.toLowerCase().includes(filter.division);
+
+            return teamSearch && divisionSearch;
+        });
+
+        this.formControl = this.formBuilder.group({
+            team: '',
+            division: ''
+        })
+
+        this.formControl.valueChanges.subscribe(value => {
+            let filter = {...value, team: value.team.trim().toLowerCase()} as string;
+            filter = {...value, division: value.division.trim().toLowerCase()} as string;
+            this.dataSource.filter = filter;
+        });
+    }
 
     ngOnInit(): void {
-        this.dataSource.filterPredicate = (data: Schedule, filter: string) => {
-            return data.home.name.toLowerCase().includes(filter) || data.away.name.toLowerCase().includes(filter);
-        };
-
         // this.dataSource.sortingDataAccessor = (item, property) => {
         //     switch (property) {
         //         case 'team': return item.team.name;
@@ -115,7 +131,11 @@ export class SchedulesComponent implements OnInit {
         this.dataSource.sort = this.sort;
     }
 
-    applyFilter(filterValue: string): void {
+    searchTeamName(filterValue: string): void {
+        this.dataSource.filter = filterValue.trim().toLowerCase();
+    }
+
+    searchDivision(filterValue: string): void {
         this.dataSource.filter = filterValue.trim().toLowerCase();
     }
 

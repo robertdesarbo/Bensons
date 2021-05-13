@@ -2,9 +2,9 @@ import { Component, AfterViewInit } from '@angular/core';
 import { FormBuilder, FormGroup } from '@angular/forms';
 import { FormControl, Validators } from '@angular/forms';
 
-import { teams } from 'src/app/Data/teams.data';
-import { fields } from 'src/app/Data/fields.data';
-// import { players } from 'src/app/Data/players.data';
+import { teams } from 'src/app/data/teams.data';
+import { fields } from 'src/app/data/fields.data';
+// import { players } from 'src/app/data/players.data';
 
 @Component({
     selector: 'app-starter',

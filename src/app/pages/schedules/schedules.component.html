@@ -6,25 +6,25 @@
     <div fxFlex.gt-sm="100" fxFlex.gt-xs="100" fxFlex="100">
         <mat-card>
             <mat-card-content class="title">
-                <!-- Row -->
-
-                <div fxLayout="row wrap" class="align-items-center">
-                    <div fxFlex.gt-md="25" fxFlex="50" class="p-10">
-                        <mat-form-field>
-                            <input matInput (keyup)="applyFilter($event.target.value)" placeholder="Search Teams">
-                        </mat-form-field>
+                <form [formGroup]="formControl">
+                    <div fxLayout="row wrap" class="align-items-center">
+                        <div fxFlex.gt-md="25" fxFlex="50" class="p-10">
+                            <mat-form-field>
+                                <input matInput formControlName="team" placeholder="Search Teams">
+                            </mat-form-field>
+                        </div>
+                        <div fxFlex.gt-md="15" fxFlex="50" class="p-10">
+                            <mat-form-field>
+                                <mat-label>Division</mat-label>
+                                <mat-select formControlName="division" appearance="fill">
+                                    <mat-option value="" selected>All</mat-option>
+                                    <mat-option value="c/d">Sunday C/D</mat-option>
+                                    <mat-option value="e">Sunday E</mat-option>
+                                </mat-select>
+                            </mat-form-field>
+                        </div>
                     </div>
-                    <div fxFlex.gt-md="15" fxFlex="50" class="p-10">
-                        <mat-form-field>
-                            <mat-label>Division</mat-label>
-                            <mat-select (selectionChange)="applyFilter($event.target.value)" appearance="fill">
-                                <mat-option value="All" selected>All</mat-option>
-                                <mat-option value="sunday-c/d">Sunday C/D</mat-option>
-                                <mat-option value="sunday-e">Sunday E</mat-option>
-                            </mat-select>
-                        </mat-form-field>
-                    </div>
-                </div>
+                </form>
             </mat-card-content>
         </mat-card>
     </div>
@@ -93,8 +93,8 @@
                     </table>
 
                     <div *ngIf="noData | async" class="no-records">
-    No records found
-  </div>
+                        No records found
+                    </div>
                 </div>
             </mat-card-content>
         </mat-card>
