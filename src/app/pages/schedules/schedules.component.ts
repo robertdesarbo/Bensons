@@ -97,12 +97,15 @@ export class SchedulesComponent implements OnInit {
     readonly formControl: FormGroup;
 
     constructor(private formBuilder: FormBuilder) {
-        this.dataSource.filterPredicate = ((data, filter) => {
-            const teamSearch = !filter.team || data.home.name.toLowerCase().includes(filter.team) || data.away.name.toLowerCase().includes(filter.team);
-            const divisionSearch = !filter.division || data.home.division.name.toLowerCase().includes(filter.division) || data.away.division.name.toLowerCase().includes(filter.division);
+        this.dataSource.filterPredicate = ((data: Schedule, filter: string) : boolean => {
+            let filterObject: { team: string, division: string};
+            filterObject = JSON.parse(filter);
+
+            const teamSearch = !filterObject.team || data.home.name.toLowerCase().includes(filterObject.team) || data.away.name.toLowerCase().includes(filterObject.team);
+            const divisionSearch = !filterObject.division || data.home.division.name.toLowerCase().includes(filterObject.division) || data.away.division.name.toLowerCase().includes(filterObject.division);
 
             return teamSearch && divisionSearch;
-        }) as (Schedule, string) => boolean;
+        })
 
         this.formControl = this.formBuilder.group({
             team: '',
@@ -112,7 +115,7 @@ export class SchedulesComponent implements OnInit {
         this.formControl.valueChanges.subscribe(value => {
             let filter = {...value, team: value.team.trim().toLowerCase()} as string;
             filter = {...value, division: value.division.trim().toLowerCase()} as string;
-            this.dataSource.filter = filter;
+            this.dataSource.filter = JSON.stringify(filter);
         });
     }
 
