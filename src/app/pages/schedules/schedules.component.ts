@@ -115,6 +115,8 @@ export class SchedulesComponent implements OnInit {
         this.formControl.valueChanges.subscribe(value => {
             let filter = {...value, team: value.team.trim().toLowerCase()} as string;
             filter = {...value, division: value.division.trim().toLowerCase()} as string;
+
+            // need to stringify because of type issue with filterPredicate
             this.dataSource.filter = JSON.stringify(filter);
         });
     }
