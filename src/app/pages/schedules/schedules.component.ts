@@ -97,12 +97,12 @@ export class SchedulesComponent implements OnInit {
     readonly formControl: FormGroup;
 
     constructor(private formBuilder: FormBuilder) {
-        this.dataSource.filterPredicate = ((data: Schedule, filter) => {
+        this.dataSource.filterPredicate = ((data, filter) => {
             const teamSearch = !filter.team || data.home.name.toLowerCase().includes(filter.team) || data.away.name.toLowerCase().includes(filter.team);
             const divisionSearch = !filter.division || data.home.division.name.toLowerCase().includes(filter.division) || data.away.division.name.toLowerCase().includes(filter.division);
 
             return teamSearch && divisionSearch;
-        });
+        }) as (Schedule, string) => boolean;
 
         this.formControl = this.formBuilder.group({
             team: '',
