@@ -1,5 +1,14 @@
 @import '../../../assets/styles/variable';
 
+mat-list-item {
+    mat-icon {
+        margin-right: 5px;
+        color: $themecolor-dark;
+        filter: invert(18%) sepia(54%) saturate(4548%) hue-rotate(212deg) brightness(87%) contrast(78%);
+    }
+}
+
+
 .hero {
     position: relative;
     min-height: 65vh;
@@ -50,7 +59,7 @@
 
                 span {
                     &::first-word {
-                     color:#1e88e5;
+                        color: $themecolor-dark;
                     }
 
                     @media (min-width: 1023px) {
