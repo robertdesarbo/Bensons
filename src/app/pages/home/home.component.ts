@@ -15,7 +15,7 @@ export class HomeComponent implements AfterViewInit {
     stacked = false;
 
     total_teams = teams.length;
-    total_fields = teams.length;
+    total_locations = fields.length;
     total_players = 0;
 
     ngAfterViewInit() {}
