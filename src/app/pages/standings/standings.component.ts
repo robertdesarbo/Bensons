@@ -8,144 +8,99 @@ import { Standings } from 'src/app/models/standings.model';
 import { teams } from 'src/app/data/teams.data';
 
 const standings_c_d: Standings[] = [
-    {
+    Standings.from({
         rank: 1,
         team: teams.find(element => element.abbreviation == 'GIA') as Team,
         won: 0,
-        lost: 0,
-        win_percentage: 0,
-        games_behind: 0,
-        games_played: 0
-    },
-    {
+        lost: 2
+    }),
+    Standings.from({
         rank: 2,
         team: teams.find(element => element.abbreviation == 'CAK') as Team,
         won: 0,
-        lost: 0,
-        win_percentage: 0,
-        games_behind: 0,
-        games_played: 0
-    },
-    {
+        lost: 2
+    }),
+    Standings.from({
         rank: 3,
         team: teams.find(element => element.abbreviation == 'H4I') as Team,
-        won: 0,
-        lost: 0,
-        win_percentage: 0,
-        games_behind: 0,
-        games_played: 0
-    },
-    {
+        won: 1,
+        lost: 2
+    }),
+    Standings.from({
         rank: 4,
         team: teams.find(element => element.abbreviation == 'HHS') as Team,
-        won: 0,
-        lost: 0,
-        win_percentage: 0,
-        games_behind: 0,
-        games_played: 1
-    },
-    {
+        won: 2,
+        lost: 0
+    }),
+    Standings.from({
         rank: 5,
         team: teams.find(element => element.abbreviation == 'TBS') as Team,
-        won: 0,
-        lost: 0,
-        win_percentage: .85,
-        games_behind: 0,
-        games_played: 0
-    },
-    {
+        won: 2,
+        lost: 1
+    }),
+    Standings.from({
         rank: 6,
         team: teams.find(element => element.abbreviation == 'TKS') as Team,
         won: 0,
-        lost: 1,
-        win_percentage: 0,
-        games_behind: 0,
-        games_played: 0
-    },
-    {
+        lost: 2
+    }),
+    Standings.from({
         rank: 7,
         team: teams.find(element => element.abbreviation == 'PUB') as Team,
-        won: 1,
-        lost: 0,
-        win_percentage: 0,
-        games_behind: 0,
-        games_played: 0
-    },
-    {
+        won: 3,
+        lost: 0
+    }),
+    Standings.from({
         rank: 8,
         team: teams.find(element => element.abbreviation == 'BRJ') as Team,
-        won: 0,
-        lost: 0,
-        win_percentage: 0,
-        games_behind: 0,
-        games_played: 2
-    }
+        won: 2,
+        lost: 1
+    })
 ];
 
 const standings_e: Standings[] = [
-    {
+    Standings.from({
         rank: 1,
         team: teams.find(element => element.abbreviation == 'FAK') as Team,
-        won: 0,
-        lost: 0,
-        win_percentage: 0,
-        games_behind: 0,
-        games_played: 0
-    },
-    {
+        won: 1,
+        lost: 1
+    }),
+    Standings.from({
         rank: 2,
         team: teams.find(element => element.abbreviation == 'HIT') as Team,
-        won: 0,
-        lost: 0,
-        win_percentage: 0,
-        games_behind: 0,
-        games_played: 0
-    },
-    {
+        won: 2,
+        lost: 0
+    }),
+    Standings.from({
         rank: 3,
         team: teams.find(element => element.abbreviation == '518') as Team,
         won: 0,
-        lost: 0,
-        win_percentage: 0,
-        games_behind: 0,
-        games_played: 0
-    },
-    {
+        lost: 2
+    }),
+    Standings.from({
         rank: 4,
         team: teams.find(element => element.abbreviation == 'MIS') as Team,
-        won: 0,
-        lost: 0,
-        win_percentage: 0,
-        games_behind: 0,
-        games_played: 1
-    },
-    {
+        won: 2,
+        lost: 1
+    }),
+    Standings.from({
         rank: 5,
         team: teams.find(element => element.abbreviation == 'TTB') as Team,
         won: 0,
-        lost: 0,
-        win_percentage: .85,
-        games_behind: 0,
-        games_played: 0
-    },
-    {
+        lost: 1
+    }),
+    Standings.from({
         rank: 6,
         team: teams.find(element => element.abbreviation == 'FVS') as Team,
         won: 0,
-        lost: 1,
-        win_percentage: 0,
-        games_behind: 0,
-        games_played: 0
-    },
-    {
+        lost: 3
+    }),
+    Standings.from({
         rank: 7,
         team: teams.find(element => element.abbreviation == 'BCS') as Team,
-        won: 1,
-        lost: 0,
-        win_percentage: 0,
-        games_behind: 0,
-        games_played: 0
-    }
+        won: 3,
+        lost: 0
+    })
 ];
 
 @Component({
