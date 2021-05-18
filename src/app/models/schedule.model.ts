@@ -12,12 +12,12 @@ export class Schedule {
         public home_score?: number,
         public away_score?: number,
         public delayed?: boolean,
-        public reschudled?: boolean) {
+        public rescheduled?: boolean) {
         }
 
         public static from(schedule: Schedule): Schedule {
             return new Schedule(schedule.home, schedule.away, schedule.date,
                 schedule.field, schedule.umpires, schedule.home_score, schedule.away_score,
-                schedule.delayed, schedule.reschudled);
+                schedule.delayed, schedule.rescheduled);
             }
         }
