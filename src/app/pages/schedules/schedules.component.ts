@@ -43,18 +43,18 @@ export class SchedulesComponent implements OnInit {
 
                 this.filteringByDate = false;
             } else {
-                let curr = new Date; // get current date
+                let curr = this.getMonday(new Date); // get current date
 
-                let first = curr.getDate() - curr.getDay(); // First day is the day of the month - the day of the week
+                let first = curr.getDate(); // First day is the day of the month - the day of the week
                 let last = first + 6; // last day is the first day + 6
 
                 let firstday = new Date(curr.setDate(first));
                 let lastday = new Date(curr.setDate(last));
 
                 firstday.setHours(0,0,0,0);
-                lastday.setHours(11,59,0,0);
+                lastday.setHours(23,59,0,0);
 
-                dateSearch = data.date.getTime() > firstday.getTime() && data.date.getTime() < lastday.getTime();
+                dateSearch = data.date.getTime() >= firstday.getTime() && data.date.getTime() <= lastday.getTime();
 
                 this.filteringByDate = true;
             }
@@ -78,6 +78,13 @@ export class SchedulesComponent implements OnInit {
 
         // trigger default filter
         this.dataSource.filter = JSON.stringify({});
+    }
+
+    getMonday(d) {
+      d = new Date(d);
+      var day = d.getDay(),
+          diff = d.getDate() - day + (day == 0 ? -6:1); // adjust when day is sunday
+      return new Date(d.setDate(diff));
     }
 
     ngOnInit(): void {
