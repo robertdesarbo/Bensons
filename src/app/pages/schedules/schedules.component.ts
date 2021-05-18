@@ -26,7 +26,7 @@ export class SchedulesComponent implements OnInit {
 
     readonly formControl: FormGroup;
 
-    public filteringByDate: boolean;
+    public filteringByDate = true;
 
     constructor(private formBuilder: FormBuilder) {
         this.dataSource.filterPredicate = ((data: Schedule, filter: string) : boolean => {
