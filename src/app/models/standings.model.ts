@@ -3,10 +3,11 @@ import { Team } from 'src/app/models/team.model';
 export class Standings {
 
     constructor(
-        public rank: number,
         public team: Team,
         public won: number,
         public lost: number,
+        readonly rank?: number,
+        readonly games_behind?: number,
         readonly games_played?: number,
         readonly win_percentage?: string) {
             this.games_played = this.won + this.lost;
@@ -14,6 +15,6 @@ export class Standings {
         }
 
         static from(standings: Standings): Standings {
-            return new Standings(standings.rank, standings.team, standings.won, standings.lost);
+            return new Standings(standings.team, standings.won, standings.lost, standings.rank, standings.games_behind);
         }
     }
