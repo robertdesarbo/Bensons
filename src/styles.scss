@@ -1,6 +1,12 @@
 /* You can add global styles to this file, and also import other style files */
 @import 'assets/styles/variable';
 
+.user-profile {
+    background: url(assets/images/background/benson-empire-state-sports.png) no-repeat center center;
+    background-size: 235px !important;
+    background-repeat: no-repeat;
+}
+
 mat-list.mat-list-base.compact-mat-list {
     mat-list-item {
         height: 36px;
