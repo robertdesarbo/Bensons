@@ -3,8 +3,9 @@
 
 .user-profile {
     background: url(assets/images/background/benson-empire-state-sports.png) no-repeat center center;
-    background-size: 235px !important;
+    background-size: 220px !important;
     background-repeat: no-repeat;
+    filter: drop-shadow(1px 1px 1px black);
 }
 
 mat-list.mat-list-base.compact-mat-list {
