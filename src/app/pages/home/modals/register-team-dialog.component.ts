@@ -16,8 +16,10 @@ export class DialogRegisterTeam {
 
     constructor(private formBuilder: FormBuilder, public dialogRef: MatDialogRef<DialogRegisterTeam>) {
             this.formControl = this.formBuilder.group({
-                captainName: '',
                 teamName: '',
+                captainName: '',
+                phone: '',
+                email: '',
                 division: '',
             })
         }

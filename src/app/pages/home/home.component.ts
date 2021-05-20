@@ -27,7 +27,7 @@ export class HomeComponent implements AfterViewInit {
 
     openRegisterDialog(): void {
         const dialogRef = this.dialog.open(DialogRegisterTeam, {
-            width: '350px',
+            width: '375px',
             data: {}
         });
 
