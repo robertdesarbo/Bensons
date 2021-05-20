@@ -113,7 +113,7 @@ export class StandingsComponent implements OnInit {
     }
 
     addRank(sorted_standings:Standings[]): Standings[]{
-        sorted_standings = standings_c_d.sort(this.compareWins);
+        sorted_standings = sorted_standings.sort(this.compareWins);
 
         let first_place: Standings;
         return sorted_standings.map(function(standing, index) {
