@@ -1,10 +1,10 @@
 import { Component, AfterViewInit } from '@angular/core';
-import { FormBuilder, FormGroup } from '@angular/forms';
-import { FormControl, Validators } from '@angular/forms';
+import {MatDialog} from '@angular/material/dialog';
+
+import {DialogRegisterTeam} from './modals/register-team-dialog.component';
 
 import { teams } from 'src/app/data/teams.data';
 import { fields } from 'src/app/data/fields.data';
-// import { players } from 'src/app/data/players.data';
 
 @Component({
     selector: 'app-starter',
@@ -18,5 +18,22 @@ export class HomeComponent implements AfterViewInit {
     total_locations = fields.length;
     total_players = 0;
 
+    animal: string = '';
+    name: string = '';
+
+    constructor(public dialog: MatDialog) {}
+
     ngAfterViewInit() {}
+
+    openRegisterDialog(): void {
+        const dialogRef = this.dialog.open(DialogRegisterTeam, {
+            width: '350px',
+            data: {}
+        });
+
+        dialogRef.afterClosed().subscribe(result => {
+            console.log('The dialog was closed');
+            this.animal = "TEST"
+        });
+    }
 }

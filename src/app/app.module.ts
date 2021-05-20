@@ -64,6 +64,7 @@ import { DemoMaterialModule } from './demo-material-module';
 
 import { AdminComponent } from './login/admin.component';
 import { HomeComponent } from './pages/home/home.component';
+import { DialogRegisterTeam } from './pages/home/modals/register-team-dialog.component';
 import { AuthGuard } from './auth.guard';
 
 import { SharedModule } from './shared/shared.module';
@@ -106,6 +107,7 @@ const DEFAULT_PERFECT_SCROLLBAR_CONFIG: PerfectScrollbarConfigInterface = {
         HorizontalAppHeaderComponent,
         AdminComponent,
         HomeComponent,
+        DialogRegisterTeam,
         StandingsComponent,
         FieldsComponent,
         RulesComponent,
