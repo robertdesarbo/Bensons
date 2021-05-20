@@ -101,6 +101,17 @@ export class SchedulesComponent implements OnInit {
         this.dataSource.filter = JSON.stringify({});
     }
 
+    inThePast(date: Date): boolean {
+        let curr = this.getMonday(new Date); // get current date
+
+        let first = curr.getDate(); // First day is the day of the month - the day of the week
+        let last = first + 6; // last day is the first day + 6
+
+        let lastday = new Date(curr.setDate(last));
+
+        return date.getTime() <= lastday.getTime();
+    }
+
     getMonday(d: Date) {
       d = new Date(d);
       var day = d.getDay(),
