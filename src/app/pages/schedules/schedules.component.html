@@ -17,11 +17,26 @@
                             <mat-form-field>
                                 <mat-label>Division</mat-label>
                                 <mat-select formControlName="division" appearance="fill">
+                                    <mat-option>None</mat-option>
                                     <mat-option value="All">All</mat-option>
                                     <mat-option value="c/d">Sunday C/D</mat-option>
                                     <mat-option value="e">Sunday E</mat-option>
                                 </mat-select>
                             </mat-form-field>
+                        </div>
+                        <div fxFlex.gt-md="15" fxFlex="50" class="p-10">
+                            <mat-form-field>
+                                <mat-label>Umpire</mat-label>
+                                <mat-select formControlName="umpire" appearance="fill">
+                                    <mat-option>None</mat-option>
+                                    <mat-option *ngFor="let umpire of listOfumpires;" [value]="umpire.name">{{umpire.name}}</mat-option>
+                                </mat-select>
+                            </mat-form-field>
+                        </div>
+                        <div fxFlex.gt-md="15" fxFlex="50" class="p-10">
+                            <section class="example-section">
+                                <mat-checkbox formControlName="previousWeeks">Previous Weeks</mat-checkbox>
+                            </section>
                         </div>
                     </div>
                 </form>
@@ -35,7 +50,7 @@
     <div fxFlex.gt-sm="100" fxFlex.gt-xs="100" fxFlex="100">
         <mat-card>
             <mat-card-content>
-                <mat-card-title>Sunday League {{ filteringByDate ? '(Weekly)' : '' }}</mat-card-title>
+                <mat-card-title>Sunday League {{ defaultWeeklyView ? '(Weekly)' : '' }}</mat-card-title>
 
                 <div class="table-responsive">
                     <table mat-table [dataSource]="dataSource" matSort class="table no-wrap">

@@ -7,8 +7,10 @@ import {Observable} from 'rxjs';
 import {map} from 'rxjs/operators';
 
 import { Schedule } from 'src/app/models/schedule.model';
+import { Umpire } from 'src/app/models/umpire.model';
 
 import { schedules } from 'src/app/data/schedules.data';
+import { umpires } from 'src/app/data/umpires.data';
 
 @Component({
     selector: 'app-schedules',
@@ -26,51 +28,70 @@ export class SchedulesComponent implements OnInit {
 
     readonly formControl: FormGroup;
 
-    public filteringByDate = true;
+    public defaultWeeklyView = true;
+    public listOfumpires = umpires;
 
     constructor(private formBuilder: FormBuilder) {
         this.dataSource.filterPredicate = ((data: Schedule, filter: string) : boolean => {
-            let filterObject: { team: string, division: string};
+            let filterObject: { team: string, division: string, umpire: string, previousWeeks: boolean};
             filterObject = JSON.parse(filter);
 
             let teamSearch = true;
             let divisionSearch = true;
+            let umpireSearch = true;
             let dateSearch = true;
 
-            if(filterObject.team || filterObject.division) {
+            let curr = this.getMonday(new Date); // get current date
+
+            let first = curr.getDate(); // First day is the day of the month - the day of the week
+            let last = first + 6; // last day is the first day + 6
+
+            let firstday = new Date(curr.setDate(first));
+            let lastday = new Date(curr.setDate(last));
+
+            firstday.setHours(0,0,0,0);
+            lastday.setHours(23,59,0,0);
+
+            if(filterObject.team || filterObject.division || filterObject.umpire) {
                 teamSearch = !filterObject.team || data.home.name.toLowerCase().includes(filterObject.team) || data.away.name.toLowerCase().includes(filterObject.team);
+
                 divisionSearch = !filterObject.division || data.home.division.name.toLowerCase().includes(filterObject.division) || data.away.division.name.toLowerCase().includes(filterObject.division) || filterObject.division == "all";
 
-                this.filteringByDate = false;
+                umpireSearch = !filterObject.umpire || data.umpires.some(umpire => umpire.name === filterObject.umpire);
+
+                if(!filterObject.previousWeeks) {
+                    dateSearch = data.date.getTime() >= firstday.getTime();
+                }
+
+                this.defaultWeeklyView = false;
+            } else if(filterObject.previousWeeks) {
+                dateSearch = data.date.getTime() <= lastday.getTime();
+                this.defaultWeeklyView = false;
             } else {
-                let curr = this.getMonday(new Date); // get current date
-
-                let first = curr.getDate(); // First day is the day of the month - the day of the week
-                let last = first + 6; // last day is the first day + 6
-
-                let firstday = new Date(curr.setDate(first));
-                let lastday = new Date(curr.setDate(last));
-
-                firstday.setHours(0,0,0,0);
-                lastday.setHours(23,59,0,0);
-
                 dateSearch = data.date.getTime() >= firstday.getTime() && data.date.getTime() <= lastday.getTime();
 
-                this.filteringByDate = true;
+                this.defaultWeeklyView = true;
             }
 
 
-            return teamSearch && divisionSearch && dateSearch;
+            return teamSearch && divisionSearch && umpireSearch && dateSearch;
         })
 
         this.formControl = this.formBuilder.group({
             team: '',
-            division: ''
+            division: '',
+            umpire: '',
+            previousWeeks: false
         })
 
         this.formControl.valueChanges.subscribe(value => {
-            value = {...value, team: value.team.trim().toLowerCase()};
-            value = {...value, division: value.division.trim().toLowerCase()};
+            if(value.team) {
+                value = {...value, team: value.team.trim().toLowerCase()};
+            }
+
+            if(value.division) {
+                value = {...value, division: value.division.trim().toLowerCase()};
+            }
 
             // need to stringify because of type issue with filterPredicate
             this.dataSource.filter = JSON.stringify(value);
