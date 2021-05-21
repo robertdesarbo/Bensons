@@ -2,6 +2,7 @@ import { Component, AfterViewInit } from '@angular/core';
 import {MatDialog} from '@angular/material/dialog';
 
 import {DialogRegisterTeam} from './modals/register-team-dialog.component';
+import { DialogLookingForATeam } from './modals/looking-for-a-team-dialog.component';
 
 import { teams } from 'src/app/data/teams.data';
 import { fields } from 'src/app/data/fields.data';
@@ -18,9 +19,6 @@ export class HomeComponent implements AfterViewInit {
     total_locations = fields.length;
     total_players = 0;
 
-    animal: string = '';
-    name: string = '';
-
     constructor(public dialog: MatDialog) {}
 
     ngAfterViewInit() {}
@@ -31,9 +29,19 @@ export class HomeComponent implements AfterViewInit {
             data: {}
         });
 
-        dialogRef.afterClosed().subscribe(result => {
+        dialogRef.afterClosed().subscribe((result) => {
             console.log('The dialog was closed');
-            this.animal = "TEST"
+        });
+    }
+
+    openLookingForATeamDialog(): void {
+        const dialogRef = this.dialog.open(DialogLookingForATeam, {
+            width: '375px',
+            data: {}
+        });
+
+        dialogRef.afterClosed().subscribe((result) => {
+            console.log('The dialog was closed');
         });
     }
 }

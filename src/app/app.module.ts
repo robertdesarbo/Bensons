@@ -65,6 +65,7 @@ import { DemoMaterialModule } from './demo-material-module';
 import { AdminComponent } from './login/admin.component';
 import { HomeComponent } from './pages/home/home.component';
 import { DialogRegisterTeam } from './pages/home/modals/register-team-dialog.component';
+import { DialogLookingForATeam } from './pages/home/modals/looking-for-a-team-dialog.component';
 import { AuthGuard } from './auth.guard';
 
 import { SharedModule } from './shared/shared.module';
@@ -108,6 +109,7 @@ const DEFAULT_PERFECT_SCROLLBAR_CONFIG: PerfectScrollbarConfigInterface = {
         AdminComponent,
         HomeComponent,
         DialogRegisterTeam,
+        DialogLookingForATeam,
         StandingsComponent,
         FieldsComponent,
         RulesComponent,

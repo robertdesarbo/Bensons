@@ -5,19 +5,18 @@ import { MatDialogRef } from '@angular/material/dialog';
 import { divisions } from 'src/app/data/divisions.data';
 
 @Component({
-    selector: 'register-team-dialog',
-    templateUrl: 'register-team-dialog.html',
+    selector: 'looking-for-a-team-dialog',
+    templateUrl: 'looking-for-a-team-dialog.html',
 })
-export class DialogRegisterTeam {
+export class DialogLookingForATeam {
 
     readonly formControl: FormGroup;
 
     public listOfDivisions = divisions;
 
-    constructor(private formBuilder: FormBuilder, public dialogRef: MatDialogRef<DialogRegisterTeam>) {
+    constructor(private formBuilder: FormBuilder, public dialogRef: MatDialogRef<DialogLookingForATeam>) {
             this.formControl = this.formBuilder.group({
-                teamName: '',
-                captainName: '',
+                name: '',
                 phone: '',
                 email: '',
                 division: '',
