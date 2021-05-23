@@ -58,6 +58,11 @@ mat-list {
                 transform: translate(-50%, 0%);
                 z-index: 1;
                 width: 525px;
+
+                @media (min-width: 1023px) {
+                    width: 350px;
+                    margin: 10% 0 0 0;
+                }
             }
 
             h1 {
