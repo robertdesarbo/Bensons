@@ -89,11 +89,6 @@
                             </td>
                         </ng-container>
 
-                        public address: string,
-                        public city: string,
-                        public state: string,
-                        public zip: number,
-
                         <ng-container matColumnDef="umpires">
                             <th mat-header-cell *matHeaderCellDef mat-sort-header> Umpires </th>
                             <td mat-cell *matCellDef="let element"><span *ngFor="let umpire of element.umpires;">{{umpire.name}}</span> </td>

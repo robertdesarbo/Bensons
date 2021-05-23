@@ -2,6 +2,9 @@ import { Component, OnInit, Inject, Optional, ViewChild, AfterViewInit } from '@
 import { MatTableDataSource, MatTable } from '@angular/material/table';
 import { MatSort } from '@angular/material/sort';
 
+import {Observable} from 'rxjs';
+import {map} from 'rxjs/operators';
+
 import { Team } from 'src/app/models/team.model';
 import { Standings } from 'src/app/models/standings.model';
 
@@ -100,12 +103,18 @@ export class StandingsComponent implements OnInit {
     searchText: any;
     displayedColumns: string[] = ['rank', 'team', 'won', 'lost', 'win_percentage', 'games_behind', 'games_played'];
 
-    public dataSource_divison_c_d: MatTableDataSource<Standings>;
-    public dataSource_divison_e: MatTableDataSource<Standings>;
+    dataSource_divison_c_d = new MatTableDataSource<Standings>(standings_c_d);
+    dataSource_divison_e = new MatTableDataSource<Standings>(standings_e);
+
+    noDataLeagueCD: Observable<boolean>;
+    noDataLeagueE: Observable<boolean>;
 
     constructor() {
         this.dataSource_divison_c_d = new MatTableDataSource<Standings>(this.addRank(standings_c_d));
         this.dataSource_divison_e = new MatTableDataSource<Standings>(this.addRank(standings_e));
+
+        this.noDataLeagueCD = this.dataSource_divison_c_d.connect().pipe(map(data => data.length === 0));
+        this.noDataLeagueE = this.dataSource_divison_e.connect().pipe(map(data => data.length === 0));
     }
 
     compareWins(left: Standings, right: Standings): number{

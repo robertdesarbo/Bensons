@@ -64,6 +64,10 @@
                         <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>
                         <tr mat-row *matRowDef="let row; columns: displayedColumns;"></tr>
                     </table>
+
+                    <div *ngIf="noDataLeagueCD | async" class="no-records">
+                        No records found
+                    </div>
                 </div>
             </mat-card-content>
         </mat-card>
@@ -114,6 +118,10 @@
                         <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>
                         <tr mat-row *matRowDef="let row; columns: displayedColumns;"></tr>
                     </table>
+
+                    <div *ngIf="noDataLeagueE | async" class="no-records">
+                        No records found
+                    </div>
                 </div>
             </mat-card-content>
         </mat-card>
