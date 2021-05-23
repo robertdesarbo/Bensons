@@ -58,10 +58,18 @@ mat-list {
                 transform: translate(-50%, 0%);
                 z-index: 1;
                 width: 475px;
+                filter: drop-shadow(2px 4px 6px black);
 
                 @media (max-width: 1023px) {
                     width: 350px;
+                }
+
+                @media (min-height: 500px) {
                     margin: 5% 0 0 0;
+                }
+
+                @media (min-height: 750px) {
+                    margin: 10% 0 0 0;
                 }
             }
 
