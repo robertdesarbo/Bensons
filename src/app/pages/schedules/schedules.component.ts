@@ -102,14 +102,10 @@ export class SchedulesComponent implements OnInit {
     }
 
     inThePast(date: Date): boolean {
-        let curr = this.getMonday(new Date); // get current date
+        let firstday = this.getMonday(new Date); // get current date
+        firstday.setHours(0,0,0,0);
 
-        let first = curr.getDate(); // First day is the day of the month - the day of the week
-        let last = first + 6; // last day is the first day + 6
-
-        let lastday = new Date(curr.setDate(last));
-
-        return date.getTime() <= lastday.getTime();
+        return date.getTime() <= firstday.getTime();
     }
 
     getMonday(d: Date) {
