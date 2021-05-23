@@ -8,6 +8,7 @@ import {map} from 'rxjs/operators';
 
 import { Schedule } from 'src/app/models/schedule.model';
 import { Umpire } from 'src/app/models/umpire.model';
+import { Field } from 'src/app/models/field.model';
 
 import { schedules } from 'src/app/data/schedules.data';
 import { umpires } from 'src/app/data/umpires.data';
@@ -101,6 +102,14 @@ export class SchedulesComponent implements OnInit {
         this.dataSource.filter = JSON.stringify({});
     }
 
+    getAddress(field: Field) {
+        return 'https://www.google.com/maps/dir/?api=1&destination='
+        + field.address + ' '
+        + field.city + ' '
+        + field.state + ' '
+        + field.zip;
+    }
+
     inThePast(date: Date): boolean {
         let firstday = this.getMonday(new Date); // get current date
         firstday.setHours(0,0,0,0);
@@ -109,10 +118,10 @@ export class SchedulesComponent implements OnInit {
     }
 
     getMonday(d: Date) {
-      d = new Date(d);
-      var day = d.getDay(),
-          diff = d.getDate() - day + (day == 0 ? -6:1); // adjust when day is sunday
-      return new Date(d.setDate(diff));
+        d = new Date(d);
+        var day = d.getDay(),
+        diff = d.getDate() - day + (day == 0 ? -6:1); // adjust when day is sunday
+        return new Date(d.setDate(diff));
     }
 
     ngOnInit(): void {

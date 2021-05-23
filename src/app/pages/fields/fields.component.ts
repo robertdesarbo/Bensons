@@ -7,9 +7,9 @@ import { Field } from 'src/app/models/field.model';
 import { fields } from 'src/app/data/fields.data';
 
 @Component({
-  selector: 'app-fields',
-  templateUrl: './fields.component.html',
-  styleUrls: ['./fields.component.scss']
+    selector: 'app-fields',
+    templateUrl: './fields.component.html',
+    styleUrls: ['./fields.component.scss']
 })
 export class FieldsComponent implements OnInit {
 
@@ -20,20 +20,28 @@ export class FieldsComponent implements OnInit {
     displayedColumns: string[] = ['name', 'address', 'notes', 'information'];
     dataSource = new MatTableDataSource<Field>(fields);
 
-  constructor() { }
+    constructor() { }
 
-  ngOnInit(): void {
-      this.dataSource.filterPredicate = (data: Field, filter: string) => {
-          return data.name.toLowerCase().includes(filter);
-      };
-  }
+    ngOnInit(): void {
+        this.dataSource.filterPredicate = (data: Field, filter: string) => {
+            return data.name.toLowerCase().includes(filter);
+        };
+    }
 
-  ngAfterViewInit(): void {
-      this.dataSource.sort = this.sort;
-  }
+    getAddress(field: Field) {
+        return 'https://www.google.com/maps/dir/?api=1&destination='
+        + field.address + ' '
+        + field.city + ' '
+        + field.state + ' '
+        + field.zip;
+    }
 
-  applyFilter(filterValue: string): void {
-      this.dataSource.filter = filterValue.trim().toLowerCase();
-  }
+    ngAfterViewInit(): void {
+        this.dataSource.sort = this.sort;
+    }
+
+    applyFilter(filterValue: string): void {
+        this.dataSource.filter = filterValue.trim().toLowerCase();
+    }
 
 }
