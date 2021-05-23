@@ -12,10 +12,7 @@ $headingfont: 'Poppins', sans-serif;
 
 /*Material Theme Colors*/
 
-$primary: mat-palette($mat-blue, 600);
-$accent: mat-palette($mat-indigo, 500);
-$warn: mat-palette($mat-pink, 500);
-$theme: mat-light-theme($primary, $accent, $warn);
+@import "colors/blue";
 $background: map-get($theme, background);
 $foreground: map-get($theme, foreground);
 
@@ -26,7 +23,7 @@ $foreground: map-get($theme, foreground);
 
 /*Theme Colors*/
 
-$topbar: #1e88e5;
+$topbar: #113a5d;
 $sidebar: #fff;
 $sidebar-white: #e5edef;
 $sidebar-alt: #f2f6f8;
@@ -42,14 +39,14 @@ $font-16: 16px;
 $light-text: #a6b7bf;
 $themecolor: black;
 $themecolor-alt: #26c6da;
-$themecolor-dark: #1e88e5;
+$themecolor-dark: #113a5d;
 
 /*bootstrap Color*/
 $danger: #fc4b6c;
-$success: #1e88e5;
+$success: #113a5d;
 $warning: #ffb22b;
-$primary: #1e88e5;
-$info: #1e88e5;
+$primary: #113a5d;
+$info: #113a5d;
 $inverse: #2f3d4a;
 $muted: #99abb4;
 $dark: #263238;

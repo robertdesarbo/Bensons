@@ -40,7 +40,7 @@ const colors: any = {
         secondary: '#f9e7eb'
     },
     blue: {
-        primary: '#1e88e5',
+        primary: '#113a5d',
         secondary: '#D1E8FF'
     },
     yellow: {

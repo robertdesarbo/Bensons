@@ -71,7 +71,7 @@ export const label: Category[] = [
         name: 'Personal',
         icon: 'label',
         count: 0,
-        color: '#1e88e5',
+        color: '#113a5d',
         active: false
     },
     {

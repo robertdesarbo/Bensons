@@ -67,7 +67,7 @@ export class NewsletterComponent implements OnInit {
                 curve: 'smooth',
                 width: '2'
             },
-            colors: ['#26c6da', '#1e88e5'],
+            colors: ['#26c6da', '#113a5d'],
             legend: {
                 show: false,
             },

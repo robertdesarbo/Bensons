@@ -1,11 +1,15 @@
 /* You can add global styles to this file, and also import other style files */
 @import 'assets/styles/variable';
 
-.user-profile {
-    background: url(assets/images/background/benson-empire-state-sports.png) no-repeat center center;
-    background-size: 220px !important;
-    background-repeat: no-repeat;
-    filter: drop-shadow(1px 1px 1px black);
+.navbar-header {
+    img {
+        max-width: 100%;
+        max-height: 45px;
+        width: auto;
+        margin-left: 0%;
+        height: auto;
+        vertical-align: middle;
+    }
 }
 
 mat-list.mat-list-base.compact-mat-list {

@@ -93,7 +93,7 @@ export class SalesOverviewComponent implements OnInit {
                 show: false,
             },
             fill: {
-                colors: ['#26c6da', '#1e88e5'],
+                colors: ['#26c6da', '#113a5d'],
                 opacity: 1
             },
             tooltip: {

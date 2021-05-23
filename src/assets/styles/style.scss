@@ -5,17 +5,17 @@ Email: niravjoshi87@gmail.com
 File: scss
 */
 /**
- * Table Of Content
- *
- * 	1. Globals
- *	2. Headers
- *	3. Navigations
- *	4. Banners
- *	5. Footers
- *	6. app
- *	7. Widgets
- *	8. Custom Templates
- */
+* Table Of Content
+*
+* 	1. Globals
+*	2. Headers
+*	3. Navigations
+*	4. Banners
+*	5. Footers
+*	6. app
+*	7. Widgets
+*	8. Custom Templates
+*/
 
 @import "variable";
 
@@ -35,38 +35,13 @@ File: scss
 @import "responsive";
 @import "rtl";
 
-// Red Theme
-
-.danger {
-  @import "colors/red";
-  @include angular-material-theme($red-app-theme);
-}
-
 // Blue Theme
 
 .blue {
-  @import "colors/blue";
-  @include angular-material-theme($blue-app-theme);
-}
-
-// Green Theme
-
-.green {
-  @import "colors/green";
-  @include angular-material-theme($green-app-theme);
-}
-
-// Dark Theme
-
-.dark {
-	.mat-drawer-container {
-		color: #8999a0 !important;
-	}
-  	@import "colors/dark";
-  	@include angular-material-theme($dark-theme);
+    @import "colors/blue";
 }
 
 $custom-typography: mat-typography-config(
-  $font-family: "Roboto",
+$font-family: "Roboto",
 );
 @include mat-core($custom-typography);
