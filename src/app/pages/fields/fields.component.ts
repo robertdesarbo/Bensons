@@ -2,6 +2,8 @@ import { Component, OnInit, Inject, Optional, ViewChild, AfterViewInit } from '@
 import { MatTableDataSource, MatTable } from '@angular/material/table';
 import { MatSort } from '@angular/material/sort';
 
+import {map} from 'rxjs/operators';
+
 import { Field } from 'src/app/models/field.model';
 
 import { fields } from 'src/app/data/fields.data';
@@ -19,6 +21,7 @@ export class FieldsComponent implements OnInit {
     searchText: any;
     displayedColumns: string[] = ['name', 'address', 'notes', 'information'];
     dataSource = new MatTableDataSource<Field>(fields);
+    noData = this.dataSource.connect().pipe(map(data => data.length === 0));
 
     constructor() { }
 
