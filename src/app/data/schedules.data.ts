@@ -540,7 +540,7 @@ const schedules: Schedule[] = [
     {
         home: teams.find(element => element.abbreviation == 'FVS') as Team,
         away: teams.find(element => element.abbreviation == '518') as Team,
-        date: new Date('June 11, 2021 4:30:00 PM'),
+        date: new Date('July 11, 2021 4:30:00 PM'),
         field: fields.find(element => element.name == 'Mullens Park') as Field,
         umpires: [Umpire.from({name:'Unknown'})],
     },
@@ -599,21 +599,21 @@ const schedules: Schedule[] = [
     {
         home: teams.find(element => element.abbreviation == 'BCS') as Team,
         away: teams.find(element => element.abbreviation == 'MIS') as Team,
-        date: new Date('June 18, 2021 12:00:00 PM'),
+        date: new Date('July 18, 2021 12:00:00 PM'),
         field: fields.find(element => element.name == 'Firemans') as Field,
         umpires: [Umpire.from({name:'Unknown'})],
     },
     {
         home: teams.find(element => element.abbreviation == 'BCS') as Team,
         away: teams.find(element => element.abbreviation == 'HIT') as Team,
-        date: new Date('June 18, 2021 1:30:00 PM'),
+        date: new Date('July 18, 2021 1:30:00 PM'),
         field: fields.find(element => element.name == 'Firemans') as Field,
         umpires: [Umpire.from({name:'Unknown'})],
     },
     {
         home: teams.find(element => element.abbreviation == 'FVS') as Team,
         away: teams.find(element => element.abbreviation == 'HIT') as Team,
-        date: new Date('June 18, 2021 3:00:00 PM'),
+        date: new Date('July 18, 2021 3:00:00 PM'),
         field: fields.find(element => element.name == 'Firemans') as Field,
         umpires: [Umpire.from({name:'Unknown'})],
     },
