@@ -59,8 +59,8 @@ const schedules: Schedule[] = [
         date: new Date('April 25, 2021 04:30:00 PM'),
         field: fields.find(element => element.name == 'Mullens Park') as Field,
         umpires: [umpires.find(element => element.name == 'Dan Bifani') as Umpire],
-        home_score: 0,
-        away_score: 0,
+        home_score: 18,
+        away_score: 14,
     },
     {
         home: teams.find(element => element.abbreviation == 'BRJ') as Team,
@@ -68,8 +68,8 @@ const schedules: Schedule[] = [
         date: new Date('April 25, 2021 06:00:00 PM'),
         field: fields.find(element => element.name == 'Mullens Park') as Field,
         umpires: [umpires.find(element => element.name == 'Dan Bifani') as Umpire],
-        home_score: 0,
-        away_score: 0,
+        home_score: 1,
+        away_score: 14,
     },
 
     {
