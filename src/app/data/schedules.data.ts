@@ -636,7 +636,7 @@ const schedules: Schedule[] = [
     {
         home: teams.find(element => element.abbreviation == 'TKS') as Team,
         away: teams.find(element => element.abbreviation == 'GIA') as Team,
-        date: new Date('July 25, 2021 4:30:00 PM'),
+        date: new Date('July 25, 2021 3:00:00 PM'),
         field: fields.find(element => element.name == 'Mullens Park') as Field,
         umpires: [Umpire.from({name:'Unknown'})],
     }
