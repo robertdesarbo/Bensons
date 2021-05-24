@@ -219,56 +219,72 @@ const schedules: Schedule[] = [
         away: teams.find(element => element.abbreviation == 'GIA') as Team,
         date: new Date('May 23, 2021 12:00:00 PM'),
         field: fields.find(element => element.name == 'Feura Bush') as Field,
-        umpires: [umpires.find(element => element.name == 'Greg Briggs') as Umpire]
+        umpires: [umpires.find(element => element.name == 'Greg Briggs') as Umpire],
+        home_score: 6,
+        away_score: 12
     },
     {
         home: teams.find(element => element.abbreviation == 'HHS') as Team,
         away: teams.find(element => element.abbreviation == 'BRJ') as Team,
         date: new Date('May 23, 2021 1:30:00 PM'),
         field: fields.find(element => element.name == 'Feura Bush') as Field,
-        umpires: [umpires.find(element => element.name == 'Greg Briggs') as Umpire]
+        umpires: [umpires.find(element => element.name == 'Greg Briggs') as Umpire],
+        home_score: 13,
+        away_score: 11
     },
     {
         home: teams.find(element => element.abbreviation == 'FVS') as Team,
         away: teams.find(element => element.abbreviation == 'MIS') as Team,
         date: new Date('May 23, 2021 3:00:00 PM'),
         field: fields.find(element => element.name == 'Feura Bush') as Field,
-        umpires: [umpires.find(element => element.name == 'Greg Briggs') as Umpire]
+        umpires: [umpires.find(element => element.name == 'Greg Briggs') as Umpire],
+        home_score: 4,
+        away_score: 11
     },
     {
         home: teams.find(element => element.abbreviation == 'TKS') as Team,
         away: teams.find(element => element.abbreviation == 'CAK') as Team,
         date: new Date('May 23, 2021 10:30:00 AM'),
         field: fields.find(element => element.name == 'Mullens Park') as Field,
-        umpires: [umpires.find(element => element.name == 'Jeremy Putorti') as Umpire]
+        umpires: [umpires.find(element => element.name == 'Jeremy Putorti') as Umpire],
+        home_score: 21,
+        away_score: 15
     },
     {
         home: teams.find(element => element.abbreviation == 'FAK') as Team,
         away: teams.find(element => element.abbreviation == '518') as Team,
         date: new Date('May 23, 2021 12:00:00 PM'),
         field: fields.find(element => element.name == 'Mullens Park') as Field,
-        umpires: [umpires.find(element => element.name == 'Jeremy Putorti') as Umpire]
+        umpires: [umpires.find(element => element.name == 'Jeremy Putorti') as Umpire],
+        home_score: 12,
+        away_score: 17
     },
     {
         home: teams.find(element => element.abbreviation == 'HIT') as Team,
         away: teams.find(element => element.abbreviation == 'BCS') as Team,
         date: new Date('May 23, 2021 1:30:00 PM'),
         field: fields.find(element => element.name == 'Mullens Park') as Field,
-        umpires: [umpires.find(element => element.name == 'Dan Bifani') as Umpire]
+        umpires: [umpires.find(element => element.name == 'Dan Bifani') as Umpire],
+        home_score: 7,
+        away_score: 22
     },
     {
         home: teams.find(element => element.abbreviation == 'TTB') as Team,
         away: teams.find(element => element.abbreviation == 'HIT') as Team,
         date: new Date('May 23, 2021 3:00:00 PM'),
         field: fields.find(element => element.name == 'Mullens Park') as Field,
-        umpires: [umpires.find(element => element.name == 'Dan Bifani') as Umpire]
+        umpires: [umpires.find(element => element.name == 'Dan Bifani') as Umpire],
+        home_score: 16,
+        away_score: 6
     },
     {
         home: teams.find(element => element.abbreviation == 'PUB') as Team,
         away: teams.find(element => element.abbreviation == 'TBS') as Team,
         date: new Date('May 23, 2021 4:30:00 PM'),
         field: fields.find(element => element.name == 'Mullens Park') as Field,
-        umpires: [umpires.find(element => element.name == 'Linwood Jenkins') as Umpire]
+        umpires: [umpires.find(element => element.name == 'Linwood Jenkins') as Umpire],
+        home_score: 14,
+        away_score: 6
     },
 
     {

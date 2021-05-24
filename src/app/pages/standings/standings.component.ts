@@ -13,43 +13,43 @@ import { teams } from 'src/app/data/teams.data';
 const standings_c_d: Standings[] = [
     Standings.from({
         team: teams.find(element => element.abbreviation == 'GIA') as Team,
-        won: 0,
+        won: 1,
         lost: 2
     }),
     Standings.from({
         team: teams.find(element => element.abbreviation == 'CAK') as Team,
         won: 0,
-        lost: 2
+        lost: 3
     }),
     Standings.from({
         team: teams.find(element => element.abbreviation == 'H4I') as Team,
         won: 1,
-        lost: 2
+        lost: 3
     }),
     Standings.from({
         team: teams.find(element => element.abbreviation == 'HHS') as Team,
-        won: 2,
+        won: 3,
         lost: 0
     }),
     Standings.from({
         team: teams.find(element => element.abbreviation == 'TBS') as Team,
         won: 2,
-        lost: 1
+        lost: 2
     }),
     Standings.from({
         team: teams.find(element => element.abbreviation == 'TKS') as Team,
-        won: 0,
+        won: 1,
         lost: 2
     }),
     Standings.from({
         team: teams.find(element => element.abbreviation == 'PUB') as Team,
-        won: 3,
+        won: 4,
         lost: 0
     }),
     Standings.from({
         team: teams.find(element => element.abbreviation == 'BRJ') as Team,
         won: 2,
-        lost: 1
+        lost: 2
     })
 ];
 
@@ -57,36 +57,36 @@ const standings_e: Standings[] = [
     Standings.from({
         team: teams.find(element => element.abbreviation == 'FAK') as Team,
         won: 1,
-        lost: 1
+        lost: 2
     }),
     Standings.from({
         team: teams.find(element => element.abbreviation == 'HIT') as Team,
         won: 2,
-        lost: 0
+        lost: 2
     }),
     Standings.from({
         team: teams.find(element => element.abbreviation == '518') as Team,
-        won: 0,
+        won: 1,
         lost: 2
     }),
     Standings.from({
         team: teams.find(element => element.abbreviation == 'MIS') as Team,
-        won: 2,
+        won: 3,
         lost: 1
     }),
     Standings.from({
         team: teams.find(element => element.abbreviation == 'TTB') as Team,
-        won: 0,
+        won: 1,
         lost: 1
     }),
     Standings.from({
         team: teams.find(element => element.abbreviation == 'FVS') as Team,
         won: 0,
-        lost: 3
+        lost: 4
     }),
     Standings.from({
         team: teams.find(element => element.abbreviation == 'BCS') as Team,
-        won: 3,
+        won: 4,
         lost: 0
     })
 ];
