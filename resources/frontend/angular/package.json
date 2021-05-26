@@ -3,8 +3,9 @@
   "version": "0.0.0",
   "scripts": {
     "ng": "ng",
-    "start": "ng serve --configuration=dev -o",
-    "build": "ng build",
+    "start": "ng serve --configuration=dev",
+    "build": "ng build --configuration=dev-laravel && cp ../../../public/assets/angular/index.html ../../views/angular.blade.php",
+    "build:watch": "ng build --configuration=dev-laravel --watch && cp ../../../public/assets/angular/index.html ../../views/angular.blade.php",
     "build:prod": "ng build --prod && cp ../../../public/assets/angular/index.html ../../views/angular.blade.php",
     "test": "ng test",
     "lint": "ng lint",
@@ -59,6 +60,7 @@
     "rxjs-compat": "^6.6.7",
     "sass": "^1.32.13",
     "tslib": "^2.2.0",
+    "watch": "^1.0.2",
     "zone.js": "~0.10.2"
   },
   "devDependencies": {

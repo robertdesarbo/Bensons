@@ -87,10 +87,14 @@
                                 },
                                 {
                                     "type": "anyComponentStyle",
-                                    "maximumWarning": "100kb",
-                                    "maximumError": "100kb"
+                                    "maximumWarning": "300kb",
+                                    "maximumError": "300kb"
                                 }
                             ]
+                        },
+                        "dev-laravel": {
+                            "outputPath": "../../../public/assets/angular",
+                            "baseHref": "/assets/angular/"
                         },
                         "dev": {
                             "outputPath": "dist/assets/angular",
