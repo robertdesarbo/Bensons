@@ -70,8 +70,8 @@
                                     "with": "src/environments/environment.prod.ts"
                                 }
                             ],
-                            "outputPath": "../../../public/assets/angular",
-                            "deployUrl": "/assets/angular/",
+                            "outputPath": "../../../public/build",
+                            "deployUrl": "build/",
                             "optimization": false,
                             "outputHashing": "all",
                             "sourceMap": false,
@@ -93,12 +93,18 @@
                             ]
                         },
                         "dev-laravel": {
-                            "outputPath": "dist/assets/angular",
-                            "baseHref": "/assets/angular/"
+                            "outputPath": "../../../public/build",
+
+                            "sourceMap": true,
+                            "outputHashing": "none",
+                            "deployUrl": "build/",
+                            "watch": true
+
                         },
                         "dev": {
                             "outputPath": "dist/assets/angular",
-                            "baseHref": "/assets/angular/"
+                            "baseHref": "/assets/angular/",
+                            "watch": true
                         }
                     }
                 },

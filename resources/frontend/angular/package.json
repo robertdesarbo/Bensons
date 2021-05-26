@@ -3,10 +3,9 @@
   "version": "0.0.0",
   "scripts": {
     "ng": "ng",
-    "start": "ng serve --configuration=dev",
-    "build": "ng build --configuration=dev-laravel && cp ../../../public/assets/angular/index.html ../../views/angular.blade.php",
-    "build:watch": "ng build --configuration=dev-laravel --watch && cp ../../../public/assets/angular/index.html ../../views/angular.blade.php",
-    "build:prod": "ng build --prod && cp ../../../public/assets/angular/index.html ../../views/angular.blade.php",
+    "build": "ng build --configuration=dev",
+    "start": "ng build --configuration=dev-laravel && cp ../../../public/build/index.html ../../views/angular.blade.php",
+    "build:prod": "ng build --prod && cp ../../../public/build/index.html ../../views/angular.blade.php",
     "test": "ng test",
     "lint": "ng lint",
     "e2e": "ng e2e"

@@ -20,10 +20,10 @@
   <link rel="mask-icon" href="/assets/images/safari-pinned-tab.svg" color="#5bbad5">
   <meta name="msapplication-TileColor" content="#da532c">
   <meta name="theme-color" content="#ffffff">
-<link rel="stylesheet" href="/assets/angular/styles.css"></head>
+<link rel="stylesheet" href="build/styles.css"></head>
 
 <body>
   <app-root></app-root>
-<script src="/assets/angular/runtime.js" defer></script><script src="/assets/angular/polyfills.js" defer></script><script src="/assets/angular/vendor.js" defer></script><script src="/assets/angular/main.js" defer></script></body>
+<script src="build/runtime.js" defer></script><script src="build/polyfills.js" defer></script><script src="build/vendor.js" defer></script><script src="build/main.js" defer></script></body>
 
 </html>
