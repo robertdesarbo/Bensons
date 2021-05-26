@@ -288,13 +288,6 @@ const schedules: Schedule[] = [
     },
 
     {
-        home: teams.find(element => element.abbreviation == 'MIS') as Team,
-        away: teams.find(element => element.abbreviation == 'BCS') as Team,
-        date: new Date('June 6, 2021 10:30:00 AM'),
-        field: fields.find(element => element.name == 'Feura Bush') as Field,
-        umpires: [Umpire.from({name:'Unknown'})],
-    },
-    {
         home: teams.find(element => element.abbreviation == '518') as Team,
         away: teams.find(element => element.abbreviation == 'FVS') as Team,
         date: new Date('June 6, 2021 12:00:00 PM'),
@@ -309,6 +302,20 @@ const schedules: Schedule[] = [
         umpires: [Umpire.from({name:'Unknown'})],
     },
     {
+        home: teams.find(element => element.abbreviation == 'PUB') as Team,
+        away: teams.find(element => element.abbreviation == 'H4I') as Team,
+        date: new Date('June 6, 2021 3:00:00 PM'),
+        field: fields.find(element => element.name == 'Feura Bush') as Field,
+        umpires: [Umpire.from({name:'Unknown'})],
+    },
+    {
+        home: teams.find(element => element.abbreviation == 'MIS') as Team,
+        away: teams.find(element => element.abbreviation == 'BCS') as Team,
+        date: new Date('June 6, 2021 10:30:00 AM'),
+        field: fields.find(element => element.name == 'Mullens Park') as Field,
+        umpires: [Umpire.from({name:'Unknown'})],
+    },
+    {
         home: teams.find(element => element.abbreviation == 'BRJ') as Team,
         away: teams.find(element => element.abbreviation == 'TBS') as Team,
         date: new Date('June 6, 2021 12:00:00 PM'),
@@ -316,38 +323,24 @@ const schedules: Schedule[] = [
         umpires: [Umpire.from({name:'Unknown'})],
     },
     {
+        home: teams.find(element => element.abbreviation == 'TBS') as Team,
+        away: teams.find(element => element.abbreviation == 'CAK') as Team,
+        date: new Date('June 6, 2021 1:30:00 PM'),
+        field: fields.find(element => element.name == 'Mullens Park') as Field,
+        umpires: [Umpire.from({name:'Unknown'})],
+    },
+    {
         home: teams.find(element => element.abbreviation == 'TKS') as Team,
         away: teams.find(element => element.abbreviation == 'HHS') as Team,
-        date: new Date('June 6, 2021 1:30:00 PM'),
+        date: new Date('June 6, 2021 3:00:00 PM'),
         field: fields.find(element => element.name == 'Mullens Park') as Field,
         umpires: [Umpire.from({name:'Unknown'})],
     },
     {
         home: teams.find(element => element.abbreviation == 'HIT') as Team,
         away: teams.find(element => element.abbreviation == 'FAK') as Team,
-        date: new Date('June 6, 2021 3:00:00 PM'),
+        date: new Date('June 6, 2021 4:30:00 PM'),
         field: fields.find(element => element.name == 'Mullens Park') as Field,
-        umpires: [Umpire.from({name:'Unknown'})],
-    },
-    {
-        home: teams.find(element => element.abbreviation == 'CAK') as Team,
-        away: teams.find(element => element.abbreviation == 'GIA') as Team,
-        date: new Date('June 6, 2021 12:00:00 PM'),
-        field: fields.find(element => element.name == 'Firemans') as Field,
-        umpires: [Umpire.from({name:'Unknown'})],
-    },
-    {
-        home: teams.find(element => element.abbreviation == 'GIA') as Team,
-        away: teams.find(element => element.abbreviation == 'PUB') as Team,
-        date: new Date('June 6, 2021 1:30:00 PM'),
-        field: fields.find(element => element.name == 'Firemans') as Field,
-        umpires: [Umpire.from({name:'Unknown'})],
-    },
-    {
-        home: teams.find(element => element.abbreviation == 'PUB') as Team,
-        away: teams.find(element => element.abbreviation == 'H4I') as Team,
-        date: new Date('June 6, 2021 3:00:00 PM'),
-        field: fields.find(element => element.name == 'Firemans') as Field,
         umpires: [Umpire.from({name:'Unknown'})],
     },
 
@@ -372,17 +365,33 @@ const schedules: Schedule[] = [
         field: fields.find(element => element.name == 'Feura Bush') as Field,
         umpires: [Umpire.from({name:'Unknown'})],
     },
+
     {
-        home: teams.find(element => element.abbreviation == 'TBS') as Team,
-        away: teams.find(element => element.abbreviation == 'CAK') as Team,
+        home: teams.find(element => element.abbreviation == 'MIS') as Team,
+        away: teams.find(element => element.abbreviation == 'FVS') as Team,
+        date: new Date('June 13, 2021 10:30:00 PM'),
+        field: fields.find(element => element.name == 'Mullens Park') as Field,
+        umpires: [Umpire.from({name:'Unknown'})],
+    },
+    {
+        home: teams.find(element => element.abbreviation == 'BCS') as Team,
+        away: teams.find(element => element.abbreviation == 'TTB') as Team,
+        date: new Date('June 13, 2021 12:00:00 PM'),
+        field: fields.find(element => element.name == 'Mullens Park') as Field,
+        umpires: [Umpire.from({name:'Unknown'})],
+    },
+
+    {
+        home: teams.find(element => element.abbreviation == 'TKS') as Team,
+        away: teams.find(element => element.abbreviation == 'TBS') as Team,
         date: new Date('June 13, 2021 1:30:00 PM'),
         field: fields.find(element => element.name == 'Mullens Park') as Field,
         umpires: [Umpire.from({name:'Unknown'})],
     },
     {
-        home: teams.find(element => element.abbreviation == 'TKS') as Team,
-        away: teams.find(element => element.abbreviation == 'TBS') as Team,
-        date: new Date('June 13, 2021 3:00:00 PM'),
+        home: teams.find(element => element.abbreviation == 'CAK') as Team,
+        away: teams.find(element => element.abbreviation == 'GIA') as Team,
+        date: new Date('June 13, 2021 1:30:00 PM'),
         field: fields.find(element => element.name == 'Mullens Park') as Field,
         umpires: [Umpire.from({name:'Unknown'})],
     },
@@ -393,20 +402,7 @@ const schedules: Schedule[] = [
         field: fields.find(element => element.name == 'Mullens Park') as Field,
         umpires: [Umpire.from({name:'Unknown'})],
     },
-    {
-        home: teams.find(element => element.abbreviation == 'BCS') as Team,
-        away: teams.find(element => element.abbreviation == 'TTB') as Team,
-        date: new Date('June 13, 2021 1:30:00 PM'),
-        field: fields.find(element => element.name == 'Firemans') as Field,
-        umpires: [Umpire.from({name:'Unknown'})],
-    },
-    {
-        home: teams.find(element => element.abbreviation == 'MIS') as Team,
-        away: teams.find(element => element.abbreviation == 'FVS') as Team,
-        date: new Date('June 13, 2021 3:00:00 PM'),
-        field: fields.find(element => element.name == 'Firemans') as Field,
-        umpires: [Umpire.from({name:'Unknown'})],
-    },
+
 
     {
         home: teams.find(element => element.abbreviation == 'HIT') as Team,
@@ -487,14 +483,6 @@ const schedules: Schedule[] = [
     },
 
 
-
-    {
-        home: teams.find(element => element.abbreviation == 'BRJ') as Team,
-        away: teams.find(element => element.abbreviation == 'H4I') as Team,
-        date: new Date('July 11, 2021 10:30:00 AM'),
-        field: fields.find(element => element.name == 'Feura Bush') as Field,
-        umpires: [Umpire.from({name:'Unknown'})],
-    },
     {
         home: teams.find(element => element.abbreviation == 'CAK') as Team,
         away: teams.find(element => element.abbreviation == 'TBS') as Team,
@@ -514,6 +502,13 @@ const schedules: Schedule[] = [
         away: teams.find(element => element.abbreviation == 'FAK') as Team,
         date: new Date('July 11, 2021 3:00:00 PM'),
         field: fields.find(element => element.name == 'Feura Bush') as Field,
+        umpires: [Umpire.from({name:'Unknown'})],
+    },
+    {
+        home: teams.find(element => element.abbreviation == 'BRJ') as Team,
+        away: teams.find(element => element.abbreviation == 'H4I') as Team,
+        date: new Date('July 11, 2021 10:30:00 AM'),
+        field: fields.find(element => element.name == 'Mullens Park') as Field,
         umpires: [Umpire.from({name:'Unknown'})],
     },
     {
@@ -576,13 +571,6 @@ const schedules: Schedule[] = [
         umpires: [Umpire.from({name:'Unknown'})],
     },
     {
-        home: teams.find(element => element.abbreviation == 'TBS') as Team,
-        away: teams.find(element => element.abbreviation == 'BRJ') as Team,
-        date: new Date('July 18, 2021 1:30:00 PM'),
-        field: fields.find(element => element.name == 'Mullens Park') as Field,
-        umpires: [Umpire.from({name:'Unknown'})],
-    },
-    {
         home: teams.find(element => element.abbreviation == 'BRJ') as Team,
         away: teams.find(element => element.abbreviation == 'CAK') as Team,
         date: new Date('July 18, 2021 3:00:00 PM'),
@@ -622,24 +610,38 @@ const schedules: Schedule[] = [
     {
         home: teams.find(element => element.abbreviation == '518') as Team,
         away: teams.find(element => element.abbreviation == 'FAK') as Team,
-        date: new Date('July 25, 2021 12:00:00 PM'),
+        date: new Date('July 25, 2021 10:30:00 PM'),
         field: fields.find(element => element.name == 'Mullens Park') as Field,
         umpires: [Umpire.from({name:'Unknown'})],
     },
     {
         home: teams.find(element => element.abbreviation == 'TKS') as Team,
         away: teams.find(element => element.abbreviation == 'H4I') as Team,
-        date: new Date('July 25, 2021 1:30:00 PM'),
+        date: new Date('July 25, 2021 12:00:00 PM'),
         field: fields.find(element => element.name == 'Mullens Park') as Field,
         umpires: [Umpire.from({name:'Unknown'})],
     },
     {
         home: teams.find(element => element.abbreviation == 'TKS') as Team,
         away: teams.find(element => element.abbreviation == 'GIA') as Team,
+        date: new Date('July 25, 2021 1:30:00 PM'),
+        field: fields.find(element => element.name == 'Mullens Park') as Field,
+        umpires: [Umpire.from({name:'Unknown'})],
+    },
+    {
+        home: teams.find(element => element.abbreviation == 'GIA') as Team,
+        away: teams.find(element => element.abbreviation == 'PUB') as Team,
         date: new Date('July 25, 2021 3:00:00 PM'),
         field: fields.find(element => element.name == 'Mullens Park') as Field,
         umpires: [Umpire.from({name:'Unknown'})],
-    }
+    },
+    {
+        home: teams.find(element => element.abbreviation == 'TBS') as Team,
+        away: teams.find(element => element.abbreviation == 'BRJ') as Team,
+        date: new Date('July 25, 2021 4:30:00 PM'),
+        field: fields.find(element => element.name == 'Mullens Park') as Field,
+        umpires: [Umpire.from({name:'Unknown'})],
+    },
 ];
 
 export { schedules };
