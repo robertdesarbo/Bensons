@@ -93,7 +93,7 @@
                             ]
                         },
                         "dev-laravel": {
-                            "outputPath": "../../../public/assets/angular",
+                            "outputPath": "dist/assets/angular",
                             "baseHref": "/assets/angular/"
                         },
                         "dev": {
