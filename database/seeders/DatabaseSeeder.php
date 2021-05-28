@@ -18,6 +18,7 @@ class DatabaseSeeder extends Seeder
             FieldSeeder::class,
             LeagueSeeder::class,
             UmpireSeeder::class,
+            DivisionSeeder::class,
         ]);
     }
 }

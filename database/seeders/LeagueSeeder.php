@@ -17,8 +17,8 @@ class LeagueSeeder extends Seeder
     public function run()
     {
         DB::table('leagues')->insert([
-            [ 'name' => 'Sunday', 'name' => 'softball', 'created_at' => Carbon::now()->format('Y-m-d H:i:s'), 'updated_at' => Carbon::now()->format('Y-m-d H:i:s') ],
-            [ 'name' => 'Lynn\'s', 'name' => 'softball', 'created_at' => Carbon::now()->format('Y-m-d H:i:s'), 'updated_at' => Carbon::now()->format('Y-m-d H:i:s') ]
+            [ 'name' => 'Sunday', 'sport' => 'softball', 'created_at' => Carbon::now()->format('Y-m-d H:i:s'), 'updated_at' => Carbon::now()->format('Y-m-d H:i:s') ],
+            [ 'name' => 'Lynn\'s', 'sport' => 'softball', 'created_at' => Carbon::now()->format('Y-m-d H:i:s'), 'updated_at' => Carbon::now()->format('Y-m-d H:i:s') ]
         ]);
     }
 
