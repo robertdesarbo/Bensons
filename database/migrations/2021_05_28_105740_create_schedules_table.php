@@ -22,10 +22,10 @@ class CreateSchedulesTable extends Migration
             // $table->foreignId('umpire_id')->constrained('fields');
             $table->integer('home_score');
             $table->integer('away_score');
-            $table->boolean('started');
-            $table->boolean('completed');
-            $table->boolean('rescheduled');
-            $table->text('notes');
+            $table->boolean('started')->nullable();
+            $table->boolean('completed')->nullable();
+            $table->boolean('rescheduled')->nullable();
+            $table->text('notes')->nullable();
             $table->timestamps();
         });
     }

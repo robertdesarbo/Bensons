@@ -20,11 +20,11 @@ class CreateFieldsTable extends Migration
             $table->string('city');
             $table->string('state');
             $table->string('zip');
-            $table->boolean('alcohol');
-            $table->boolean('private_property');
-            $table->boolean('pets');
-            $table->boolean('smoking');
-            $table->text('ground_rules');
+            $table->boolean('alcohol')->nullable();
+            $table->boolean('private_property')->nullable();
+            $table->boolean('pets')->nullable();
+            $table->boolean('smoking')->nullable();
+            $table->text('ground_rules')->nullable();
             $table->timestamps();
         });
     }
