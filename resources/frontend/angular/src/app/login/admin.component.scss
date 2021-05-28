@@ -1,0 +1,27 @@
+div.login-register {
+    &::after {
+        content:"";
+        position: absolute;
+        background-size: cover;
+        background-image: url('/build/assets/images/hero-image.jpg');
+        filter: saturate(0.4) brightness(0.5);
+        background-repeat: no-repeat;
+        background-position: center;
+        top: 0;
+        bottom: 0;
+        left:0;
+        right:0;
+    }
+}
+
+.login-register-box {
+    z-index: 2;
+}
+
+img#login-header {
+    width: 175px;
+}
+
+.error-message {
+    margin-bottom: 10px;
+}

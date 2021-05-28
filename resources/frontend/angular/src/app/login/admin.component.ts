@@ -1,6 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { RouterModule, Router } from '@angular/router';
-import { MyserviceService } from './../myservice.service';
+import { HttpClient } from '@angular/common/http';
 
 import {
     FormBuilder,
@@ -12,21 +12,26 @@ import {
 @Component({
     selector: 'app-login',
     templateUrl: './admin.component.html',
-    styleUrls: ['./admin.component.scss'],
-    providers: [MyserviceService]
+    styleUrls: ['./admin.component.scss']
 })
 export class AdminComponent implements OnInit {
     msg = '';
-    constructor(private service: MyserviceService, private routes: Router) { }
+    constructor(private routes: Router,private http: HttpClient) { }
 
-    check(uname: string, p: string) {
-        const output = this.service.checkusernameandpassword(uname, p);
-        if (output == true) {
-            this.routes.navigate(['/starter']);
-        } else {
-            this.msg = 'Invalid Username or Password';
+        check(email: string, password: string) {
+            this.http.get('/sanctum/csrf-cookie').subscribe(() => {
+                this.http.post<any>('/api/login', { 'email': email, password: password }).subscribe(login => {
+                    console.log(login);
+
+                    if (login.success == true) {
+                        this.routes.navigate(['/home']);
+                    } else {
+                        this.msg = 'Invalid Email or Password';
+                    }
+
+                }, error => console.log(error))
+            });
         }
-    }
 
-    ngOnInit() {}
-}
+        ngOnInit() {}
+    }
