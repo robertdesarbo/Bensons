@@ -8,6 +8,8 @@ import {
 } from '@angular/core';
 import { MenuItems } from '../../shared/menu-items/menu-items';
 
+import { AuthenticationService } from 'src/app/authentication/authentication.service';
+
 
 import { PerfectScrollbarConfigInterface, PerfectScrollbarDirective } from 'ngx-perfect-scrollbar';
 
@@ -29,7 +31,7 @@ export class FullComponent implements OnDestroy {
 	green = false;
 	blue = false;
 	danger = false;
-	showHide = false; 
+	showHide = false;
 	url = '';
 	sidebarOpened = false;
 	status = false;
@@ -43,7 +45,8 @@ export class FullComponent implements OnDestroy {
 		public router: Router,
 		changeDetectorRef: ChangeDetectorRef,
 		media: MediaMatcher,
-		public menuItems: MenuItems
+		public menuItems: MenuItems,
+		public authenticationService: AuthenticationService
 	) {
 		this.mobileQuery = media.matchMedia('(min-width: 1023px)');
 		this._mobileQueryListener = () => changeDetectorRef.detectChanges();
