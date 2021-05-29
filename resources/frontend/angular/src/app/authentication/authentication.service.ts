@@ -7,16 +7,27 @@ import { User } from 'src/app/models/user.model';
 
 @Injectable({ providedIn: 'root' })
 export class AuthenticationService {
-    public isLoggedIn = false;
+    private userSubject: BehaviorSubject<User>;
+    public user: Observable<User>;
 
     constructor(private http: HttpClient) {
-        //
+        this.userSubject = new BehaviorSubject<User>(JSON.parse(localStorage.getItem('user')));
+        this.user = this.userSubject.asObservable();
+    }
+
+    public get isAuthenticated(): boolean {
+        return this.userSubject.value !== null;
+    }
+
+    public get userValue(): User {
+        return this.userSubject.value;
     }
 
     login(email: string, password: string) {
         return this.http.get('/sanctum/csrf-cookie').pipe(mergeMap(() => {
-            return this.http.post<any>('/api/login', { 'email': email, password: password }).pipe(map(({success}) => {
-                this.isLoggedIn = success;
+            return this.http.post<any>('/api/login', { 'email': email, password: password }).pipe(map(({success,user}) => {
+                localStorage.setItem('user', JSON.stringify(user));
+                this.userSubject.next(user);
 
                 return success;
             }));
@@ -25,10 +36,8 @@ export class AuthenticationService {
 
     logout() {
         return this.http.get<any>('/api/logout').pipe(tap(() => {
-
-            this.isLoggedIn = false;
-
-            return true;
+            localStorage.removeItem('user');
+            this.userSubject.next(null);
         }));
     }
 }

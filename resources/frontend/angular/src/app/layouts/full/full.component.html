@@ -28,7 +28,7 @@
                 <!-- ============================================================== -->
                 <!-- Right sidebar toggle - style you can find in rightsidebar.component.scss -->
                 <!-- ============================================================== -->
-                <button *ngIf="authenticationService.isLoggedIn" mat-icon-button class="ml-xs overflow-visible">
+                <button *ngIf="authenticationService.isAuthenticated" mat-icon-button class="ml-xs overflow-visible">
                     <mat-icon>settings</mat-icon>
                 </button>
             </div>

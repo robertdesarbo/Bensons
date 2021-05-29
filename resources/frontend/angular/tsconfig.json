@@ -17,7 +17,7 @@
     "emitDecoratorMetadata": true,
     "experimentalDecorators": true,
     "target": "es2015",
-    "strict": true,
+    "strict": false,
     "typeRoots": [
       "node_modules/@types"
     ],
