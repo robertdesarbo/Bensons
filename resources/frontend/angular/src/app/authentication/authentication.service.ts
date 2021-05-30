@@ -3,6 +3,12 @@ import { HttpClient } from '@angular/common/http';
 import { BehaviorSubject, Observable } from 'rxjs';
 import { map, tap, mergeMap } from 'rxjs/operators';
 
+import {
+    MatSnackBar,
+    MatSnackBarHorizontalPosition,
+    MatSnackBarVerticalPosition,
+} from '@angular/material/snack-bar';
+
 import { User } from 'src/app/models/user.model';
 
 @Injectable({ providedIn: 'root' })
@@ -10,7 +16,7 @@ export class AuthenticationService {
     private userSubject: BehaviorSubject<User>;
     public user: Observable<User>;
 
-    constructor(private http: HttpClient) {
+    constructor(private http: HttpClient, private snackBar: MatSnackBar) {
         this.userSubject = new BehaviorSubject<User>(JSON.parse(localStorage.getItem('user')));
         this.user = this.userSubject.asObservable();
     }
@@ -35,9 +41,14 @@ export class AuthenticationService {
     }
 
     logout() {
-        return this.http.get<any>('/api/logout').pipe(tap(() => {
+        return this.http.get<any>('/api/logout').subscribe(() => {
             localStorage.removeItem('user');
             this.userSubject.next(null);
-        }));
+
+            this.snackBar.open('You have been logged out', 'Dismiss', {
+                horizontalPosition: "right",
+                verticalPosition: "top",
+            });
+        });
     }
 }

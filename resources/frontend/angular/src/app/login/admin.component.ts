@@ -9,7 +9,7 @@ import {
     FormGroup,
     Validators,
     FormControl
-} from '@angular/forms';
+} from '@angular/forms'; 
 
 @Component({
     selector: 'app-login',
@@ -18,7 +18,7 @@ import {
 })
 export class AdminComponent implements OnInit {
     msg = '';
-    constructor(private routes: Router,private http: HttpClient,private authenticationService: AuthenticationService) { }
+    constructor(private routes: Router,private http: HttpClient, private authenticationService: AuthenticationService) { }
     check(email: string, password: string) {
         this.authenticationService.login(email, password).subscribe(success => {
             if (success) {

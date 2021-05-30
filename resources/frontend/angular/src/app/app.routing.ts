@@ -12,6 +12,8 @@ import { SchedulePreferenceComponent } from './pages/schedule-preference/schedul
 import { BulletinBoardComponent } from './pages/bulletin-board/bulletin-board.component';
 import { MvpVotingComponent } from './pages/mvp-voting/mvp-voting.component';
 
+import { LoginActiveGuard } from './shared/security/login-active.guard';
+
 export const AppRoutes: Routes = [
     {
         path: '',
@@ -21,7 +23,7 @@ export const AppRoutes: Routes = [
                 path: '',
                 redirectTo: '/home',
                 pathMatch: 'full'
-            },                
+            },
             {
                 path: 'home',
                 component: HomeComponent,
@@ -83,5 +85,6 @@ export const AppRoutes: Routes = [
     {
         path: 'admin',
         component: AdminComponent,
+        canActivate: [LoginActiveGuard],
     }
 ];

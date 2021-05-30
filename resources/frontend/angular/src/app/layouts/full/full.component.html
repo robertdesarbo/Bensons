@@ -28,7 +28,7 @@
                 <!-- ============================================================== -->
                 <!-- Right sidebar toggle - style you can find in rightsidebar.component.scss -->
                 <!-- ============================================================== -->
-                <button *ngIf="authenticationService.isAuthenticated" mat-icon-button class="ml-xs overflow-visible">
+                <button *ngIf="authenticationService.isAuthenticated" (click)="end.toggle()" mat-icon-button class="ml-xs overflow-visible">
                     <mat-icon>settings</mat-icon>
                 </button>
             </div>
@@ -55,6 +55,30 @@
                     <app-horizontal-sidebar></app-horizontal-sidebar>
                 </ng-template>
             </mat-sidenav>
+
+
+            <!-- ============================================================== -->
+            <!-- Sidebar - style you can find in sidebar.scss -->
+            <!-- ============================================================== -->
+            <!-- ============================================================== -->
+            <!-- Right Sidebar - style you can find in rightsidebar.component.scss -->
+            <!-- ============================================================== -->
+            <mat-sidenav #end position="end" class="chat-panel" mode="over" opened="false">
+                <div class="scroll">
+                    <mat-nav-list>
+                        <h3 mat-subheader class="text-uppercase font-weight-bold">Settings</h3>
+                        <mat-list-item>
+                            <mat-icon class="material-icons-outlined">person_outline</mat-icon>
+                            <span>Account</span>
+                        </mat-list-item>
+                        <mat-list-item (click)="authenticationService.logout(); end.toggle()">
+                            <mat-icon class="material-icons-outlined">logout</mat-icon>
+                            <span>Logout</span>
+                        </mat-list-item>
+                    </mat-nav-list>
+                </div>
+            </mat-sidenav>
+
             <!-- ============================================================== -->
             <!-- Page container - style you can find in pages.scss -->
             <!-- ============================================================== -->

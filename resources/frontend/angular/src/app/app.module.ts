@@ -68,7 +68,9 @@ import { AdminComponent } from './login/admin.component';
 import { HomeComponent } from './pages/home/home.component';
 import { DialogRegisterTeam } from './pages/home/modals/register-team-dialog.component';
 import { DialogLookingForATeam } from './pages/home/modals/looking-for-a-team-dialog.component';
-import { AuthGuard } from './auth.guard';
+
+import { AuthGuard } from './shared/security/auth.guard';
+import { LoginActiveGuard } from './shared/security/login-active.guard';
 
 import { SharedModule } from './shared/shared.module';
 import { SpinnerComponent } from './shared/spinner.component';
@@ -86,6 +88,8 @@ import { SchedulePreferenceComponent } from './pages/schedule-preference/schedul
 import { BulletinBoardComponent } from './pages/bulletin-board/bulletin-board.component';
 import { MvpVotingComponent } from './pages/mvp-voting/mvp-voting.component';
 import { SchedulesComponent } from './pages/schedules/schedules.component';
+
+import { AuthenticationService } from 'src/app/authentication/authentication.service';
 
 
 export function HttpLoaderFactory(http: HttpClient) {
@@ -185,6 +189,8 @@ const DEFAULT_PERFECT_SCROLLBAR_CONFIG: PerfectScrollbarConfigInterface = {
     ],
     providers: [
         AuthGuard,
+        LoginActiveGuard,
+        AuthenticationService,
         {
             provide: PERFECT_SCROLLBAR_CONFIG,
             useValue: DEFAULT_PERFECT_SCROLLBAR_CONFIG
