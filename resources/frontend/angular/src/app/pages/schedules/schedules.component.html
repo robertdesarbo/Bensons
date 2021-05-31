@@ -69,27 +69,27 @@
                         <ng-container matColumnDef="home">
                             <th mat-header-cell *matHeaderCellDef mat-sort-header> Home </th>
                             <td mat-cell *matCellDef="let element">
-                                <span [ngClass]="{ 'game-winner': element.home_score > element.away_score }">{{element.home.name}}</span>
+                                <span [ngClass]="{ 'game-winner': element.home_score > element.away_score }">{{element.home_team.name}}</span>
                             </td>
                         </ng-container>
 
                         <ng-container matColumnDef="away">
                             <th mat-header-cell *matHeaderCellDef mat-sort-header> Away </th>
                             <td mat-cell *matCellDef="let element">
-                                <span [ngClass]="{ 'game-winner': element.away_score > element.home_score }">{{element.away.name}}</span>
+                                <span [ngClass]="{ 'game-winner': element.away_score > element.home_score }">{{element.away_team.name}}</span>
                             </td>
                         </ng-container>
 
                         <ng-container matColumnDef="date">
                             <th mat-header-cell *matHeaderCellDef mat-sort-header> Date </th>
-                            <td mat-cell *matCellDef="let element"> {{element.date | date: 'EEEE, MMMM d, h:mm a'}} </td>
+                            <td mat-cell *matCellDef="let element"> {{element.game_date | date: 'EEEE, MMMM d, h:mm a'}} </td>
                         </ng-container>
 
                         <ng-container matColumnDef="field">
                             <th mat-header-cell *matHeaderCellDef mat-sort-header> Field </th>
                             <td mat-cell *matCellDef="let element">
-                                <a target="_blank" [href]="getAddress(element.field)" *ngIf="!inThePast(element.date)">{{element.field.name}}</a>
-                                <ng-container *ngIf="inThePast(element.date)">{{element.field.name}}</ng-container>
+                                <a target="_blank" [href]="getAddress(element.field)" *ngIf="!inThePast(element.game_date)">{{element.field.name}}</a>
+                                <ng-container *ngIf="inThePast(element.game_date)">{{element.field.name}}</ng-container>
                             </td>
                         </ng-container>
 
@@ -112,7 +112,7 @@
                         </ng-container>
 
                         <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>
-                        <tr mat-row *matRowDef="let row; columns: displayedColumns;" [ngClass]="{'past-weeks-games': inThePast(row.date)}"></tr>
+                        <tr mat-row *matRowDef="let row; columns: displayedColumns;" [ngClass]="{'past-weeks-games': inThePast(row.game_date)}"></tr>
                     </table>
 
                     <div *ngIf="noData | async" class="no-records">

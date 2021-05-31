@@ -21,6 +21,7 @@ class DatabaseSeeder extends Seeder
             UmpireSeeder::class,
             DivisionSeeder::class,
             TeamsSeeder::class,
+            ScheduleSeeder::class,
         ]);
     }
 }

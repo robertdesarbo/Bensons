@@ -16,11 +16,14 @@ use Illuminate\Support\Facades\Auth;
 class ScheduleGameController extends Controller
 {
 
+    public function schedule(Request $request)
+    {
+        return Schedule::with('home_team', 'away_team', 'field', 'umpires', 'home_team.division')->get();
+    }
+
     public function getDivisions(Request $request)
     {
-        $divisions = Division::all();
-
-        return $divisions;
+        return Division::all();
     }
 
     public function scheduleForm(Request $request)

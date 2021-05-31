@@ -10,4 +10,9 @@ class Team extends Model
     use HasFactory;
 
     protected $fillable = ['name', 'abbreviation', 'division_id'];
+
+    public function division()
+    {
+        return $this->belongsTo(Division::class, 'division_id');
+    }
 }

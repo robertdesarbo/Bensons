@@ -17,4 +17,19 @@ class Schedule extends Model
     {
         return $this->belongsToMany(Umpire::class);
     }
+
+    public function home_team()
+    {
+        return $this->belongsTo(Team::class, 'home_id');
+    }
+
+    public function away_team()
+    {
+        return $this->belongsTo(Team::class, 'away_id');
+    }
+
+    public function field()
+    {
+        return $this->belongsTo(Field::class, 'field_id');
+    }
 }

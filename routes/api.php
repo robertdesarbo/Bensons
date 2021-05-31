@@ -22,7 +22,6 @@ Route::middleware(['auth:sanctum'])->group(function () {
         return $request->user();
     });
 
-
     Route::get( 'schedule-get-divisions', [ScheduleGameController::class, 'getDivisions']);
     Route::get( 'schedule-get-scheduled-game', [ScheduleGameController::class, 'getScheduledGame']);
     Route::get( 'schedule-game-set-up', [ScheduleGameController::class, 'scheduleForm']);
@@ -33,6 +32,8 @@ Route::middleware(['auth:sanctum'])->group(function () {
 
 
 });
+
+Route::get( 'schedule', [ScheduleGameController::class, 'schedule']);
 
 Route::post( 'login', [LoginController::class, 'login']);
 Route::get( 'logout', [LoginController::class, 'logout']);
