@@ -20,6 +20,7 @@ class DatabaseSeeder extends Seeder
             LeagueSeeder::class,
             UmpireSeeder::class,
             DivisionSeeder::class,
+            TeamsSeeder::class,
         ]);
     }
 }

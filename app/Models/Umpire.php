@@ -11,7 +11,7 @@ class Umpire extends Model
 
     protected $fillable = ['name'];
 
-    public function schedule()
+    public function schedules()
     {
         return $this->belongsToMany(Schedule::class);
     }

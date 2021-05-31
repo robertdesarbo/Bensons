@@ -23,7 +23,10 @@ Route::middleware(['auth:sanctum'])->group(function () {
     });
 
 
+    Route::get( 'schedule-get-divisions', [ScheduleGameController::class, 'getDivisions']);
     Route::get( 'schedule-game-set-up', [ScheduleGameController::class, 'scheduleForm']);
+    Route::post( 'schedule-game', [ScheduleGameController::class, 'scheduleGame']);
+
 
 });
 

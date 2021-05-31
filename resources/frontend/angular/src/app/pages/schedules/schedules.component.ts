@@ -7,6 +7,8 @@ import {MatDialog} from '@angular/material/dialog';
 import {Observable} from 'rxjs';
 import {map} from 'rxjs/operators';
 
+import { AuthenticationService } from 'src/app/authentication/authentication.service';
+
 import { Schedule } from 'src/app/models/schedule.model';
 import { Umpire } from 'src/app/models/umpire.model';
 import { Field } from 'src/app/models/field.model';
@@ -26,7 +28,7 @@ export class SchedulesComponent implements OnInit {
     @ViewChild(MatTable, { static: true }) table: MatTable<Schedule> = Object.create(null);
     @ViewChild(MatSort, { static: true }) sort: MatSort = Object.create(null);
     searchText: any;
-    displayedColumns: string[] = ['status', 'home', 'away', 'date', 'field', 'umpires', 'outcome'];
+    displayedColumns: string[] = [ 'home', 'away', 'date', 'field', 'umpires', 'outcome'];
     dataSource = new MatTableDataSource<Schedule>(schedules);
     noData = this.dataSource.connect().pipe(map(data => data.length === 0));
 
@@ -35,7 +37,7 @@ export class SchedulesComponent implements OnInit {
     public defaultWeeklyView = true;
     public listOfumpires = umpires;
 
-    constructor(private formBuilder: FormBuilder, public dialog: MatDialog) {
+    constructor(private formBuilder: FormBuilder, public dialog: MatDialog, public authenticationService: AuthenticationService) {
         this.dataSource.filterPredicate = ((data: Schedule, filter: string) : boolean => {
             let filterObject: { team: string, division: string, umpire: string, previousWeeks: boolean};
             filterObject = JSON.parse(filter);

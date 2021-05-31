@@ -12,7 +12,7 @@ class Schedule extends Model
     protected $fillable = ['home_id', 'away_id', 'game_date', 'field_id', 'home_score',
     'away_score', 'started', 'completed', 'rescheduled', 'notes'];
 
-    public function umpire()
+    public function umpires()
     {
         return $this->belongsToMany(Umpire::class);
     }

@@ -1,38 +1,58 @@
-<h1 mat-dialog-title>Registration</h1>
-<div mat-dialog-content>
-    <form [formGroup]="formControl">
-        <p>Please fill out the following information to register a team.</p>
+<h1 mat-dialog-title>Schedule Game</h1>
+<form [formGroup]="formControl" (ngSubmit)="addGame()">
+    <div mat-dialog-content>
+        <p *ngIf="errors" style="margin-top: 0;">
+            <ng-container *ngFor="let errors of errors;">
+                <span class="text-danger">
+                    {{ errors }}
+                </span>
+                <br />
+            </ng-container>
+        </p>
+
         <mat-form-field>
-            <mat-label>Home Name</mat-label>
-            <mat-select formControlName="homeTeam" appearance="fill">
-                <mat-option *ngFor="let team of listOfTeams;" [value]="team.name">{{team.name }}</mat-option>
+            <mat-label>Division</mat-label>
+            <mat-select formControlName="division" appearance="fill">
+                <mat-option *ngFor="let division of listOfDivisions;" [value]="division.id">{{division.name }}</mat-option>
             </mat-select>
         </mat-form-field>
-        <mat-form-field>
-            <mat-label>Away Name</mat-label>
-            <mat-select formControlName="awayTeam" appearance="fill">
-                <mat-option *ngFor="let team of listOfTeams;" [value]="team.name">{{team.name }}</mat-option>
-            </mat-select>
-        </mat-form-field>
-        <mat-form-field>
-            <mat-label>Date</mat-label>
-            <input matInput formControlName="date">
-        </mat-form-field>
-        <mat-form-field>
-            <mat-label>Field</mat-label>
-            <mat-select formControlName="field" appearance="fill">
-                <mat-option *ngFor="let field of listOfFields;" [value]="field.name">{{field.name }}</mat-option>
-            </mat-select>
-        </mat-form-field>
-        <mat-form-field>
-            <mat-label>Umpire</mat-label>
-            <mat-select formControlName="umpire" appearance="fill">
-                <mat-option *ngFor="let umpire of listOfUmpires;" [value]="umpire.name">{{umpire.name }}</mat-option>
-            </mat-select>
-        </mat-form-field>
-    </form>
-</div>
-<mat-dialog-actions align="end">
-    <button mat-raised-button (click)="onNoClick()">Cancel</button>
-    <button mat-raised-button color="primary" cdkFocusInitial>Register</button>
-</mat-dialog-actions>
+        <ng-conatiner *ngIf="listOfTeams">
+            <mat-form-field>
+                <mat-label>Home Name</mat-label>
+                <mat-select formControlName="homeTeam" appearance="fill">
+                    <mat-option *ngFor="let team of listOfTeams;" [value]="team.id">{{team.name }}</mat-option>
+                </mat-select>
+            </mat-form-field>
+            <mat-form-field>
+                <mat-label>Away Name</mat-label>
+                <mat-select formControlName="awayTeam" appearance="fill">
+                    <mat-option *ngFor="let team of listOfTeams;" [value]="team.id">{{team.name }}</mat-option>
+                </mat-select>
+            </mat-form-field>
+
+            <mat-form-field appearance="fill">
+                <mat-label>Choose a date</mat-label>
+                <input matInput [matDatepicker]="picker" formControlName="date">
+                <mat-datepicker-toggle matSuffix [for]="picker"></mat-datepicker-toggle>
+                <mat-datepicker #picker></mat-datepicker>
+            </mat-form-field>
+
+            <mat-form-field>
+                <mat-label>Field</mat-label>
+                <mat-select formControlName="field" appearance="fill">
+                    <mat-option *ngFor="let field of listOfFields;" [value]="field.id">{{field.name }}</mat-option>
+                </mat-select>
+            </mat-form-field>
+            <mat-form-field>
+                <mat-label>Umpire</mat-label>
+                <mat-select formControlName="umpire" appearance="fill">
+                    <mat-option *ngFor="let umpire of listOfUmpires;" [value]="umpire.id">{{umpire.name }}</mat-option>
+                </mat-select>
+            </mat-form-field>
+        </ng-conatiner>
+    </div>
+    <mat-dialog-actions align="end">
+        <button mat-raised-button (click)="onNoClick()">Cancel</button>
+        <button mat-raised-button color="primary" cdkFocusInitial>Schedule</button>
+    </mat-dialog-actions>
+</form>

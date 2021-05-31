@@ -19,9 +19,8 @@ class CreateSchedulesTable extends Migration
             $table->foreignId('away_id')->constrained('teams');
             $table->dateTime('game_date', $precision = 0);
             $table->foreignId('field_id')->constrained('fields');
-            // $table->foreignId('umpire_id')->constrained('fields');
-            $table->integer('home_score');
-            $table->integer('away_score');
+            $table->integer('home_score')->nullable();
+            $table->integer('away_score')->nullable();
             $table->boolean('started')->nullable();
             $table->boolean('completed')->nullable();
             $table->boolean('rescheduled')->nullable();

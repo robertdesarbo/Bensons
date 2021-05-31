@@ -16,3 +16,10 @@ mat-icon.game-complete {
     background: rgba(0,0,0,0.025);
     font-style: italic;
 }
+
+.mat-column-outcome {
+    p, mat-icon {
+        vertical-align: middle;
+        display: inline-block;
+    }
+}
