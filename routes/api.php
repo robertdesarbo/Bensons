@@ -4,6 +4,7 @@ use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Route;
 
 use App\Http\Controllers\LoginController;
+use App\Http\Controllers\ScheduleGameController;
 
 /*
 |--------------------------------------------------------------------------
@@ -16,8 +17,14 @@ use App\Http\Controllers\LoginController;
 |
 */
 
-Route::middleware('auth:sanctum')->get('/user', function (Request $request) {
-    return $request->user();
+Route::middleware(['auth:sanctum'])->group(function () {
+    Route::get( 'user', function (Request $request) {
+        return $request->user();
+    });
+
+
+    Route::get( 'schedule-game-set-up', [ScheduleGameController::class, 'scheduleForm']);
+
 });
 
 Route::post( 'login', [LoginController::class, 'login']);

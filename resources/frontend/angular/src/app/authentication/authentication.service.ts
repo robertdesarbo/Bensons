@@ -46,6 +46,7 @@ export class AuthenticationService {
             this.userSubject.next(null);
 
             this.snackBar.open('You have been logged out', 'Dismiss', {
+                duration: 3000,
                 horizontalPosition: "right",
                 verticalPosition: "top",
             });

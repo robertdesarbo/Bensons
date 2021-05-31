@@ -2,6 +2,7 @@ import { Component, OnInit, ViewChild } from '@angular/core';
 import { MatTableDataSource, MatTable } from '@angular/material/table';
 import { MatSort } from '@angular/material/sort';
 import { FormBuilder, FormControl, FormGroup } from '@angular/forms';
+import {MatDialog} from '@angular/material/dialog';
 
 import {Observable} from 'rxjs';
 import {map} from 'rxjs/operators';
@@ -12,6 +13,8 @@ import { Field } from 'src/app/models/field.model';
 
 import { schedules } from 'src/app/data/schedules.data';
 import { umpires } from 'src/app/data/umpires.data';
+
+import {DialogAddGame} from './modals/add-game-dialog.component';
 
 @Component({
     selector: 'app-schedules',
@@ -32,7 +35,7 @@ export class SchedulesComponent implements OnInit {
     public defaultWeeklyView = true;
     public listOfumpires = umpires;
 
-    constructor(private formBuilder: FormBuilder) {
+    constructor(private formBuilder: FormBuilder, public dialog: MatDialog) {
         this.dataSource.filterPredicate = ((data: Schedule, filter: string) : boolean => {
             let filterObject: { team: string, division: string, umpire: string, previousWeeks: boolean};
             filterObject = JSON.parse(filter);
@@ -145,6 +148,17 @@ export class SchedulesComponent implements OnInit {
 
     searchDivision(filterValue: string): void {
         this.dataSource.filter = filterValue.trim().toLowerCase();
+    }
+
+    openAddGame(): void {
+        const dialogRef = this.dialog.open(DialogAddGame, {
+            width: '375px',
+            data: {}
+        });
+
+        dialogRef.afterClosed().subscribe((result) => {
+            console.log('The dialog was closed');
+        });
     }
 
 }

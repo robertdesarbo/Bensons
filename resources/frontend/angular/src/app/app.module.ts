@@ -69,6 +69,8 @@ import { HomeComponent } from './pages/home/home.component';
 import { DialogRegisterTeam } from './pages/home/modals/register-team-dialog.component';
 import { DialogLookingForATeam } from './pages/home/modals/looking-for-a-team-dialog.component';
 
+import { DialogAddGame } from './pages/schedules/modals/add-game-dialog.component';
+
 import { AuthGuard } from './shared/security/auth.guard';
 import { LoginActiveGuard } from './shared/security/login-active.guard';
 
@@ -116,6 +118,7 @@ const DEFAULT_PERFECT_SCROLLBAR_CONFIG: PerfectScrollbarConfigInterface = {
         HomeComponent,
         DialogRegisterTeam,
         DialogLookingForATeam,
+        DialogAddGame,
         StandingsComponent,
         FieldsComponent,
         RulesComponent,
