@@ -16,7 +16,7 @@ import { Field } from 'src/app/models/field.model';
 import { schedules } from 'src/app/data/schedules.data';
 import { umpires } from 'src/app/data/umpires.data';
 
-import {DialogAddGame} from './modals/add-game-dialog.component';
+import {DialogScheduleGame} from './modals/dialog-schedule-game.component';
 
 @Component({
     selector: 'app-schedules',
@@ -38,6 +38,12 @@ export class SchedulesComponent implements OnInit {
     public listOfumpires = umpires;
 
     constructor(private formBuilder: FormBuilder, public dialog: MatDialog, public authenticationService: AuthenticationService) {
+
+        if(this.authenticationService.isAuthenticated)
+        {
+            this.displayedColumns = [ 'action', 'home', 'away', 'date', 'field', 'umpires', 'outcome'];
+        }
+
         this.dataSource.filterPredicate = ((data: Schedule, filter: string) : boolean => {
             let filterObject: { team: string, division: string, umpire: string, previousWeeks: boolean};
             filterObject = JSON.parse(filter);
@@ -152,15 +158,24 @@ export class SchedulesComponent implements OnInit {
         this.dataSource.filter = filterValue.trim().toLowerCase();
     }
 
-    openAddGame(): void {
-        const dialogRef = this.dialog.open(DialogAddGame, {
+    openScheduleGame(schedule, remove): void {
+
+        let data = {};
+        if(schedule) {
+            data['schedule'] = schedule;
+        }
+
+        if(remove) {
+            data['remove'] = remove;
+        }
+
+        const dialogRef = this.dialog.open(DialogScheduleGame, {
             width: '375px',
-            data: {}
+            data: data
         });
 
         dialogRef.afterClosed().subscribe((result) => {
             console.log('The dialog was closed');
         });
     }
-
 }

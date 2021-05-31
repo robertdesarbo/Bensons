@@ -36,6 +36,19 @@ class ScheduleGameController extends Controller
         return ['teams' => $teams, 'fields' => $fields, 'umpires' => $umpires];
     }
 
+    public function getScheduledGame(Request $request)
+    {
+        $validated = $request->validate([
+            'schedule' => 'required|exists:schedules,id'
+        ]);
+
+        $schedule = Schedule::where('id', $request->schedule)->first();
+
+        return $schedule;
+    }
+
+
+
     public function scheduleGame(Request $request)
     {
         $validated = $request->validate([
@@ -58,4 +71,39 @@ class ScheduleGameController extends Controller
             $schedule->umpires()->attach($request->umpire);
         }
     }
+
+    public function updateGame(Request $request)
+    {
+        $validated = $request->validate([
+            'schedule' => 'required|exists:schedules,id',
+            'homeTeam' => 'required|exists:teams,id',
+            'awayTeam' => 'required|exists:teams,id',
+            'date' => 'required',
+            'field' => 'required|exists:fields,id',
+            'umpire' => 'nullable|exists:umpires,id',
+        ]);
+
+
+        $schedule = Schedule::where('id', $request->schedule)
+        ->update([
+            'home_id' => $request->homeTeam,
+            'away_id' => $request->awayTeam,
+            'game_date' => Carbon::parse($request->date),
+            'field_id' => $request->field,
+        ]);
+
+        if(!empty($request->umpire)) {
+            $schedule->umpires()->sync([$request->umpire]);
+        }
+    }
+
+    public function removeGame(Request $request)
+    {
+        $validated = $request->validate([
+            'schedule' => 'required|exists:schedules,id'
+        ]);
+
+        Schedule::where('id', $request->schedule)->delete();
+    }
+
 }

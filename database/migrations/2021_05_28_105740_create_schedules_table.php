@@ -25,6 +25,7 @@ class CreateSchedulesTable extends Migration
             $table->boolean('completed')->nullable();
             $table->boolean('rescheduled')->nullable();
             $table->text('notes')->nullable();
+            $table->softDeletes();
             $table->timestamps();
         });
     }
