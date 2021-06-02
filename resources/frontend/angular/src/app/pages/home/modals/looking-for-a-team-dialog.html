@@ -1,28 +1,28 @@
 <h1 mat-dialog-title>Looking for a Team?</h1>
 <div mat-dialog-content>
-    <form [formGroup]="formControl">
-        <p>Please fill out the following information to help us match you with a team.</p>
-        <mat-form-field>
-            <mat-label>Name</mat-label>
-            <input matInput formControlName="name">
-        </mat-form-field>
-        <mat-form-field>
-            <mat-label>Phone Number</mat-label>
-            <input matInput formControlName="phone">
-        </mat-form-field>
-        <mat-form-field>
-            <mat-label>Email</mat-label>
-            <input matInput formControlName="email">
-        </mat-form-field>
-        <mat-form-field>
-            <mat-label>Preferred Divisions</mat-label>
-            <mat-select formControlName="division" appearance="fill">
-                <mat-option *ngFor="let division of listOfDivisions;" [value]="division.name">{{division.league.name }} {{ division.name | uppercase}}</mat-option>
-            </mat-select>
-        </mat-form-field>
-    </form>
+  <form [formGroup]="formControl">
+    <p>Please fill out the following information to help us match you with a team.</p>
+    <mat-form-field>
+      <mat-label>Name</mat-label>
+      <input matInput formControlName="name">
+    </mat-form-field>
+    <mat-form-field>
+      <mat-label>Phone Number</mat-label>
+      <input matInput formControlName="phone">
+    </mat-form-field>
+    <mat-form-field>
+      <mat-label>Email</mat-label>
+      <input matInput formControlName="email">
+    </mat-form-field>
+    <mat-form-field>
+      <mat-label>Preferred Divisions</mat-label>
+      <mat-select formControlName="division" appearance="fill">
+        <mat-option *ngFor="let division of listOfDivisions;" [value]="division.name">{{division.league.name }} {{ division.name | uppercase}}</mat-option>
+      </mat-select>
+    </mat-form-field>
+  </form>
 </div>
 <mat-dialog-actions align="end">
-    <button mat-raised-button (click)="onNoClick()">Cancel</button>
-    <button mat-raised-button color="primary" cdkFocusInitial>Find</button>
+  <button mat-raised-button (click)="onNoClick()">Cancel</button>
+  <button mat-raised-button color="primary" cdkFocusInitial>Find</button>
 </mat-dialog-actions>

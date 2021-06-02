@@ -1,258 +1,269 @@
 <div fxLayout="row wrap">
-    <div fxFlex.gt-sm="100" fxFlex.gt-xs="100" fxFlex="100">
-        <mat-card class="hero">
-            <mat-card-content class="hero">
-                <div class="hero-title">
-                    <img src="build/assets/images/branding/full/png/Color logo - no background.png">
-                </div>
-                <div class="hero-content">
-                    <span>
-                        Looking for a softball league in the Capital District?
-                    </span>
-                    <span class="hero-buttons">
-                        <button color="primary" mat-raised-button class="hero__img-refresh" (click)="openRegisterDialog()">Register</button>
-                        <button mat-raised-button class="hero__img-refresh" (click)="openLookingForATeamDialog()">Looking for a Team?</button>
-                    </span>
-                </div>
-            </mat-card-content>
-        </mat-card>
-    </div>
+  <div fxFlex.gt-sm="100" fxFlex.gt-xs="100" fxFlex="100">
+    <mat-card class="hero">
+      <mat-card-content class="hero">
+        <div class="hero-title">
+          <img src="build/assets/images/branding/full/png/Color logo - no background.png">
+        </div>
+        <div class="hero-content">
+          <span>
+            Looking for a softball league in the Capital District?
+          </span>
+          <span class="hero-buttons">
+            <button color="primary" mat-raised-button class="hero__img-refresh" (click)="openRegisterDialog()">Register</button>
+            <button mat-raised-button class="hero__img-refresh" (click)="openLookingForATeamDialog()">Looking for a Team?</button>
+          </span>
+        </div>
+      </mat-card-content>
+    </mat-card>
+  </div>
 </div>
 
 <div fxLayout="row wrap">
-    <div fxFlex.gt-sm="25" fxFlex.gt-xs="50" fxFlex="50">
-        <mat-card>
-            <mat-card-content>
-                <!-- Row -->
-                <div class="d-flex no-block">
-                    <!-- column -->
-                    <div class="m-r-10 no-shrink">
-                        <button mat-fab color="accent" mat-card-icon class="shadow-none bg-inverse">
-                            <mat-icon>groups</mat-icon>
-                        </button>
-                    </div>
-                    <!-- column -->
-                    <div>
-                        <h3 class="m-0">2</h3>
-                        <h6 class="text-muted m-0">Divisions</h6>
-                    </div>
-                </div>
-            </mat-card-content>
-        </mat-card>
-    </div>
-    <div fxFlex.gt-sm="25" fxFlex.gt-xs="50" fxFlex="50">
-        <mat-card>
-            <mat-card-content>
-                <!-- Row -->
-                <div class="d-flex no-block">
-                    <!-- column -->
-                    <div class="m-r-10 no-shrink">
-                        <button mat-fab mat-card-icon class="shadow-none bg-inverse bg-success">
-                            <mat-icon>groups</mat-icon>
-                        </button>
-                    </div>
-                    <!-- column -->
-                    <div>
-                        <h3 class="m-0">{{ total_teams }}</h3>
-                        <h6 class="text-muted m-0">Teams</h6>
-                    </div>
-                </div>
-            </mat-card-content>
-        </mat-card>
-    </div>
-    <div fxFlex.gt-sm="25" fxFlex.gt-xs="50" fxFlex="50">
-        <mat-card>
-            <mat-card-content>
-                <!-- Row -->
-                <div class="d-flex no-block">
-                    <!-- column -->
-                    <div class="m-r-10 no-shrink">
-                        <button mat-fab color="warn" mat-card-icon class="shadow-none bg-success">
-                            <mat-icon>people</mat-icon>
-                        </button>
-                    </div>
-                    <!-- column -->
-                    <div>
-                        <h3 class="m-0">{{ total_teams * 14 }}+</h3>
-                        <h6 class="text-muted m-0">Players</h6>
-                    </div>
+  <div fxFlex.gt-sm="25" fxFlex.gt-xs="50" fxFlex="50">
+    <mat-card>
+      <mat-card-content>
+        <!-- Row -->
+        <div class="d-flex no-block">
+          <!-- column -->
+          <div class="m-r-10 no-shrink">
+            <button mat-fab color="accent" mat-card-icon class="shadow-none bg-inverse">
+              <mat-icon>groups</mat-icon>
+            </button>
+          </div>
+          <!-- column -->
+          <div>
+            <h3 class="m-0">2</h3>
+            <h6 class="text-muted m-0">Divisions</h6>
+          </div>
+        </div>
+      </mat-card-content>
+    </mat-card>
+  </div>
+  <div fxFlex.gt-sm="25" fxFlex.gt-xs="50" fxFlex="50">
+    <mat-card>
+      <mat-card-content>
+        <!-- Row -->
+        <div class="d-flex no-block">
+          <!-- column -->
+          <div class="m-r-10 no-shrink">
+            <button mat-fab mat-card-icon class="shadow-none bg-inverse bg-success">
+              <mat-icon>groups</mat-icon>
+            </button>
+          </div>
+          <!-- column -->
+          <div>
+            <h3 class="m-0">{{ total_teams }}</h3>
+            <h6 class="text-muted m-0">Teams</h6>
+          </div>
+        </div>
+      </mat-card-content>
+    </mat-card>
+  </div>
+  <div fxFlex.gt-sm="25" fxFlex.gt-xs="50" fxFlex="50">
+    <mat-card>
+      <mat-card-content>
+        <!-- Row -->
+        <div class="d-flex no-block">
+          <!-- column -->
+          <div class="m-r-10 no-shrink">
+            <button mat-fab color="warn" mat-card-icon class="shadow-none bg-success">
+              <mat-icon>people</mat-icon>
+            </button>
+          </div>
+          <!-- column -->
+          <div>
+            <h3 class="m-0">{{ total_teams * 14 }}+</h3>
+            <h6 class="text-muted m-0">Players</h6>
+          </div>
 
-                </div>
-            </mat-card-content>
-        </mat-card>
-    </div>
-    <div fxFlex.gt-sm="25" fxFlex.gt-xs="50" fxFlex="50">
-        <mat-card>
-            <mat-card-content>
-                <!-- Row -->
-                <div class="d-flex no-block">
-                    <!-- column -->
-                    <div class="m-r-10 no-shrink">
-                        <button mat-fab color="accent" mat-card-icon class="shadow-none">
-                            <mat-icon>map</mat-icon>
-                        </button>
-                    </div>
-                    <!-- column -->
-                    <div>
-                        <h3 class="m-0">{{ total_locations }}</h3>
-                        <h6 class="text-muted m-0">Locations</h6>
-                    </div>
+        </div>
+      </mat-card-content>
+    </mat-card>
+  </div>
+  <div fxFlex.gt-sm="25" fxFlex.gt-xs="50" fxFlex="50">
+    <mat-card>
+      <mat-card-content>
+        <!-- Row -->
+        <div class="d-flex no-block">
+          <!-- column -->
+          <div class="m-r-10 no-shrink">
+            <button mat-fab color="accent" mat-card-icon class="shadow-none">
+              <mat-icon>map</mat-icon>
+            </button>
+          </div>
+          <!-- column -->
+          <div>
+            <h3 class="m-0">{{ total_locations }}</h3>
+            <h6 class="text-muted m-0">Locations</h6>
+          </div>
 
-                </div>
-            </mat-card-content>
-        </mat-card>
-    </div>
+        </div>
+      </mat-card-content>
+    </mat-card>
+  </div>
 </div>
 
 <div fxLayout="row wrap">
-    <div fxFlex.gt-sm="66.66" fxFlex.gt-xs="100" fxFlex="100">
-        <mat-card>
-            <mat-card-content>
-                <mat-card-title>League Information</mat-card-title>
-                <p>Benson's Empire State Sports Ltd. is a sports management organization located in Albany, NY which serves the greater Capital Region. The softball league plays from April to September and the Basketball league plays from October to April.</p>
-                <mat-list class="compact-mat-list">
-                    <mat-list-item> <mat-icon class="material-icons-two-tone">location_on</mat-icon> Access to over {{ total_locations }}+ locations </mat-list-item>
-                    <mat-list-item> <mat-icon class="material-icons-two-tone">badge</mat-icon> Minimum of 1 umpire/referee per game </mat-list-item>
-                    <mat-list-item> <mat-icon class="material-icons-two-tone">schedule</mat-icon> Flexible scheduling & multiple start times </mat-list-item>
-                    <mat-list-item> <mat-icon class="material-icons-two-tone">monetization_on</mat-icon> Free web advertising for team sponsers </mat-list-item>
-                    <mat-list-item> <mat-icon class="material-icons-two-tone">shield</mat-icon> $2 million liability insurance policy </mat-list-item>
-                </mat-list>
-            </mat-card-content>
-        </mat-card>
+  <div fxFlex.gt-sm="66.66" fxFlex.gt-xs="100" fxFlex="100">
+    <mat-card>
+      <mat-card-content>
+        <mat-card-title>League Information</mat-card-title>
+        <p>Benson's Empire State Sports Ltd. is a sports management organization located in Albany, NY which serves the greater Capital Region. The softball league plays from April to September and the Basketball league plays from October to April.
+        </p>
+        <mat-list class="compact-mat-list">
+          <mat-list-item>
+            <mat-icon class="material-icons-two-tone">location_on</mat-icon> Access to over {{ total_locations }}+ locations
+          </mat-list-item>
+          <mat-list-item>
+            <mat-icon class="material-icons-two-tone">badge</mat-icon> Minimum of 1 umpire/referee per game
+          </mat-list-item>
+          <mat-list-item>
+            <mat-icon class="material-icons-two-tone">schedule</mat-icon> Flexible scheduling & multiple start times
+          </mat-list-item>
+          <mat-list-item>
+            <mat-icon class="material-icons-two-tone">monetization_on</mat-icon> Free web advertising for team sponsers
+          </mat-list-item>
+          <mat-list-item>
+            <mat-icon class="material-icons-two-tone">shield</mat-icon> $2 million liability insurance policy
+          </mat-list-item>
+        </mat-list>
+      </mat-card-content>
+    </mat-card>
 
-        <mat-card>
-            <mat-card-content>
-                <mat-card-title>Softball League Divisions</mat-card-title>
-                <p>We offer slow pitch, 7&3 and modified fast pitch divisions. Every division follows the USA Softball (ASA) rulebook.</p>
-                <mat-list class="compact-mat-list">
-                    <mat-list-item> Coed - Slow-Pitch - 7 & 3 </mat-list-item>
-                    <mat-list-item> Coed - Slow-Pitch - C</mat-list-item>
-                    <mat-list-item> Coed - Slow-Pitch - D</mat-list-item>
-                    <mat-list-item> Coed - Slow-Pitch - E  </mat-list-item>
-                    <mat-list-item> Men’s - Modified "B" </mat-list-item>
-                </mat-list>
-            </mat-card-content>
-        </mat-card>
+    <mat-card>
+      <mat-card-content>
+        <mat-card-title>Softball League Divisions</mat-card-title>
+        <p>We offer slow pitch, 7&3 and modified fast pitch divisions. Every division follows the USA Softball (ASA) rulebook.</p>
+        <mat-list class="compact-mat-list">
+          <mat-list-item> Coed - Slow-Pitch - 7 & 3 </mat-list-item>
+          <mat-list-item> Coed - Slow-Pitch - C</mat-list-item>
+          <mat-list-item> Coed - Slow-Pitch - D</mat-list-item>
+          <mat-list-item> Coed - Slow-Pitch - E </mat-list-item>
+          <mat-list-item> Men’s - Modified "B" </mat-list-item>
+        </mat-list>
+      </mat-card-content>
+    </mat-card>
 
-    </div>
+  </div>
 
-    <div fxFlex.gt-sm="33.33" fxFlex.gt-xs="100" fxFlex="100">
-        <mat-card>
-            <mat-card-content>
-                <mat-card-title>League Timeline</mat-card-title>
-                <ul class="timeline">
-                    <li>
-                        <div class="timeline-badge primary">
-                            <mat-icon class="material-icons-outlined">import_contacts</mat-icon>
-                        </div>
-                        <div class="timeline-panel">
-                            <div class="timeline-heading">
-                                <h5 class="timeline-title">Registration Starts</h5>
-                                <p>
-                                    <small class="text-muted">
-                                        <i class="fa fa-clock-o"></i> 4/10/2021
-                                    </small>
-                                </p>
-                            </div>
-                            <div class="timeline-body">
-                                <p>Registration for Sunday Softball Opens!</p>
-                            </div>
-                        </div>
-                    </li>
-                    <li class="timeline-inverted">
-                        <div class="timeline-badge info">
-                            <mat-icon class="material-icons-outlined">sports_baseball</mat-icon>
-                        </div>
-                        <div class="timeline-panel">
-                            <div class="timeline-heading">
-                                <h5 class="timeline-title">Opening Day</h5>
-                                <p>
-                                    <small class="text-muted">
-                                        <i class="fa fa-clock-o"></i> 4/25/2021
-                                    </small>
-                                </p>
-                            </div>
-                            <div class="timeline-body">
-                                <p>Tentative start date for first week of games</p>
-                            </div>
-                        </div>
-                    </li>
-                    <li>
-                        <div class="timeline-badge danger">
-                            <mat-icon class="material-icons-outlined">event_busy</mat-icon>
-                        </div>
-                        <div class="timeline-panel">
-                            <div class="timeline-heading">
-                                <h5 class="timeline-title">Registration Closed</h5>
-                                <p>
-                                    <small class="text-muted">
-                                        <i class="fa fa-clock-o"></i> 5/01/2021
-                                    </small>
-                                </p>
-                            </div>
-                            <div class="timeline-body">
-                                <p>No new teams can be added to the season.</p>
-                            </div>
-                        </div>
-                    </li>
-                    <li class="timeline-inverted">
-                        <div class="timeline-badge warning">
-                            <mat-icon class="material-icons-outlined">paid</mat-icon>
-                        </div>
-                        <div class="timeline-panel">
-                            <div class="timeline-heading">
-                                <h5 class="timeline-title">Paid in Full</h5>
-                                <p>
-                                    <small class="text-muted">
-                                        <i class="fa fa-clock-o"></i> 5/05/2021
-                                    </small>
-                                </p>
-                            </div>
-                            <div class="timeline-body">
-                                <p>All teams must be paid in full before this point.</p>
-                            </div>
-                        </div>
-                    </li>
-                    <li>
-                        <div class="timeline-badge info">
-                            <mat-icon class="material-icons-outlined">groups</mat-icon>
-                        </div>
-                        <div class="timeline-panel">
-                            <div class="timeline-heading">
-                                <h5 class="timeline-title">Rosters Due</h5>
-                                <p>
-                                    <small class="text-muted">
-                                        <i class="fa fa-clock-o"></i> 5/10/2021
-                                    </small>
-                                </p>
-                            </div>
-                            <div class="timeline-body">
-                                <p>Final updated rosters are due, no new players beyond this date.</p>
-                            </div>
-                        </div>
-                    </li>
-                    <li class="timeline-inverted">
-                        <div class="timeline-badge primary">
-                            <mat-icon class="material-icons-outlined">emoji_events</mat-icon>
-                        </div>
-                        <div class="timeline-panel">
-                            <div class="timeline-heading">
-                                <h5 class="timeline-title">Playoffs</h5>
-                                <p>
-                                    <small class="text-muted">
-                                        <i class="fa fa-clock-o"></i> 6/14/2021
-                                    </small>
-                                </p>
-                            </div>
-                            <div class="timeline-body">
-                                <p>Top 4 teams from each division make playoffs, best 2 or 3 series.</p>
-                            </div>
-                        </div>
-                    </li>
-                </ul>
-            </mat-card-content>
-        </mat-card>
-    </div>
+  <div fxFlex.gt-sm="33.33" fxFlex.gt-xs="100" fxFlex="100">
+    <mat-card>
+      <mat-card-content>
+        <mat-card-title>League Timeline</mat-card-title>
+        <ul class="timeline">
+          <li>
+            <div class="timeline-badge primary">
+              <mat-icon class="material-icons-outlined">import_contacts</mat-icon>
+            </div>
+            <div class="timeline-panel">
+              <div class="timeline-heading">
+                <h5 class="timeline-title">Registration Starts</h5>
+                <p>
+                  <small class="text-muted">
+                    <i class="fa fa-clock-o"></i> 4/10/2021
+                  </small>
+                </p>
+              </div>
+              <div class="timeline-body">
+                <p>Registration for Sunday Softball Opens!</p>
+              </div>
+            </div>
+          </li>
+          <li class="timeline-inverted">
+            <div class="timeline-badge info">
+              <mat-icon class="material-icons-outlined">sports_baseball</mat-icon>
+            </div>
+            <div class="timeline-panel">
+              <div class="timeline-heading">
+                <h5 class="timeline-title">Opening Day</h5>
+                <p>
+                  <small class="text-muted">
+                    <i class="fa fa-clock-o"></i> 4/25/2021
+                  </small>
+                </p>
+              </div>
+              <div class="timeline-body">
+                <p>Tentative start date for first week of games</p>
+              </div>
+            </div>
+          </li>
+          <li>
+            <div class="timeline-badge danger">
+              <mat-icon class="material-icons-outlined">event_busy</mat-icon>
+            </div>
+            <div class="timeline-panel">
+              <div class="timeline-heading">
+                <h5 class="timeline-title">Registration Closed</h5>
+                <p>
+                  <small class="text-muted">
+                    <i class="fa fa-clock-o"></i> 5/01/2021
+                  </small>
+                </p>
+              </div>
+              <div class="timeline-body">
+                <p>No new teams can be added to the season.</p>
+              </div>
+            </div>
+          </li>
+          <li class="timeline-inverted">
+            <div class="timeline-badge warning">
+              <mat-icon class="material-icons-outlined">paid</mat-icon>
+            </div>
+            <div class="timeline-panel">
+              <div class="timeline-heading">
+                <h5 class="timeline-title">Paid in Full</h5>
+                <p>
+                  <small class="text-muted">
+                    <i class="fa fa-clock-o"></i> 5/05/2021
+                  </small>
+                </p>
+              </div>
+              <div class="timeline-body">
+                <p>All teams must be paid in full before this point.</p>
+              </div>
+            </div>
+          </li>
+          <li>
+            <div class="timeline-badge info">
+              <mat-icon class="material-icons-outlined">groups</mat-icon>
+            </div>
+            <div class="timeline-panel">
+              <div class="timeline-heading">
+                <h5 class="timeline-title">Rosters Due</h5>
+                <p>
+                  <small class="text-muted">
+                    <i class="fa fa-clock-o"></i> 5/10/2021
+                  </small>
+                </p>
+              </div>
+              <div class="timeline-body">
+                <p>Final updated rosters are due, no new players beyond this date.</p>
+              </div>
+            </div>
+          </li>
+          <li class="timeline-inverted">
+            <div class="timeline-badge primary">
+              <mat-icon class="material-icons-outlined">emoji_events</mat-icon>
+            </div>
+            <div class="timeline-panel">
+              <div class="timeline-heading">
+                <h5 class="timeline-title">Playoffs</h5>
+                <p>
+                  <small class="text-muted">
+                    <i class="fa fa-clock-o"></i> 6/14/2021
+                  </small>
+                </p>
+              </div>
+              <div class="timeline-body">
+                <p>Top 4 teams from each division make playoffs, best 2 or 3 series.</p>
+              </div>
+            </div>
+          </li>
+        </ul>
+      </mat-card-content>
+    </mat-card>
+  </div>
 
 
 </div>

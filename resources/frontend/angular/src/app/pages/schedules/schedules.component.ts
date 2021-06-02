@@ -2,11 +2,11 @@ import { Component, OnInit, ViewChild } from '@angular/core';
 import { MatTableDataSource, MatTable } from '@angular/material/table';
 import { MatSort } from '@angular/material/sort';
 import { FormBuilder, FormControl, FormGroup } from '@angular/forms';
-import {MatDialog} from '@angular/material/dialog';
+import { MatDialog } from '@angular/material/dialog';
 import { HttpClient } from '@angular/common/http';
 
-import {Observable} from 'rxjs';
-import {map} from 'rxjs/operators';
+import { Observable } from 'rxjs';
+import { map } from 'rxjs/operators';
 
 import { AuthenticationService } from 'src/app/authentication/authentication.service';
 
@@ -17,179 +17,176 @@ import { Field } from 'src/app/models/field.model';
 // import { schedules } from 'src/app/data/schedules.data';
 import { umpires } from 'src/app/data/umpires.data';
 
-import {DialogScheduleGame} from './modals/dialog-schedule-game.component';
+import { DialogScheduleGame } from './modals/dialog-schedule-game.component';
 
 @Component({
-    selector: 'app-schedules',
-    templateUrl: './schedules.component.html',
-    styleUrls: ['./schedules.component.scss']
+	selector: 'app-schedules',
+	templateUrl: './schedules.component.html',
+	styleUrls: ['./schedules.component.scss']
 })
 export class SchedulesComponent implements OnInit {
 
-    @ViewChild(MatTable, { static: true }) table: MatTable<Schedule> = Object.create(null);
-    @ViewChild(MatSort, { static: true }) sort: MatSort = Object.create(null);
-    searchText: any;
-    displayedColumns: string[] = [ 'home', 'away', 'date', 'field', 'umpires', 'outcome'];
-    dataSource: MatTableDataSource<Schedule>;
-    noData;
+	@ViewChild(MatTable, { static: true }) table: MatTable<Schedule> = Object.create(null);
+	@ViewChild(MatSort, { static: true }) sort: MatSort = Object.create(null);
+	searchText: any;
+	displayedColumns: string[] = ['home', 'away', 'date', 'field', 'umpires', 'outcome'];
+	dataSource: MatTableDataSource<Schedule>;
+	noData;
 
-    readonly formControl: FormGroup;
+	readonly formControl: FormGroup;
 
-    public defaultWeeklyView = true;
-    public listOfumpires = umpires;
+	public defaultWeeklyView = true;
+	public listOfumpires = umpires;
 
-    constructor(
-        private formBuilder: FormBuilder, public dialog: MatDialog,
-        public authenticationService: AuthenticationService,
-        public http: HttpClient) {
+	constructor(
+		private formBuilder: FormBuilder, public dialog: MatDialog,
+		public authenticationService: AuthenticationService,
+		public http: HttpClient) {
 
-            if(this.authenticationService.isAuthenticated)
-            {
-                this.displayedColumns = [ 'action', 'home', 'away', 'date', 'field', 'umpires', 'outcome'];
-            }
+		if (this.authenticationService.isAuthenticated) {
+			this.displayedColumns = ['action', 'home', 'away', 'date', 'field', 'umpires', 'outcome'];
+		}
 
-            this.http.get('/api/schedule').subscribe((schedule: Schedule[]) => {
-                this.dataSource = new MatTableDataSource<Schedule>(schedule);
-                this.noData = this.dataSource.connect().pipe(map(data => data.length === 0));
-            }
-            ,(errorResponse) => { console.log(errorResponse); }
-            ,() => {
-                this.dataSource.filterPredicate = ((data: Schedule, filter: string) : boolean => {
-                    let filterObject: { team: string, division: string, umpire: string, previousWeeks: boolean};
-                    filterObject = JSON.parse(filter);
+		this.http.get('/api/schedule').subscribe((schedule: Schedule[]) => {
+			this.dataSource = new MatTableDataSource<Schedule>(schedule);
+			this.noData = this.dataSource.connect().pipe(map(data => data.length === 0));
+		}, (errorResponse) => { console.log(errorResponse); }, () => {
+			this.dataSource.filterPredicate = ((data: Schedule, filter: string): boolean => {
+				let filterObject: { team: string, division: string, umpire: string, previousWeeks: boolean };
+				filterObject = JSON.parse(filter);
 
-                    let teamSearch = true;
-                    let divisionSearch = true;
-                    let umpireSearch = true;
-                    let dateSearch = true;
+				let teamSearch = true;
+				let divisionSearch = true;
+				let umpireSearch = true;
+				let dateSearch = true;
 
-                    let curr = this.getMonday(new Date); // get current date
+				let curr = this.getMonday(new Date); // get current date
 
-                    let first = curr.getDate(); // First day is the day of the month - the day of the week
-                    let last = first + 6; // last day is the first day + 6
+				let first = curr.getDate(); // First day is the day of the month - the day of the week
+				let last = first + 6; // last day is the first day + 6
 
-                    let firstday = new Date(curr.setDate(first));
-                    let lastday = new Date(curr.setDate(last));
+				let firstday = new Date(curr.setDate(first));
+				let lastday = new Date(curr.setDate(last));
 
-                    firstday.setHours(0,0,0,0);
-                    lastday.setHours(23,59,0,0);
+				firstday.setHours(0, 0, 0, 0);
+				lastday.setHours(23, 59, 0, 0);
 
-                    if(filterObject.team || filterObject.division || filterObject.umpire) {
-                        teamSearch = !filterObject.team || data.home_team.name.toLowerCase().includes(filterObject.team) || data.away_team.name.toLowerCase().includes(filterObject.team);
+				if (filterObject.team || filterObject.division || filterObject.umpire) {
+					teamSearch = !filterObject.team || data.home_team.name.toLowerCase().includes(filterObject.team) || data.away_team.name.toLowerCase().includes(filterObject.team);
 
-                        divisionSearch = !filterObject.division || data.home_team.division.name.toLowerCase().includes(filterObject.division) || data.away_team.division.name.toLowerCase().includes(filterObject.division) || filterObject.division == "all";
+					divisionSearch = !filterObject.division || data.home_team.division.name.toLowerCase().includes(filterObject.division) || data.away_team.division.name.toLowerCase().includes(filterObject.division) || filterObject.division == "all";
 
-                        umpireSearch = !filterObject.umpire || data.umpires.some(umpire => umpire.name === filterObject.umpire);
+					umpireSearch = !filterObject.umpire || data.umpires.some(umpire => umpire.name === filterObject.umpire);
 
-                        if(!filterObject.previousWeeks) {
-                            dateSearch = Date.parse(data.game_date) >= firstday.getTime();
-                        }
+					if (!filterObject.previousWeeks) {
+						dateSearch = Date.parse(data.game_date) >= firstday.getTime();
+					}
 
-                        this.defaultWeeklyView = false;
-                    } else if(filterObject.previousWeeks) {
-                        dateSearch = Date.parse(data.game_date) <= lastday.getTime();
-                        this.defaultWeeklyView = false;
-                    } else {
-                        dateSearch = Date.parse(data.game_date) >= firstday.getTime() && Date.parse(data.game_date) <= lastday.getTime();
+					this.defaultWeeklyView = false;
+				} else if (filterObject.previousWeeks) {
+					dateSearch = Date.parse(data.game_date) <= lastday.getTime();
+					this.defaultWeeklyView = false;
+				} else {
+					dateSearch = Date.parse(data.game_date) >= firstday.getTime() && Date.parse(data.game_date) <= lastday.getTime();
 
-                        this.defaultWeeklyView = true;
-                    }
+					this.defaultWeeklyView = true;
+				}
 
 
-                    return teamSearch && divisionSearch && umpireSearch && dateSearch;
-                });
+				return teamSearch && divisionSearch && umpireSearch && dateSearch;
+			});
 
-                this.dataSource.sort = this.sort;
+			this.dataSource.sort = this.sort;
 
-                // trigger default filter
-                this.dataSource.filter = JSON.stringify({});
-            });
+			// trigger default filter
+			this.dataSource.filter = JSON.stringify({});
+		});
 
-            this.formControl = this.formBuilder.group({
-                team: '',
-                division: '',
-                umpire: '',
-                previousWeeks: false
-            });
+		this.formControl = this.formBuilder.group({
+			team: '',
+			division: '',
+			umpire: '',
+			previousWeeks: false
+		});
 
-            this.formControl.valueChanges.subscribe(value => {
-                if(value.team) {
-                    value = {...value, team: value.team.trim().toLowerCase()};
-                }
+		this.formControl.valueChanges.subscribe(value => {
+			if (value.team) {
+				value = { ...value, team: value.team.trim().toLowerCase() };
+			}
 
-                if(value.division) {
-                    value = {...value, division: value.division.trim().toLowerCase()};
-                }
+			if (value.division) {
+				value = { ...value, division: value.division.trim().toLowerCase() };
+			}
 
-                // need to stringify because of type issue with filterPredicate
-                this.dataSource.filter = JSON.stringify(value);
-            });
+			// need to stringify because of type issue with filterPredicate
+			this.dataSource.filter = JSON.stringify(value);
+		});
 
-        }
+	}
 
-        getAddress(field: Field) {
-            return 'https://www.google.com/maps/dir/?api=1&destination='
-            + field.address + ' '
-            + field.city + ' '
-            + field.state + ' '
-            + field.zip;
-        }
+	getAddress(field: Field) {
+		return 'https://www.google.com/maps/dir/?api=1&destination='
+			+ field.address + ' '
+			+ field.city + ' '
+			+ field.state + ' '
+			+ field.zip;
+	}
 
-        inThePast(date: string): boolean {
-            let firstday = this.getMonday(new Date); // get current date
-            firstday.setHours(0,0,0,0);
+	inThePast(date: string): boolean {
+		let firstday = this.getMonday(new Date); // get current date
+		firstday.setHours(0, 0, 0, 0);
 
-            return Date.parse(date) <= firstday.getTime();
-        }
+		return Date.parse(date) <= firstday.getTime();
+	}
 
-        getMonday(d: Date) {
-            d = new Date(d);
-            var day = d.getDay(),
-            diff = d.getDate() - day + (day == 0 ? -6:1); // adjust when day is sunday
-            return new Date(d.setDate(diff));
-        }
+	getMonday(d: Date) {
+		d = new Date(d);
+		var day = d.getDay(),
+			diff = d.getDate() - day + (day == 0 ? -6 : 1); // adjust when day is sunday
+		return new Date(d.setDate(diff));
+	}
 
-        ngOnInit(): void {
-            // this.dataSource.sortingDataAccessor = (item, property) => {
-            //     switch (property) {
-            //         case 'team': return item.team.name;
-            //
-            //         default: return item[property] as any;
-            //     }
-            // };
+	ngOnInit(): void {
+		// this.dataSource.sortingDataAccessor = (item, property) => {
+		//     switch (property) {
+		//         case 'team': return item.team.name;
+		//
+		//         default: return item[property] as any;
+		//     }
+		// };
 
-        }
+	}
 
-        ngAfterViewInit(): void {
-            //
-        }
+	ngAfterViewInit(): void {
+		//
+	}
 
-        searchTeamName(filterValue: string): void {
-            this.dataSource.filter = filterValue.trim().toLowerCase();
-        }
+	searchTeamName(filterValue: string): void {
+		this.dataSource.filter = filterValue.trim().toLowerCase();
+	}
 
-        searchDivision(filterValue: string): void {
-            this.dataSource.filter = filterValue.trim().toLowerCase();
-        }
+	searchDivision(filterValue: string): void {
+		this.dataSource.filter = filterValue.trim().toLowerCase();
+	}
 
-        openScheduleGame(schedule, remove): void {
+	openScheduleGame(schedule, remove): void {
 
-            let data = {};
-            if(schedule) {
-                data['schedule'] = schedule;
-            }
+		let data = {};
+		if (schedule) {
+			data['schedule'] = schedule;
+		}
 
-            if(remove) {
-                data['remove'] = remove;
-            }
+		if (remove) {
+			data['remove'] = remove;
+		}
 
-            const dialogRef = this.dialog.open(DialogScheduleGame, {
-                width: '375px',
-                data: data
-            });
+		const dialogRef = this.dialog.open(DialogScheduleGame, {
+			width: '375px',
+			data: data
+		});
 
-            dialogRef.afterClosed().subscribe((result) => {
-                console.log('The dialog was closed');
-            });
-        }
-    }
+		dialogRef.afterClosed().subscribe((result) => {
+			console.log('The dialog was closed');
+		});
+	}
+}
