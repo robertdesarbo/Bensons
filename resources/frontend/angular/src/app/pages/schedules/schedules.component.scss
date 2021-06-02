@@ -24,3 +24,9 @@ mat-icon.game-complete {
     display       : inline-block;
   }
 }
+
+.mat-column-action {
+  mat-icon {
+    cursor: pointer;
+  }
+}

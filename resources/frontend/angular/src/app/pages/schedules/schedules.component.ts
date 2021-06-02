@@ -1,20 +1,17 @@
-import { Component, OnInit, ViewChild } from '@angular/core';
+import { Component, OnInit, ViewChild, ChangeDetectorRef } from '@angular/core';
 import { MatTableDataSource, MatTable } from '@angular/material/table';
 import { MatSort } from '@angular/material/sort';
-import { FormBuilder, FormControl, FormGroup } from '@angular/forms';
+import { FormBuilder, FormGroup } from '@angular/forms';
 import { MatDialog } from '@angular/material/dialog';
 import { HttpClient } from '@angular/common/http';
 
-import { Observable } from 'rxjs';
-import { map } from 'rxjs/operators';
+import { map, tap } from 'rxjs/operators';
 
 import { AuthenticationService } from 'src/app/authentication/authentication.service';
 
 import { Schedule } from 'src/app/models/schedule.model';
-import { Umpire } from 'src/app/models/umpire.model';
 import { Field } from 'src/app/models/field.model';
 
-// import { schedules } from 'src/app/data/schedules.data';
 import { umpires } from 'src/app/data/umpires.data';
 
 import { DialogScheduleGame } from './modals/dialog-schedule-game.component';
@@ -30,7 +27,7 @@ export class SchedulesComponent implements OnInit {
 	@ViewChild(MatSort, { static: true }) sort: MatSort = Object.create(null);
 	searchText: any;
 	displayedColumns: string[] = ['home', 'away', 'date', 'field', 'umpires', 'outcome'];
-	dataSource: MatTableDataSource<Schedule>;
+	dataSource = new MatTableDataSource<Schedule>();
 	noData;
 
 	readonly formControl: FormGroup;
@@ -41,14 +38,45 @@ export class SchedulesComponent implements OnInit {
 	constructor(
 		private formBuilder: FormBuilder, public dialog: MatDialog,
 		public authenticationService: AuthenticationService,
+		private changeDetectorRefs: ChangeDetectorRef,
 		public http: HttpClient) {
 
 		if (this.authenticationService.isAuthenticated) {
 			this.displayedColumns = ['action', 'home', 'away', 'date', 'field', 'umpires', 'outcome'];
 		}
 
-		this.http.get('/api/schedule').subscribe((schedule: Schedule[]) => {
-			this.dataSource = new MatTableDataSource<Schedule>(schedule);
+		this.ininializeTable()
+
+		this.formControl = this.formBuilder.group({
+			team: '',
+			division: '',
+			umpire: '',
+			previousWeeks: false
+		});
+
+		this.formControl.valueChanges.subscribe(value => {
+			if (value.team) {
+				value = { ...value, team: value.team.trim().toLowerCase() };
+			}
+
+			if (value.division) {
+				value = { ...value, division: value.division.trim().toLowerCase() };
+			}
+
+			// need to stringify because of type issue with filterPredicate
+			this.dataSource.filter = JSON.stringify(value);
+		});
+
+	}
+
+	loadSchedule() {
+		return this.http.get('/api/schedule').pipe(tap((schedule: Schedule[]) => {
+			this.dataSource.data = schedule;
+		}));
+	}
+
+	ininializeTable() {
+		this.loadSchedule().subscribe(() => {
 			this.noData = this.dataSource.connect().pipe(map(data => data.length === 0));
 		}, (errorResponse) => { console.log(errorResponse); }, () => {
 			this.dataSource.filterPredicate = ((data: Schedule, filter: string): boolean => {
@@ -92,7 +120,6 @@ export class SchedulesComponent implements OnInit {
 					this.defaultWeeklyView = true;
 				}
 
-
 				return teamSearch && divisionSearch && umpireSearch && dateSearch;
 			});
 
@@ -101,27 +128,6 @@ export class SchedulesComponent implements OnInit {
 			// trigger default filter
 			this.dataSource.filter = JSON.stringify({});
 		});
-
-		this.formControl = this.formBuilder.group({
-			team: '',
-			division: '',
-			umpire: '',
-			previousWeeks: false
-		});
-
-		this.formControl.valueChanges.subscribe(value => {
-			if (value.team) {
-				value = { ...value, team: value.team.trim().toLowerCase() };
-			}
-
-			if (value.division) {
-				value = { ...value, division: value.division.trim().toLowerCase() };
-			}
-
-			// need to stringify because of type issue with filterPredicate
-			this.dataSource.filter = JSON.stringify(value);
-		});
-
 	}
 
 	getAddress(field: Field) {
@@ -169,24 +175,21 @@ export class SchedulesComponent implements OnInit {
 		this.dataSource.filter = filterValue.trim().toLowerCase();
 	}
 
-	openScheduleGame(schedule, remove): void {
-
+	openScheduleGame(type, scheduleId): void {
 		let data = {};
-		if (schedule) {
-			data['schedule'] = schedule;
-		}
 
-		if (remove) {
-			data['remove'] = remove;
-		}
+		data['type'] = type;
+		data['scheduleId'] = scheduleId;
 
 		const dialogRef = this.dialog.open(DialogScheduleGame, {
 			width: '375px',
 			data: data
 		});
 
-		dialogRef.afterClosed().subscribe((result) => {
-			console.log('The dialog was closed');
+		dialogRef.afterClosed().subscribe((refreshData) => {
+			if (refreshData) {
+				this.loadSchedule().subscribe();
+			}
 		});
 	}
 }

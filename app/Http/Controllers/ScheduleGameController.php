@@ -15,10 +15,9 @@ use Illuminate\Support\Facades\Auth;
 
 class ScheduleGameController extends Controller
 {
-
     public function schedule(Request $request)
     {
-        return Schedule::with('home_team', 'away_team', 'field', 'umpires', 'home_team.division')->get();
+        return Schedule::with('home_team', 'away_team', 'field', 'umpires', 'home_team.division', 'away_team.division')->get();
     }
 
     public function getDivisions(Request $request)
@@ -45,7 +44,7 @@ class ScheduleGameController extends Controller
             'schedule' => 'required|exists:schedules,id'
         ]);
 
-        $schedule = Schedule::where('id', $request->schedule)->first();
+        $schedule = Schedule::with('home_team.division', 'away_team')->where('id', $request->schedule)->first();
 
         return $schedule;
     }
@@ -70,7 +69,7 @@ class ScheduleGameController extends Controller
             'field_id' => $request->field,
         ]);
 
-        if(!empty($request->umpire)) {
+        if (!empty($request->umpire)) {
             $schedule->umpires()->attach($request->umpire);
         }
     }
@@ -95,7 +94,7 @@ class ScheduleGameController extends Controller
             'field_id' => $request->field,
         ]);
 
-        if(!empty($request->umpire)) {
+        if (!empty($request->umpire)) {
             $schedule->umpires()->sync([$request->umpire]);
         }
     }
@@ -108,5 +107,4 @@ class ScheduleGameController extends Controller
 
         Schedule::where('id', $request->schedule)->delete();
     }
-
 }

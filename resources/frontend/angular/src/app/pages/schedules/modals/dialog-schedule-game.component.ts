@@ -1,145 +1,158 @@
-import {Component, Inject} from '@angular/core';
+import { Component, Inject } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { MatDialogRef } from '@angular/material/dialog';
 import { HttpClient } from '@angular/common/http';
-import {MAT_DIALOG_DATA} from '@angular/material/dialog';
+import { MAT_DIALOG_DATA } from '@angular/material/dialog';
+import { HttpParams } from "@angular/common/http";
+import { Observable, EMPTY } from 'rxjs';
+
+import { Schedule } from 'src/app/models/schedule.model';
 
 import {
-    MatSnackBar,
-    MatSnackBarHorizontalPosition,
-    MatSnackBarVerticalPosition,
+	MatSnackBar,
+	MatSnackBarHorizontalPosition,
+	MatSnackBarVerticalPosition,
 } from '@angular/material/snack-bar';
 
 @Component({
-    selector: 'dialog-schedule-game-dialog',
-    templateUrl: 'dialog-schedule-game.html',
+	selector: 'dialog-schedule-game-dialog',
+	templateUrl: 'dialog-schedule-game.html',
 })
 export class DialogScheduleGame {
 
-    readonly formControl: FormGroup;
+	readonly formControl: FormGroup;
 
-    public listOfDivisions;
-    public listOfTeams;
-    public listOfFields;
-    public listOfUmpires;
+	public listOfDivisions;
+	public listOfTeams;
+	public listOfFields;
+	public listOfUmpires;
 
-    public errors;
+	public errors;
 
-    constructor(private formBuilder: FormBuilder,
-        private snackBar: MatSnackBar,
-        public dialogRef: MatDialogRef<DialogScheduleGame>,
-        private http: HttpClient,
-        @Inject(MAT_DIALOG_DATA) public data: any) {
-            this.formControl = this.formBuilder.group({
-                division: ['', Validators.required],
-                homeTeam: ['', Validators.required],
-                awayTeam: ['', Validators.required],
-                date: ['', Validators.required],
-                field: ['', Validators.required],
-                umpire: ['']
-            });
+	public scheduledGame$: Observable<Schedule>;
 
-            if(data.schedule) {
-                this.http.get<any>('/api/schedule-get-scheduled-game').subscribe((scheduled_game) => {
-                    this.formControl.get('division').setValue(scheduled_game.division);
-                    this.formControl.get('homeTeam').setValue(scheduled_game.home_id);
-                    this.formControl.get('awayTeam').setValue(scheduled_game.away_id);
-                    this.formControl.get('date').setValue(scheduled_game.game_date);
-                    this.formControl.get('field').setValue(scheduled_game.field_id);
-                    // this.formControl.get('umpire').setValue(scheduled_game.umpire);
-                });
+	constructor(private formBuilder: FormBuilder,
+		private snackBar: MatSnackBar,
+		public dialogRef: MatDialogRef<DialogScheduleGame>,
+		private http: HttpClient,
+		@Inject(MAT_DIALOG_DATA) public injectedData: any) {
+		this.formControl = this.formBuilder.group({
+			division: ['', Validators.required],
+			homeTeam: ['', Validators.required],
+			awayTeam: ['', Validators.required],
+			date: ['', Validators.required],
+			field: ['', Validators.required],
+			umpire: ['']
+		});
 
-            }
+		if (this.injectedData.type === 'remove' || this.injectedData.type === 'edit') {
+			const options = { params: new HttpParams().set('schedule', this.injectedData.scheduleId) };
 
-            // pull in data
-            this.http.get<any>('/api/schedule-get-divisions').subscribe((divisions) => {
-                this.listOfDivisions = divisions;
-            });
+			this.scheduledGame$ = this.http.get<Schedule>('/api/schedule-get-scheduled-game', options);
 
-            this.formControl.get("division").valueChanges.subscribe(division => {
-                const config = {
-                    params: {
-                        division: division
-                    }
-                }
+			this.scheduledGame$.subscribe((scheduledGame: Schedule) => {
+				this.formControl.get('division').setValue(scheduledGame.home_team.division.id);
+				this.formControl.get('homeTeam').setValue(scheduledGame.home_id);
+				this.formControl.get('awayTeam').setValue(scheduledGame.away_id);
+				this.formControl.get('date').setValue(scheduledGame.game_date);
+				this.formControl.get('field').setValue(scheduledGame.field_id);
+				// this.formControl.get('umpire').setValue(scheduledGame.umpire);
+			});
 
-                this.http.get<any>('/api/schedule-game-set-up', config).subscribe((data) => {
-                    this.listOfTeams = data.teams;
-                    this.listOfFields = data.fields;
-                    this.listOfUmpires = data.umpires;
-                });
-            })
+		} else {
+			this.scheduledGame$ = EMPTY;
+			this.scheduledGame$.subscribe();
+		}
 
-        }
+		// pull in data
+		this.http.get<any>('/api/schedule-get-divisions').subscribe((divisions) => {
+			this.listOfDivisions = divisions;
+		});
 
-        removeGame(): void {
-            const formData = new FormData();
-            formData.append('schedule', this.data.schedule);
+		this.formControl.get("division").valueChanges.subscribe(division => {
+			const config = {
+				params: {
+					division: division
+				}
+			}
 
-            this.http.post<any>('/api/remove-game', formData).subscribe(() => {
-                this.snackBar.open('Game has been removed', 'Dismiss', {
-                    duration: 3000,
-                    horizontalPosition: "right",
-                    verticalPosition: "top",
-                });
+			this.http.get<any>('/api/schedule-game-set-up', config).subscribe((gameInfo) => {
+				this.listOfTeams = gameInfo.teams;
+				this.listOfFields = gameInfo.fields;
+				this.listOfUmpires = gameInfo.umpires;
+			});
+		});
 
-                this.dialogRef.close();
-            },
-            errorMessage => {
-                this.snackBar.open('Something went wrong, game was not removed', 'Dismiss', {
-                    duration: 3000,
-                    horizontalPosition: "right",
-                    verticalPosition: "top",
-                });
-            } );
-        }
+	}
 
-        addGame(): void {
-            if(this.formControl.valid){
-                const formData = new FormData();
-                formData.append('homeTeam', this.formControl.get('homeTeam').value);
-                formData.append('awayTeam', this.formControl.get('awayTeam').value);
-                formData.append('date', new Date(this.formControl.get('date').value).toISOString());
-                formData.append('field', this.formControl.get('field').value);
-                formData.append('umpire', this.formControl.get('umpire').value);
+	removeGame(): void {
+		const formData = new FormData();
+		formData.append('schedule', this.injectedData.scheduleId);
 
-                if(this.data.schedule) {
-                    formData.append('schedule', this.data.schedule);
+		this.http.post<any>('/api/remove-game', formData).subscribe(() => {
+			this.snackBar.open('Game has been removed', 'Dismiss', {
+				duration: 3000,
+				horizontalPosition: "right",
+				verticalPosition: "top",
+			});
 
-                    // editting a games
-                    this.http.post<any>('/api/edit-game', formData).subscribe(() => {
-                        this.snackBar.open('Game has been added', 'Dismiss', {
-                            duration: 3000,
-                            horizontalPosition: "right",
-                            verticalPosition: "top",
-                        });
+			this.dialogRef.close(true);
+		},
+			errorMessage => {
+				this.snackBar.open('Something went wrong, game was not removed', 'Dismiss', {
+					duration: 3000,
+					horizontalPosition: "right",
+					verticalPosition: "top",
+				});
+			});
+	}
 
-                        this.dialogRef.close();
-                    },
-                    errorMessage => {
-                        this.errors = Object.values(errorMessage.error.errors);
-                    } );
-                } else {
-                    this.http.post<any>('/api/schedule-game', formData).subscribe(() => {
-                        this.snackBar.open('Game has been added', 'Dismiss', {
-                            duration: 3000,
-                            horizontalPosition: "right",
-                            verticalPosition: "top",
-                        });
+	addGame(): void {
+		if (this.formControl.valid) {
+			const formData = new FormData();
+			formData.append('homeTeam', this.formControl.get('homeTeam').value);
+			formData.append('awayTeam', this.formControl.get('awayTeam').value);
+			formData.append('date', new Date(this.formControl.get('date').value).toISOString());
+			formData.append('field', this.formControl.get('field').value);
+			formData.append('umpire', this.formControl.get('umpire').value);
 
-                        this.dialogRef.close();
-                    },
-                    errorMessage => {
-                        this.errors = Object.values(errorMessage.error.errors);
-                    } );
-                }
+			if (this.injectedData.schedule) {
+				formData.append('schedule', this.injectedData.scheduleId);
 
-            } else {
-                this.errors = [ 'required fields are missing' ];
-            }
-        }
+				// editting a games
+				this.http.post<any>('/api/edit-game', formData).subscribe(() => {
+					this.snackBar.open('Game has been added', 'Dismiss', {
+						duration: 3000,
+						horizontalPosition: "right",
+						verticalPosition: "top",
+					});
 
-        cancel(): void {
-            this.dialogRef.close();
-        }
-    }
+					this.dialogRef.close(true);
+				},
+					errorMessage => {
+						this.errors = Object.values(errorMessage.error.errors);
+					});
+			} else {
+				this.http.post<any>('/api/schedule-game', formData).subscribe(() => {
+					this.snackBar.open('Game has been added', 'Dismiss', {
+						duration: 3000,
+						horizontalPosition: "right",
+						verticalPosition: "top",
+					});
+
+					this.dialogRef.close(true);
+				},
+					errorMessage => {
+						this.errors = Object.values(errorMessage.error.errors);
+					});
+			}
+
+		} else {
+			this.errors = ['required fields are missing'];
+		}
+	}
+
+	cancel(): void {
+		this.dialogRef.close(false);
+	}
+}
