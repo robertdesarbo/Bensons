@@ -13,78 +13,80 @@ import { BulletinBoardComponent } from './pages/bulletin-board/bulletin-board.co
 import { MvpVotingComponent } from './pages/mvp-voting/mvp-voting.component';
 
 import { LoginActiveGuard } from './shared/security/login-active.guard';
+import { AuthenticationResolver } from 'src/app/shared/authenticate-resolver.service';
 
 export const AppRoutes: Routes = [
-    {
-        path: '',
-        component: FullComponent,
-        children: [
-            {
-                path: '',
-                redirectTo: '/home',
-                pathMatch: 'full'
-            },
-            {
-                path: 'home',
-                component: HomeComponent,
-                data: {
-                    title: 'Home',
-                }
-            },
-            {
-                path: 'schedule',
-                component: SchedulesComponent,
-                data: {
-                    title: 'Schedule',
-                }
-            },
-            {
-                path: 'standings',
-                component: StandingsComponent,
-                data: {
-                    title: 'Standings',
-                }
-            },
-            {
-                path: 'field_locations',
-                component: FieldsComponent,
-                data: {
-                    title: 'Field Locations',
-                }
-            },
-            {
-                path: 'rules',
-                component: RulesComponent,
-                data: {
-                    title: 'Rules',
-                }
-            },
-            {
-                path: 'schedule_preference',
-                component: SchedulePreferenceComponent,
-                data: {
-                    title: 'Schedule Preference',
-                }
-            },
-            {
-                path: 'bulletin_board',
-                component: BulletinBoardComponent,
-                data: {
-                    title: 'Bulletin Board',
-                }
-            },
-            {
-                path: 'mvp_voting',
-                component: MvpVotingComponent,
-                data: {
-                    title: 'MVP voting',
-                }
-            },
-        ]
-    },
-    {
-        path: 'admin',
-        component: AdminComponent,
-        canActivate: [LoginActiveGuard],
-    }
+	{
+		path: '',
+		component: FullComponent,
+		resolve: { authenticate: AuthenticationResolver },
+		children: [
+			{
+				path: '',
+				redirectTo: '/home',
+				pathMatch: 'full'
+			},
+			{
+				path: 'home',
+				component: HomeComponent,
+				data: {
+					title: 'Home',
+				}
+			},
+			{
+				path: 'schedule',
+				component: SchedulesComponent,
+				data: {
+					title: 'Schedule',
+				}
+			},
+			{
+				path: 'standings',
+				component: StandingsComponent,
+				data: {
+					title: 'Standings',
+				}
+			},
+			{
+				path: 'field_locations',
+				component: FieldsComponent,
+				data: {
+					title: 'Field Locations',
+				}
+			},
+			{
+				path: 'rules',
+				component: RulesComponent,
+				data: {
+					title: 'Rules',
+				}
+			},
+			{
+				path: 'schedule_preference',
+				component: SchedulePreferenceComponent,
+				data: {
+					title: 'Schedule Preference',
+				}
+			},
+			{
+				path: 'bulletin_board',
+				component: BulletinBoardComponent,
+				data: {
+					title: 'Bulletin Board',
+				}
+			},
+			{
+				path: 'mvp_voting',
+				component: MvpVotingComponent,
+				data: {
+					title: 'MVP voting',
+				}
+			},
+		]
+	},
+	{
+		path: 'admin',
+		component: AdminComponent,
+		canActivate: [LoginActiveGuard],
+	}
 ];

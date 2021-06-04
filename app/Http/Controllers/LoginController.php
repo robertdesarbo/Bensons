@@ -9,19 +9,36 @@ use Illuminate\Support\Facades\Auth;
 
 class LoginController extends Controller
 {
+    public function session(Request $request)
+    {
+        $session = false;
+        $user = null;
+
+        if (Auth::check()) {
+            $session = true;
+            $user = Auth::user();
+        }
+
+        return response()->json([
+            'success' => $session,
+            'user' => $user
+        ]);
+    }
+
     public function login(Request $request)
     {
         $credentials = $request->only('email', 'password');
 
+        $session = false;
+        $user = null;
         if (Auth::attempt($credentials)) {
-            return response()->json([
-                'success' => true,
-                'user' => Auth::user()
-            ]);
+            $session = true;
+            $user = Auth::user();
         }
 
         return response()->json([
-            'success' => false
+            'success' => $session,
+            'user' => $user
         ]);
     }
 

@@ -116,7 +116,7 @@ export class DialogScheduleGame {
 			formData.append('field', this.formControl.get('field').value);
 			formData.append('umpire', this.formControl.get('umpire').value);
 
-			if (this.injectedData.schedule) {
+			if (this.injectedData.scheduleId) {
 				formData.append('schedule', this.injectedData.scheduleId);
 
 				// editting a games

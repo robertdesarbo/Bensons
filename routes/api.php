@@ -18,22 +18,21 @@ use App\Http\Controllers\ScheduleGameController;
 */
 
 Route::middleware(['auth:sanctum'])->group(function () {
-    Route::get( 'user', function (Request $request) {
+    Route::get('user', function (Request $request) {
         return $request->user();
     });
 
-    Route::get( 'schedule-get-divisions', [ScheduleGameController::class, 'getDivisions']);
-    Route::get( 'schedule-get-scheduled-game', [ScheduleGameController::class, 'getScheduledGame']);
-    Route::get( 'schedule-game-set-up', [ScheduleGameController::class, 'scheduleForm']);
+    Route::get('schedule-get-divisions', [ScheduleGameController::class, 'getDivisions']);
+    Route::get('schedule-get-scheduled-game', [ScheduleGameController::class, 'getScheduledGame']);
+    Route::get('schedule-game-set-up', [ScheduleGameController::class, 'scheduleForm']);
 
-    Route::post( 'schedule-game', [ScheduleGameController::class, 'scheduleGame']);
-    Route::post( 'edit-game', [ScheduleGameController::class, 'editGame']);
-    Route::post( 'remove-game', [ScheduleGameController::class, 'removeGame']);
-
-
+    Route::post('schedule-game', [ScheduleGameController::class, 'scheduleGame']);
+    Route::post('edit-game', [ScheduleGameController::class, 'editGame']);
+    Route::post('remove-game', [ScheduleGameController::class, 'removeGame']);
 });
 
-Route::get( 'schedule', [ScheduleGameController::class, 'schedule']);
+Route::get('schedule', [ScheduleGameController::class, 'schedule']);
 
-Route::post( 'login', [LoginController::class, 'login']);
-Route::get( 'logout', [LoginController::class, 'logout']);
+Route::get('session', [LoginController::class, 'session']);
+Route::post('login', [LoginController::class, 'login']);
+Route::get('logout', [LoginController::class, 'logout']);

@@ -92,118 +92,120 @@ import { MvpVotingComponent } from './pages/mvp-voting/mvp-voting.component';
 import { SchedulesComponent } from './pages/schedules/schedules.component';
 
 import { AuthenticationService } from 'src/app/authentication/authentication.service';
+import { AuthenticationResolver } from 'src/app/shared/authenticate-resolver.service';
 
 
 export function HttpLoaderFactory(http: HttpClient) {
-    return new TranslateHttpLoader(http, './assets/i18n/', '.json');
+	return new TranslateHttpLoader(http, './assets/i18n/', '.json');
 }
 
 const DEFAULT_PERFECT_SCROLLBAR_CONFIG: PerfectScrollbarConfigInterface = {
-    suppressScrollX: true,
-    wheelSpeed: 2,
-    wheelPropagation: true
+	suppressScrollX: true,
+	wheelSpeed: 2,
+	wheelPropagation: true
 };
 
 @NgModule({
-    declarations: [
-        AppComponent,
-        FullComponent,
-        VerticalAppHeaderComponent,
-        SpinnerComponent,
-        AppBlankComponent,
-        VerticalAppSidebarComponent,
-        AppBreadcrumbComponent,
-        HorizontalAppHeaderComponent,
-        AdminComponent,
-        HomeComponent,
-        DialogRegisterTeam,
-        DialogLookingForATeam,
-        DialogScheduleGame,
-        StandingsComponent,
-        FieldsComponent,
-        RulesComponent,
-        SchedulePreferenceComponent,
-        BulletinBoardComponent,
-        MvpVotingComponent,
-        SchedulesComponent
-    ],
-    imports: [
-        MatAutocompleteModule,
-        MatButtonModule,
-        MatBottomSheetModule,
-        MatButtonToggleModule,
-        MatCardModule,
-        MatCheckboxModule,
-        MatChipsModule,
-        MatTableModule,
-        MatDatepickerModule,
-        MatDialogModule,
-        MatExpansionModule,
-        MatFormFieldModule,
-        MatGridListModule,
-        MatIconModule,
-        MatInputModule,
-        MatListModule,
-        MatMenuModule,
-        MatPaginatorModule,
-        MatProgressBarModule,
-        MatProgressSpinnerModule,
-        MatRadioModule,
-        MatRippleModule,
-        MatSelectModule,
-        MatBadgeModule,
-        MatSidenavModule,
-        MatSlideToggleModule,
-        MatSliderModule,
-        MatSnackBarModule,
-        MatSortModule,
-        MatStepperModule,
-        MatTabsModule,
-        MatToolbarModule,
-        MatTooltipModule,
-        MatNativeDateModule,
-        CdkTableModule,
-        A11yModule,
-        BidiModule,
-        CdkAccordionModule,
-        ObserversModule,
-        OverlayModule,
-        PlatformModule,
-        PortalModule,
-        BrowserModule,
-        BrowserAnimationsModule,
-        DemoMaterialModule,
-        FormsModule,
-        ReactiveFormsModule,
-        FlexLayoutModule,
-        PerfectScrollbarModule,
-        HttpClientModule,
-        SharedModule,
-        RouterModule.forRoot(AppRoutes),
+	declarations: [
+		AppComponent,
+		FullComponent,
+		VerticalAppHeaderComponent,
+		SpinnerComponent,
+		AppBlankComponent,
+		VerticalAppSidebarComponent,
+		AppBreadcrumbComponent,
+		HorizontalAppHeaderComponent,
+		AdminComponent,
+		HomeComponent,
+		DialogRegisterTeam,
+		DialogLookingForATeam,
+		DialogScheduleGame,
+		StandingsComponent,
+		FieldsComponent,
+		RulesComponent,
+		SchedulePreferenceComponent,
+		BulletinBoardComponent,
+		MvpVotingComponent,
+		SchedulesComponent
+	],
+	imports: [
+		MatAutocompleteModule,
+		MatButtonModule,
+		MatBottomSheetModule,
+		MatButtonToggleModule,
+		MatCardModule,
+		MatCheckboxModule,
+		MatChipsModule,
+		MatTableModule,
+		MatDatepickerModule,
+		MatDialogModule,
+		MatExpansionModule,
+		MatFormFieldModule,
+		MatGridListModule,
+		MatIconModule,
+		MatInputModule,
+		MatListModule,
+		MatMenuModule,
+		MatPaginatorModule,
+		MatProgressBarModule,
+		MatProgressSpinnerModule,
+		MatRadioModule,
+		MatRippleModule,
+		MatSelectModule,
+		MatBadgeModule,
+		MatSidenavModule,
+		MatSlideToggleModule,
+		MatSliderModule,
+		MatSnackBarModule,
+		MatSortModule,
+		MatStepperModule,
+		MatTabsModule,
+		MatToolbarModule,
+		MatTooltipModule,
+		MatNativeDateModule,
+		CdkTableModule,
+		A11yModule,
+		BidiModule,
+		CdkAccordionModule,
+		ObserversModule,
+		OverlayModule,
+		PlatformModule,
+		PortalModule,
+		BrowserModule,
+		BrowserAnimationsModule,
+		DemoMaterialModule,
+		FormsModule,
+		ReactiveFormsModule,
+		FlexLayoutModule,
+		PerfectScrollbarModule,
+		HttpClientModule,
+		SharedModule,
+		RouterModule.forRoot(AppRoutes),
 
-        HttpClientModule,
-        TranslateModule.forRoot({
-            loader: {
-                provide: TranslateLoader,
-                useFactory: HttpLoaderFactory,
-                deps: [HttpClient]
-            }
-        })
-    ],
-    providers: [
-        AuthGuard,
-        LoginActiveGuard,
-        AuthenticationService,
-        {
-            provide: PERFECT_SCROLLBAR_CONFIG,
-            useValue: DEFAULT_PERFECT_SCROLLBAR_CONFIG
-        },
-        {
-            provide: HTTP_INTERCEPTORS,
-            useClass: HttpRequestInterceptor,
-            multi: true
-        }
-    ],
-    bootstrap: [AppComponent]
+		HttpClientModule,
+		TranslateModule.forRoot({
+			loader: {
+				provide: TranslateLoader,
+				useFactory: HttpLoaderFactory,
+				deps: [HttpClient]
+			}
+		})
+	],
+	providers: [
+		AuthGuard,
+		LoginActiveGuard,
+		AuthenticationService,
+		AuthenticationResolver,
+		{
+			provide: PERFECT_SCROLLBAR_CONFIG,
+			useValue: DEFAULT_PERFECT_SCROLLBAR_CONFIG
+		},
+		{
+			provide: HTTP_INTERCEPTORS,
+			useClass: HttpRequestInterceptor,
+			multi: true
+		}
+	],
+	bootstrap: [AppComponent]
 })
 export class AppModule { }
