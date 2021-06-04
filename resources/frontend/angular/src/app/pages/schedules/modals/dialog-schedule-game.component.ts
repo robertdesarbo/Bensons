@@ -8,15 +8,40 @@ import { Observable, EMPTY } from 'rxjs';
 
 import { Schedule } from 'src/app/models/schedule.model';
 
+import { MomentDateAdapter, MAT_MOMENT_DATE_ADAPTER_OPTIONS } from '@angular/material-moment-adapter';
+import { DateAdapter, MAT_DATE_FORMATS, MAT_DATE_LOCALE } from '@angular/material/core';
+
 import {
-	MatSnackBar,
-	MatSnackBarHorizontalPosition,
-	MatSnackBarVerticalPosition,
+	MatSnackBar
 } from '@angular/material/snack-bar';
+
+export const MY_FORMATS = {
+	parse: {
+		dateInput: 'LL',
+	},
+	display: {
+		dateInput: 'LL',
+		monthYearLabel: 'MMM YYYY',
+		dateA11yLabel: 'LL',
+		monthYearA11yLabel: 'MMMM YYYY',
+	},
+};
 
 @Component({
 	selector: 'dialog-schedule-game-dialog',
 	templateUrl: 'dialog-schedule-game.html',
+	providers: [
+		// `MomentDateAdapter` can be automatically provided by importing `MomentDateModule` in your
+		// application's root module. We provide it at the component level here, due to limitations of
+		// our example generation script.
+		{
+			provide: DateAdapter,
+			useClass: MomentDateAdapter,
+			deps: [MAT_DATE_LOCALE, MAT_MOMENT_DATE_ADAPTER_OPTIONS]
+		},
+
+		{ provide: MAT_DATE_FORMATS, useValue: MY_FORMATS },
+	],
 })
 export class DialogScheduleGame {
 
@@ -56,7 +81,7 @@ export class DialogScheduleGame {
 				this.formControl.get('awayTeam').setValue(scheduledGame.away_id);
 				this.formControl.get('date').setValue(scheduledGame.game_date);
 				this.formControl.get('field').setValue(scheduledGame.field_id);
-				// this.formControl.get('umpire').setValue(scheduledGame.umpire);
+				this.formControl.get('umpire').setValue((scheduledGame.umpires === undefined || scheduledGame.umpires.length == 0 ? null : scheduledGame.umpires[0].id));
 			});
 
 		} else {
@@ -121,7 +146,7 @@ export class DialogScheduleGame {
 
 				// editting a games
 				this.http.post<any>('/api/edit-game', formData).subscribe(() => {
-					this.snackBar.open('Game has been added', 'Dismiss', {
+					this.snackBar.open('Game has been edited', 'Dismiss', {
 						duration: 3000,
 						horizontalPosition: "right",
 						verticalPosition: "top",

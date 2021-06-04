@@ -27,7 +27,7 @@ Route::middleware(['auth:sanctum'])->group(function () {
     Route::get('schedule-game-set-up', [ScheduleGameController::class, 'scheduleForm']);
 
     Route::post('schedule-game', [ScheduleGameController::class, 'scheduleGame']);
-    Route::post('edit-game', [ScheduleGameController::class, 'editGame']);
+    Route::post('edit-game', [ScheduleGameController::class, 'updateGame']);
     Route::post('remove-game', [ScheduleGameController::class, 'removeGame']);
 });
 

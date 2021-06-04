@@ -44,7 +44,7 @@ class ScheduleGameController extends Controller
             'schedule' => 'required|exists:schedules,id'
         ]);
 
-        $schedule = Schedule::with('home_team.division', 'away_team')->where('id', $request->schedule)->first();
+        $schedule = Schedule::with('home_team.division', 'away_team', 'umpires')->where('id', $request->schedule)->first();
 
         return $schedule;
     }
@@ -86,8 +86,9 @@ class ScheduleGameController extends Controller
         ]);
 
 
-        $schedule = Schedule::where('id', $request->schedule)
-        ->update([
+        $schedule = Schedule::where('id', $request->schedule);
+
+        $schedule->update([
             'home_id' => $request->homeTeam,
             'away_id' => $request->awayTeam,
             'game_date' => Carbon::parse($request->date),
@@ -95,7 +96,7 @@ class ScheduleGameController extends Controller
         ]);
 
         if (!empty($request->umpire)) {
-            $schedule->umpires()->sync([$request->umpire]);
+            $schedule->first()->umpires()->sync([$request->umpire]);
         }
     }
 

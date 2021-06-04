@@ -2,27 +2,34 @@
 import { Umpire } from 'src/app/models/umpire.model';
 
 const umpires: Umpire[] = [
-    {
-        name: 'Pete Benson'
-    },
-    {
-        name: 'Chris Arndt'
-    },
-    {
-        name: 'Dan Bifani'
-    },
-    {
-        name: 'Tyler Connolly'
-    },
-    {
-        name: 'Jeremy Putorti'
-    },
-    {
-        name: 'Linwood Jenkins'
-    },
-    {
-        name: 'Greg Briggs'
-    }
+	{
+		id: 1,
+		name: 'Pete Benson'
+	},
+	{
+		id: 2,
+		name: 'Chris Arndt'
+	},
+	{
+		id: 3,
+		name: 'Dan Bifani'
+	},
+	{
+		id: 4,
+		name: 'Tyler Connolly'
+	},
+	{
+		id: 5,
+		name: 'Jeremy Putorti'
+	},
+	{
+		id: 6,
+		name: 'Linwood Jenkins'
+	},
+	{
+		id: 7,
+		name: 'Greg Briggs'
+	}
 ];
 
 export { umpires };
