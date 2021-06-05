@@ -8,6 +8,7 @@ File: scss
 
 $bodyfont: 'Roboto', sans-serif;
 $headingfont: 'Poppins', sans-serif;
+@use '~@angular/material' as mat;
 @import '~@angular/material/theming';
 
 /*Material Theme Colors*/
@@ -17,7 +18,7 @@ $background: map-get($theme, background);
 $foreground: map-get($theme, foreground);
 
 // Default Theme
-@include angular-material-theme($theme);
+@include mat.all-component-themes($theme);
 
 // Dark Theme
 

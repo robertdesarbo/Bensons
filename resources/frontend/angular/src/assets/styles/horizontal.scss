@@ -1,3 +1,4 @@
+@use '~@angular/material' as mat;
 .main-container {
   &.horizontal {
     .page-breadcrumb {
@@ -95,7 +96,7 @@
               padding: 0px;
               box-shadow: 0px 5px 20px rgba(0, 0, 0, 0.05) !important;
               -webkit-box-shadow: 0px 5px 20px rgba(0, 0, 0, 0.05) !important;
-              background: mat-color($background, "card");
+              background: mat.get-color-from-palette($background, "card");
               margin-top: 5px;
               max-height: 400px;
               overflow: auto;

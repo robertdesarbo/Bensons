@@ -17,6 +17,7 @@ File: scss
 *	8. Custom Templates
 */
 
+@use '~@angular/material' as mat;
 @import "variable";
 
 @import "icons/themify-icons/themify-icons.css";
@@ -61,7 +62,7 @@ File: scss
     }
 }
 
-$custom-typography: mat-typography-config(
+$custom-typography: mat.define-typography-config(
 $font-family: "Roboto",
 );
-@include mat-core($custom-typography);
+@include mat.core($custom-typography);
