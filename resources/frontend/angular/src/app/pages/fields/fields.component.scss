@@ -1,27 +1,27 @@
 table {
-  width: 100%;
+	width: 100%;
 }
 
 .mat-column-notes {
-  mat-expansion-panel {
-    max-width: 300px;
-    margin   : 15px 0;
-  }
+	mat-expansion-panel {
+		max-width: 300px;
+		margin   : 15px 0;
+	}
 
-  p {
-    word-wrap      : break-word !important;
-    white-space    : normal !important;
-    overflow-wrap  : break-word;
-    word-wrap      : break-word;
-    word-break     : break-word;
-    -ms-hyphens    : auto;
-    -moz-hyphens   : auto;
-    -webkit-hyphens: auto;
-    hyphens        : auto;
-    margin         : 0;
-  }
+	p {
+		word-wrap      : break-word !important;
+		white-space    : normal !important;
+		overflow-wrap  : break-word;
+		word-wrap      : break-word;
+		word-break     : break-word;
+		-ms-hyphens    : auto;
+		-moz-hyphens   : auto;
+		-webkit-hyphens: auto;
+		hyphens        : auto;
+		margin         : 0;
+	}
 }
 
 .mat-column-information {
-  text-align: right;
+	text-align: right;
 }

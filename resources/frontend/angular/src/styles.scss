@@ -1,60 +1,63 @@
 /* You can add global styles to this file, and also import other style files */
 @import 'assets/styles/variable';
 
+mat-spinner {
+  margin: 0 auto;
+}
+
 .mat-expansion-panel-header {
-    padding: 0 12px !important;
+  padding: 0 12px !important;
 }
 
 .mat-expansion-panel-body {
-    padding: 0 12px 4px 12px !important;
+  padding: 0 12px 4px 12px !important;
 }
 
 .navbar-header {
-    img {
-        max-width: 100%;
-        max-height: 35px;
-        width: auto;
-        margin-left: 0%;
-        height: auto;
-        vertical-align: middle;
-    }
+  img {
+    max-width     : 100%;
+    max-height    : 35px;
+    width         : auto;
+    margin-left   : 0;
+    height        : auto;
+    vertical-align: middle;
+  }
 }
 
 mat-list.mat-list-base.compact-mat-list {
-    mat-list-item {
-        height: 36px;
+  mat-list-item {
+    height: 36px;
 
-        .mat-list-item-content {
-            padding: 0;
-        }
+    .mat-list-item-content {
+      padding: 0;
     }
+  }
 }
 
-div.navbar-header
-{
-    button {
-        display: inline-block;
-        vertical-align: middle;
-    }
+div.navbar-header {
+  button {
+    display       : inline-block;
+    vertical-align: middle;
+  }
 
-    a {
-        &.navbar-brand {
-            display: inline-block;
-            vertical-align: middle;
-            color: white;
+  a {
+    &.navbar-brand {
+      display       : inline-block;
+      vertical-align: middle;
+      color         : white;
 
-            mat-icon {
-                color: $header-border;
-                font-size: 1.65rem;
-                margin-top: 3px;
-            }
-        }
+      mat-icon {
+        color     : $header-border;
+        font-size : 1.65rem;
+        margin-top: 3px;
+      }
     }
+  }
 }
 
 .no-records {
-    height: 48px;
-    display: flex;
-    align-items: center;
-    justify-content: center;
+  height         : 48px;
+  display        : flex;
+  align-items    : center;
+  justify-content: center;
 }

@@ -1,32 +1,32 @@
 @import '../../../assets/styles/variable';
 
 .game-winner {
-  font-weight: 500;
+	font-weight: 500;
 }
 
 mat-icon.game-delayed {
-  color: $warning;
+	color: $warning;
 }
 
 mat-icon.game-complete {
-  color: $success;
+	color: $success;
 }
 
 .past-weeks-games {
-  background: rgba(0,0,0,0.025);
-  font-style: italic;
+	background: rgba(0,0,0,0.025);
+	font-style: italic;
 }
 
 .mat-column-outcome {
-  mat-icon,
-  p {
-    vertical-align: middle;
-    display       : inline-block;
-  }
+	mat-icon,
+	p {
+		vertical-align: middle;
+		display       : inline-block;
+	}
 }
 
 .mat-column-action {
-  mat-icon {
-    cursor: pointer;
-  }
+	mat-icon {
+		cursor: pointer;
+	}
 }

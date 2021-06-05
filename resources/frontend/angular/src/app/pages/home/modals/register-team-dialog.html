@@ -1,32 +1,32 @@
 <h1 mat-dialog-title>Registration</h1>
 <div mat-dialog-content>
-  <form [formGroup]="formControl">
-    <p>Please fill out the following information to register a team.</p>
-    <mat-form-field>
-      <mat-label>Team Name</mat-label>
-      <input matInput formControlName="teamName">
-    </mat-form-field>
-    <mat-form-field>
-      <mat-label>Captain Name</mat-label>
-      <input matInput formControlName="captainName">
-    </mat-form-field>
-    <mat-form-field>
-      <mat-label>Phone Number</mat-label>
-      <input matInput formControlName="phone">
-    </mat-form-field>
-    <mat-form-field>
-      <mat-label>Email</mat-label>
-      <input matInput formControlName="email">
-    </mat-form-field>
-    <mat-form-field>
-      <mat-label>Divisions</mat-label>
-      <mat-select formControlName="division" appearance="fill">
-        <mat-option *ngFor="let division of listOfDivisions;" [value]="division.name">{{division.league.name }} {{ division.name | uppercase}}</mat-option>
-      </mat-select>
-    </mat-form-field>
-  </form>
+	<form [formGroup]="formControl">
+		<p>Please fill out the following information to register a team.</p>
+		<mat-form-field>
+			<mat-label>Team Name</mat-label>
+			<input matInput formControlName="teamName">
+		</mat-form-field>
+		<mat-form-field>
+			<mat-label>Captain Name</mat-label>
+			<input matInput formControlName="captainName">
+		</mat-form-field>
+		<mat-form-field>
+			<mat-label>Phone Number</mat-label>
+			<input matInput formControlName="phone">
+		</mat-form-field>
+		<mat-form-field>
+			<mat-label>Email</mat-label>
+			<input matInput formControlName="email">
+		</mat-form-field>
+		<mat-form-field>
+			<mat-label>Divisions</mat-label>
+			<mat-select formControlName="division" appearance="fill">
+				<mat-option *ngFor="let division of listOfDivisions;" [value]="division.name">{{division.league.name }} {{ division.name | uppercase}}</mat-option>
+			</mat-select>
+		</mat-form-field>
+	</form>
 </div>
 <mat-dialog-actions align="end">
-  <button mat-raised-button (click)="onNoClick()">Cancel</button>
-  <button mat-raised-button color="primary" cdkFocusInitial>Register</button>
+	<button mat-raised-button (click)="onNoClick()">Cancel</button>
+	<button mat-raised-button color="primary" cdkFocusInitial>Register</button>
 </mat-dialog-actions>

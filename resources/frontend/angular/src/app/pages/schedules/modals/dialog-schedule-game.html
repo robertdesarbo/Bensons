@@ -1,91 +1,90 @@
 <h1 mat-dialog-title> {{ injectedData.type === 'remove' ? 'Remove' : 'Schedule' }} Game</h1>
 <form *ngIf="injectedData.type !== 'remove'" [formGroup]="formControl" (ngSubmit)="addGame()">
-  <div mat-dialog-content>
-    <ng-container>
-      <p *ngIf="errors" style="margin-top: 0;">
-        <ng-container *ngFor="let errors of errors;">
-          <span class="text-danger">
-            {{ errors }}
-          </span>
-          <br />
-        </ng-container>
-      </p>
+	<div mat-dialog-content>
+		<ng-container *ngIf="!isLoading; else loading">
+			<p *ngIf="errors" style="margin-top: 0;">
+				<ng-container *ngFor="let errors of errors;">
+					<span class="text-danger">
+						{{ errors }}
+					</span>
+					<br />
+				</ng-container>
+			</p>
 
-      <div fxLayout="row wrap" class="align-items-center">
-        <div fxFlex.gt-md="100" fxFlex="100" class="p-10">
-          <mat-form-field>
-            <mat-label>Division</mat-label>
-            <mat-select formControlName="division" appearance="fill">
-              <mat-option *ngFor="let division of listOfDivisions;" [value]="division.id">{{division.name }}</mat-option>
-            </mat-select>
-          </mat-form-field>
-        </div>
-      </div>
+			<div fxLayout="row wrap" class="align-items-center">
+				<div fxFlex.gt-md="100" fxFlex="100" class="p-10">
+					<mat-form-field>
+						<mat-label>Division</mat-label>
+						<mat-select formControlName="division" appearance="fill">
+							<mat-option *ngFor="let division of listOfDivisions;" [value]="division.id">{{division.name }}</mat-option>
+						</mat-select>
+					</mat-form-field>
+				</div>
+			</div>
 
-      <ng-conatiner *ngIf="listOfTeams">
-        <div fxLayout="row wrap" class="align-items-center">
-          <div fxFlex.gt-md="50" fxFlex="50" class="p-10">
-            <mat-form-field>
-              <mat-label>Home Name</mat-label>
-              <mat-select formControlName="homeTeam" appearance="fill">
-                <mat-option *ngFor="let team of listOfTeams;" [value]="team.id">{{team.name }}</mat-option>
-              </mat-select>
-            </mat-form-field>
-          </div>
-          <div fxFlex.gt-md="50" fxFlex="50" class="p-10">
-            <mat-form-field>
-              <mat-label>Away Name</mat-label>
-              <mat-select formControlName="awayTeam" appearance="fill">
-                <mat-option *ngFor="let team of listOfTeams;" [value]="team.id">{{team.name }}</mat-option>
-              </mat-select>
-            </mat-form-field>
-          </div>
+			<ng-conatiner *ngIf="listOfTeams">
+				<div fxLayout="row wrap" class="align-items-center">
+					<div fxFlex.gt-md="50" fxFlex="50" class="p-10">
+						<mat-form-field>
+							<mat-label>Home Name</mat-label>
+							<mat-select formControlName="homeTeam" appearance="fill">
+								<mat-option *ngFor="let team of listOfTeams;" [value]="team.id">{{team.name }}</mat-option>
+							</mat-select>
+						</mat-form-field>
+					</div>
+					<div fxFlex.gt-md="50" fxFlex="50" class="p-10">
+						<mat-form-field>
+							<mat-label>Away Name</mat-label>
+							<mat-select formControlName="awayTeam" appearance="fill">
+								<mat-option *ngFor="let team of listOfTeams;" [value]="team.id">{{team.name }}</mat-option>
+							</mat-select>
+						</mat-form-field>
+					</div>
 
-          <div fxFlex.gt-md="50" fxFlex="50" class="p-10">
-            <mat-form-field>
-              <mat-label>Field</mat-label>
-              <mat-select formControlName="field" appearance="fill">
-                <mat-option *ngFor="let field of listOfFields;" [value]="field.id">{{field.name }}</mat-option>
-              </mat-select>
-            </mat-form-field>
-          </div>
-          <div fxFlex.gt-md="50" fxFlex="50" class="p-10">
-            <mat-form-field>
-              <mat-label>Umpire</mat-label>
-              <mat-select formControlName="umpire" appearance="fill">
-                <mat-option *ngFor="let umpire of listOfUmpires;" [value]="umpire.id">{{umpire.name }}</mat-option>
-              </mat-select>
-            </mat-form-field>
-          </div>
+					<div fxFlex.gt-md="50" fxFlex="50" class="p-10">
+						<mat-form-field>
+							<mat-label>Field</mat-label>
+							<mat-select formControlName="field" appearance="fill">
+								<mat-option *ngFor="let field of listOfFields;" [value]="field.id">{{field.name }}</mat-option>
+							</mat-select>
+						</mat-form-field>
+					</div>
+					<div fxFlex.gt-md="50" fxFlex="50" class="p-10">
+						<mat-form-field>
+							<mat-label>Umpire</mat-label>
+							<mat-select formControlName="umpire" appearance="fill">
+								<mat-option *ngFor="let umpire of listOfUmpires;" [value]="umpire.id">{{umpire.name }}</mat-option>
+							</mat-select>
+						</mat-form-field>
+					</div>
 
+					<div fxFlex.gt-md="100" fxFlex="100" class="p-10">
+						<mat-form-field appearance="fill">
+							<mat-label>Choose a date</mat-label>
+							<input matInput [matDatepicker]="picker" formControlName="date">
+							<mat-datepicker-toggle matSuffix [for]="picker"></mat-datepicker-toggle>
+							<mat-datepicker #picker></mat-datepicker>
+						</mat-form-field>
+					</div>
+				</div>
 
-          <div fxFlex.gt-md="100" fxFlex="100" class="p-10">
-            <mat-form-field appearance="fill">
-              <mat-label>Choose a date</mat-label>
-              <input matInput [matDatepicker]="picker" formControlName="date">
-              <mat-datepicker-toggle matSuffix [for]="picker"></mat-datepicker-toggle>
-              <mat-datepicker #picker></mat-datepicker>
-            </mat-form-field>
-          </div>
-        </div>
-
-      </ng-conatiner>
-    </ng-container>
-  </div>
-  <mat-dialog-actions align="end">
-    <button type="button" mat-raised-button (click)="cancel()">Cancel</button>
-    <button mat-raised-button color="primary" cdkFocusInitial>Schedule</button>
-  </mat-dialog-actions>
+			</ng-conatiner>
+		</ng-container>
+	</div>
+	<mat-dialog-actions align="end">
+		<button type="button" mat-raised-button (click)="cancel()">Cancel</button>
+		<button mat-raised-button color="primary" cdkFocusInitial>Schedule</button>
+	</mat-dialog-actions>
 </form>
 <ng-container *ngIf="injectedData.type === 'remove'">
-  <p mat-dialog-content *ngIf="scheduledGame$ | async as game; else loading">
-    Are you sure you want to remove this <b>{{ game.home_team.name }}</b> vs <b>{{ game.away_team.name }}</b> @ <b>{{ game.game_date }}</b>?
-  </p>
-  <mat-dialog-actions align="end">
-    <button type="button" mat-raised-button (click)="cancel()">Cancel</button>
-    <button mat-raised-button color="primary" cdkFocusInitial (click)="removeGame()">Remove</button>
-  </mat-dialog-actions>
+	<p mat-dialog-content *ngIf="!isLoading; else loading">
+		Are you sure you want to remove this <b>{{ (scheduledGame$ | async)?.home_team.name }}</b> vs <b>{{ (scheduledGame$ | async)?.away_team.name }}</b> @ <b>{{ (scheduledGame$ | async)?.game_date }}</b>?
+	</p>
+	<mat-dialog-actions align="end">
+		<button type="button" mat-raised-button (click)="cancel()">Cancel</button>
+		<button mat-raised-button color="primary" cdkFocusInitial (click)="removeGame()">Remove</button>
+	</mat-dialog-actions>
 </ng-container>
 <ng-template #loading>
-  <div>Loading ...</div>
+	<mat-spinner diameter="50"></mat-spinner>
 </ng-template>

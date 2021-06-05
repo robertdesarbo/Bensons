@@ -4,7 +4,7 @@ import { MatDialogRef } from '@angular/material/dialog';
 import { HttpClient } from '@angular/common/http';
 import { MAT_DIALOG_DATA } from '@angular/material/dialog';
 import { HttpParams } from "@angular/common/http";
-import { Observable, EMPTY } from 'rxjs';
+import { Observable, of } from 'rxjs';
 
 import { Schedule } from 'src/app/models/schedule.model';
 
@@ -30,6 +30,7 @@ export const MY_FORMATS = {
 @Component({
 	selector: 'dialog-schedule-game-dialog',
 	templateUrl: 'dialog-schedule-game.html',
+	styleUrls: ['./dialog-schedule-game.scss'],
 	providers: [
 		// `MomentDateAdapter` can be automatically provided by importing `MomentDateModule` in your
 		// application's root module. We provide it at the component level here, due to limitations of
@@ -55,6 +56,8 @@ export class DialogScheduleGame {
 	public errors;
 
 	public scheduledGame$: Observable<Schedule>;
+
+	public isLoading: boolean = true;
 
 	constructor(private formBuilder: FormBuilder,
 		private snackBar: MatSnackBar,
@@ -82,11 +85,14 @@ export class DialogScheduleGame {
 				this.formControl.get('date').setValue(scheduledGame.game_date);
 				this.formControl.get('field').setValue(scheduledGame.field_id);
 				this.formControl.get('umpire').setValue((scheduledGame.umpires === undefined || scheduledGame.umpires.length == 0 ? null : scheduledGame.umpires[0].id));
+				this.isLoading = false;
 			});
 
 		} else {
-			this.scheduledGame$ = EMPTY;
-			this.scheduledGame$.subscribe();
+			this.scheduledGame$ = of();
+			this.scheduledGame$.subscribe(() => {
+				this.isLoading = false;
+			});
 		}
 
 		// pull in data
