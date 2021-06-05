@@ -41,6 +41,8 @@ import { MatBadgeModule } from '@angular/material/badge';
 import { MatNativeDateModule, MatRippleModule } from '@angular/material/core';
 import { MatBottomSheetModule } from '@angular/material/bottom-sheet';
 
+import { NgxMatDatetimePickerModule, NgxMatTimepickerModule } from '@angular-material-components/datetime-picker';
+
 import { CdkTableModule } from '@angular/cdk/table';
 import { CdkAccordionModule } from '@angular/cdk/accordion';
 import { A11yModule } from '@angular/cdk/a11y';
@@ -181,6 +183,8 @@ const DEFAULT_PERFECT_SCROLLBAR_CONFIG: PerfectScrollbarConfigInterface = {
 		HttpClientModule,
 		SharedModule,
 		RouterModule.forRoot(AppRoutes),
+		NgxMatTimepickerModule,
+		NgxMatDatetimePickerModule,
 
 		HttpClientModule,
 		TranslateModule.forRoot({
