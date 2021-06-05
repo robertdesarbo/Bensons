@@ -8,10 +8,6 @@ import { Observable, of } from 'rxjs';
 
 import { Schedule } from 'src/app/models/schedule.model';
 
-import MomentUtils from '@date-io/moment';
-
-import { DateTimePicker } from '@material-ui/pickers';
-
 import { MomentDateAdapter, MAT_MOMENT_DATE_ADAPTER_OPTIONS } from '@angular/material-moment-adapter';
 import { DateAdapter, MAT_DATE_FORMATS, MAT_DATE_LOCALE } from '@angular/material/core';
 

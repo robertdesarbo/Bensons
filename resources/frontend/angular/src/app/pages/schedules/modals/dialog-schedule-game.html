@@ -60,10 +60,9 @@
 
 					<div fxFlex.gt-md="100" fxFlex="100" class="p-10">
 						<mat-form-field>
-							<input matInput [ngxMatDatetimePicker]="picker" placeholder="Choose a date" formControlName="date" [min]="minDate" [max]="maxDate" [disabled]="disabled">
+							<input matInput [ngxMatDatetimePicker]="picker" placeholder="Choose a date" formControlName="date" [disabled]="disabled">
 							<mat-datepicker-toggle matSuffix [for]="picker"></mat-datepicker-toggle>
-							<ngx-mat-datetime-picker #picker [showSpinners]="showSpinners" [showSeconds]="showSeconds" [stepHour]="stepHour" [stepMinute]="stepMinute" [stepSecond]="stepSecond" [touchUi]="touchUi" [color]="color" [enableMeridian]="enableMeridian"
-									[disableMinute]="disableMinute" [hideTime]="hideTime">
+							<ngx-mat-datetime-picker #picker [showSpinners]="true" [showSeconds]="false" [stepMinute]="5" [color]="primary" [enableMeridian]="true" [defaultTime]="[13,0,0]">
 							</ngx-mat-datetime-picker>
 						</mat-form-field>
 					</div>
