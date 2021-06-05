@@ -8,23 +8,25 @@ import { Observable, of } from 'rxjs';
 
 import { Schedule } from 'src/app/models/schedule.model';
 
-import { MomentDateAdapter, MAT_MOMENT_DATE_ADAPTER_OPTIONS } from '@angular/material-moment-adapter';
-import { DateAdapter, MAT_DATE_FORMATS, MAT_DATE_LOCALE } from '@angular/material/core';
-
 import {
 	MatSnackBar
 } from '@angular/material/snack-bar';
 
-export const MY_FORMATS = {
+import { NgxMatMomentModule, NgxMatMomentAdapter, NGX_MAT_MOMENT_DATE_ADAPTER_OPTIONS } from '@angular-material-components/moment-adapter';
+import { NgxMatDatetimePickerModule, NgxMatTimepickerModule, NGX_MAT_DATE_FORMATS, NgxMatDateAdapter } from '@angular-material-components/datetime-picker';
+
+import * as moment from 'moment';
+
+export const CUSTOM_MOMENT_FORMATS = {
 	parse: {
-		dateInput: 'LL',
+		dateInput: "dddd MMMM Do @ h:mm a"
 	},
 	display: {
-		dateInput: 'LL',
-		monthYearLabel: 'MMM YYYY',
-		dateA11yLabel: 'LL',
-		monthYearA11yLabel: 'MMMM YYYY',
-	},
+		dateInput: "dddd MMMM Do @ h:mm a",
+		monthYearLabel: "MMM YYYY",
+		dateA11yLabel: "LL",
+		monthYearA11yLabel: "MMMM YYYY"
+	}
 };
 
 @Component({
@@ -32,16 +34,9 @@ export const MY_FORMATS = {
 	templateUrl: 'dialog-schedule-game.html',
 	styleUrls: ['./dialog-schedule-game.scss'],
 	providers: [
-		// `MomentDateAdapter` can be automatically provided by importing `MomentDateModule` in your
-		// application's root module. We provide it at the component level here, due to limitations of
-		// our example generation script.
-		{
-			provide: DateAdapter,
-			useClass: MomentDateAdapter,
-			deps: [MAT_DATE_LOCALE, MAT_MOMENT_DATE_ADAPTER_OPTIONS]
-		},
-
-		{ provide: MAT_DATE_FORMATS, useValue: MY_FORMATS },
+		{ provide: NGX_MAT_MOMENT_DATE_ADAPTER_OPTIONS, useValue: { useUtc: true } },
+		{ provide: NGX_MAT_DATE_FORMATS, useValue: CUSTOM_MOMENT_FORMATS },
+		{ provide: NgxMatDateAdapter, useClass: NgxMatMomentAdapter },
 	],
 })
 export class DialogScheduleGame {
@@ -68,7 +63,7 @@ export class DialogScheduleGame {
 			division: ['', Validators.required],
 			homeTeam: ['', Validators.required],
 			awayTeam: ['', Validators.required],
-			date: ['', Validators.required],
+			date: [{ value: '' }, Validators.required],
 			field: ['', Validators.required],
 			umpire: ['']
 		});
@@ -82,7 +77,7 @@ export class DialogScheduleGame {
 				this.formControl.get('division').setValue(scheduledGame.home_team.division.id);
 				this.formControl.get('homeTeam').setValue(scheduledGame.home_id);
 				this.formControl.get('awayTeam').setValue(scheduledGame.away_id);
-				this.formControl.get('date').setValue(scheduledGame.game_date);
+				this.formControl.get('date').setValue(moment(scheduledGame.game_date));
 				this.formControl.get('field').setValue(scheduledGame.field_id);
 				this.formControl.get('umpire').setValue((scheduledGame.umpires === undefined || scheduledGame.umpires.length == 0 ? null : scheduledGame.umpires[0].id));
 				this.isLoading = false;
@@ -143,7 +138,7 @@ export class DialogScheduleGame {
 			const formData = new FormData();
 			formData.append('homeTeam', this.formControl.get('homeTeam').value);
 			formData.append('awayTeam', this.formControl.get('awayTeam').value);
-			formData.append('date', new Date(this.formControl.get('date').value).toISOString());
+			formData.append('date', new Date(this.formControl.get('date').value).toLocaleString("en-US", { timeZone: "America/New_York" }));
 			formData.append('field', this.formControl.get('field').value);
 			formData.append('umpire', this.formControl.get('umpire').value);
 
