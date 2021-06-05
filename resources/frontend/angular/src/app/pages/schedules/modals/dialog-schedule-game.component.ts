@@ -138,7 +138,7 @@ export class DialogScheduleGame {
 			const formData = new FormData();
 			formData.append('homeTeam', this.formControl.get('homeTeam').value);
 			formData.append('awayTeam', this.formControl.get('awayTeam').value);
-			formData.append('date', new Date(this.formControl.get('date').value).toLocaleString("en-US", { timeZone: "America/New_York" }));
+			formData.append('date', this.formControl.get('date').value.format('YYYY-MM-DD HH:mm:ss'));
 			formData.append('field', this.formControl.get('field').value);
 			formData.append('umpire', this.formControl.get('umpire').value);
 
