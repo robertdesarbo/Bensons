@@ -31,8 +31,8 @@ export class HomeComponent implements AfterViewInit {
 			this.total_locations = fields.length;
 		}));
 
-		this.team$ = this.http.get<Team[]>('/api/field').pipe(tap((teams: Team[]) => {
-			this.total_locations = teams.length;
+		this.team$ = this.http.get<Team[]>('/api/team').pipe(tap((teams: Team[]) => {
+			this.total_teams = teams.length;
 		}));
 
 		this.field$.subscribe();
