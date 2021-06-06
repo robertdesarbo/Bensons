@@ -16,7 +16,7 @@
 					<mat-form-field>
 						<mat-label>Division</mat-label>
 						<mat-select formControlName="division" appearance="fill">
-							<mat-option *ngFor="let division of listOfDivisions;" [value]="division.id">{{division.name }}</mat-option>
+							<mat-option *ngFor="let division of division$ | async;" [value]="division.id">{{ division.league.name }} {{ division.name }}</mat-option>
 						</mat-select>
 						<mat-error *ngIf="formControl.get('division').hasError('required')">
 							Division is <strong>required</strong>
@@ -25,76 +25,78 @@
 				</div>
 			</div>
 
-			<ng-conatiner *ngIf="listOfTeams">
-				<div fxLayout="row wrap" class="align-items-center">
-					<div fxFlex.gt-md="50" fxFlex="50" class="p-10">
-						<mat-form-field>
-							<mat-label>Home Team</mat-label>
-							<mat-select formControlName="homeTeam" appearance="fill">
-								<mat-option *ngFor="let team of listOfTeams;" [value]="team.id">{{team.name }}</mat-option>
-							</mat-select>
-							<mat-error *ngIf="formControl.get('homeTeam').hasError('required')">
-								Home Team is <strong>required</strong>
-							</mat-error>
-						</mat-form-field>
-					</div>
-					<div fxFlex.gt-md="50" fxFlex="50" class="p-10">
-						<mat-form-field>
-							<mat-label>Away Team</mat-label>
-							<mat-select formControlName="awayTeam" appearance="fill">
-								<mat-option *ngFor="let team of listOfTeams;" [value]="team.id">{{team.name }}</mat-option>
-							</mat-select>
-							<mat-error *ngIf="formControl.get('awayTeam').hasError('required')">
-								Away Team is <strong>required</strong>
-							</mat-error>
-						</mat-form-field>
-					</div>
+			<ng-conatiner *ngIf="this.formControl.get('division').value">
+				<ng-conatiner *ngIf="(this.game$ | async) as game; else loading">
+					<div fxLayout="row wrap" class="align-items-center">
+						<div fxFlex.gt-md="50" fxFlex="50" class="p-10">
+							<mat-form-field>
+								<mat-label>Home Team</mat-label>
+								<mat-select formControlName="homeTeam" appearance="fill">
+									<mat-option *ngFor="let team of game.teams;" [value]="team.id">{{ team.name }}</mat-option>
+								</mat-select>
+								<mat-error *ngIf="formControl.get('homeTeam').hasError('required')">
+									Home Team is <strong>required</strong>
+								</mat-error>
+							</mat-form-field>
+						</div>
+						<div fxFlex.gt-md="50" fxFlex="50" class="p-10">
+							<mat-form-field>
+								<mat-label>Away Team</mat-label>
+								<mat-select formControlName="awayTeam" appearance="fill">
+									<mat-option *ngFor="let team of game.teams;" [value]="team.id">{{team.name }}</mat-option>
+								</mat-select>
+								<mat-error *ngIf="formControl.get('awayTeam').hasError('required')">
+									Away Team is <strong>required</strong>
+								</mat-error>
+							</mat-form-field>
+						</div>
 
-					<div fxFlex.gt-md="100" fxFlex="100" class="p-10">
-						<mat-form-field>
-							<input matInput [ngxMatDatetimePicker]="picker" placeholder="Choose a date & time" formControlName="date">
-							<mat-datepicker-toggle matSuffix [for]="picker"></mat-datepicker-toggle>
-							<ngx-mat-datetime-picker #picker [showSpinners]="true" [showSeconds]="false" [stepMinute]="5" [color]="primary" [enableMeridian]="true" [defaultTime]="[13,0,0]">
-							</ngx-mat-datetime-picker>
-							<mat-error *ngIf="formControl.get('date').hasError('required')">
-								Date is <strong>required</strong>
-							</mat-error>
-						</mat-form-field>
-					</div>
+						<div fxFlex.gt-md="100" fxFlex="100" class="p-10">
+							<mat-form-field>
+								<input matInput [ngxMatDatetimePicker]="picker" placeholder="Choose a date & time" formControlName="date">
+								<mat-datepicker-toggle matSuffix [for]="picker"></mat-datepicker-toggle>
+								<ngx-mat-datetime-picker #picker [showSpinners]="true" [showSeconds]="false" [stepMinute]="5" [color]="primary" [enableMeridian]="true" [defaultTime]="[13,0,0]">
+								</ngx-mat-datetime-picker>
+								<mat-error *ngIf="formControl.get('date').hasError('required')">
+									Date is <strong>required</strong>
+								</mat-error>
+							</mat-form-field>
+						</div>
 
-					<div fxFlex.gt-md="50" fxFlex="50" class="p-10">
-						<mat-form-field>
-							<mat-label>Field</mat-label>
-							<mat-select formControlName="field" appearance="fill">
-								<mat-option *ngFor="let field of listOfFields;" [value]="field.id">{{field.name }}</mat-option>
-							</mat-select>
-							<mat-error *ngIf="formControl.get('field').hasError('required')">
-								Field is <strong>required</strong>
-							</mat-error>
-						</mat-form-field>
-					</div>
-					<div fxFlex.gt-md="50" fxFlex="50" class="p-10">
-						<mat-form-field>
-							<mat-label>Umpire</mat-label>
-							<mat-select formControlName="umpire" appearance="fill">
-								<mat-option *ngFor="let umpire of listOfUmpires;" [value]="umpire.id">{{umpire.name }}</mat-option>
-							</mat-select>
-						</mat-form-field>
-					</div>
+						<div fxFlex.gt-md="50" fxFlex="50" class="p-10">
+							<mat-form-field>
+								<mat-label>Field</mat-label>
+								<mat-select formControlName="field" appearance="fill">
+									<mat-option *ngFor="let field of game.fields;" [value]="field.id">{{field.name }}</mat-option>
+								</mat-select>
+								<mat-error *ngIf="formControl.get('field').hasError('required')">
+									Field is <strong>required</strong>
+								</mat-error>
+							</mat-form-field>
+						</div>
+						<div fxFlex.gt-md="50" fxFlex="50" class="p-10">
+							<mat-form-field>
+								<mat-label>Umpire</mat-label>
+								<mat-select formControlName="umpire" appearance="fill">
+									<mat-option *ngFor="let umpire of game.umpires;" [value]="umpire.id">{{umpire.name }}</mat-option>
+								</mat-select>
+							</mat-form-field>
+						</div>
 
-					<div fxFlex.gt-md="50" fxFlex="50" class="p-10">
-						<mat-form-field>
-							<mat-label>Home Score</mat-label>
-							<input type="number" matInput formControlName="homeScore" appearance="fill">
-						</mat-form-field>
+						<div fxFlex.gt-md="50" fxFlex="50" class="p-10">
+							<mat-form-field>
+								<mat-label>Home Score</mat-label>
+								<input type="number" matInput formControlName="homeScore" appearance="fill">
+							</mat-form-field>
+						</div>
+						<div fxFlex.gt-md="50" fxFlex="50" class="p-10">
+							<mat-form-field>
+								<mat-label>Away Score</mat-label>
+								<input type="number" matInput formControlName="awayScore" appearance="fill">
+							</mat-form-field>
+						</div>
 					</div>
-					<div fxFlex.gt-md="50" fxFlex="50" class="p-10">
-						<mat-form-field>
-							<mat-label>Away Score</mat-label>
-							<input type="number" matInput formControlName="awayScore" appearance="fill">
-						</mat-form-field>
-					</div>
-				</div>
+				</ng-conatiner>
 			</ng-conatiner>
 		</ng-container>
 	</div>

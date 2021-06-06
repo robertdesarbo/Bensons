@@ -19,8 +19,7 @@
 								<mat-select formControlName="division" appearance="fill">
 									<mat-option>None</mat-option>
 									<mat-option value="All">All</mat-option>
-									<mat-option value="c/d">Sunday C/D</mat-option>
-									<mat-option value="e">Sunday E</mat-option>
+									<mat-option *ngFor="let division of division$ | async;" [value]="division.id">{{ division.league.name }} {{ division.name }}</mat-option>
 								</mat-select>
 							</mat-form-field>
 						</div>

@@ -7,6 +7,7 @@ import { HttpParams } from "@angular/common/http";
 import { Observable, of } from 'rxjs';
 
 import { Schedule } from 'src/app/models/schedule.model';
+import { Division } from 'src/app/models/division.model';
 
 import {
 	MatSnackBar
@@ -43,7 +44,6 @@ export class DialogScheduleGame {
 
 	readonly formControl: FormGroup;
 
-	public listOfDivisions;
 	public listOfTeams;
 	public listOfFields;
 	public listOfUmpires;
@@ -51,6 +51,8 @@ export class DialogScheduleGame {
 	public errors;
 
 	public scheduledGame$: Observable<Schedule>;
+	public division$: Observable<Division[]>;
+	public game$: Observable<any[]>;
 
 	public isLoading: boolean = true;
 
@@ -102,9 +104,7 @@ export class DialogScheduleGame {
 		}
 
 		// pull in data
-		this.http.get<any>('/api/schedule-get-divisions').subscribe((divisions) => {
-			this.listOfDivisions = divisions;
-		});
+		this.division$ = this.http.get<Division[]>('/api/division');
 
 		this.formControl.get("division").valueChanges.subscribe(division => {
 			const config = {
@@ -113,11 +113,7 @@ export class DialogScheduleGame {
 				}
 			}
 
-			this.http.get<any>('/api/schedule-game-set-up', config).subscribe((gameInfo) => {
-				this.listOfTeams = gameInfo.teams;
-				this.listOfFields = gameInfo.fields;
-				this.listOfUmpires = gameInfo.umpires;
-			});
+			this.game$ = this.http.get<any>('/api/schedule-game-set-up', config);
 		});
 
 	}

@@ -22,11 +22,6 @@ class ScheduleGameController extends Controller
         ->get();
     }
 
-    public function getDivisions(Request $request)
-    {
-        return Division::all();
-    }
-
     public function scheduleForm(Request $request)
     {
         $validated = $request->validate([

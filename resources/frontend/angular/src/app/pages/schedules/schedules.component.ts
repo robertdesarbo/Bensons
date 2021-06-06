@@ -13,6 +13,7 @@ import { AuthenticationService } from 'src/app/authentication/authentication.ser
 import { Schedule } from 'src/app/models/schedule.model';
 import { Field } from 'src/app/models/field.model';
 import { Umpire } from 'src/app/models/umpire.model';
+import { Division } from 'src/app/models/division.model';
 
 import { DialogScheduleGame } from './modals/dialog-schedule-game.component';
 
@@ -34,6 +35,7 @@ export class SchedulesComponent implements OnInit {
 
 	public schedule$: Observable<Schedule[]>;
 	public umpire$: Observable<Umpire[]>;
+	public division$: Observable<Division[]>;
 
 	public defaultWeeklyView = true;
 	public listOfumpires;
@@ -46,6 +48,9 @@ export class SchedulesComponent implements OnInit {
 		if (this.authenticationService.isAuthenticated) {
 			this.displayedColumns = ['action', 'home', 'away', 'date', 'field', 'umpires', 'outcome'];
 		}
+
+		// pull in data
+		this.division$ = this.http.get<Division[]>('/api/division');
 
 		this.loadUmpire().subscribe();
 		this.ininializeTable();
