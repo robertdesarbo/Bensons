@@ -51,8 +51,8 @@ export class SchedulesComponent implements OnInit {
 
 		// pull in data
 		this.division$ = this.http.get<Division[]>('/api/division');
+		this.umpire$ = this.http.get<Umpire[]>('/api/umpire');
 
-		this.loadUmpire().subscribe();
 		this.ininializeTable();
 
 		this.formControl = this.formBuilder.group({
@@ -83,14 +83,6 @@ export class SchedulesComponent implements OnInit {
 		}));
 
 		return this.schedule$;
-	}
-
-	loadUmpire() {
-		this.umpire$ = this.http.get<Umpire[]>('/api/schedule').pipe(tap((umpires: Umpire[]) => {
-			this.listOfumpires = umpires;
-		}));
-
-		return this.umpire$;
 	}
 
 	ininializeTable() {

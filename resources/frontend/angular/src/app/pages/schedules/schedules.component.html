@@ -28,7 +28,7 @@
 								<mat-label>Umpire</mat-label>
 								<mat-select formControlName="umpire" appearance="fill">
 									<mat-option>None</mat-option>
-									<mat-option *ngFor="let umpire of listOfumpires;" [value]="umpire.name">{{umpire.name}}</mat-option>
+									<mat-option *ngFor="let umpire of umpire$ | async;" [value]="umpire.name">{{umpire.name}}</mat-option>
 								</mat-select>
 							</mat-form-field>
 						</div>
