@@ -51,7 +51,7 @@ class StandingController extends Controller
             $total_win = Arr::get($team, $lost.'.won', 0);
             $total_lost = Arr::get($team, $lost.'.lost', 0);
 
-            Arr::set($team, $won, [
+            Arr::set($team, $lost, [
                 'won' => $total_win,
                 'lost' => $total_lost+1,
                 'team' => $game->away_team,
