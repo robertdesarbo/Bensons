@@ -2,94 +2,14 @@ import { Component, OnInit, Inject, Optional, ViewChild, AfterViewInit } from '@
 import { MatTableDataSource, MatTable } from '@angular/material/table';
 import { MatSort } from '@angular/material/sort';
 
+import { HttpClient, HttpParams } from '@angular/common/http';
+
 import { Observable } from 'rxjs';
-import { map } from 'rxjs/operators';
+import { map, tap } from 'rxjs/operators';
 
 import { Team } from 'src/app/models/team.model';
 import { Standings } from 'src/app/models/standings.model';
 
-import { teams } from 'src/app/data/teams.data';
-
-const standings_c_d: Standings[] = [
-	Standings.from({
-		team: teams.find(element => element.abbreviation == 'GIA') as Team,
-		won: 1,
-		lost: 2
-	}),
-	Standings.from({
-		team: teams.find(element => element.abbreviation == 'CAK') as Team,
-		won: 0,
-		lost: 3
-	}),
-	Standings.from({
-		team: teams.find(element => element.abbreviation == 'H4I') as Team,
-		won: 1,
-		lost: 3
-	}),
-	Standings.from({
-		team: teams.find(element => element.abbreviation == 'HHS') as Team,
-		won: 3,
-		lost: 0
-	}),
-	Standings.from({
-		team: teams.find(element => element.abbreviation == 'TBS') as Team,
-		won: 2,
-		lost: 2
-	}),
-	Standings.from({
-		team: teams.find(element => element.abbreviation == 'TKS') as Team,
-		won: 1,
-		lost: 2
-	}),
-	Standings.from({
-		team: teams.find(element => element.abbreviation == 'PUB') as Team,
-		won: 4,
-		lost: 0
-	}),
-	Standings.from({
-		team: teams.find(element => element.abbreviation == 'BRJ') as Team,
-		won: 2,
-		lost: 2
-	})
-];
-
-const standings_e: Standings[] = [
-	Standings.from({
-		team: teams.find(element => element.abbreviation == 'FAK') as Team,
-		won: 1,
-		lost: 2
-	}),
-	Standings.from({
-		team: teams.find(element => element.abbreviation == 'HIT') as Team,
-		won: 2,
-		lost: 2
-	}),
-	Standings.from({
-		team: teams.find(element => element.abbreviation == '518') as Team,
-		won: 1,
-		lost: 2
-	}),
-	Standings.from({
-		team: teams.find(element => element.abbreviation == 'MIS') as Team,
-		won: 3,
-		lost: 1
-	}),
-	Standings.from({
-		team: teams.find(element => element.abbreviation == 'TTB') as Team,
-		won: 1,
-		lost: 1
-	}),
-	Standings.from({
-		team: teams.find(element => element.abbreviation == 'FVS') as Team,
-		won: 0,
-		lost: 4
-	}),
-	Standings.from({
-		team: teams.find(element => element.abbreviation == 'BCS') as Team,
-		won: 4,
-		lost: 0
-	})
-];
 
 @Component({
 	selector: 'app-standings',
@@ -103,18 +23,39 @@ export class StandingsComponent implements OnInit {
 	searchText: any;
 	displayedColumns: string[] = ['rank', 'team', 'won', 'lost', 'win_percentage', 'games_behind', 'games_played'];
 
-	dataSource_divison_c_d = new MatTableDataSource<Standings>(standings_c_d);
-	dataSource_divison_e = new MatTableDataSource<Standings>(standings_e);
+	dataSource_divison_c_d = new MatTableDataSource<Standings>();
+	dataSource_divison_e = new MatTableDataSource<Standings>();
 
 	noDataLeagueCD: Observable<boolean>;
 	noDataLeagueE: Observable<boolean>;
 
-	constructor() {
-		this.dataSource_divison_c_d = new MatTableDataSource<Standings>(this.addRank(standings_c_d));
-		this.dataSource_divison_e = new MatTableDataSource<Standings>(this.addRank(standings_e));
+	public standingDivisionCD$: Observable<Standings[]>;
+	public standingDivisionE$: Observable<Standings[]>;
 
-		this.noDataLeagueCD = this.dataSource_divison_c_d.connect().pipe(map(data => data.length === 0));
-		this.noDataLeagueE = this.dataSource_divison_e.connect().pipe(map(data => data.length === 0));
+	constructor(public http: HttpClient) {
+
+		const optionsDivisionCD = { params: new HttpParams().set('division', 1) };
+		this.standingDivisionCD$ = this.http.get<Standings[]>('/api/standing', optionsDivisionCD).pipe(tap((standing: Standings[]) => {
+			this.dataSource_divison_c_d.data = this.addRank(standing);
+			this.noDataLeagueCD = this.dataSource_divison_c_d.connect().pipe(map(data => data.length === 0));
+		}));
+
+		this.standingDivisionCD$.subscribe(() => { },
+			(errorResponse) => { console.log(errorResponse); },
+			() => {
+			});
+
+
+		const optionsDivisionE = { params: new HttpParams().set('division', 2) };
+		this.standingDivisionE$ = this.http.get<Standings[]>('/api/standing', optionsDivisionE).pipe(tap((standing: Standings[]) => {
+			this.dataSource_divison_e.data = this.addRank(standing);
+			this.noDataLeagueE = this.dataSource_divison_e.connect().pipe(map(data => data.length === 0));
+		}));
+
+		this.standingDivisionE$.subscribe(() => { },
+			(errorResponse) => { console.log(errorResponse); },
+			() => {
+			});
 	}
 
 	compareWins(left: Standings, right: Standings): number {

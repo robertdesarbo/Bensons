@@ -38,7 +38,7 @@ export class FieldsComponent {
 				this.dataSource.filterPredicate = (data: Field, filter: string) => {
 					return data.name.toLowerCase().includes(filter);
 				};
-			});;
+			});
 	}
 
 	getAddress(field: Field) {
