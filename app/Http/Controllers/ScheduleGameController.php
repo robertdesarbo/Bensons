@@ -17,7 +17,9 @@ class ScheduleGameController extends Controller
 {
     public function schedule(Request $request)
     {
-        return Schedule::with('home_team', 'away_team', 'field', 'umpires', 'home_team.division', 'away_team.division')->get();
+        return Schedule::with('home_team', 'away_team', 'field', 'umpires', 'home_team.division', 'away_team.division')
+        ->orderBy('game_date', 'ASC')
+        ->get();
     }
 
     public function getDivisions(Request $request)
