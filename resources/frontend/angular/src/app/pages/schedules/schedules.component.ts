@@ -1,10 +1,11 @@
-import { Component, OnInit, ViewChild, ChangeDetectorRef } from '@angular/core';
+import { Component, OnInit, ViewChild } from '@angular/core';
 import { MatTableDataSource, MatTable } from '@angular/material/table';
 import { MatSort } from '@angular/material/sort';
 import { FormBuilder, FormGroup } from '@angular/forms';
 import { MatDialog } from '@angular/material/dialog';
 import { HttpClient } from '@angular/common/http';
 
+import { Observable } from 'rxjs';
 import { map, tap } from 'rxjs/operators';
 
 import { AuthenticationService } from 'src/app/authentication/authentication.service';
@@ -30,6 +31,8 @@ export class SchedulesComponent implements OnInit {
 	dataSource = new MatTableDataSource<Schedule>();
 	noData;
 
+	public schedule$: Observable<Schedule[]>;
+
 	readonly formControl: FormGroup;
 
 	public defaultWeeklyView = true;
@@ -38,7 +41,6 @@ export class SchedulesComponent implements OnInit {
 	constructor(
 		private formBuilder: FormBuilder, public dialog: MatDialog,
 		public authenticationService: AuthenticationService,
-		private changeDetectorRefs: ChangeDetectorRef,
 		public http: HttpClient) {
 
 		if (this.authenticationService.isAuthenticated) {
@@ -70,9 +72,11 @@ export class SchedulesComponent implements OnInit {
 	}
 
 	loadSchedule() {
-		return this.http.get('/api/schedule').pipe(tap((schedule: Schedule[]) => {
+		this.schedule$ = this.http.get<Schedule[]>('/api/schedule').pipe(tap((schedule: Schedule[]) => {
 			this.dataSource.data = schedule;
 		}));
+
+		return this.schedule$;
 	}
 
 	ininializeTable() {
@@ -182,7 +186,7 @@ export class SchedulesComponent implements OnInit {
 		data['scheduleId'] = scheduleId;
 
 		const dialogRef = this.dialog.open(DialogScheduleGame, {
-			width: '425px',
+			width: '475px',
 			data: data
 		});
 

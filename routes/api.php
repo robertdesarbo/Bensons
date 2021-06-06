@@ -5,6 +5,7 @@ use Illuminate\Support\Facades\Route;
 
 use App\Http\Controllers\LoginController;
 use App\Http\Controllers\ScheduleGameController;
+use App\Http\Controllers\FieldController;
 
 /*
 |--------------------------------------------------------------------------
@@ -32,6 +33,7 @@ Route::middleware(['auth:sanctum'])->group(function () {
 });
 
 Route::get('schedule', [ScheduleGameController::class, 'schedule']);
+Route::get('field', [FieldController::class, 'field']);
 
 Route::get('session', [LoginController::class, 'session']);
 Route::post('login', [LoginController::class, 'login']);

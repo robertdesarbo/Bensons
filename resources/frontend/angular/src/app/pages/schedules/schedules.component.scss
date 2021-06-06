@@ -26,7 +26,7 @@ mat-icon.game-complete {
 }
 
 .mat-column-action {
-	mat-icon {
-		cursor: pointer;
+	button + button {
+		margin-left: 5px;
 	}
 }

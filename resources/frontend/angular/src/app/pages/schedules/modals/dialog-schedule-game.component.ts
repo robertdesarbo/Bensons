@@ -63,9 +63,11 @@ export class DialogScheduleGame {
 			division: ['', Validators.required],
 			homeTeam: ['', Validators.required],
 			awayTeam: ['', Validators.required],
-			date: [{ value: '' }, Validators.required],
+			date: ['', Validators.required],
 			field: ['', Validators.required],
-			umpire: ['']
+			umpire: [''],
+			homeScore: [''],
+			awayScore: ['']
 		});
 
 		if (this.injectedData.type === 'remove' || this.injectedData.type === 'edit') {
@@ -80,6 +82,15 @@ export class DialogScheduleGame {
 				this.formControl.get('date').setValue(moment(scheduledGame.game_date));
 				this.formControl.get('field').setValue(scheduledGame.field_id);
 				this.formControl.get('umpire').setValue((scheduledGame.umpires === undefined || scheduledGame.umpires.length == 0 ? null : scheduledGame.umpires[0].id));
+
+				if (scheduledGame.home_score !== null) {
+					this.formControl.get('homeScore').setValue(scheduledGame.home_score);
+				}
+
+				if (scheduledGame.away_score !== null) {
+					this.formControl.get('awayScore').setValue(scheduledGame.away_score);
+				}
+
 				this.isLoading = false;
 			});
 
@@ -141,6 +152,8 @@ export class DialogScheduleGame {
 			formData.append('date', this.formControl.get('date').value.format('YYYY-MM-DD HH:mm:ss'));
 			formData.append('field', this.formControl.get('field').value);
 			formData.append('umpire', this.formControl.get('umpire').value);
+			formData.append('homeScore', this.formControl.get('homeScore').value);
+			formData.append('awayScore', this.formControl.get('awayScore').value);
 
 			if (this.injectedData.scheduleId) {
 				formData.append('schedule', this.injectedData.scheduleId);
@@ -172,9 +185,6 @@ export class DialogScheduleGame {
 						this.errors = Object.values(errorMessage.error.errors);
 					});
 			}
-
-		} else {
-			this.errors = ['required fields are missing'];
 		}
 	}
 

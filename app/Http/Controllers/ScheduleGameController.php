@@ -59,6 +59,8 @@ class ScheduleGameController extends Controller
             'date' => 'required',
             'field' => 'required|exists:fields,id',
             'umpire' => 'nullable|exists:umpires,id',
+            'homeScore' => 'nullable|integer',
+            'awayScore' => 'nullable|integer',
         ]);
 
 
@@ -67,6 +69,8 @@ class ScheduleGameController extends Controller
             'away_id' => $request->awayTeam,
             'game_date' => Carbon::parse($request->date),
             'field_id' => $request->field,
+            'home_score' => $request->homeScore,
+            'away_score' => $request->awayScore,
         ]);
 
         if (!empty($request->umpire)) {
@@ -76,6 +80,9 @@ class ScheduleGameController extends Controller
 
     public function updateGame(Request $request)
     {
+        $home_score_rules = $request->homeScore ? 'integer' : 'nullable';
+        $away_score_rules = $request->awayScore ? 'integer' : 'nullable';
+
         $validated = $request->validate([
             'schedule' => 'required|exists:schedules,id',
             'homeTeam' => 'required|exists:teams,id',
@@ -83,6 +90,8 @@ class ScheduleGameController extends Controller
             'date' => 'required',
             'field' => 'required|exists:fields,id',
             'umpire' => 'nullable|exists:umpires,id',
+            'homeScore' => 'nullable|integer',
+            'awayScore' => 'nullable|integer',
         ]);
 
 
@@ -93,6 +102,8 @@ class ScheduleGameController extends Controller
             'away_id' => $request->awayTeam,
             'game_date' => Carbon::parse($request->date),
             'field_id' => $request->field,
+            'home_score' => $request->homeScore,
+            'away_score' => $request->awayScore,
         ]);
 
         if (!empty($request->umpire)) {

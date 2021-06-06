@@ -18,6 +18,9 @@
 						<mat-select formControlName="division" appearance="fill">
 							<mat-option *ngFor="let division of listOfDivisions;" [value]="division.id">{{division.name }}</mat-option>
 						</mat-select>
+						<mat-error *ngIf="formControl.get('division').hasError('required')">
+							Division is <strong>required</strong>
+						</mat-error>
 					</mat-form-field>
 				</div>
 			</div>
@@ -26,18 +29,36 @@
 				<div fxLayout="row wrap" class="align-items-center">
 					<div fxFlex.gt-md="50" fxFlex="50" class="p-10">
 						<mat-form-field>
-							<mat-label>Home Name</mat-label>
+							<mat-label>Home Team</mat-label>
 							<mat-select formControlName="homeTeam" appearance="fill">
 								<mat-option *ngFor="let team of listOfTeams;" [value]="team.id">{{team.name }}</mat-option>
 							</mat-select>
+							<mat-error *ngIf="formControl.get('homeTeam').hasError('required')">
+								Home Team is <strong>required</strong>
+							</mat-error>
 						</mat-form-field>
 					</div>
 					<div fxFlex.gt-md="50" fxFlex="50" class="p-10">
 						<mat-form-field>
-							<mat-label>Away Name</mat-label>
+							<mat-label>Away Team</mat-label>
 							<mat-select formControlName="awayTeam" appearance="fill">
 								<mat-option *ngFor="let team of listOfTeams;" [value]="team.id">{{team.name }}</mat-option>
 							</mat-select>
+							<mat-error *ngIf="formControl.get('awayTeam').hasError('required')">
+								Away Team is <strong>required</strong>
+							</mat-error>
+						</mat-form-field>
+					</div>
+
+					<div fxFlex.gt-md="100" fxFlex="100" class="p-10">
+						<mat-form-field>
+							<input matInput [ngxMatDatetimePicker]="picker" placeholder="Choose a date & time" formControlName="date">
+							<mat-datepicker-toggle matSuffix [for]="picker"></mat-datepicker-toggle>
+							<ngx-mat-datetime-picker #picker [showSpinners]="true" [showSeconds]="false" [stepMinute]="5" [color]="primary" [enableMeridian]="true" [defaultTime]="[13,0,0]">
+							</ngx-mat-datetime-picker>
+							<mat-error *ngIf="formControl.get('date').hasError('required')">
+								Date is <strong>required</strong>
+							</mat-error>
 						</mat-form-field>
 					</div>
 
@@ -47,6 +68,9 @@
 							<mat-select formControlName="field" appearance="fill">
 								<mat-option *ngFor="let field of listOfFields;" [value]="field.id">{{field.name }}</mat-option>
 							</mat-select>
+							<mat-error *ngIf="formControl.get('field').hasError('required')">
+								Field is <strong>required</strong>
+							</mat-error>
 						</mat-form-field>
 					</div>
 					<div fxFlex.gt-md="50" fxFlex="50" class="p-10">
@@ -58,16 +82,19 @@
 						</mat-form-field>
 					</div>
 
-					<div fxFlex.gt-md="100" fxFlex="100" class="p-10">
+					<div fxFlex.gt-md="50" fxFlex="50" class="p-10">
 						<mat-form-field>
-							<input matInput [ngxMatDatetimePicker]="picker" placeholder="Choose a date & time" formControlName="date">
-							<mat-datepicker-toggle matSuffix [for]="picker"></mat-datepicker-toggle>
-							<ngx-mat-datetime-picker #picker [showSpinners]="true" [showSeconds]="false" [stepMinute]="5" [color]="primary" [enableMeridian]="true" [defaultTime]="[13,0,0]">
-							</ngx-mat-datetime-picker>
+							<mat-label>Home Score</mat-label>
+							<input type="number" matInput formControlName="homeScore" appearance="fill">
+						</mat-form-field>
+					</div>
+					<div fxFlex.gt-md="50" fxFlex="50" class="p-10">
+						<mat-form-field>
+							<mat-label>Away Score</mat-label>
+							<input type="number" matInput formControlName="awayScore" appearance="fill">
 						</mat-form-field>
 					</div>
 				</div>
-
 			</ng-conatiner>
 		</ng-container>
 	</div>
@@ -78,7 +105,7 @@
 </form>
 <ng-container *ngIf="injectedData.type === 'remove'">
 	<p mat-dialog-content *ngIf="!isLoading; else loading">
-		Are you sure you want to remove this <b>{{ (scheduledGame$ | async)?.home_team.name }}</b> vs <b>{{ (scheduledGame$ | async)?.away_team.name }}</b> @ <b>{{ (scheduledGame$ | async)?.game_date }}</b>?
+		Are you sure you want to remove <b>{{ (scheduledGame$ | async)?.home_team.name }}</b> vs <b>{{ (scheduledGame$ | async)?.away_team.name }}</b> on <b>{{ (scheduledGame$ | async)?.game_date | date: 'EEEE MMMM d @ h:mm a' }}</b>?
 	</p>
 	<mat-dialog-actions align="end">
 		<button type="button" mat-raised-button (click)="cancel()">Cancel</button>
