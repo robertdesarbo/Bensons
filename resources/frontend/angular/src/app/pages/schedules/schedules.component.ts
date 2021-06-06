@@ -12,8 +12,7 @@ import { AuthenticationService } from 'src/app/authentication/authentication.ser
 
 import { Schedule } from 'src/app/models/schedule.model';
 import { Field } from 'src/app/models/field.model';
-
-import { umpires } from 'src/app/data/umpires.data';
+import { Umpire } from 'src/app/models/umpire.model';
 
 import { DialogScheduleGame } from './modals/dialog-schedule-game.component';
 
@@ -31,12 +30,13 @@ export class SchedulesComponent implements OnInit {
 	dataSource = new MatTableDataSource<Schedule>();
 	noData;
 
-	public schedule$: Observable<Schedule[]>;
-
 	readonly formControl: FormGroup;
 
+	public schedule$: Observable<Schedule[]>;
+	public umpire$: Observable<Umpire[]>;
+
 	public defaultWeeklyView = true;
-	public listOfumpires = umpires;
+	public listOfumpires;
 
 	constructor(
 		private formBuilder: FormBuilder, public dialog: MatDialog,
@@ -47,7 +47,8 @@ export class SchedulesComponent implements OnInit {
 			this.displayedColumns = ['action', 'home', 'away', 'date', 'field', 'umpires', 'outcome'];
 		}
 
-		this.ininializeTable()
+		this.loadUmpire().subscribe();
+		this.ininializeTable();
 
 		this.formControl = this.formBuilder.group({
 			team: '',
@@ -77,6 +78,14 @@ export class SchedulesComponent implements OnInit {
 		}));
 
 		return this.schedule$;
+	}
+
+	loadUmpire() {
+		this.umpire$ = this.http.get<Umpire[]>('/api/schedule').pipe(tap((umpires: Umpire[]) => {
+			this.listOfumpires = umpires;
+		}));
+
+		return this.umpire$;
 	}
 
 	ininializeTable() {

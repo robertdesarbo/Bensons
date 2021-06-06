@@ -7,6 +7,9 @@ use App\Http\Controllers\LoginController;
 use App\Http\Controllers\ScheduleGameController;
 use App\Http\Controllers\FieldController;
 use App\Http\Controllers\StandingController;
+use App\Http\Controllers\TeamController;
+use App\Http\Controllers\UmpireController;
+use App\Http\Controllers\DivisionController;
 
 /*
 |--------------------------------------------------------------------------
@@ -35,6 +38,9 @@ Route::middleware(['auth:sanctum'])->group(function () {
 
 Route::get('schedule', [ScheduleGameController::class, 'schedule']);
 Route::get('field', [FieldController::class, 'field']);
+Route::get('team', [TeamController::class, 'team']);
+Route::get('umpire', [UmpireController::class, 'umpire']);
+Route::get('division', [DivisionController::class, 'division']);
 Route::get('standing', [StandingController::class, 'standing']);
 
 Route::get('session', [LoginController::class, 'session']);

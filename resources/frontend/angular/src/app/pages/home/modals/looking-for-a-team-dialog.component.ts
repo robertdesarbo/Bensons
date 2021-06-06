@@ -1,8 +1,12 @@
 import { Component } from '@angular/core';
 import { FormBuilder, FormGroup } from '@angular/forms';
 import { MatDialogRef } from '@angular/material/dialog';
+import { HttpClient } from '@angular/common/http';
 
-import { divisions } from 'src/app/data/divisions.data';
+import { Division } from 'src/app/models/division.model';
+
+import { Observable } from 'rxjs';
+import { tap } from 'rxjs/operators';
 
 @Component({
 	selector: 'looking-for-a-team-dialog',
@@ -12,9 +16,19 @@ export class DialogLookingForATeam {
 
 	readonly formControl: FormGroup;
 
-	public listOfDivisions = divisions;
+	public division$: Observable<Division[]>;
+	public listOfDivisions: Division[];
 
-	constructor(private formBuilder: FormBuilder, public dialogRef: MatDialogRef<DialogLookingForATeam>) {
+	constructor(private formBuilder: FormBuilder,
+		public dialogRef: MatDialogRef<DialogLookingForATeam>,
+		public http: HttpClient) {
+
+		this.division$ = this.http.get<Division[]>('/api/division').pipe(tap((divisions: Division[]) => {
+			this.listOfDivisions = divisions;
+		}));
+
+		this.division$.subscribe();
+
 		this.formControl = this.formBuilder.group({
 			name: '',
 			phone: '',

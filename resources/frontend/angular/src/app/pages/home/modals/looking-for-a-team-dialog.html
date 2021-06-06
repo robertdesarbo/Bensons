@@ -1,6 +1,6 @@
 <h1 mat-dialog-title>Looking for a Team?</h1>
 <div mat-dialog-content>
-	<form [formGroup]="formControl">
+	<form [formGroup]="formControl" *ngIf="(division$ | async); else loading">
 		<p>Please fill out the following information to help us match you with a team.</p>
 		<mat-form-field>
 			<mat-label>Name</mat-label>
@@ -15,12 +15,15 @@
 			<input matInput formControlName="email">
 		</mat-form-field>
 		<mat-form-field>
-			<mat-label>Preferred Divisions</mat-label>
+			<mat-label>Preferred Division</mat-label>
 			<mat-select formControlName="division" appearance="fill">
 				<mat-option *ngFor="let division of listOfDivisions;" [value]="division.name">{{division.league.name }} {{ division.name | uppercase}}</mat-option>
 			</mat-select>
 		</mat-form-field>
 	</form>
+	<ng-template #loading>
+		<mat-spinner diameter="50"></mat-spinner>
+	</ng-template>
 </div>
 <mat-dialog-actions align="end">
 	<button mat-raised-button (click)="onNoClick()">Cancel</button>

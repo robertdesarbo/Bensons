@@ -5,11 +5,9 @@ namespace App\Http\Controllers;
 use Carbon\Carbon;
 
 use Illuminate\Http\Request;
-use App\Models\Schedule;
-
-use Illuminate\Support\Facades\Auth;
-
 use Illuminate\Support\Arr;
+
+use App\Models\Schedule;
 
 class StandingController extends Controller
 {

@@ -4,8 +4,13 @@ import { MatDialog } from '@angular/material/dialog';
 import { DialogRegisterTeam } from './modals/register-team-dialog.component';
 import { DialogLookingForATeam } from './modals/looking-for-a-team-dialog.component';
 
-import { teams } from 'src/app/data/teams.data';
-import { fields } from 'src/app/data/fields.data';
+import { HttpClient } from '@angular/common/http';
+
+import { Observable } from 'rxjs';
+import { tap } from 'rxjs/operators';
+
+import { Field } from 'src/app/models/field.model';
+import { Team } from 'src/app/models/team.model';
 
 @Component({
 	selector: 'app-starter',
@@ -15,11 +20,25 @@ import { fields } from 'src/app/data/fields.data';
 export class HomeComponent implements AfterViewInit {
 	stacked = false;
 
-	total_teams = teams.length;
-	total_locations = fields.length;
-	total_players = 0;
+	total_locations: number = 0;
+	total_teams: number = 0;
 
-	constructor(public dialog: MatDialog) { }
+	public field$: Observable<Field[]>;
+	public team$: Observable<Team[]>;
+
+	constructor(public dialog: MatDialog, public http: HttpClient) {
+		this.field$ = this.http.get<Field[]>('/api/field').pipe(tap((fields: Field[]) => {
+			this.total_locations = fields.length;
+		}));
+
+		this.team$ = this.http.get<Team[]>('/api/field').pipe(tap((teams: Team[]) => {
+			this.total_locations = teams.length;
+		}));
+
+		this.field$.subscribe();
+		this.team$.subscribe();
+
+	}
 
 	ngAfterViewInit() { }
 

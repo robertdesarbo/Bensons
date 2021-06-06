@@ -6,7 +6,6 @@ use Carbon\Carbon;
 
 use Illuminate\Database\Seeder;
 use Illuminate\Support\Facades\DB;
-use Illuminate\Support\Facades\Hash;
 
 use App\Models\Division;
 
@@ -19,9 +18,8 @@ class TeamsSeeder extends Seeder
     */
     public function run()
     {
-
         $division_cd = Division::where('name', 'C\D')->first()->id;
-        DB::table('teams')->insert( [
+        DB::table('teams')->insert([
             [
                 'name' => 'Grapeville Insurance',
                 'abbreviation' => 'GIA',
@@ -78,11 +76,11 @@ class TeamsSeeder extends Seeder
                 'created_at' => Carbon::now()->format('Y-m-d H:i:s'),
                 'updated_at' => Carbon::now()->format('Y-m-d H:i:s')
             ]
-            ] );
+            ]);
 
 
-            $division_e = Division::where('name', 'E')->first()->id;
-            DB::table('teams')->insert([
+        $division_e = Division::where('name', 'E')->first()->id;
+        DB::table('teams')->insert([
                 [
                     'name' => 'Fake Blunters',
                     'abbreviation' => 'FAK',
@@ -132,6 +130,6 @@ class TeamsSeeder extends Seeder
                     'created_at' => Carbon::now()->format('Y-m-d H:i:s'),
                     'updated_at' => Carbon::now()->format('Y-m-d H:i:s')
                 ],
-                ] );
-            }
-        }
+            ]);
+    }
+}
