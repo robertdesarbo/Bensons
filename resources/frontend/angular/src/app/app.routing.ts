@@ -4,6 +4,7 @@ import { FullComponent } from './layouts/full/full.component';
 import { AdminComponent } from './login/admin.component';
 
 import { HomeComponent } from './pages/home/home.component';
+import { TeamsComponent } from './pages/teams/teams.component';
 import { SchedulesComponent } from './pages/schedules/schedules.component';
 import { StandingsComponent } from './pages/standings/standings.component';
 import { FieldsComponent } from './pages/fields/fields.component';
@@ -31,6 +32,13 @@ export const AppRoutes: Routes = [
 				component: HomeComponent,
 				data: {
 					title: 'Home',
+				}
+			},
+			{
+				path: 'team',
+				component: TeamsComponent,
+				data: {
+					title: 'Teams',
 				}
 			},
 			{

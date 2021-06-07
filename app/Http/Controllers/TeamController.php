@@ -11,6 +11,6 @@ class TeamController extends Controller
 {
     public function team(Request $request)
     {
-        return Team::all();
+        return Team::with('division.league')->get();
     }
 }

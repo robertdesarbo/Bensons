@@ -29,7 +29,7 @@ export class SchedulesComponent implements OnInit {
 	searchText: any;
 	displayedColumns: string[] = ['home', 'away', 'date', 'field', 'umpires', 'outcome'];
 	dataSource = new MatTableDataSource<Schedule>();
-	noData;
+	noData: Observable<boolean>;
 
 	readonly formControl: FormGroup;
 
@@ -38,7 +38,6 @@ export class SchedulesComponent implements OnInit {
 	public division$: Observable<Division[]>;
 
 	public defaultWeeklyView = true;
-	public listOfumpires;
 
 	constructor(
 		private formBuilder: FormBuilder, public dialog: MatDialog,

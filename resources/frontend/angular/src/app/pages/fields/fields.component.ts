@@ -21,7 +21,7 @@ export class FieldsComponent {
 	searchText: any;
 	displayedColumns: string[] = ['name', 'address', 'ground-rules', 'information'];
 	dataSource = new MatTableDataSource<Field>();
-	noData;
+	noData: Observable<boolean>;
 
 	public field$: Observable<Field[]>;
 

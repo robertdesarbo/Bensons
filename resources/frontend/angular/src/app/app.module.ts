@@ -93,6 +93,7 @@ import { SchedulePreferenceComponent } from './pages/schedule-preference/schedul
 import { BulletinBoardComponent } from './pages/bulletin-board/bulletin-board.component';
 import { MvpVotingComponent } from './pages/mvp-voting/mvp-voting.component';
 import { SchedulesComponent } from './pages/schedules/schedules.component';
+import { TeamsComponent } from './pages/teams/teams.component';
 
 import { AuthenticationService } from 'src/app/authentication/authentication.service';
 import { AuthenticationResolver } from 'src/app/shared/authenticate-resolver.service';
@@ -129,7 +130,8 @@ const DEFAULT_PERFECT_SCROLLBAR_CONFIG: PerfectScrollbarConfigInterface = {
 		SchedulePreferenceComponent,
 		BulletinBoardComponent,
 		MvpVotingComponent,
-		SchedulesComponent
+		SchedulesComponent,
+		TeamsComponent
 	],
 	imports: [
 		MatAutocompleteModule,
