@@ -1,35 +1,61 @@
 <h1 mat-dialog-title>Registration</h1>
-<div mat-dialog-content>
-	<form [formGroup]="formControl" *ngIf="(division$ | async); else loading">
+<form [formGroup]="formControl" *ngIf="(division$ | async); else loading" (ngSubmit)="registerTeam()">
+	<div mat-dialog-content>
 		<p>Please fill out the following information to register a team.</p>
+		<p *ngIf="errors" style="margin-top: 0;">
+			<ng-container *ngFor="let errors of errors;">
+				<span class="text-danger">
+					{{ errors }}
+				</span>
+				<br />
+			</ng-container>
+		</p>
 		<mat-form-field>
 			<mat-label>Team Name</mat-label>
 			<input matInput formControlName="teamName">
+			<mat-error *ngIf="formControl.get('teamName').hasError('required')">
+				Team Name is <strong>required</strong>
+			</mat-error>
 		</mat-form-field>
 		<mat-form-field>
 			<mat-label>Captain Name</mat-label>
 			<input matInput formControlName="captainName">
+			<mat-error *ngIf="formControl.get('captainName').hasError('required')">
+				Captain Name is <strong>required</strong>
+			</mat-error>
 		</mat-form-field>
 		<mat-form-field>
 			<mat-label>Phone Number</mat-label>
 			<input matInput formControlName="phone">
+			<mat-error *ngIf="formControl.get('phone').hasError('required')">
+				Phone Number is <strong>required</strong>
+			</mat-error>
 		</mat-form-field>
 		<mat-form-field>
 			<mat-label>Email</mat-label>
 			<input matInput formControlName="email">
+			<mat-error *ngIf="formControl.get('email').hasError('required')">
+				Email is <strong>required</strong>
+			</mat-error>
+			<mat-error *ngIf="formControl.get('email').hasError('email')">
+				Valid email is <strong>required</strong>
+			</mat-error>
 		</mat-form-field>
 		<mat-form-field>
 			<mat-label>Division</mat-label>
 			<mat-select formControlName="division" appearance="fill">
-				<mat-option *ngFor="let division of listOfDivisions;" [value]="division.name">{{division.league.name }} {{ division.name | uppercase}}</mat-option>
+				<mat-option *ngFor="let division of division$ | async;" [value]="division.id">{{ division.league.name }} {{ division.name }}</mat-option>
 			</mat-select>
+			<mat-error *ngIf="formControl.get('division').hasError('required')">
+				Division is <strong>required</strong>
+			</mat-error>
 		</mat-form-field>
-	</form>
-	<ng-template #loading>
-		<mat-spinner diameter="50"></mat-spinner>
-	</ng-template>
-</div>
-<mat-dialog-actions align="end">
-	<button mat-raised-button (click)="onNoClick()">Cancel</button>
-	<button mat-raised-button color="primary" cdkFocusInitial>Register</button>
-</mat-dialog-actions>
+	</div>
+	<mat-dialog-actions align="end">
+		<button mat-raised-button type="button" (click)="onNoClick()">Cancel</button>
+		<button mat-raised-button color="primary" cdkFocusInitial>Register</button>
+	</mat-dialog-actions>
+</form>
+<ng-template #loading>
+	<mat-spinner diameter="50"></mat-spinner>
+</ng-template>

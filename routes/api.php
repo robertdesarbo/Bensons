@@ -10,6 +10,7 @@ use App\Http\Controllers\StandingController;
 use App\Http\Controllers\TeamController;
 use App\Http\Controllers\UmpireController;
 use App\Http\Controllers\DivisionController;
+use App\Http\Controllers\SignUpController;
 
 /*
 |--------------------------------------------------------------------------
@@ -34,6 +35,9 @@ Route::middleware(['auth:sanctum'])->group(function () {
     Route::post('edit-game', [ScheduleGameController::class, 'updateGame']);
     Route::post('remove-game', [ScheduleGameController::class, 'removeGame']);
 });
+
+Route::post('register-team', [SignUpController::class, 'registerTeam']);
+Route::post('find-team', [SignUpController::class, 'findTeam']);
 
 Route::get('schedule', [ScheduleGameController::class, 'schedule']);
 Route::get('field', [FieldController::class, 'field']);

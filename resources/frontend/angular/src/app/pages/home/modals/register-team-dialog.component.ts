@@ -1,12 +1,13 @@
 import { Component } from '@angular/core';
-import { FormBuilder, FormGroup } from '@angular/forms';
+import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { MatDialogRef } from '@angular/material/dialog';
-import { HttpClient } from '@angular/common/http';
+import { HttpClient, HttpParams } from '@angular/common/http';
 
 import { Division } from 'src/app/models/division.model';
 
 import { Observable } from 'rxjs';
 import { tap } from 'rxjs/operators';
+import { MatSnackBar } from '@angular/material/snack-bar';
 
 @Component({
 	selector: 'register-team-dialog',
@@ -15,27 +16,51 @@ import { tap } from 'rxjs/operators';
 export class DialogRegisterTeam {
 
 	readonly formControl: FormGroup;
+	public errors: string[];
 
 	public division$: Observable<Division[]>;
-	public listOfDivisions: Division[];
 
 	constructor(private formBuilder: FormBuilder,
+		private snackBar: MatSnackBar,
 		public dialogRef: MatDialogRef<DialogRegisterTeam>,
 		public http: HttpClient) {
 
-		this.division$ = this.http.get<Division[]>('/api/division').pipe(tap((divisions: Division[]) => {
-			this.listOfDivisions = divisions;
-		}));
-
-		this.division$.subscribe();
+		this.division$ = this.http.get<Division[]>('/api/division');
 
 		this.formControl = this.formBuilder.group({
-			teamName: '',
-			captainName: '',
-			phone: '',
-			email: '',
-			division: '',
+			teamName: ['', Validators.required],
+			captainName: ['', Validators.required],
+			phone: ['', Validators.required],
+			email: ['', [Validators.required, Validators.email]],
+			division: ['', Validators.required],
 		})
+	}
+
+	registerTeam(): void {
+		if (this.formControl.valid) {
+			const formData = new FormData();
+			formData.append('teamName', this.formControl.get('teamName').value);
+			formData.append('captainName', this.formControl.get('captainName').value);
+			formData.append('phone', this.formControl.get('phone').value);
+			formData.append('email', this.formControl.get('email').value);
+			formData.append('division', this.formControl.get('division').value);
+
+			this.http.post<any>('/api/register-team', formData)
+				.subscribe(
+					() => {
+						this.snackBar.open(this.formControl.get('teamName').value + ' is pending approval.', 'Dismiss', {
+							duration: 3000,
+							horizontalPosition: "right",
+							verticalPosition: "top",
+						});
+
+						this.dialogRef.close(true);
+					},
+					errorMessage => {
+						this.errors = Object.values(errorMessage.error.errors);
+					}
+				);
+		}
 	}
 
 	onNoClick(): void {

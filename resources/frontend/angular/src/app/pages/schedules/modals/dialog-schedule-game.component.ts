@@ -1,17 +1,14 @@
 import { Component, Inject } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { MatDialogRef } from '@angular/material/dialog';
-import { HttpClient } from '@angular/common/http';
+import { HttpClient, HttpParams } from '@angular/common/http';
 import { MAT_DIALOG_DATA } from '@angular/material/dialog';
-import { HttpParams } from "@angular/common/http";
 import { Observable, of } from 'rxjs';
 
 import { Schedule } from 'src/app/models/schedule.model';
 import { Division } from 'src/app/models/division.model';
 
-import {
-	MatSnackBar
-} from '@angular/material/snack-bar';
+import { MatSnackBar } from '@angular/material/snack-bar';
 
 import { NgxMatMomentModule, NgxMatMomentAdapter, NGX_MAT_MOMENT_DATE_ADAPTER_OPTIONS } from '@angular-material-components/moment-adapter';
 import { NgxMatDatetimePickerModule, NgxMatTimepickerModule, NGX_MAT_DATE_FORMATS, NgxMatDateAdapter } from '@angular-material-components/datetime-picker';
@@ -44,11 +41,7 @@ export class DialogScheduleGame {
 
 	readonly formControl: FormGroup;
 
-	public listOfTeams;
-	public listOfFields;
-	public listOfUmpires;
-
-	public errors;
+	public errors: string[];
 
 	public scheduledGame$: Observable<Schedule>;
 	public division$: Observable<Division[]>;
