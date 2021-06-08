@@ -38,7 +38,7 @@ Route::middleware(['auth:sanctum'])->group(function () {
 
     Route::post('add-team', [TeamController::class, 'addTeam']);
     Route::post('edit-team', [TeamController::class, 'editTeam']);
-    Route::post('remove-team', [TeamController::class, 'removeRemove']);
+    Route::post('remove-team', [TeamController::class, 'removeTeam']);
 });
 
 Route::post('register-team', [SignUpController::class, 'registerTeam']);
@@ -49,6 +49,7 @@ Route::get('field', [FieldController::class, 'field']);
 Route::get('team', [TeamController::class, 'team']);
 Route::get('umpire', [UmpireController::class, 'umpire']);
 Route::get('division', [DivisionController::class, 'division']);
+Route::get('division-by-league', [DivisionController::class, 'division_by_league']);
 Route::get('league', [LeagueController::class, 'league']);
 Route::get('standing', [StandingController::class, 'standing']);
 

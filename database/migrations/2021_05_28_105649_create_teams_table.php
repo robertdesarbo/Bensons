@@ -17,7 +17,9 @@ class CreateTeamsTable extends Migration
             $table->id();
             $table->string('name');
             $table->string('abbreviation')->nullable();
+            $table->boolean('active')->default(true);
             $table->foreignId('division_id')->constrained('divisions');
+            $table->softDeletes();
             $table->timestamps();
         });
     }

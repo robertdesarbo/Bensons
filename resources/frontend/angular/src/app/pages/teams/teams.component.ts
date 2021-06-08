@@ -26,7 +26,7 @@ export class TeamsComponent {
 	@ViewChild(MatTable, { static: true }) table: MatTable<Team> = Object.create(null);
 	@ViewChild(MatSort, { static: true }) sort: MatSort = Object.create(null);
 	searchText: any;
-	displayedColumns: string[] = ['name', 'abbreviation', 'league', 'division'];
+	displayedColumns: string[] = ['action', 'name', 'abbreviation', 'league', 'division'];
 	dataSource = new MatTableDataSource<Team>();
 	noData: Observable<boolean>;
 

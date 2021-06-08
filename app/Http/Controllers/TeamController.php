@@ -11,7 +11,11 @@ class TeamController extends Controller
 {
     public function team(Request $request)
     {
-        return Team::with('division.league')->get();
+        if ($request->team) {
+            return Team::with('division.league')->where('id', $request->team)->first();
+        } else {
+            return Team::with('division.league')->get();
+        }
     }
 
     public function addTeam(Request $request)
@@ -60,6 +64,10 @@ class TeamController extends Controller
             'team' => 'required|exists:teams,id'
         ]);
 
-        Team::where('id', $request->team)->delete();
+        $team = Team::findOrFail($request->team);
+
+        $team->home()->delete();
+        $team->away()->delete();
+        $team->delete();
     }
 }

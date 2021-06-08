@@ -53,7 +53,7 @@ export class DialogTeam {
 		if (this.injectedData.type === 'remove' || this.injectedData.type === 'edit') {
 			const option = {
 				params: {
-					team: this.injectedData.scheduleId
+					team: this.injectedData.teamId
 				}
 			}
 
@@ -78,15 +78,15 @@ export class DialogTeam {
 		// pull in data
 		this.league$ = this.http.get<League[]>('/api/league');
 
-		this.formControl.get("league").valueChanges.subscribe(division => {
+		this.formControl.get("league").valueChanges.subscribe(league => {
 			const option = {
 				params: {
-					division: division
+					league: league
 				}
 			}
 
 			this.formControl.get('division').setValue(null);
-			this.division$ = this.http.get<Division[]>('/api/division', option);
+			this.division$ = this.http.get<Division[]>('/api/division-by-league', option);
 		});
 
 	}

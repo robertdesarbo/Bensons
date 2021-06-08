@@ -47,12 +47,12 @@
 				</div>
 
 				<ng-container *ngIf="formControl.get('league').value">
-					<ng-container *ngIf="(division$ | async) as division; else loading">
+					<ng-container *ngIf="(division$ | async) as divisions; else loading">
 						<div fxFlex.gt-md="50" fxFlex="50" class="p-10">
 							<mat-form-field>
 								<mat-label>Division</mat-label>
 								<mat-select formControlName="division" appearance="fill">
-									<mat-option *ngFor="let division of division$ | async;" [value]="division.id">{{ division.league.name }} {{ division.name }}</mat-option>
+									<mat-option *ngFor="let division of divisions" [value]="division.id">{{ division.league.name }} {{ division.name }}</mat-option>
 								</mat-select>
 								<mat-error *ngIf="formControl.get('division').hasError('required')">
 									Division is <strong>required</strong>
