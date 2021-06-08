@@ -11,8 +11,8 @@ class DivisionController extends Controller
 {
     public function division(Request $request)
     {
-        if ($request->divisionId) {
-            return Division::with('league')->where('id', $request->divisionId)->get();
+        if ($request->division) {
+            return Division::with('league')->where('league_id', $request->division)->get();
         } else {
             return Division::with('league')->get();
         }

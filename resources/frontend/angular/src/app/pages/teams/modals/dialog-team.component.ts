@@ -85,6 +85,7 @@ export class DialogTeam {
 				}
 			}
 
+			this.formControl.get('division').setValue(null);
 			this.division$ = this.http.get<Division[]>('/api/division', option);
 		});
 
