@@ -5,6 +5,8 @@ import { FormBuilder, FormGroup } from '@angular/forms';
 import { MatDialog } from '@angular/material/dialog';
 import { HttpClient } from '@angular/common/http';
 
+import { DialogTeam } from './modals/dialog-team.component';
+
 import { Observable } from 'rxjs';
 import { tap, map } from 'rxjs/operators';
 
@@ -43,10 +45,7 @@ export class TeamsComponent {
 		this.division$ = this.http.get<Division[]>('/api/division');
 		this.league$ = this.http.get<League[]>('/api/league');
 
-		this.team$ = this.http.get<Team[]>('/api/team').pipe(tap((teams: Team[]) => {
-			this.dataSource.data = teams;
-			this.noData = this.dataSource.connect().pipe(map(data => data.length === 0));
-		}));
+		this.team$ = this.loadTeam();
 
 		this.team$.subscribe(() => { },
 			(errorResponse) => { console.log(errorResponse); },
@@ -89,6 +88,13 @@ export class TeamsComponent {
 
 	}
 
+	loadTeam(): Observable<Team[]> {
+		return this.http.get<Team[]>('/api/team').pipe(tap((teams: Team[]) => {
+			this.dataSource.data = teams;
+			this.noData = this.dataSource.connect().pipe(map(data => data.length === 0));
+		}));
+	}
+
 	ngAfterViewInit(): void {
 		this.dataSource.sort = this.sort;
 	}
@@ -115,15 +121,15 @@ export class TeamsComponent {
 		data['type'] = type;
 		data['teamId'] = teamId;
 
-		// const dialogRef = this.dialog.open(DialogScheduleGame, {
-		// 	width: '475px',
-		// 	data: data
-		// });
-		//
-		// dialogRef.afterClosed().subscribe((refreshData) => {
-		// 	if (refreshData) {
-		// 		this.loadSchedule().subscribe();
-		// 	}
-		// });
+		const dialogRef = this.dialog.open(DialogTeam, {
+			width: '475px',
+			data: data
+		});
+
+		dialogRef.afterClosed().subscribe((refreshData) => {
+			if (refreshData) {
+				this.loadTeam().subscribe();
+			}
+		});
 	}
 }

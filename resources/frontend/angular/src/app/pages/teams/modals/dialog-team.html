@@ -1,0 +1,83 @@
+<h1 mat-dialog-title> {{ dialogTitle }} Team</h1>
+<form *ngIf="injectedData.type !== 'remove'" [formGroup]="formControl" (ngSubmit)="addTeam()">
+	<div mat-dialog-content>
+		<ng-container *ngIf="!isLoading; else loading">
+			<p *ngIf="errors" style="margin-top: 0;">
+				<ng-container *ngFor="let errors of errors;">
+					<span class="text-danger">
+						{{ errors }}
+					</span>
+					<br />
+				</ng-container>
+			</p>
+
+			<div fxLayout="row wrap" class="align-items-center">
+				<div fxFlex.gt-md="50" fxFlex="50" class="p-10">
+					<mat-form-field>
+						<mat-label>Name</mat-label>
+						<input matInput formControlName="name">
+						<mat-error *ngIf="formControl.get('name').hasError('required')">
+							Name is <strong>required</strong>
+						</mat-error>
+					</mat-form-field>
+				</div>
+
+				<div fxFlex.gt-md="50" fxFlex="50" class="p-10">
+					<mat-form-field>
+						<mat-label>Abbreviation</mat-label>
+						<input matInput formControlName="abbreviation">
+						<mat-error *ngIf="formControl.get('abbreviation').hasError('required')">
+							Abbreviation is <strong>required</strong>
+						</mat-error>
+					</mat-form-field>
+				</div>
+			</div>
+
+			<div fxLayout="row wrap" class="align-items-center">
+				<div fxFlex.gt-md="50" fxFlex="50" class="p-10">
+					<mat-form-field>
+						<mat-label>League</mat-label>
+						<mat-select formControlName="league" appearance="fill">
+							<mat-option *ngFor="let league of league$ | async;" [value]="league.id">{{ league.name }}</mat-option>
+						</mat-select>
+						<mat-error *ngIf="formControl.get('league').hasError('required')">
+							League is <strong>required</strong>
+						</mat-error>
+					</mat-form-field>
+				</div>
+
+				<ng-container *ngIf="formControl.get('league').value">
+					<ng-container *ngIf="(division$ | async) as division; else loading">
+						<div fxFlex.gt-md="50" fxFlex="50" class="p-10">
+							<mat-form-field>
+								<mat-label>Division</mat-label>
+								<mat-select formControlName="division" appearance="fill">
+									<mat-option *ngFor="let division of division$ | async;" [value]="division.id">{{ division.league.name }} {{ division.name }}</mat-option>
+								</mat-select>
+								<mat-error *ngIf="formControl.get('division').hasError('required')">
+									Division is <strong>required</strong>
+								</mat-error>
+							</mat-form-field>
+						</div>
+					</ng-container>
+				</ng-container>
+			</div>
+		</ng-container>
+	</div>
+	<mat-dialog-actions align="end">
+		<button type="button" mat-raised-button (click)="cancel()">Cancel</button>
+		<button mat-raised-button color="primary" cdkFocusInitial>{{ injectedData.type === 'add' ? 'Add' : 'Update' }}</button>
+	</mat-dialog-actions>
+</form>
+<ng-container *ngIf="injectedData.type === 'remove'">
+	<p mat-dialog-content *ngIf="!isLoading; else loading">
+		Are you sure you want to remove <b>{{ (team$ | async)?.name }}</b>?
+	</p>
+	<mat-dialog-actions align="end">
+		<button type="button" mat-raised-button (click)="cancel()">Cancel</button>
+		<button mat-raised-button color="primary" cdkFocusInitial (click)="removeTeam()">Remove</button>
+	</mat-dialog-actions>
+</ng-container>
+<ng-template #loading>
+	<mat-spinner diameter="50"></mat-spinner>
+</ng-template>

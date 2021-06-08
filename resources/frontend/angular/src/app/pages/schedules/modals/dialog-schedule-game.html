@@ -25,8 +25,8 @@
 				</div>
 			</div>
 
-			<ng-conatiner *ngIf="this.formControl.get('division').value">
-				<ng-conatiner *ngIf="(this.game$ | async) as game; else loading">
+			<ng-container *ngIf="formControl.get('division').value">
+				<ng-container *ngIf="(this.game$ | async) as game; else loading">
 					<div fxLayout="row wrap" class="align-items-center">
 						<div fxFlex.gt-md="50" fxFlex="50" class="p-10">
 							<mat-form-field>
@@ -96,8 +96,8 @@
 							</mat-form-field>
 						</div>
 					</div>
-				</ng-conatiner>
-			</ng-conatiner>
+				</ng-container>
+			</ng-container>
 		</ng-container>
 	</div>
 	<mat-dialog-actions align="end">

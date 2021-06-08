@@ -35,6 +35,10 @@ Route::middleware(['auth:sanctum'])->group(function () {
     Route::post('schedule-game', [ScheduleGameController::class, 'scheduleGame']);
     Route::post('edit-game', [ScheduleGameController::class, 'updateGame']);
     Route::post('remove-game', [ScheduleGameController::class, 'removeGame']);
+
+    Route::post('add-team', [TeamController::class, 'addTeam']);
+    Route::post('edit-team', [TeamController::class, 'editTeam']);
+    Route::post('remove-team', [TeamController::class, 'removeRemove']);
 });
 
 Route::post('register-team', [SignUpController::class, 'registerTeam']);
