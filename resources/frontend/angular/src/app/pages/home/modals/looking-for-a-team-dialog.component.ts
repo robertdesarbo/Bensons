@@ -37,13 +37,15 @@ export class DialogLookingForATeam {
 
 	findTeam(): void {
 		if (this.formControl.valid) {
-			const formData = new FormData();
-			formData.append('name', this.formControl.get('name').value);
-			formData.append('phone', this.formControl.get('phone').value);
-			formData.append('email', this.formControl.get('email').value);
-			formData.append('division', this.formControl.get('division').value);
+			let player: any = {
+				name: this.formControl.get('name').value,
+				phone: this.formControl.get('phone').value,
+				email: this.formControl.get('email').value,
+				division: this.formControl.get('division').value,
+			}
 
-			this.http.post<any>('/api/find-team', formData)
+
+			this.http.post<any>('/api/find-team', player)
 				.subscribe(
 					() => {
 						this.snackBar.open(this.formControl.get('name').value + ' has been added to the free agent list.', 'Dismiss', {

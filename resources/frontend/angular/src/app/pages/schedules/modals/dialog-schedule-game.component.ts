@@ -112,10 +112,11 @@ export class DialogScheduleGame {
 	}
 
 	removeGame(): void {
-		const formData = new FormData();
-		formData.append('schedule', this.injectedData.scheduleId);
+		let game: any = {
+			schedule: this.injectedData.scheduleId
+		}
 
-		this.http.post<any>('/api/remove-game', formData).subscribe(() => {
+		this.http.post<any>('/api/remove-game', game).subscribe(() => {
 			this.snackBar.open('Game has been removed', 'Dismiss', {
 				duration: 3000,
 				horizontalPosition: "right",
@@ -135,20 +136,25 @@ export class DialogScheduleGame {
 
 	addGame(): void {
 		if (this.formControl.valid) {
-			const formData = new FormData();
-			formData.append('homeTeam', this.formControl.get('homeTeam').value);
-			formData.append('awayTeam', this.formControl.get('awayTeam').value);
-			formData.append('date', this.formControl.get('date').value.format('YYYY-MM-DD HH:mm:ss'));
-			formData.append('field', this.formControl.get('field').value);
-			formData.append('umpire', this.formControl.get('umpire').value);
-			formData.append('homeScore', this.formControl.get('homeScore').value);
-			formData.append('awayScore', this.formControl.get('awayScore').value);
+
+			let game: any = {
+				homeTeam: this.formControl.get('homeTeam').value,
+				awayTeam: this.formControl.get('awayTeam').value,
+				date: this.formControl.get('date').value.format('YYYY-MM-DD HH:mm:ss'),
+				field: this.formControl.get('field').value,
+				umpire: this.formControl.get('umpire').value,
+				homeScore: this.formControl.get('homeScore').value,
+				awayScore: this.formControl.get('awayScore').value
+			}
 
 			if (this.injectedData.scheduleId) {
-				formData.append('schedule', this.injectedData.scheduleId);
+				game = {
+					...game,
+					schedule: this.injectedData.scheduleId
+				}
 
 				// editting a games
-				this.http.post<any>('/api/edit-game', formData).subscribe(() => {
+				this.http.post<any>('/api/edit-game', game).subscribe(() => {
 					this.snackBar.open('Game has been edited', 'Dismiss', {
 						duration: 3000,
 						horizontalPosition: "right",
@@ -161,7 +167,7 @@ export class DialogScheduleGame {
 						this.errors = Object.values(errorMessage.error.errors);
 					});
 			} else {
-				this.http.post<any>('/api/schedule-game', formData).subscribe(() => {
+				this.http.post<any>('/api/schedule-game', game).subscribe(() => {
 					this.snackBar.open('Game has been added', 'Dismiss', {
 						duration: 3000,
 						horizontalPosition: "right",

@@ -52,7 +52,7 @@ export class SchedulesComponent implements OnInit {
 		this.division$ = this.http.get<Division[]>('/api/division');
 		this.umpire$ = this.http.get<Umpire[]>('/api/umpire');
 
-		this.ininializeTable();
+		this.loadSchedule();
 
 		this.formControl = this.formBuilder.group({
 			team: '',
@@ -75,15 +75,7 @@ export class SchedulesComponent implements OnInit {
 	loadSchedule() {
 		this.schedule$ = this.http.get<Schedule[]>('/api/schedule').pipe(tap((schedule: Schedule[]) => {
 			this.dataSource.data = schedule;
-		}));
 
-		return this.schedule$;
-	}
-
-	ininializeTable() {
-		this.loadSchedule().subscribe(() => {
-			this.noData = this.dataSource.connect().pipe(map(data => data.length === 0));
-		}, (errorResponse) => { console.log(errorResponse); }, () => {
 			this.dataSource.filterPredicate = ((data: Schedule, filter: string): boolean => {
 				let filterObject: { team: string, division: number | string, umpire: number | string, previousWeeks: boolean };
 				filterObject = JSON.parse(filter);
@@ -132,7 +124,11 @@ export class SchedulesComponent implements OnInit {
 
 			// trigger default filter
 			this.dataSource.filter = JSON.stringify({});
-		});
+
+			this.noData = this.dataSource.connect().pipe(map(data => data.length === 0));
+		}));
+
+		return this.schedule$;
 	}
 
 	getAddress(field: Field) {
@@ -193,7 +189,7 @@ export class SchedulesComponent implements OnInit {
 
 		dialogRef.afterClosed().subscribe((refreshData) => {
 			if (refreshData) {
-				this.loadSchedule().subscribe();
+				this.loadSchedule();
 			}
 		});
 	}

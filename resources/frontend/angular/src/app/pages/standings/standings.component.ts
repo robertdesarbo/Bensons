@@ -40,22 +40,11 @@ export class StandingsComponent implements OnInit {
 			this.noDataLeagueCD = this.dataSource_divison_c_d.connect().pipe(map(data => data.length === 0));
 		}));
 
-		this.standingDivisionCD$.subscribe(() => { },
-			(errorResponse) => { console.log(errorResponse); },
-			() => {
-			});
-
-
 		const optionsDivisionE = { params: new HttpParams().set('division', 2) };
 		this.standingDivisionE$ = this.http.get<Standings[]>('/api/standing', optionsDivisionE).pipe(tap((standing: Standings[]) => {
 			this.dataSource_divison_e.data = this.addRank(standing);
 			this.noDataLeagueE = this.dataSource_divison_e.connect().pipe(map(data => data.length === 0));
 		}));
-
-		this.standingDivisionE$.subscribe(() => { },
-			(errorResponse) => { console.log(errorResponse); },
-			() => {
-			});
 	}
 
 	compareWins(left: Standings, right: Standings): number {

@@ -30,15 +30,11 @@ export class FieldsComponent {
 		this.field$ = this.http.get<Field[]>('/api/field').pipe(tap((field: Field[]) => {
 			this.dataSource.data = field;
 			this.noData = this.dataSource.connect().pipe(map(data => data.length === 0));
-		}));
 
-		this.field$.subscribe(() => { },
-			(errorResponse) => { console.log(errorResponse); },
-			() => {
-				this.dataSource.filterPredicate = (data: Field, filter: string) => {
-					return data.name.toLowerCase().includes(filter);
-				};
-			});
+			this.dataSource.filterPredicate = (data: Field, filter: string) => {
+				return data.name.toLowerCase().includes(filter);
+			};
+		}));
 	}
 
 	getAddress(field: Field) {

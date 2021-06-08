@@ -77,9 +77,6 @@ class ScheduleGameController extends Controller
 
     public function updateGame(Request $request)
     {
-        $home_score_rules = $request->homeScore ? 'integer' : 'nullable';
-        $away_score_rules = $request->awayScore ? 'integer' : 'nullable';
-
         $validated = $request->validate([
             'schedule' => 'required|exists:schedules,id',
             'homeTeam' => 'required|exists:teams,id',

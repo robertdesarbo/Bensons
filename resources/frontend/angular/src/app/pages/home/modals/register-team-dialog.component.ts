@@ -38,14 +38,15 @@ export class DialogRegisterTeam {
 
 	registerTeam(): void {
 		if (this.formControl.valid) {
-			const formData = new FormData();
-			formData.append('teamName', this.formControl.get('teamName').value);
-			formData.append('captainName', this.formControl.get('captainName').value);
-			formData.append('phone', this.formControl.get('phone').value);
-			formData.append('email', this.formControl.get('email').value);
-			formData.append('division', this.formControl.get('division').value);
+			let team: any = {
+				teamName: this.formControl.get('teamName').value,
+				captainName: this.formControl.get('captainName').value,
+				phone: this.formControl.get('phone').value,
+				email: this.formControl.get('email').value,
+				division: this.formControl.get('division').value,
+			}
 
-			this.http.post<any>('/api/register-team', formData)
+			this.http.post<any>('/api/register-team', team)
 				.subscribe(
 					() => {
 						this.snackBar.open(this.formControl.get('teamName').value + ' is pending approval.', 'Dismiss', {
