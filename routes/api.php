@@ -10,6 +10,7 @@ use App\Http\Controllers\StandingController;
 use App\Http\Controllers\TeamController;
 use App\Http\Controllers\UmpireController;
 use App\Http\Controllers\DivisionController;
+use App\Http\Controllers\LeagueController;
 use App\Http\Controllers\SignUpController;
 
 /*
@@ -44,6 +45,7 @@ Route::get('field', [FieldController::class, 'field']);
 Route::get('team', [TeamController::class, 'team']);
 Route::get('umpire', [UmpireController::class, 'umpire']);
 Route::get('division', [DivisionController::class, 'division']);
+Route::get('league', [LeagueController::class, 'league']);
 Route::get('standing', [StandingController::class, 'standing']);
 
 Route::get('session', [LoginController::class, 'session']);

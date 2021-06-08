@@ -66,10 +66,6 @@ export class SchedulesComponent implements OnInit {
 				value = { ...value, team: value.team.trim().toLowerCase() };
 			}
 
-			if (value.division) {
-				value = { ...value, division: value.division.trim().toLowerCase() };
-			}
-
 			// need to stringify because of type issue with filterPredicate
 			this.dataSource.filter = JSON.stringify(value);
 		});
@@ -89,7 +85,7 @@ export class SchedulesComponent implements OnInit {
 			this.noData = this.dataSource.connect().pipe(map(data => data.length === 0));
 		}, (errorResponse) => { console.log(errorResponse); }, () => {
 			this.dataSource.filterPredicate = ((data: Schedule, filter: string): boolean => {
-				let filterObject: { team: string, division: string, umpire: string, previousWeeks: boolean };
+				let filterObject: { team: string, division: number | string, umpire: number | string, previousWeeks: boolean };
 				filterObject = JSON.parse(filter);
 
 				let teamSearch = true;
@@ -111,9 +107,9 @@ export class SchedulesComponent implements OnInit {
 				if (filterObject.team || filterObject.division || filterObject.umpire) {
 					teamSearch = !filterObject.team || data.home_team.name.toLowerCase().includes(filterObject.team) || data.away_team.name.toLowerCase().includes(filterObject.team);
 
-					divisionSearch = !filterObject.division || data.home_team.division.name.toLowerCase().includes(filterObject.division) || data.away_team.division.name.toLowerCase().includes(filterObject.division) || filterObject.division == "all";
+					divisionSearch = !filterObject.division || data.home_team.division.id === filterObject.division || data.away_team.division.id === filterObject.division || filterObject.division == "All";
 
-					umpireSearch = !filterObject.umpire || data.umpires.some(umpire => umpire.name === filterObject.umpire);
+					umpireSearch = !filterObject.umpire || data.umpires.some(umpire => umpire.id === filterObject.umpire);
 
 					if (!filterObject.previousWeeks) {
 						dateSearch = Date.parse(data.game_date) >= firstday.getTime();

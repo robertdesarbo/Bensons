@@ -12,6 +12,7 @@ import { AuthenticationService } from 'src/app/authentication/authentication.ser
 
 import { Team } from 'src/app/models/team.model';
 import { Division } from 'src/app/models/division.model';
+import { League } from 'src/app/models/league.model';
 
 @Component({
 	selector: 'app-teams',
@@ -23,7 +24,7 @@ export class TeamsComponent {
 	@ViewChild(MatTable, { static: true }) table: MatTable<Team> = Object.create(null);
 	@ViewChild(MatSort, { static: true }) sort: MatSort = Object.create(null);
 	searchText: any;
-	displayedColumns: string[] = ['name', 'abbreviation', 'division'];
+	displayedColumns: string[] = ['name', 'abbreviation', 'league', 'division'];
 	dataSource = new MatTableDataSource<Team>();
 	noData: Observable<boolean>;
 
@@ -31,6 +32,7 @@ export class TeamsComponent {
 
 	public team$: Observable<Team[]>;
 	public division$: Observable<Division[]>;
+	public league$: Observable<League[]>;
 
 	constructor(
 		private formBuilder: FormBuilder, public dialog: MatDialog,
@@ -39,6 +41,7 @@ export class TeamsComponent {
 
 		// pull in data
 		this.division$ = this.http.get<Division[]>('/api/division');
+		this.league$ = this.http.get<League[]>('/api/league');
 
 		this.team$ = this.http.get<Team[]>('/api/team').pipe(tap((teams: Team[]) => {
 			this.dataSource.data = teams;
@@ -48,24 +51,36 @@ export class TeamsComponent {
 		this.team$.subscribe(() => { },
 			(errorResponse) => { console.log(errorResponse); },
 			() => {
-				this.dataSource.filterPredicate = (data: Team, filter: string) => {
-					return data.name.toLowerCase().includes(filter);
-				};
+				this.dataSource.filterPredicate = ((data: Team, filter: string): boolean => {
+					let filterObject: { team: string, division: number | string, league: number | string };
+					filterObject = JSON.parse(filter);
+
+					let teamSearch = true;
+					let divisionSearch = true;
+					let leagueSearch = true;
+
+					if (filterObject.team || filterObject.division || filterObject.league) {
+						teamSearch = !filterObject.team || data.name.toLowerCase().includes(filterObject.team) || data.name.toLowerCase().includes(filterObject.team);
+
+						divisionSearch = !filterObject.division || data.division.id === filterObject.division || filterObject.division == "All";
+
+						leagueSearch = !filterObject.league || data.division.league.id === filterObject.league || filterObject.league == "All";
+					}
+
+					return teamSearch && divisionSearch && leagueSearch;
+				});
 			});
 
 
 		this.formControl = this.formBuilder.group({
 			team: '',
+			league: '',
 			division: ''
 		});
 
 		this.formControl.valueChanges.subscribe(value => {
 			if (value.team) {
 				value = { ...value, team: value.team.trim().toLowerCase() };
-			}
-
-			if (value.division) {
-				value = { ...value, division: value.division.trim().toLowerCase() };
 			}
 
 			// need to stringify because of type issue with filterPredicate
@@ -87,6 +102,10 @@ export class TeamsComponent {
 	}
 
 	searchDivision(filterValue: string): void {
+		this.dataSource.filter = filterValue.trim().toLowerCase();
+	}
+
+	searchLeague(filterValue: string): void {
 		this.dataSource.filter = filterValue.trim().toLowerCase();
 	}
 
