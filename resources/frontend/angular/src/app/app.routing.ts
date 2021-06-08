@@ -14,6 +14,7 @@ import { BulletinBoardComponent } from './pages/bulletin-board/bulletin-board.co
 import { MvpVotingComponent } from './pages/mvp-voting/mvp-voting.component';
 
 import { LoginActiveGuard } from './shared/security/login-active.guard';
+import { AuthGuard } from './shared/security/auth.guard';
 import { AuthenticationResolver } from 'src/app/shared/authenticate-resolver.service';
 
 export const AppRoutes: Routes = [
@@ -39,7 +40,8 @@ export const AppRoutes: Routes = [
 				component: TeamsComponent,
 				data: {
 					title: 'Teams',
-				}
+				},
+				canActivate: [AuthGuard]
 			},
 			{
 				path: 'schedule',
