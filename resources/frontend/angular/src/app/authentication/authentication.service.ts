@@ -28,23 +28,23 @@ export class AuthenticationService {
 	}
 
 	checkAuthentication() {
-		return this.http.get('/sanctum/csrf-cookie').pipe(mergeMap(() => {
-			return this.http.get<any>('/api/session').pipe(map(({ success, user }) => {
-				this.user.next(user);
-
-				return success;
-			}));
-		}));
+		// return this.http.get('/sanctum/csrf-cookie').pipe(mergeMap(() => {
+		// 	return this.http.get<any>('/api/session').pipe(map(({ success, user }) => {
+		// 		this.user.next(user);
+		//
+		// 		return success;
+		// 	}));
+		// }));
 	}
 
 	login(email: string, password: string) {
-		return this.http.get('/sanctum/csrf-cookie').pipe(mergeMap(() => {
-			return this.http.post<any>('/api/login', { 'email': email, password: password }).pipe(map(({ success, user }) => {
-				this.user.next(user);
-
-				return success;
-			}));
-		}));
+		// return this.http.get('/sanctum/csrf-cookie').pipe(mergeMap(() => {
+		// 	return this.http.post<any>('/api/login', { 'email': email, password: password }).pipe(map(({ success, user }) => {
+		// 		this.user.next(user);
+		//
+		// 		return success;
+		// 	}));
+		// }));
 	}
 
 	logout() {
