@@ -419,14 +419,6 @@ class ScheduleSeeder extends Seeder
         DB::table('schedules')->insert(
             [
             [
-                'home_id' => Team::where('abbreviation', 'MIS')->first()->id,
-                'away_id' => Team::where('abbreviation', 'BCS')->first()->id,
-                'game_date' => Carbon::parse('June 6, 2021 10:30:00 AM')->format('Y-m-d H:i:s'),
-                'field_id' => Field::where('name', 'Feura Bush')->first()->id,
-                'created_at' => Carbon::now()->format('Y-m-d H:i:s'),
-                'updated_at' => Carbon::now()->format('Y-m-d H:i:s')
-            ],
-            [
                 'home_id' => Team::where('abbreviation', '518')->first()->id,
                 'away_id' => Team::where('abbreviation', 'FVS')->first()->id,
                 'game_date' => Carbon::parse('June 6, 2021 12:00:00 PM')->format('Y-m-d H:i:s'),
@@ -443,6 +435,22 @@ class ScheduleSeeder extends Seeder
                 'updated_at' => Carbon::now()->format('Y-m-d H:i:s')
             ],
             [
+                'home_id' => Team::where('abbreviation', 'PUB')->first()->id,
+                'away_id' => Team::where('abbreviation', 'H4I')->first()->id,
+                'game_date' => Carbon::parse('June 6, 2021 3:00:00 PM')->format('Y-m-d H:i:s'),
+                'field_id' => Field::where('name', 'Feura Bush')->first()->id,
+                'created_at' => Carbon::now()->format('Y-m-d H:i:s'),
+                'updated_at' => Carbon::now()->format('Y-m-d H:i:s')
+            ],
+            [
+                'home_id' => Team::where('abbreviation', 'MIS')->first()->id,
+                'away_id' => Team::where('abbreviation', 'BCS')->first()->id,
+                'game_date' => Carbon::parse('June 6, 2021 10:30:00 AM')->format('Y-m-d H:i:s'),
+                'field_id' => Field::where('name', 'Mullens Park')->first()->id,
+                'created_at' => Carbon::now()->format('Y-m-d H:i:s'),
+                'updated_at' => Carbon::now()->format('Y-m-d H:i:s')
+            ],
+            [
                 'home_id' => Team::where('abbreviation', 'BRJ')->first()->id,
                 'away_id' => Team::where('abbreviation', 'TBS')->first()->id,
                 'game_date' => Carbon::parse('June 6, 2021 12:00:00 PM')->format('Y-m-d H:i:s'),
@@ -451,9 +459,17 @@ class ScheduleSeeder extends Seeder
                 'updated_at' => Carbon::now()->format('Y-m-d H:i:s')
             ],
             [
+                'home_id' => Team::where('abbreviation', 'TBS')->first()->id,
+                'away_id' => Team::where('abbreviation', 'CAK')->first()->id,
+                'game_date' => Carbon::parse('June 6, 2021 1:30:00 PM')->format('Y-m-d H:i:s'),
+                'field_id' => Field::where('name', 'Mullens Park')->first()->id,
+                'created_at' => Carbon::now()->format('Y-m-d H:i:s'),
+                'updated_at' => Carbon::now()->format('Y-m-d H:i:s')
+            ],
+            [
                 'home_id' => Team::where('abbreviation', 'TKS')->first()->id,
                 'away_id' => Team::where('abbreviation', 'HHS')->first()->id,
-                'game_date' => Carbon::parse('June 6, 2021 1:30:00 PM')->format('Y-m-d H:i:s'),
+                'game_date' => Carbon::parse('June 6, 2021 3:00:00 PM')->format('Y-m-d H:i:s'),
                 'field_id' => Field::where('name', 'Mullens Park')->first()->id,
                 'created_at' => Carbon::now()->format('Y-m-d H:i:s'),
                 'updated_at' => Carbon::now()->format('Y-m-d H:i:s')
@@ -461,32 +477,8 @@ class ScheduleSeeder extends Seeder
             [
                 'home_id' => Team::where('abbreviation', 'HIT')->first()->id,
                 'away_id' => Team::where('abbreviation', 'FAK')->first()->id,
-                'game_date' => Carbon::parse('June 6, 2021 3:00:00 PM')->format('Y-m-d H:i:s'),
+                'game_date' => Carbon::parse('June 6, 2021 4:30:00 PM')->format('Y-m-d H:i:s'),
                 'field_id' => Field::where('name', 'Mullens Park')->first()->id,
-                'created_at' => Carbon::now()->format('Y-m-d H:i:s'),
-                'updated_at' => Carbon::now()->format('Y-m-d H:i:s')
-            ],
-            [
-                'home_id' => Team::where('abbreviation', 'CAK')->first()->id,
-                'away_id' => Team::where('abbreviation', 'GIA')->first()->id,
-                'game_date' => Carbon::parse('June 6, 2021 12:00:00 PM')->format('Y-m-d H:i:s'),
-                'field_id' => Field::where('name', 'Firemans')->first()->id,
-                'created_at' => Carbon::now()->format('Y-m-d H:i:s'),
-                'updated_at' => Carbon::now()->format('Y-m-d H:i:s')
-            ],
-            [
-                'home_id' => Team::where('abbreviation', 'GIA')->first()->id,
-                'away_id' => Team::where('abbreviation', 'PUB')->first()->id,
-                'game_date' => Carbon::parse('June 6, 2021 1:30:00 PM')->format('Y-m-d H:i:s'),
-                'field_id' => Field::where('name', 'Firemans')->first()->id,
-                'created_at' => Carbon::now()->format('Y-m-d H:i:s'),
-                'updated_at' => Carbon::now()->format('Y-m-d H:i:s')
-            ],
-            [
-                'home_id' => Team::where('abbreviation', 'PUB')->first()->id,
-                'away_id' => Team::where('abbreviation', 'H4I')->first()->id,
-                'game_date' => Carbon::parse('June 6, 2021 3:00:00 PM')->format('Y-m-d H:i:s'),
-                'field_id' => Field::where('name', 'Firemans')->first()->id,
                 'created_at' => Carbon::now()->format('Y-m-d H:i:s'),
                 'updated_at' => Carbon::now()->format('Y-m-d H:i:s')
             ],
@@ -515,9 +507,17 @@ class ScheduleSeeder extends Seeder
                 'updated_at' => Carbon::now()->format('Y-m-d H:i:s')
             ],
             [
-                'home_id' => Team::where('abbreviation', 'TBS')->first()->id,
-                'away_id' => Team::where('abbreviation', 'CAK')->first()->id,
-                'game_date' => Carbon::parse('June 13, 2021 1:30:00 PM')->format('Y-m-d H:i:s'),
+                'home_id' => Team::where('abbreviation', 'MIS')->first()->id,
+                'away_id' => Team::where('abbreviation', 'FVS')->first()->id,
+                'game_date' => Carbon::parse('June 13, 2021 10:30:00 AM')->format('Y-m-d H:i:s'),
+                'field_id' => Field::where('name', 'Mullens Park')->first()->id,
+                'created_at' => Carbon::now()->format('Y-m-d H:i:s'),
+                'updated_at' => Carbon::now()->format('Y-m-d H:i:s')
+            ],
+            [
+                'home_id' => Team::where('abbreviation', 'BCS')->first()->id,
+                'away_id' => Team::where('abbreviation', 'TTB')->first()->id,
+                'game_date' => Carbon::parse('June 13, 2021 12:00:00 PM')->format('Y-m-d H:i:s'),
                 'field_id' => Field::where('name', 'Mullens Park')->first()->id,
                 'created_at' => Carbon::now()->format('Y-m-d H:i:s'),
                 'updated_at' => Carbon::now()->format('Y-m-d H:i:s')
@@ -525,6 +525,14 @@ class ScheduleSeeder extends Seeder
             [
                 'home_id' => Team::where('abbreviation', 'TKS')->first()->id,
                 'away_id' => Team::where('abbreviation', 'TBS')->first()->id,
+                'game_date' => Carbon::parse('June 13, 2021 1:30:00 PM')->format('Y-m-d H:i:s'),
+                'field_id' => Field::where('name', 'Mullens Park')->first()->id,
+                'created_at' => Carbon::now()->format('Y-m-d H:i:s'),
+                'updated_at' => Carbon::now()->format('Y-m-d H:i:s')
+            ],
+            [
+                'home_id' => Team::where('abbreviation', 'CAK')->first()->id,
+                'away_id' => Team::where('abbreviation', 'GIA')->first()->id,
                 'game_date' => Carbon::parse('June 13, 2021 3:00:00 PM')->format('Y-m-d H:i:s'),
                 'field_id' => Field::where('name', 'Mullens Park')->first()->id,
                 'created_at' => Carbon::now()->format('Y-m-d H:i:s'),
@@ -535,22 +543,6 @@ class ScheduleSeeder extends Seeder
                 'away_id' => Team::where('abbreviation', 'BRJ')->first()->id,
                 'game_date' => Carbon::parse('June 13, 2021 4:30:00 PM')->format('Y-m-d H:i:s'),
                 'field_id' => Field::where('name', 'Mullens Park')->first()->id,
-                'created_at' => Carbon::now()->format('Y-m-d H:i:s'),
-                'updated_at' => Carbon::now()->format('Y-m-d H:i:s')
-            ],
-            [
-                'home_id' => Team::where('abbreviation', 'BCS')->first()->id,
-                'away_id' => Team::where('abbreviation', 'TTB')->first()->id,
-                'game_date' => Carbon::parse('June 13, 2021 1:30:00 PM')->format('Y-m-d H:i:s'),
-                'field_id' => Field::where('name', 'Firemans')->first()->id,
-                'created_at' => Carbon::now()->format('Y-m-d H:i:s'),
-                'updated_at' => Carbon::now()->format('Y-m-d H:i:s')
-            ],
-            [
-                'home_id' => Team::where('abbreviation', 'MIS')->first()->id,
-                'away_id' => Team::where('abbreviation', 'FVS')->first()->id,
-                'game_date' => Carbon::parse('June 13, 2021 3:00:00 PM')->format('Y-m-d H:i:s'),
-                'field_id' => Field::where('name', 'Firemans')->first()->id,
                 'created_at' => Carbon::now()->format('Y-m-d H:i:s'),
                 'updated_at' => Carbon::now()->format('Y-m-d H:i:s')
             ],
@@ -643,14 +635,6 @@ class ScheduleSeeder extends Seeder
                 'updated_at' => Carbon::now()->format('Y-m-d H:i:s')
             ],
             [
-                'home_id' => Team::where('abbreviation', 'BRJ')->first()->id,
-                'away_id' => Team::where('abbreviation', 'H4I')->first()->id,
-                'game_date' => Carbon::parse('July 11, 2021 10:30:00 AM')->format('Y-m-d H:i:s'),
-                'field_id' => Field::where('name', 'Feura Bush')->first()->id,
-                'created_at' => Carbon::now()->format('Y-m-d H:i:s'),
-                'updated_at' => Carbon::now()->format('Y-m-d H:i:s')
-            ],
-            [
                 'home_id' => Team::where('abbreviation', 'CAK')->first()->id,
                 'away_id' => Team::where('abbreviation', 'TBS')->first()->id,
                 'game_date' => Carbon::parse('July 11, 2021 12:00:00 PM')->format('Y-m-d H:i:s'),
@@ -671,6 +655,14 @@ class ScheduleSeeder extends Seeder
                 'away_id' => Team::where('abbreviation', 'FAK')->first()->id,
                 'game_date' => Carbon::parse('July 11, 2021 3:00:00 PM')->format('Y-m-d H:i:s'),
                 'field_id' => Field::where('name', 'Feura Bush')->first()->id,
+                'created_at' => Carbon::now()->format('Y-m-d H:i:s'),
+                'updated_at' => Carbon::now()->format('Y-m-d H:i:s')
+            ],
+            [
+                'home_id' => Team::where('abbreviation', 'BRJ')->first()->id,
+                'away_id' => Team::where('abbreviation', 'H4I')->first()->id,
+                'game_date' => Carbon::parse('July 11, 2021 10:30:00 AM')->format('Y-m-d H:i:s'),
+                'field_id' => Field::where('name', 'Mullens Park')->first()->id,
                 'created_at' => Carbon::now()->format('Y-m-d H:i:s'),
                 'updated_at' => Carbon::now()->format('Y-m-d H:i:s')
             ],
@@ -739,14 +731,6 @@ class ScheduleSeeder extends Seeder
                 'updated_at' => Carbon::now()->format('Y-m-d H:i:s')
             ],
             [
-                'home_id' => Team::where('abbreviation', 'TBS')->first()->id,
-                'away_id' => Team::where('abbreviation', 'BRJ')->first()->id,
-                'game_date' => Carbon::parse('July 18, 2021 1:30:00 PM')->format('Y-m-d H:i:s'),
-                'field_id' => Field::where('name', 'Mullens Park')->first()->id,
-                'created_at' => Carbon::now()->format('Y-m-d H:i:s'),
-                'updated_at' => Carbon::now()->format('Y-m-d H:i:s')
-            ],
-            [
                 'home_id' => Team::where('abbreviation', 'BRJ')->first()->id,
                 'away_id' => Team::where('abbreviation', 'CAK')->first()->id,
                 'game_date' => Carbon::parse('July 18, 2021 3:00:00 PM')->format('Y-m-d H:i:s'),
@@ -789,7 +773,7 @@ class ScheduleSeeder extends Seeder
             [
                 'home_id' => Team::where('abbreviation', '518')->first()->id,
                 'away_id' => Team::where('abbreviation', 'FAK')->first()->id,
-                'game_date' => Carbon::parse('July 25, 2021 12:00:00 PM')->format('Y-m-d H:i:s'),
+                'game_date' => Carbon::parse('July 25, 2021 10:30:00 PM')->format('Y-m-d H:i:s'),
                 'field_id' => Field::where('name', 'Mullens Park')->first()->id,
                 'created_at' => Carbon::now()->format('Y-m-d H:i:s'),
                 'updated_at' => Carbon::now()->format('Y-m-d H:i:s')
@@ -797,7 +781,7 @@ class ScheduleSeeder extends Seeder
             [
                 'home_id' => Team::where('abbreviation', 'TKS')->first()->id,
                 'away_id' => Team::where('abbreviation', 'H4I')->first()->id,
-                'game_date' => Carbon::parse('July 25, 2021 1:30:00 PM')->format('Y-m-d H:i:s'),
+                'game_date' => Carbon::parse('July 25, 2021 12:00:00 PM')->format('Y-m-d H:i:s'),
                 'field_id' => Field::where('name', 'Mullens Park')->first()->id,
                 'created_at' => Carbon::now()->format('Y-m-d H:i:s'),
                 'updated_at' => Carbon::now()->format('Y-m-d H:i:s')
@@ -805,7 +789,23 @@ class ScheduleSeeder extends Seeder
             [
                 'home_id' => Team::where('abbreviation', 'TKS')->first()->id,
                 'away_id' => Team::where('abbreviation', 'GIA')->first()->id,
+                'game_date' => Carbon::parse('July 25, 2021 1:30:00 PM')->format('Y-m-d H:i:s'),
+                'field_id' => Field::where('name', 'Mullens Park')->first()->id,
+                'created_at' => Carbon::now()->format('Y-m-d H:i:s'),
+                'updated_at' => Carbon::now()->format('Y-m-d H:i:s')
+            ],
+            [
+                'home_id' => Team::where('abbreviation', 'GIA')->first()->id,
+                'away_id' => Team::where('abbreviation', 'PUB')->first()->id,
                 'game_date' => Carbon::parse('July 25, 2021 3:00:00 PM')->format('Y-m-d H:i:s'),
+                'field_id' => Field::where('name', 'Mullens Park')->first()->id,
+                'created_at' => Carbon::now()->format('Y-m-d H:i:s'),
+                'updated_at' => Carbon::now()->format('Y-m-d H:i:s')
+            ],
+            [
+                'home_id' => Team::where('abbreviation', 'TBS')->first()->id,
+                'away_id' => Team::where('abbreviation', 'BRJ')->first()->id,
+                'game_date' => Carbon::parse('July 25, 2021 4:30:00 PM')->format('Y-m-d H:i:s'),
                 'field_id' => Field::where('name', 'Mullens Park')->first()->id,
                 'created_at' => Carbon::now()->format('Y-m-d H:i:s'),
                 'updated_at' => Carbon::now()->format('Y-m-d H:i:s')
