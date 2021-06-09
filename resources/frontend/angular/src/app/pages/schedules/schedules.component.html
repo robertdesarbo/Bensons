@@ -104,12 +104,18 @@
 						<ng-container matColumnDef="outcome">
 							<th mat-header-cell *matHeaderCellDef> Outcome </th>
 							<td mat-cell *matCellDef="let element">
-								<mat-icon class="material-icons-outlined game-delayed" *ngIf=element.delayed>event_busy</mat-icon>
-								<p *ngIf="!element.delayed && (element.home_score || element.away_score)">
+								<mat-icon class="material-icons-outlined game-delayed" *ngIf="element.delayed || element.rescheduled || element.canceled">event_busy</mat-icon>
+								<p *ngIf="element.completed || element.delayed" style="margin-right:5px;">
 									{{element.home_score}} - {{element.away_score}}
 								</p>
 								<p *ngIf="element.delayed">
+									Game was incomplete
+								</p>
+								<p *ngIf="element.rescheduled">
 									Game was rescheduled
+								</p>
+								<p *ngIf="element.canceled">
+									Game was canceled
 								</p>
 							</td>
 						</ng-container>

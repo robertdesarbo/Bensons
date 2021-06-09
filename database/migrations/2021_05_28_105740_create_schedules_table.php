@@ -21,9 +21,10 @@ class CreateSchedulesTable extends Migration
             $table->foreignId('field_id')->constrained('fields');
             $table->integer('home_score')->nullable();
             $table->integer('away_score')->nullable();
-            $table->boolean('started')->nullable();
-            $table->boolean('completed')->nullable();
-            $table->boolean('rescheduled')->nullable();
+            $table->boolean('delayed')->default(false);
+            $table->boolean('completed')->default(false);
+            $table->boolean('rescheduled')->default(false);
+            $table->boolean('canceled')->default(false);
             $table->text('notes')->nullable();
             $table->softDeletes();
             $table->timestamps();

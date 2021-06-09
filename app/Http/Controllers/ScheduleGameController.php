@@ -58,6 +58,8 @@ class ScheduleGameController extends Controller
             'umpire' => 'nullable|exists:umpires,id',
             'homeScore' => 'nullable|integer',
             'awayScore' => 'nullable|integer',
+            'outcome' => 'nullable|in:delayed,completed,rescheduled,canceled',
+            'notes' => 'nullable|string',
         ]);
 
 
@@ -68,6 +70,11 @@ class ScheduleGameController extends Controller
             'field_id' => $request->field,
             'home_score' => $request->homeScore,
             'away_score' => $request->awayScore,
+            'delayed' => ($request->outcome === 'delayed'),
+            'completed' => ($request->outcome === 'completed'),
+            'rescheduled' => ($request->outcome === 'rescheduled'),
+            'canceled' => ($request->outcome === 'canceled'),
+            'notes' => $request->notes,
         ]);
 
         if (!empty($request->umpire)) {
@@ -86,6 +93,8 @@ class ScheduleGameController extends Controller
             'umpire' => 'nullable|exists:umpires,id',
             'homeScore' => 'nullable|integer',
             'awayScore' => 'nullable|integer',
+            'outcome' => 'nullable|in:delayed,completed,rescheduled,canceled',
+            'notes' => 'nullable|string',
         ]);
 
 
@@ -98,6 +107,11 @@ class ScheduleGameController extends Controller
             'field_id' => $request->field,
             'home_score' => $request->homeScore,
             'away_score' => $request->awayScore,
+            'delayed' => ($request->outcome === 'delayed'),
+            'completed' => ($request->outcome === 'completed'),
+            'rescheduled' => ($request->outcome === 'rescheduled'),
+            'canceled' => ($request->outcome === 'canceled'),
+            'notes' => $request->notes,
         ]);
 
         if (!empty($request->umpire)) {

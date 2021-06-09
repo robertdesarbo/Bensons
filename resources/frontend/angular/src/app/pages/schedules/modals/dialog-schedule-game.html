@@ -95,6 +95,21 @@
 								<input type="number" matInput formControlName="awayScore" appearance="fill">
 							</mat-form-field>
 						</div>
+
+						<div fxFlex.gt-md="50" fxFlex="50" class="p-10">
+							<mat-radio-group formControlName="outcome" aria-label="Select an outcome">
+								<mat-radio-button value="completed">completed</mat-radio-button>
+								<mat-radio-button value="delayed">delayed</mat-radio-button>
+								<mat-radio-button value="rescheduled">rescheduled</mat-radio-button>
+								<mat-radio-button value="canceled">canceled</mat-radio-button>
+							</mat-radio-group>
+						</div>
+						<div fxFlex.gt-md="50" fxFlex="50" class="p-10">
+							<mat-form-field>
+								<mat-label>Notes</mat-label>
+								<textarea matInput formControlName="notes"></textarea>
+							</mat-form-field>
+						</div>
 					</div>
 				</ng-container>
 			</ng-container>

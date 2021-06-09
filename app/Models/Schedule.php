@@ -11,7 +11,12 @@ class Schedule extends Model
     use HasFactory, SoftDeletes;
 
     protected $fillable = ['home_id', 'away_id', 'game_date', 'field_id', 'home_score',
-    'away_score', 'started', 'completed', 'rescheduled', 'notes'];
+    'away_score', 'delayed', 'completed', 'rescheduled', 'canceled', 'notes'];
+
+    public function scopeActive($query)
+    {
+        return $query->where('completed', 0)->where('rescheduled', 0)->where('canceled', 0);
+    }
 
     public function umpires()
     {

@@ -14,14 +14,18 @@ export class Schedule {
 		public umpires?: Umpire[],
 		public home_score?: number,
 		public away_score?: number,
-		public delayed?: boolean,
-		public rescheduled?: boolean) {
+		public delayed?: number,
+		public canceled?: number,
+		public completed?: number,
+		public rescheduled?: number,
+		public notes?: string) {
 	}
 
 	public static from(schedule: Schedule): Schedule {
 		return new Schedule(schedule.home_id, schedule.away_id, schedule.game_date,
 			schedule.field_id, schedule.home_team, schedule.away_team, schedule.field,
 			schedule.umpires, schedule.home_score, schedule.away_score,
-			schedule.delayed, schedule.rescheduled);
+			schedule.delayed, schedule.canceled, schedule.completed, schedule.rescheduled,
+			schedule.notes);
 	}
 }

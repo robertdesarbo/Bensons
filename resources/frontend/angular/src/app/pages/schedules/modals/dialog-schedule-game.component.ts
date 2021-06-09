@@ -62,7 +62,9 @@ export class DialogScheduleGame {
 			field: ['', Validators.required],
 			umpire: [''],
 			homeScore: [''],
-			awayScore: ['']
+			awayScore: [''],
+			outcome: [''],
+			notes: ['']
 		});
 
 		if (this.injectedData.type === 'remove' || this.injectedData.type === 'edit') {
@@ -77,6 +79,7 @@ export class DialogScheduleGame {
 				this.formControl.get('date').setValue(moment(scheduledGame.game_date));
 				this.formControl.get('field').setValue(scheduledGame.field_id);
 				this.formControl.get('umpire').setValue((scheduledGame.umpires === undefined || scheduledGame.umpires.length == 0 ? null : scheduledGame.umpires[0].id));
+				this.formControl.get('notes').setValue(scheduledGame.notes);
 
 				if (scheduledGame.home_score !== null) {
 					this.formControl.get('homeScore').setValue(scheduledGame.home_score);
@@ -84,6 +87,22 @@ export class DialogScheduleGame {
 
 				if (scheduledGame.away_score !== null) {
 					this.formControl.get('awayScore').setValue(scheduledGame.away_score);
+				}
+
+				if (scheduledGame.completed === 1) {
+					this.formControl.get('outcome').setValue('completed');
+				}
+
+				if (scheduledGame.delayed === 1) {
+					this.formControl.get('outcome').setValue('delayed');
+				}
+
+				if (scheduledGame.rescheduled === 1) {
+					this.formControl.get('outcome').setValue('rescheduled');
+				}
+
+				if (scheduledGame.canceled === 1) {
+					this.formControl.get('outcome').setValue('canceled');
 				}
 
 				this.isLoading = false;
@@ -107,6 +126,19 @@ export class DialogScheduleGame {
 			}
 
 			this.game$ = this.http.get<any>('/api/schedule-game-set-up', config);
+		});
+
+
+		this.formControl.get("homeScore").valueChanges.subscribe(() => {
+			if (!this.formControl.get('outcome').value) {
+				this.formControl.get('outcome').setValue('completed');
+			}
+		});
+
+		this.formControl.get("awayScore").valueChanges.subscribe(() => {
+			if (!this.formControl.get('outcome').value) {
+				this.formControl.get('outcome').setValue('completed');
+			}
 		});
 
 	}
@@ -144,7 +176,9 @@ export class DialogScheduleGame {
 				field: this.formControl.get('field').value,
 				umpire: this.formControl.get('umpire').value,
 				homeScore: this.formControl.get('homeScore').value,
-				awayScore: this.formControl.get('awayScore').value
+				awayScore: this.formControl.get('awayScore').value,
+				outcome: this.formControl.get('outcome').value,
+				notes: this.formControl.get('notes').value
 			}
 
 			if (this.injectedData.scheduleId) {
