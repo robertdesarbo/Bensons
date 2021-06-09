@@ -9,6 +9,6 @@ export class AuthenticationResolver implements Resolve<any> {
 	constructor(private authenticationService: AuthenticationService) { }
 
 	resolve(): Observable<any> {
-		return this.authenticationService.checkAuthentication();
+		// return this.authenticationService.checkAuthentication();
 	}
 }
