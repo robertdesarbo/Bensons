@@ -30,11 +30,11 @@ class StandingController extends Controller
                 $won = $game->home_id;
                 $lost = $game->away_id;
                 $won_team = $game->home_team;
-                $lost_team = $game->away_score;
+                $lost_team = $game->away_team;
             } elseif ($game->away_score > $game->home_score) {
                 $won = $game->away_id;
                 $lost = $game->home_id;
-                $won_team = $game->away_score;
+                $won_team = $game->away_team;
                 $lost_team = $game->home_team;
             } else {
                 // tie
