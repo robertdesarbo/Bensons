@@ -29,9 +29,13 @@ class StandingController extends Controller
             if ($game->home_score > $game->away_score) {
                 $won = $game->home_id;
                 $lost = $game->away_id;
+                $won_team = $game->home_team;
+                $lost_team = $game->away_score;
             } elseif ($game->away_score > $game->home_score) {
                 $won = $game->away_id;
                 $lost = $game->home_id;
+                $won_team = $game->away_score;
+                $lost_team = $game->home_team;
             } else {
                 // tie
                 continue;
@@ -44,7 +48,7 @@ class StandingController extends Controller
             Arr::set($team, $won, [
                 'won' => $total_win+1,
                 'lost' => $total_lost,
-                'team' => $game->home_team,
+                'team' => $won_team,
             ]);
 
             // set losing team
@@ -54,7 +58,7 @@ class StandingController extends Controller
             Arr::set($team, $lost, [
                 'won' => $total_win,
                 'lost' => $total_lost+1,
-                'team' => $game->away_team,
+                'team' => $lost_team,
             ]);
         }
 
