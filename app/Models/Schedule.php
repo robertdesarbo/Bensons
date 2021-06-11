@@ -13,6 +13,10 @@ class Schedule extends Model
     protected $fillable = ['home_id', 'away_id', 'game_date', 'field_id', 'home_score',
     'away_score', 'delayed', 'completed', 'rescheduled', 'canceled', 'notes'];
 
+    protected $casts = [
+        'game_date' => 'datetime:m/d/Y H:i:s',
+    ];
+
     public function scopeActive($query)
     {
         return $query->where('completed', 0)->where('rescheduled', 0)->where('canceled', 0);
