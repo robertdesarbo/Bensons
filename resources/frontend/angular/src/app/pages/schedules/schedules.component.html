@@ -53,7 +53,33 @@
 	<div fxFlex.gt-sm="100" fxFlex.gt-xs="100" fxFlex="100">
 		<mat-card>
 			<mat-card-content>
-				<mat-card-title>Sunday League {{ defaultWeeklyView ? '(Weekly)' : '' }}</mat-card-title>
+				<mat-card-title>
+					Games
+
+					<mat-chip-list cdkDropListOrientation="horizontal">
+						<mat-chip color="accent" *ngIf="dateStart != null" selected>
+							<mat-icon class="material-icons-outlined" *ngIf="dateEnd == null">chevron_right</mat-icon>
+							{{ dateStart | date: 'EEEE MMMM d' }}
+						</mat-chip>
+
+						<mat-icon class="material-icons-outlined" *ngIf="dateStart != null && dateEnd !=null">arrow_right_alt</mat-icon>
+
+						<mat-chip color="accent" *ngIf="dateEnd != null" selected>
+							<mat-icon class="material-icons-outlined" *ngIf="dateStart == null">chevron_left</mat-icon> {{ dateEnd | date: 'EEEE MMMM d' }}
+						</mat-chip>
+
+						<mat-chip color="primary" *ngIf="formControl.get('team').value != ''" selected>
+							Team: {{ formControl.get('team').value }}
+						</mat-chip>
+						<mat-chip color="primary" *ngIf="formControl.get('division').value != null" selected>
+							Division: {{ getDivisionName(formControl.get('division').value) }}
+						</mat-chip>
+						<mat-chip color="primary" *ngIf="formControl.get('umpire').value != null" selected>
+							Umpire: {{ getUmpireName(formControl.get('umpire').value) }}
+						</mat-chip>
+					</mat-chip-list>
+
+				</mat-card-title>
 
 				<div class="table-responsive">
 					<table mat-table [dataSource]="dataSource" matSort class="table no-wrap isMobile" *ngIf="(schedule$ | async); else loading">
@@ -125,8 +151,8 @@
 					</table>
 
 					<div *ngIf="noData | async" class="no-records">
-						<span *ngIf="!defaultWeeklyView">No games found</span>
-						<span *ngIf="defaultWeeklyView">No games this week</span>
+						<span *ngIf="this.dateStart !== null && this.dateEnd !== null; else notWeekly">No games found</span>
+						<ng-template #notWeekly>No games this week</ng-template>
 					</div>
 
 					<ng-template #loading>

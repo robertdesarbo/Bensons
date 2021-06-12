@@ -20,88 +20,94 @@
 </div>
 
 <div fxLayout="row wrap">
-	<div fxFlex.gt-sm="25" fxFlex.gt-xs="50" fxFlex="50">
-		<mat-card>
-			<mat-card-content>
-				<!-- Row -->
-				<div class="d-flex no-block">
-					<!-- column -->
-					<div class="m-r-10 no-shrink">
-						<button mat-fab color="accent" mat-card-icon class="shadow-none bg-inverse">
-							<mat-icon>groups</mat-icon>
-						</button>
+	<ng-container *ngIf="(leagueStat$ | async) as leagueStat; else loading">
+		<div fxFlex.gt-sm="25" fxFlex.gt-xs="50" fxFlex="50">
+			<mat-card>
+				<mat-card-content>
+					<!-- Row -->
+					<div class="d-flex no-block">
+						<!-- column -->
+						<div class="m-r-10 no-shrink">
+							<button mat-fab color="accent" mat-card-icon class="shadow-none bg-inverse">
+								<mat-icon>groups</mat-icon>
+							</button>
+						</div>
+						<!-- column -->
+						<div>
+							<h3 class="m-0">{{ leagueStat.divisions }}</h3>
+							<h6 class="text-muted m-0">Divisions</h6>
+						</div>
 					</div>
-					<!-- column -->
-					<div>
-						<h3 class="m-0">2</h3>
-						<h6 class="text-muted m-0">Divisions</h6>
+				</mat-card-content>
+			</mat-card>
+		</div>
+		<div fxFlex.gt-sm="25" fxFlex.gt-xs="50" fxFlex="50">
+			<mat-card>
+				<mat-card-content>
+					<!-- Row -->
+					<div class="d-flex no-block">
+						<!-- column -->
+						<div class="m-r-10 no-shrink">
+							<button mat-fab mat-card-icon class="shadow-none bg-inverse bg-success">
+								<mat-icon>people</mat-icon>
+							</button>
+						</div>
+						<!-- column -->
+						<div>
+							<h3 class="m-0">{{ leagueStat.teams }}</h3>
+							<h6 class="text-muted m-0">Teams</h6>
+						</div>
 					</div>
-				</div>
-			</mat-card-content>
-		</mat-card>
-	</div>
-	<div fxFlex.gt-sm="25" fxFlex.gt-xs="50" fxFlex="50">
-		<mat-card>
-			<mat-card-content>
-				<!-- Row -->
-				<div class="d-flex no-block">
-					<!-- column -->
-					<div class="m-r-10 no-shrink">
-						<button mat-fab mat-card-icon class="shadow-none bg-inverse bg-success">
-							<mat-icon>people</mat-icon>
-						</button>
-					</div>
-					<!-- column -->
-					<div>
-						<h3 class="m-0">{{ total_teams }}</h3>
-						<h6 class="text-muted m-0">Teams</h6>
-					</div>
-				</div>
-			</mat-card-content>
-		</mat-card>
-	</div>
-	<div fxFlex.gt-sm="25" fxFlex.gt-xs="50" fxFlex="50">
-		<mat-card>
-			<mat-card-content>
-				<!-- Row -->
-				<div class="d-flex no-block">
-					<!-- column -->
-					<div class="m-r-10 no-shrink">
-						<button mat-fab color="warn" mat-card-icon class="shadow-none bg-success">
-							<mat-icon>person</mat-icon>
-						</button>
-					</div>
-					<!-- column -->
-					<div>
-						<h3 class="m-0">{{ total_teams * 14 }}+</h3>
-						<h6 class="text-muted m-0">Players</h6>
-					</div>
+				</mat-card-content>
+			</mat-card>
+		</div>
+		<div fxFlex.gt-sm="25" fxFlex.gt-xs="50" fxFlex="50">
+			<mat-card>
+				<mat-card-content>
+					<!-- Row -->
+					<div class="d-flex no-block">
+						<!-- column -->
+						<div class="m-r-10 no-shrink">
+							<button mat-fab color="warn" mat-card-icon class="shadow-none bg-success">
+								<mat-icon>person</mat-icon>
+							</button>
+						</div>
+						<!-- column -->
+						<div>
+							<h3 class="m-0">{{ leagueStat.teams * 14 }}+</h3>
+							<h6 class="text-muted m-0">Players</h6>
+						</div>
 
-				</div>
-			</mat-card-content>
-		</mat-card>
-	</div>
-	<div fxFlex.gt-sm="25" fxFlex.gt-xs="50" fxFlex="50">
-		<mat-card>
-			<mat-card-content>
-				<!-- Row -->
-				<div class="d-flex no-block">
-					<!-- column -->
-					<div class="m-r-10 no-shrink">
-						<button mat-fab color="accent" mat-card-icon class="shadow-none">
-							<mat-icon>map</mat-icon>
-						</button>
 					</div>
-					<!-- column -->
-					<div>
-						<h3 class="m-0">{{ total_locations }}</h3>
-						<h6 class="text-muted m-0">Locations</h6>
-					</div>
+				</mat-card-content>
+			</mat-card>
+		</div>
+		<div fxFlex.gt-sm="25" fxFlex.gt-xs="50" fxFlex="50">
+			<mat-card>
+				<mat-card-content>
+					<!-- Row -->
+					<div class="d-flex no-block">
+						<!-- column -->
+						<div class="m-r-10 no-shrink">
+							<button mat-fab color="accent" mat-card-icon class="shadow-none">
+								<mat-icon>map</mat-icon>
+							</button>
+						</div>
+						<!-- column -->
+						<div>
+							<h3 class="m-0">{{ leagueStat.fields }}</h3>
+							<h6 class="text-muted m-0">Locations</h6>
+						</div>
 
-				</div>
-			</mat-card-content>
-		</mat-card>
-	</div>
+					</div>
+				</mat-card-content>
+			</mat-card>
+		</div>
+	</ng-container>
+
+	<ng-template #loading>
+		<mat-spinner diameter="50"></mat-spinner>
+	</ng-template>
 </div>
 
 <div fxLayout="row wrap">
@@ -113,7 +119,7 @@
 				</p>
 				<mat-list class="compact-mat-list">
 					<mat-list-item>
-						<mat-icon class="material-icons-two-tone">location_on</mat-icon> Access to over {{ total_locations }}+ locations
+						<mat-icon class="material-icons-two-tone">location_on</mat-icon> Access to over {{ (leagueStat$ | async)?.fields }}+ locations
 					</mat-list-item>
 					<mat-list-item>
 						<mat-icon class="material-icons-two-tone">badge</mat-icon> Minimum of 1 umpire/referee per game

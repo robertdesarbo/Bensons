@@ -7,10 +7,9 @@ import { DialogLookingForATeam } from './modals/looking-for-a-team-dialog.compon
 import { HttpClient } from '@angular/common/http';
 
 import { Observable } from 'rxjs';
-import { tap } from 'rxjs/operators';
+import { shareReplay } from 'rxjs/operators';
 
-import { Field } from 'src/app/models/field.model';
-import { Team } from 'src/app/models/team.model';
+import { LeagueStat } from 'src/app/models/league-stat.model';
 
 @Component({
 	selector: 'app-starter',
@@ -20,24 +19,12 @@ import { Team } from 'src/app/models/team.model';
 export class HomeComponent implements AfterViewInit {
 	stacked = false;
 
-	total_locations: number = 0;
-	total_teams: number = 0;
-
-	public field$: Observable<Field[]>;
-	public team$: Observable<Team[]>;
+	public leagueStat$: Observable<LeagueStat[]>;
 
 	constructor(public dialog: MatDialog, public http: HttpClient) {
-		this.field$ = this.http.get<Field[]>('/api/field').pipe(tap((fields: Field[]) => {
-			this.total_locations = fields.length;
-		}));
-
-		this.team$ = this.http.get<Team[]>('/api/team').pipe(tap((teams: Team[]) => {
-			this.total_teams = teams.length;
-		}));
-
-		this.field$.subscribe();
-		this.team$.subscribe();
-
+		this.leagueStat$ = this.http.get<LeagueStat[]>('/api/home/stats').pipe(
+			shareReplay()
+		);
 	}
 
 	ngAfterViewInit() { }

@@ -12,6 +12,7 @@ use App\Http\Controllers\UmpireController;
 use App\Http\Controllers\DivisionController;
 use App\Http\Controllers\LeagueController;
 use App\Http\Controllers\SignUpController;
+use App\Http\Controllers\HomeController;
 
 /*
 |--------------------------------------------------------------------------
@@ -41,18 +42,23 @@ Route::middleware(['auth:sanctum'])->group(function () {
     Route::post('remove-team', [TeamController::class, 'removeTeam']);
 });
 
-Route::post('register-team', [SignUpController::class, 'registerTeam']);
-Route::post('find-team', [SignUpController::class, 'findTeam']);
-
-Route::get('schedule', [ScheduleGameController::class, 'schedule']);
-Route::get('field', [FieldController::class, 'field']);
-Route::get('team', [TeamController::class, 'team']);
-Route::get('umpire', [UmpireController::class, 'umpire']);
-Route::get('division', [DivisionController::class, 'division']);
-Route::get('division-by-league', [DivisionController::class, 'division_by_league']);
-Route::get('league', [LeagueController::class, 'league']);
-Route::get('standing', [StandingController::class, 'standing']);
-
 Route::get('session', [LoginController::class, 'session']);
 Route::post('login', [LoginController::class, 'login']);
 Route::get('logout', [LoginController::class, 'logout']);
+
+Route::post('register-team', [SignUpController::class, 'registerTeam']);
+Route::post('find-team', [SignUpController::class, 'findTeam']);
+
+Route::get('home/stats', [HomeController::class, 'stats']);
+Route::get('schedule', [ScheduleGameController::class, 'schedule']);
+Route::get('league', [LeagueController::class, 'league']);
+Route::get('standing', [StandingController::class, 'standing']);
+
+Route::get('field', [FieldController::class, 'field']);
+
+Route::get('team', [TeamController::class, 'team']);
+
+Route::get('umpire', [UmpireController::class, 'umpire']);
+
+Route::get('division', [DivisionController::class, 'division']);
+Route::get('division-by-league', [DivisionController::class, 'division_by_league']);

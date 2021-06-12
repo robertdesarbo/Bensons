@@ -6,7 +6,7 @@ import { MatDialog } from '@angular/material/dialog';
 import { HttpClient } from '@angular/common/http';
 
 import { Observable } from 'rxjs';
-import { map, tap } from 'rxjs/operators';
+import { map, tap, shareReplay } from 'rxjs/operators';
 
 import { AuthenticationService } from 'src/app/authentication/authentication.service';
 
@@ -37,7 +37,11 @@ export class SchedulesComponent implements OnInit {
 	public umpire$: Observable<Umpire[]>;
 	public division$: Observable<Division[]>;
 
-	public defaultWeeklyView = true;
+	public listOfUmpires: Umpire[];
+	public listOfDivisions: Division[];
+
+	public dateStart: Date;
+	public dateEnd: Date;
 
 	constructor(
 		private formBuilder: FormBuilder, public dialog: MatDialog,
@@ -49,15 +53,25 @@ export class SchedulesComponent implements OnInit {
 		}
 
 		// pull in data
-		this.division$ = this.http.get<Division[]>('/api/division');
-		this.umpire$ = this.http.get<Umpire[]>('/api/umpire');
+		this.division$ = this.http.get<Division[]>('/api/division').pipe(
+			tap((divisions) => {
+				this.listOfDivisions = divisions;
+			})
+		);
+
+		this.umpire$ = this.http.get<Umpire[]>('/api/umpire').pipe(
+			tap((umpires) => {
+				this.listOfUmpires = umpires;
+			}),
+			shareReplay()
+		);
 
 		this.loadSchedule();
 
 		this.formControl = this.formBuilder.group({
 			team: '',
-			division: '',
-			umpire: '',
+			division: null,
+			umpire: null,
 			previousWeeks: false
 		});
 
@@ -105,16 +119,17 @@ export class SchedulesComponent implements OnInit {
 
 					if (!filterObject.previousWeeks) {
 						dateSearch = Date.parse(data.game_date) >= firstday.getTime();
+						this.dateStart = firstday;
+						this.dateEnd = null;
 					}
-
-					this.defaultWeeklyView = false;
 				} else if (filterObject.previousWeeks) {
 					dateSearch = Date.parse(data.game_date) <= lastday.getTime();
-					this.defaultWeeklyView = false;
+					this.dateStart = null;
+					this.dateEnd = lastday;
 				} else {
 					dateSearch = Date.parse(data.game_date) >= firstday.getTime() && Date.parse(data.game_date) <= lastday.getTime();
-
-					this.defaultWeeklyView = true;
+					this.dateStart = firstday;
+					this.dateEnd = lastday;
 				}
 
 				return teamSearch && divisionSearch && umpireSearch && dateSearch;
@@ -129,6 +144,18 @@ export class SchedulesComponent implements OnInit {
 		}));
 
 		return this.schedule$;
+	}
+
+	getDivisionName(divisionId: number | string): string {
+		if (divisionId === "All") {
+			return divisionId;
+		}
+
+		return this.listOfDivisions.find(division => division.id === divisionId) ?.name;
+	}
+
+	getUmpireName(umpireId: number): string {
+		return this.listOfUmpires.find(umpire => umpire.id === umpireId) ?.name;
 	}
 
 	getAddress(field: Field) {
