@@ -121,6 +121,9 @@ export class SchedulesComponent implements OnInit {
 						dateSearch = Date.parse(data.game_date) >= firstday.getTime();
 						this.dateStart = firstday;
 						this.dateEnd = null;
+					} else {
+						this.dateStart = null;
+						this.dateEnd = null;
 					}
 				} else if (filterObject.previousWeeks) {
 					dateSearch = Date.parse(data.game_date) <= lastday.getTime();
