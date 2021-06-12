@@ -2,6 +2,7 @@
 /public/build
 /public/hot
 /public/storage
+/resources/views/angular.blade.php
 /storage/*.key
 /vendor
 .env
