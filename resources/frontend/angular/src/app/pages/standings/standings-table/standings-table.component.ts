@@ -81,7 +81,7 @@ export class StandingsTableComponent implements OnInit {
 			if (filterObject.team || filterObject.division) {
 				teamSearch = !filterObject.team || data.team.name.toLowerCase().includes(filterObject.team);
 
-				divisionSearch = !filterObject.division || data.team.division_id === filterObject.division || filterObject.division == "All";
+				divisionSearch = !filterObject.division || data.team.division_id === filterObject.division;
 			}
 
 			return teamSearch && divisionSearch;
