@@ -44,7 +44,8 @@ export class SchedulesComponent implements OnInit {
 	public dateEnd: Date;
 
 	constructor(
-		private formBuilder: FormBuilder, public dialog: MatDialog,
+		private formBuilder: FormBuilder,
+		public dialog: MatDialog,
 		public authenticationService: AuthenticationService,
 		public http: HttpClient) {
 

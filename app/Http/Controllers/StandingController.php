@@ -7,6 +7,7 @@ use Carbon\Carbon;
 use Illuminate\Http\Request;
 use Illuminate\Support\Arr;
 
+use App\Models\Team;
 use App\Models\Schedule;
 
 class StandingController extends Controller
@@ -17,51 +18,40 @@ class StandingController extends Controller
             'division' => 'required|exists:divisions,id'
         ]);
 
-        $list_of_games = Schedule::whereHas('home_team', function ($query) use ($request) {
-            $query->where('division_id', $request->division);
-        })
-        ->where('completed', 1)
-        ->get();
+        $division_stats = [];
+        Team::where('division_id', $request->division)->chunk(50, function ($teams) use (&$division_stats) {
+            foreach ($teams as $team) {
+                $games = Schedule::orWhere(function ($query) use ($team) {
+                    $query->where('home_id', $team->id)->orWhere('away_id', $team->id);
+                })
+                ->where('completed', 1)
+                ->get();
 
-        $team = [];
-        foreach ($list_of_games as $game) {
-            $won = $lost = null;
-            if ($game->home_score > $game->away_score) {
-                $won = $game->home_id;
-                $lost = $game->away_id;
-                $won_team = $game->home_team;
-                $lost_team = $game->away_team;
-            } elseif ($game->away_score > $game->home_score) {
-                $won = $game->away_id;
-                $lost = $game->home_id;
-                $won_team = $game->away_team;
-                $lost_team = $game->home_team;
-            } else {
-                // tie
-                continue;
+                $game_stats = [ 'won' => 0, 'lost' => 0 ];
+                foreach ($games as $game) {
+                    if ($game->home_team->id === $team->id) {
+                        if ($game->home_score > $game->away_score) {
+                            $game_stats[ 'won' ]++;
+                        } else {
+                            $game_stats[ 'lost' ]++;
+                        }
+                    } else {
+                        if ($game->away_score > $game->home_score) {
+                            $game_stats[ 'won' ]++;
+                        } else {
+                            $game_stats[ 'lost' ]++;
+                        }
+                    }
+                }
+
+                array_push($division_stats, [
+                    'won' => $game_stats['won'],
+                    'lost' => $game_stats['lost'],
+                    'team' => $team,
+                ]);
             }
+        });
 
-            // set winning team
-            $total_win = Arr::get($team, $won.'.won', 0);
-            $total_lost = Arr::get($team, $won.'.lost', 0);
-
-            Arr::set($team, $won, [
-                'won' => $total_win+1,
-                'lost' => $total_lost,
-                'team' => $won_team,
-            ]);
-
-            // set losing team
-            $total_win = Arr::get($team, $lost.'.won', 0);
-            $total_lost = Arr::get($team, $lost.'.lost', 0);
-
-            Arr::set($team, $lost, [
-                'won' => $total_win,
-                'lost' => $total_lost+1,
-                'team' => $lost_team,
-            ]);
-        }
-
-        return array_values($team);
+        return $division_stats;
     }
 }

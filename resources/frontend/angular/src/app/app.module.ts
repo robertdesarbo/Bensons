@@ -88,6 +88,7 @@ import { PerfectScrollbarConfigInterface } from 'ngx-perfect-scrollbar';
 import { TranslateLoader, TranslateModule } from '@ngx-translate/core';
 import { TranslateHttpLoader } from '@ngx-translate/http-loader';
 import { StandingsComponent } from './pages/standings/standings.component';
+import { StandingsTableComponent } from './pages/standings/standings-table/standings-table.component';
 import { FieldsComponent } from './pages/fields/fields.component';
 import { RulesComponent } from './pages/rules/rules.component';
 import { SchedulePreferenceComponent } from './pages/schedule-preference/schedule-preference.component';
@@ -127,6 +128,7 @@ const DEFAULT_PERFECT_SCROLLBAR_CONFIG: PerfectScrollbarConfigInterface = {
 		DialogScheduleGame,
 		DialogTeam,
 		StandingsComponent,
+		StandingsTableComponent,
 		FieldsComponent,
 		RulesComponent,
 		SchedulePreferenceComponent,

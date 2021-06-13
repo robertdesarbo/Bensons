@@ -57,16 +57,17 @@
 					Games
 
 					<mat-chip-list cdkDropListOrientation="horizontal">
-						<mat-chip color="accent" *ngIf="dateStart != null" selected>
-							<mat-icon class="material-icons-outlined" *ngIf="dateEnd == null">chevron_right</mat-icon>
-							{{ dateStart | date: 'EEEE MMMM d' }}
-						</mat-chip>
+						<ng-container>
+							<mat-chip color="accent" selected>
+								{{ (  dateStart == null ? 'Season start' : dateStart | date: 'EEEE MMMM d' ) }}
+							</mat-chip>
 
-						<mat-icon class="material-icons-outlined" *ngIf="dateStart != null && dateEnd !=null">arrow_right_alt</mat-icon>
+							<span class=date-helper>to</span>
 
-						<mat-chip color="accent" *ngIf="dateEnd != null" selected>
-							<mat-icon class="material-icons-outlined" *ngIf="dateStart == null">chevron_left</mat-icon> {{ dateEnd | date: 'EEEE MMMM d' }}
-						</mat-chip>
+							<mat-chip color="accent" selected>
+								{{ (  dateEnd == null ? 'Season end' : dateEnd | date: 'EEEE MMMM d' ) }}
+							</mat-chip>
+						</ng-container>
 
 						<mat-chip color="primary" *ngIf="formControl.get('team').value != ''" selected>
 							Team: {{ formControl.get('team').value }}
