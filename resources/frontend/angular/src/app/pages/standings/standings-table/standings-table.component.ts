@@ -45,7 +45,7 @@ export class StandingsTableComponent implements OnInit {
 
 		if (changes.teamSearch || changes.divisionSearch) {
 			if (changes.teamSearch) {
-				this.searchValues = { ...this.searchValues, team: changes ?.teamSearch ?.currentValue };
+				this.searchValues = { ...this.searchValues, team: changes ?.teamSearch ?.currentValue.trim().toLowerCase() };
 			}
 
 			if (changes.divisionSearch) {
