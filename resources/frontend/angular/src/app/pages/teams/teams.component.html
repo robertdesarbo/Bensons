@@ -49,7 +49,7 @@
 				<mat-card-title>Teams</mat-card-title>
 
 				<div class="table-responsive">
-					<table mat-table [dataSource]="dataSource" matSort class="table no-wrap isMobile" *ngIf="(team$ | async); else loading">
+					<table mat-table [dataSource]="dataSource" matSort class="table isMobile" *ngIf="(team$ | async); else loading">
 						<ng-container matColumnDef="action" *ngIf="authenticationService.isAuthenticated">
 							<th mat-header-cell *matHeaderCellDef mat-sort-header> Actions </th>
 							<td mat-cell *matCellDef="let element">
