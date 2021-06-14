@@ -37,6 +37,8 @@ export class StandingsTableComponent implements OnInit {
 
 	public searchValues: { team: '', division: null };
 
+	public showTable = true;
+
 	constructor(public http: HttpClient) {
 		//
 	}
@@ -54,7 +56,6 @@ export class StandingsTableComponent implements OnInit {
 
 			this.dataSource.filter = JSON.stringify(this.searchValues);
 		}
-
 	}
 
 	ngOnInit(): void {
@@ -63,13 +64,16 @@ export class StandingsTableComponent implements OnInit {
 		const division = { params: new HttpParams().set('division', this.division.id) };
 		this.standings$ = this.http.get<Standings[]>('/api/standing', division).pipe(tap((standing: Standings[]) => {
 			this.dataSource.data = this.addRank(standing);
-			this.notData$ = this.dataSource.connect().pipe(map(data => data.length === 0));
+			this.notData$ = this.dataSource.connect().pipe(
+				tap((data) => {
+					if (data.length === 0 && this.divisionSearch) {
+						this.showTable = false;
+					} else {
+						this.showTable = true;
+					}
+				}),
+				map(data => data.length === 0));
 		}));
-
-		this.dataSource.filterPredicate = (data: Standings, filter: string) => {
-			return data.team.name.toLowerCase().includes(filter);
-		};
-
 
 		this.dataSource.filterPredicate = ((data: Standings, filter: string): boolean => {
 			let filterObject: { team: string, division: number | string, umpire: number | string, previousWeeks: boolean };
@@ -103,6 +107,10 @@ export class StandingsTableComponent implements OnInit {
 	}
 
 	addRank(sorted_standings: Standings[]): Standings[] {
+		sorted_standings = sorted_standings.map(function(standing, index) {
+			return Standings.from({ ...standing });
+		});
+
 		sorted_standings = sorted_standings.sort(this.compareWins);
 
 		let first_place: Standings;
