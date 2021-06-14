@@ -1,4 +1,4 @@
-<div fxLayout="row wrap">
+<div fxLayout="row wrap" [style.display]="showTable ? 'flex' : 'none'">
 	<div fxFlex="100">
 		<mat-card>
 			<mat-card-content>
@@ -8,9 +8,6 @@
 					<mat-chip-list cdkDropListOrientation="horizontal">
 						<mat-chip color="primary" *ngIf="teamSearch != ''" selected>
 							Team: {{ teamSearch }}
-						</mat-chip>
-						<mat-chip color="primary" *ngIf="divisionSearch != null" selected>
-							Division: {{ divisionBadgeName }}
 						</mat-chip>
 					</mat-chip-list>
 				</mat-card-title>

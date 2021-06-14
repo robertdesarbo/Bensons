@@ -1,4 +1,4 @@
-import { Component, OnInit, ViewChild, Input, SimpleChanges } from '@angular/core';
+import { Component, OnInit, ViewChild, Input, SimpleChanges, ChangeDetectorRef } from '@angular/core';
 import { MatTableDataSource, MatTable } from '@angular/material/table';
 import { MatSort } from '@angular/material/sort';
 
@@ -39,7 +39,8 @@ export class StandingsTableComponent implements OnInit {
 
 	public showTable = true;
 
-	constructor(public http: HttpClient) {
+	constructor(public http: HttpClient,
+		public changeDetector: ChangeDetectorRef) {
 		//
 	}
 
@@ -59,6 +60,7 @@ export class StandingsTableComponent implements OnInit {
 	}
 
 	ngOnInit(): void {
+
 		this.division_name = this.division.league.name + " " + this.division.name;
 
 		const division = { params: new HttpParams().set('division', this.division.id) };
@@ -66,11 +68,13 @@ export class StandingsTableComponent implements OnInit {
 			this.dataSource.data = this.addRank(standing);
 			this.notData$ = this.dataSource.connect().pipe(
 				tap((data) => {
-					if (data.length === 0 && this.divisionSearch) {
+					if (data.length === 0) {
 						this.showTable = false;
 					} else {
 						this.showTable = true;
 					}
+
+					this.changeDetector.detectChanges();
 				}),
 				map(data => data.length === 0));
 		}));

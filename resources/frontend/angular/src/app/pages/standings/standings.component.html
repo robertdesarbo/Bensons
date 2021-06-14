@@ -24,6 +24,14 @@
 						</div>
 					</div>
 				</form>
+				<mat-chip-list cdkDropListOrientation="horizontal">
+					<mat-chip color="primary" *ngIf="formControl.get('team').value != ''" selected>
+						Team: {{ formControl.get('team').value }}
+					</mat-chip>
+				</mat-chip-list>
+				<mat-chip color="primary" *ngIf="formControl.get('division').value != null" selected>
+					Division: {{ divisionBadgeName }}
+				</mat-chip>
 			</mat-card-content>
 		</mat-card>
 	</div>
