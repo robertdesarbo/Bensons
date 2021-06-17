@@ -4,9 +4,11 @@ import { MatDialogRef } from '@angular/material/dialog';
 import { HttpClient, HttpParams } from '@angular/common/http';
 import { MAT_DIALOG_DATA } from '@angular/material/dialog';
 import { Observable, of } from 'rxjs';
+import { tap } from 'rxjs/operators';
 
 import { Schedule } from 'src/app/models/schedule.model';
 import { Division } from 'src/app/models/division.model';
+import { Field } from 'src/app/models/field.model';
 
 import { MatSnackBar } from '@angular/material/snack-bar';
 
@@ -47,6 +49,9 @@ export class DialogScheduleGame {
 	public division$: Observable<Division[]>;
 	public game$: Observable<any[]>;
 
+	public listOfFields: Field[];
+	public totalFields: number;
+
 	public isLoading: boolean = true;
 
 	constructor(private formBuilder: FormBuilder,
@@ -60,6 +65,7 @@ export class DialogScheduleGame {
 			awayTeam: ['', Validators.required],
 			date: ['', Validators.required],
 			field: ['', Validators.required],
+			field_number: [{ value: '', disabled: true }],
 			umpire: [''],
 			homeScore: [''],
 			awayScore: [''],
@@ -80,6 +86,11 @@ export class DialogScheduleGame {
 				this.formControl.get('field').setValue(scheduledGame.field_id);
 				this.formControl.get('umpire').setValue((scheduledGame.umpires === undefined || scheduledGame.umpires.length == 0 ? null : scheduledGame.umpires[0].id));
 				this.formControl.get('notes').setValue(scheduledGame.notes);
+
+				if (scheduledGame.field_number !== null) {
+					this.formControl.get('field_number').setValue(scheduledGame.field_number);
+					this.formControl.get('field_number').enable();
+				}
 
 				if (scheduledGame.home_score !== null) {
 					this.formControl.get('homeScore').setValue(scheduledGame.home_score);
@@ -125,9 +136,23 @@ export class DialogScheduleGame {
 				}
 			}
 
-			this.game$ = this.http.get<any>('/api/schedule-game-set-up', config);
+			this.game$ = this.http.get<any>('/api/schedule-game-set-up', config).pipe(
+				tap((game) => {
+					this.listOfFields = game.fields;
+
+					if (this.formControl.get("field").value) {
+						this.updateFieldNumbers(this.formControl.get("field").value);
+					}
+				}));
 		});
 
+		this.formControl.get("field").valueChanges.subscribe(fieldId => {
+			if (!this.listOfFields) {
+				return;
+			}
+
+			this.updateFieldNumbers(fieldId);
+		});
 
 		this.formControl.get("homeScore").valueChanges.subscribe(() => {
 			if (!this.formControl.get('outcome').value) {
@@ -141,6 +166,17 @@ export class DialogScheduleGame {
 			}
 		});
 
+	}
+
+	updateFieldNumbers(fieldId): void {
+		this.totalFields = this.listOfFields.find(field => field.id === fieldId).total_fields;
+
+		if (this.totalFields === 1) {
+			this.formControl.get('field_number').disable();
+			this.formControl.get('field_number').setValue('');
+		} else {
+			this.formControl.get('field_number').enable();
+		}
 	}
 
 	removeGame(): void {
@@ -174,6 +210,7 @@ export class DialogScheduleGame {
 				awayTeam: this.formControl.get('awayTeam').value,
 				date: this.formControl.get('date').value.format('YYYY-MM-DD HH:mm:ss'),
 				field: this.formControl.get('field').value,
+				field_number: this.formControl.get('field_number').value,
 				umpire: this.formControl.get('umpire').value,
 				homeScore: this.formControl.get('homeScore').value,
 				awayScore: this.formControl.get('awayScore').value,
@@ -215,6 +252,10 @@ export class DialogScheduleGame {
 					});
 			}
 		}
+	}
+
+	getFieldNumberCollection(total_fields: number) {
+		return Array(total_fields).fill(1).map((x, i) => i + 1);
 	}
 
 	cancel(): void {

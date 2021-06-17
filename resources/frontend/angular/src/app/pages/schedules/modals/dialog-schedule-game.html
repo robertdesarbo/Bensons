@@ -51,7 +51,7 @@
 							</mat-form-field>
 						</div>
 
-						<div fxFlex.gt-md="100" fxFlex="100" class="p-10">
+						<div fxFlex.gt-md="50" fxFlex="50" class="p-10">
 							<mat-form-field>
 								<input matInput [ngxMatDatetimePicker]="picker" placeholder="Choose a date & time" formControlName="date">
 								<mat-datepicker-toggle matSuffix [for]="picker"></mat-datepicker-toggle>
@@ -60,6 +60,15 @@
 								<mat-error *ngIf="formControl.get('date').hasError('required')">
 									Date is <strong>required</strong>
 								</mat-error>
+							</mat-form-field>
+						</div>
+
+						<div fxFlex.gt-md="50" fxFlex="50" class="p-10">
+							<mat-form-field>
+								<mat-label>Umpire</mat-label>
+								<mat-select formControlName="umpire" appearance="fill">
+									<mat-option *ngFor="let umpire of game.umpires;" [value]="umpire.id">{{umpire.name }}</mat-option>
+								</mat-select>
 							</mat-form-field>
 						</div>
 
@@ -74,11 +83,12 @@
 								</mat-error>
 							</mat-form-field>
 						</div>
+
 						<div fxFlex.gt-md="50" fxFlex="50" class="p-10">
 							<mat-form-field>
-								<mat-label>Umpire</mat-label>
-								<mat-select formControlName="umpire" appearance="fill">
-									<mat-option *ngFor="let umpire of game.umpires;" [value]="umpire.id">{{umpire.name }}</mat-option>
+								<mat-label>Field #</mat-label>
+								<mat-select formControlName="field_number" appearance="fill">
+									<mat-option *ngFor="let field of getFieldNumberCollection(totalFields);" [value]="field">{{ field }}</mat-option>
 								</mat-select>
 							</mat-form-field>
 						</div>
@@ -97,12 +107,16 @@
 						</div>
 
 						<div fxFlex.gt-md="50" fxFlex="50" class="p-10">
-							<mat-radio-group formControlName="outcome" aria-label="Select an outcome">
-								<mat-radio-button value="completed">completed</mat-radio-button>
-								<mat-radio-button value="delayed">delayed</mat-radio-button>
-								<mat-radio-button value="rescheduled">rescheduled</mat-radio-button>
-								<mat-radio-button value="canceled">canceled</mat-radio-button>
-							</mat-radio-group>
+							<mat-form-field>
+								<mat-label>Outcome</mat-label>
+								<mat-select formControlName="outcome" appearance="Select an outcome">
+									<mat-option>None</mat-option>
+									<mat-option value="completed">completed</mat-option>
+									<mat-option value="delayed">delayed</mat-option>
+									<mat-option value="rescheduled">rescheduled</mat-option>
+									<mat-option value="canceled">canceled</mat-option>
+								</mat-select>
+							</mat-form-field>
 						</div>
 						<div fxFlex.gt-md="50" fxFlex="50" class="p-10">
 							<mat-form-field>

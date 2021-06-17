@@ -120,6 +120,7 @@
 							<td mat-cell *matCellDef="let element">
 								<a target="_blank" [href]="getAddress(element.field)" *ngIf="!inThePast(element.game_date)">{{element.field.name}}</a>
 								<ng-container *ngIf="inThePast(element.game_date)">{{element.field.name}}</ng-container>
+								<div *ngIf="element.field_number">Field #{{ element.field_number }}</div>
 							</td>
 						</ng-container>
 

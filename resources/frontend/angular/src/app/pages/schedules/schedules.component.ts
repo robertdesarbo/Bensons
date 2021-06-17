@@ -214,7 +214,7 @@ export class SchedulesComponent implements OnInit {
 		data['scheduleId'] = scheduleId;
 
 		const dialogRef = this.dialog.open(DialogScheduleGame, {
-			width: '475px',
+			width: '550px',
 			data: data
 		});
 
