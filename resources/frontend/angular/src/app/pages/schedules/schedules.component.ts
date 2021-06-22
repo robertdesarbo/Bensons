@@ -199,6 +199,14 @@ export class SchedulesComponent implements OnInit {
 		//
 	}
 
+	getFieldDisplay(fieldAlphaDisplay, fieldNumber) {
+		if (fieldAlphaDisplay) {
+			return String.fromCharCode(96 + parseInt(fieldNumber, 10)).toUpperCase();
+		} else {
+			return "#" + fieldNumber;
+		}
+	}
+
 	searchTeamName(filterValue: string): void {
 		this.dataSource.filter = filterValue.trim().toLowerCase();
 	}

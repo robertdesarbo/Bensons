@@ -51,6 +51,7 @@ export class DialogScheduleGame {
 
 	public listOfFields: Field[];
 	public totalFields: number;
+	public fieldAlphaDisplay: boolean;
 
 	public isLoading: boolean = true;
 
@@ -169,7 +170,10 @@ export class DialogScheduleGame {
 	}
 
 	updateFieldNumbers(fieldId): void {
-		this.totalFields = this.listOfFields.find(field => field.id === fieldId).total_fields;
+		const field = this.listOfFields.find(field => field.id === fieldId);
+
+		this.totalFields = field ?.total_fields;
+		this.fieldAlphaDisplay = field ?.field_alpha_display;
 
 		if (this.totalFields === 1) {
 			this.formControl.get('field_number').disable();
@@ -251,6 +255,14 @@ export class DialogScheduleGame {
 						this.errors = Object.values(errorMessage.error.errors);
 					});
 			}
+		}
+	}
+
+	getFieldDisplay(fieldNumber) {
+		if (this.fieldAlphaDisplay) {
+			return String.fromCharCode(96 + parseInt(fieldNumber, 10)).toUpperCase();
+		} else {
+			return fieldNumber;
 		}
 	}
 

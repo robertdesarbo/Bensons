@@ -131,7 +131,7 @@
 								<div style="display: inline-block; vertical-align: top;">
 									<a target="_blank" [href]="getAddress(element.field)" *ngIf="!inThePast(element.game_date)">{{element.field.name}}</a>
 									<ng-container *ngIf="inThePast(element.game_date)">{{element.field.name}}</ng-container>
-									<div *ngIf="element.field_number">Field #{{ element.field_number }}</div>
+									<div *ngIf="element.field_number">Field {{ getFieldDisplay(element.field.field_alpha_display, element.field_number) }}</div>
 								</div>
 							</td>
 						</ng-container>
