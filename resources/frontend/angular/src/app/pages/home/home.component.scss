@@ -57,16 +57,52 @@ mat-list {
 				left     : 50%;
 				transform: translate(-50%, 0%);
 				z-index  : 1;
-				width    : 475px;
+				width    : 460px;
 				filter: drop-shadow(2px 4px 2px black);
 				@media (max-width: 1023px) {
 					width: 350px;
 				}
 				@media (min-height: 500px) {
-					transform: translate(-50%, 25%);
+					transform: translate(-50%, 10%);
 				}
 				@media (min-height: 750px) {
 					transform: translate(-50%, 50%);
+				}
+			}
+
+			.hero-banner {
+				position      : absolute;
+				left          : 50%;
+				transform     : translate(-50%, 175px);
+				z-index       : 1;
+				filter: drop-shadow(2px 4px 2px black);
+				color         : #ffffff;
+				font-family   : 'Trebuchet MS', sans-serif;
+				font-size     : 2rem;
+				line-height   : 2rem;
+				letter-spacing: 1px;
+				text-transform: uppercase;
+				font-weight   : 600;
+				filter: drop-shadow(2px 4px 2px black);
+				text-align    : center;
+				width         : 100%;
+				@media (max-width: 1023px) {
+					font-size  : 1.35rem;
+					line-height: 1.35rem;
+					transform  : translate(-50%, 145px) !important;
+				}
+				@media (min-height: 500px) {
+					transform: translate(-50%, 190px);
+				}
+				@media (min-height: 750px) {
+					transform: translate(-50%, 265px);
+				}
+
+				span.company-name {
+					color     : #e51e1e;
+					border    : 2px solid;
+					padding   : 2px;
+					background: #00000033;
 				}
 			}
 
@@ -143,7 +179,6 @@ mat-list {
 /*******************
 Timeline page
 ******************/
-
 .timeline {
 	position  : relative;
 	padding   : 20px 0;
