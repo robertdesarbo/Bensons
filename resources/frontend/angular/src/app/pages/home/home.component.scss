@@ -58,9 +58,11 @@ mat-list {
 				transform: translate(-50%, 0%);
 				z-index  : 1;
 				width    : 460px;
+				height   : 175px;
 				filter: drop-shadow(2px 4px 2px black);
 				@media (max-width: 1023px) {
-					width: 350px;
+					width : 350px;
+					height: 135px;
 				}
 				@media (min-height: 500px) {
 					transform: translate(-50%, 10%);
@@ -179,6 +181,7 @@ mat-list {
 /*******************
 Timeline page
 ******************/
+
 .timeline {
 	position  : relative;
 	padding   : 20px 0;
