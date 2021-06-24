@@ -69,17 +69,21 @@ mat-list {
 
 			img {
 				width : 460px;
-				height: 175px;
 				filter: drop-shadow(2px 4px 2px black);
 				margin: 0 auto;
 				@media (max-width: 1023px) {
-					width : 350px;
-					height: 135px;
+					width: 350px;
+				}
+				@media (max-width: 374px) {
+					width: 275px;
+				}
+				@media (max-height: 500px) {
+					margin-top: -10px;
 				}
 			}
 
 			.hero-banner {
-				color         : #ffffff;
+				color         : #ececec;
 				font-family   : Circular, Arial, sans-serif;
 				font-size     : 1.75rem;
 				line-height   : 1.75rem;
@@ -94,8 +98,9 @@ mat-list {
 					line-height: 1.55rem;
 				}
 				@media (max-height: 500px) {
-					font-size  : 1.55rem;
-					line-height: 1.55rem;
+					font-size  : 1.45rem;
+					line-height: 1.45rem;
+					margin-top : -10px;
 				}
 
 				span.company-name {
@@ -154,7 +159,7 @@ mat-list {
 
 			span {
 				font-size    : 1.25rem;
-				color        : #ffffff;
+				color        : #ececec;
 				margin-bottom: 20px;
 				position     : relative;
 
@@ -178,7 +183,6 @@ mat-list {
 /*******************
 Timeline page
 ******************/
-
 .timeline {
 	position  : relative;
 	padding   : 20px 0;
