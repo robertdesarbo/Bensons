@@ -52,18 +52,13 @@ mat-list {
 			width   : 100%;
 			position: absolute;
 
-			img {
-				position : absolute;
-				left     : 50%;
-				transform: translate(-50%, 0%);
-				z-index  : 1;
-				width    : 460px;
-				height   : 175px;
-				filter: drop-shadow(2px 4px 2px black);
-				@media (max-width: 1023px) {
-					width : 350px;
-					height: 135px;
-				}
+			.hero-title-content {
+				position      : absolute;
+				left          : 50%;
+				transform     : translate(-50%, 0%);
+				z-index       : 1;
+				display       : flex;
+				flex-direction: column;
 				@media (min-height: 500px) {
 					transform: translate(-50%, 10%);
 				}
@@ -72,16 +67,22 @@ mat-list {
 				}
 			}
 
-			.hero-banner {
-				position      : absolute;
-				left          : 50%;
-				transform     : translate(-50%, 175px);
-				z-index       : 1;
+			img {
+				width : 460px;
+				height: 175px;
 				filter: drop-shadow(2px 4px 2px black);
+				margin: 0 auto;
+				@media (max-width: 1023px) {
+					width : 350px;
+					height: 135px;
+				}
+			}
+
+			.hero-banner {
 				color         : #ffffff;
-				font-family   : 'Trebuchet MS', sans-serif;
-				font-size     : 2rem;
-				line-height   : 2rem;
+				font-family   : Circular, Arial, sans-serif;
+				font-size     : 1.75rem;
+				line-height   : 1.75rem;
 				letter-spacing: 1px;
 				text-transform: uppercase;
 				font-weight   : 600;
@@ -89,22 +90,18 @@ mat-list {
 				text-align    : center;
 				width         : 100%;
 				@media (max-width: 1023px) {
-					font-size  : 1.35rem;
-					line-height: 1.35rem;
-					transform  : translate(-50%, 145px) !important;
+					font-size  : 1.55rem;
+					line-height: 1.55rem;
 				}
-				@media (min-height: 500px) {
-					transform: translate(-50%, 190px);
-				}
-				@media (min-height: 750px) {
-					transform: translate(-50%, 265px);
+				@media (max-height: 500px) {
+					font-size  : 1.55rem;
+					line-height: 1.55rem;
 				}
 
 				span.company-name {
-					color     : #e51e1e;
-					border    : 2px solid;
-					padding   : 2px;
-					background: #00000033;
+					color      : #e51e1e;
+					padding    : 2px;
+					white-space: nowrap;
 				}
 			}
 
@@ -148,7 +145,7 @@ mat-list {
 
 		.hero-content {
 			position     : absolute;
-			padding      : 15px;
+			padding      : 15px 0 0;
 			border-radius: 3px;
 			z-index      : 1;
 			filter: drop-shadow(2px 4px 2px black);
