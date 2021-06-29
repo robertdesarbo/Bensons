@@ -101,13 +101,13 @@ export class StandingsTableComponent implements OnInit {
 	}
 
 	compareWins(left: Standings, right: Standings): number {
-		const n = right.won - left.won;
+		const n = parseFloat(right.win_percentage) - parseFloat(left.win_percentage);
 
 		if (n !== 0) {
 			return n;
 		}
 
-		return parseFloat(right.win_percentage) - parseFloat(left.win_percentage);
+		return right.won - left.won;
 	}
 
 	addRank(sorted_standings: Standings[]): Standings[] {
@@ -126,7 +126,7 @@ export class StandingsTableComponent implements OnInit {
 			let standing_with_rank = Standings.from({
 				...standing,
 				rank: index + 1,
-				games_behind: ((first_place.won - first_place.lost) - (standing.won - standing.lost)) / 2
+				games_behind: ((first_place.won - standing.won) + (standing.lost - first_place.lost)) / 2
 			});
 
 			return standing_with_rank;
