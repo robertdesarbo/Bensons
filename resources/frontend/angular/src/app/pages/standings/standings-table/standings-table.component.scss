@@ -3,7 +3,47 @@ mat-chip-list {
 	vertical-align: middle;
 }
 
+.mobile-label {
+	display: none;
+}
+
 mat-chip {
 	padding  : 4px 9px !important;
 	font-size: 13px !important;
+}
+@media(max-width: 600px) {
+	// Custom header label that shows in each column, with a set width and bold font
+	.mobile-label {
+		width      : 120px;
+		display    : inline-block;
+		font-weight: bold;
+	}
+	// Remove the header row altogether
+	.mat-header-row {
+		display: none;
+	}
+	// The row cells should display as a column, justified left, with a bit of extra padding
+	.mat-row {
+		flex-direction: column;
+		align-items   : start;
+		display       : inline-flex;
+		padding       : 8px 24px;
+		min-height    : unset;
+		height        : unset;
+		padding       : 8px 0;
+		width         : 100%;
+		border-bottom : 1px solid rgba(0, 0, 0, 0.12);
+	}
+	// Tweaks for Angular Material 8
+	.mat-cell:first-of-type,
+	.mat-footer-cell:first-of-type,
+	.mat-header-cell:first-of-type {
+		padding-left: unset;
+	}
+
+	.mat-cell {
+		border     : 0;
+		align-items: unset;
+		min-height : unset;
+	}
 }

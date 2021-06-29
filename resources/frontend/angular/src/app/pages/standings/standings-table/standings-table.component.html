@@ -15,37 +15,58 @@
 					<table mat-table [dataSource]="dataSource" matSort class="table" *ngIf="(standings$ | async); else loading">
 						<ng-container matColumnDef="rank">
 							<th mat-header-cell *matHeaderCellDef mat-sort-header> Rank </th>
-							<td mat-cell *matCellDef="let element"> {{element.rank}} </td>
+							<td mat-cell *matCellDef="let element">
+								<span class="mobile-label">Rank:</span>
+								{{element.rank}}
+							</td>
 						</ng-container>
 
 						<ng-container matColumnDef="team">
 							<th mat-header-cell *matHeaderCellDef mat-sort-header> Team </th>
-							<td mat-cell *matCellDef="let element"> {{element.team.name}} </td>
+							<td mat-cell *matCellDef="let element">
+								<span class="mobile-label">Team:</span>
+								{{element.team.name}}
+							</td>
 						</ng-container>
 
 						<ng-container matColumnDef="won">
 							<th mat-header-cell *matHeaderCellDef mat-sort-header> Wins </th>
-							<td mat-cell *matCellDef="let element"> {{element.won}} </td>
+							<td mat-cell *matCellDef="let element">
+								<span class="mobile-label">Wins:</span>
+								{{element.won}}
+							</td>
 						</ng-container>
 
 						<ng-container matColumnDef="lost">
 							<th mat-header-cell *matHeaderCellDef mat-sort-header> Loses </th>
-							<td mat-cell *matCellDef="let element"> {{element.lost}} </td>
+							<td mat-cell *matCellDef="let element">
+								<span class="mobile-label">Loses:</span>
+								{{element.lost}}
+							</td>
 						</ng-container>
 
 						<ng-container matColumnDef="win_percentage">
 							<th mat-header-cell *matHeaderCellDef mat-sort-header> Win Percentage </th>
-							<td mat-cell *matCellDef="let element"> {{element.win_percentage}} </td>
+							<td mat-cell *matCellDef="let element">
+								<span class="mobile-label">Win Percentage:</span>
+								{{element.win_percentage}}
+							</td>
 						</ng-container>
 
 						<ng-container matColumnDef="games_behind">
 							<th mat-header-cell *matHeaderCellDef mat-sort-header> Games Behind </th>
-							<td mat-cell *matCellDef="let element"> {{element.games_behind}} </td>
+							<td mat-cell *matCellDef="let element">
+								<span class="mobile-label">Games Behind:</span>
+								{{element.games_behind}}
+							</td>
 						</ng-container>
 
 						<ng-container matColumnDef="games_played">
 							<th mat-header-cell *matHeaderCellDef mat-sort-header> Games Played </th>
-							<td mat-cell *matCellDef="let element"> {{element.games_played}} </td>
+							<td mat-cell *matCellDef="let element">
+								<span class="mobile-label">Games Played:</span>
+								{{element.games_played}}
+							</td>
 						</ng-container>
 
 						<tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>
