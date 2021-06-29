@@ -27,7 +27,9 @@ export class HomeComponent implements AfterViewInit {
 		);
 	}
 
-	ngAfterViewInit() { }
+	ngAfterViewInit(): void {
+		(<any>window).twttr.widgets.load();
+	}
 
 	openRegisterDialog(): void {
 		const dialogRef = this.dialog.open(DialogRegisterTeam, {
