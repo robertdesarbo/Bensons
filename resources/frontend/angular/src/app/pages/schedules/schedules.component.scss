@@ -57,9 +57,13 @@ mat-chip {
 	font-weight: 700;
 }
 @media(max-width: 600px) {
+	td {
+		display: flex;
+	}
 	// Custom header label that shows in each column, with a set width and bold font
 	.mobile-label {
-		width      : 80px;
+		width      : 70px;
+		flex       : 0 0 70px;
 		display    : inline-block;
 		font-weight: bold;
 	}

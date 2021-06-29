@@ -23,7 +23,7 @@
 	<div fxFlex="100">
 		<mat-card>
 			<mat-card-content>
-				<div class="table-responsive">
+				<div>
 					<table mat-table [dataSource]="dataSource" matSort class="table" *ngIf="(field$ | async); else loading">
 						<ng-container matColumnDef="name">
 							<th mat-header-cell *matHeaderCellDef mat-sort-header> Name </th>

@@ -11,7 +11,7 @@
 						</mat-chip>
 					</mat-chip-list>
 				</mat-card-title>
-				<div class="table-responsive">
+				<div>
 					<table mat-table [dataSource]="dataSource" matSort class="table" *ngIf="(standings$ | async); else loading">
 						<ng-container matColumnDef="rank">
 							<th mat-header-cell *matHeaderCellDef mat-sort-header> Rank </th>

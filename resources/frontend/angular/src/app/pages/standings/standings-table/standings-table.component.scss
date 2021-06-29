@@ -12,9 +12,13 @@ mat-chip {
 	font-size: 13px !important;
 }
 @media(max-width: 600px) {
+	td {
+		display: flex;
+	}
 	// Custom header label that shows in each column, with a set width and bold font
 	.mobile-label {
 		width      : 120px;
+		flex       : 0 0 120px;
 		display    : inline-block;
 		font-weight: bold;
 	}
