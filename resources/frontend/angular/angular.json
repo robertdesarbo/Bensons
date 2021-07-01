@@ -99,8 +99,8 @@
                         },
                         "dev-laravel": {
                             "outputPath": "../../../public/build",
-                            "outputHashing": "none",
                             "deployUrl": "build/",
+                            "outputHashing": "none",
                             "watch": true
 
                         },

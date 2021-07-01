@@ -25,99 +25,103 @@
 </div>
 
 <div fxLayout="row wrap">
+	<div fxFlex.gt-sm="100" fxFlex.gt-xs="100" fxFlex.gt-md="66.66" fxFlex="100">
+		<ng-container *ngIf="(leagueStat$ | async) as leagueStat; else loading">
+			<div fxLayout="row wrap">
+				<div fxFlex.gt-sm="50" fxFlex.gt-xs="50" fxFlex.gt-md="50" fxFlex="50">
+					<mat-card>
+						<mat-card-content>
+							<!-- Row -->
+							<div class="d-flex no-block">
+								<!-- column -->
+								<div class="m-r-10 no-shrink">
+									<button mat-fab color="accent" mat-card-icon class="shadow-none bg-inverse">
+										<mat-icon>groups</mat-icon>
+									</button>
+								</div>
+								<!-- column -->
+								<div>
+									<h3 class="m-0">{{ leagueStat.divisions }}</h3>
+									<h6 class="text-muted m-0">Divisions</h6>
+								</div>
+							</div>
+						</mat-card-content>
+					</mat-card>
+				</div>
+				<div fxFlex.gt-sm="50" fxFlex.gt-xs="50" fxFlex.gt-md="50" fxFlex="50">
+					<mat-card>
+						<mat-card-content>
+							<!-- Row -->
+							<div class="d-flex no-block">
+								<!-- column -->
+								<div class="m-r-10 no-shrink">
+									<button mat-fab mat-card-icon class="shadow-none bg-inverse bg-success">
+										<mat-icon>people</mat-icon>
+									</button>
+								</div>
+								<!-- column -->
+								<div>
+									<h3 class="m-0">{{ leagueStat.teams }}</h3>
+									<h6 class="text-muted m-0">Teams</h6>
+								</div>
+							</div>
+						</mat-card-content>
+					</mat-card>
+				</div>
+				<div fxFlex.gt-sm="50" fxFlex.gt-xs="50" fxFlex.gt-md="50" fxFlex="50">
+					<mat-card>
+						<mat-card-content>
+							<!-- Row -->
+							<div class="d-flex no-block">
+								<!-- column -->
+								<div class="m-r-10 no-shrink">
+									<button mat-fab color="warn" mat-card-icon class="shadow-none bg-success">
+										<mat-icon>person</mat-icon>
+									</button>
+								</div>
+								<!-- column -->
+								<div>
+									<h3 class="m-0">{{ leagueStat.teams * 14 }}+</h3>
+									<h6 class="text-muted m-0">Players</h6>
+								</div>
 
-	<!-- <div fxFlex.gt-sm="100" fxFlex.gt-xs="100" fxFlex="100">
+							</div>
+						</mat-card-content>
+					</mat-card>
+				</div>
+				<div fxFlex.gt-sm="50" fxFlex.gt-xs="50" fxFlex.gt-md="50" fxFlex="50">
+					<mat-card>
+						<mat-card-content>
+							<!-- Row -->
+							<div class="d-flex no-block">
+								<!-- column -->
+								<div class="m-r-10 no-shrink">
+									<button mat-fab color="accent" mat-card-icon class="shadow-none">
+										<mat-icon>map</mat-icon>
+									</button>
+								</div>
+								<!-- column -->
+								<div>
+									<h3 class="m-0">{{ leagueStat.fields }}</h3>
+									<h6 class="text-muted m-0">Locations</h6>
+								</div>
+
+							</div>
+						</mat-card-content>
+					</mat-card>
+				</div>
+			</div>
+		</ng-container>
+	</div>
+
+	<div fxFlex.gt-sm="100" fxFlex.gt-xs="100" fxFlex.gt-md="33.33" fxFlex="100">
 		<mat-card>
 			<mat-card-content>
-				<a class="twitter-timeline" href="http://twitter.com/BensonsESS" data-tweet-limit="1" data-theme="light" data-width="1000" data-height="350"></a>
+				<a class="twitter-timeline" data-tweet-limit="1" data-lang="en" data-chrome="noheader,nofooter,noborders" data-dnt="true" data-theme="light" href="https://twitter.com/BensonsESS">Tweets by BensonsESS</a>
 			</mat-card-content>
 		</mat-card>
-	</div> -->
+	</div>
 
-	<ng-container *ngIf="(leagueStat$ | async) as leagueStat; else loading">
-		<div fxFlex.gt-sm="25" fxFlex.gt-xs="50" fxFlex="50">
-			<mat-card>
-				<mat-card-content>
-					<!-- Row -->
-					<div class="d-flex no-block">
-						<!-- column -->
-						<div class="m-r-10 no-shrink">
-							<button mat-fab color="accent" mat-card-icon class="shadow-none bg-inverse">
-								<mat-icon>groups</mat-icon>
-							</button>
-						</div>
-						<!-- column -->
-						<div>
-							<h3 class="m-0">{{ leagueStat.divisions }}</h3>
-							<h6 class="text-muted m-0">Divisions</h6>
-						</div>
-					</div>
-				</mat-card-content>
-			</mat-card>
-		</div>
-		<div fxFlex.gt-sm="25" fxFlex.gt-xs="50" fxFlex="50">
-			<mat-card>
-				<mat-card-content>
-					<!-- Row -->
-					<div class="d-flex no-block">
-						<!-- column -->
-						<div class="m-r-10 no-shrink">
-							<button mat-fab mat-card-icon class="shadow-none bg-inverse bg-success">
-								<mat-icon>people</mat-icon>
-							</button>
-						</div>
-						<!-- column -->
-						<div>
-							<h3 class="m-0">{{ leagueStat.teams }}</h3>
-							<h6 class="text-muted m-0">Teams</h6>
-						</div>
-					</div>
-				</mat-card-content>
-			</mat-card>
-		</div>
-		<div fxFlex.gt-sm="25" fxFlex.gt-xs="50" fxFlex="50">
-			<mat-card>
-				<mat-card-content>
-					<!-- Row -->
-					<div class="d-flex no-block">
-						<!-- column -->
-						<div class="m-r-10 no-shrink">
-							<button mat-fab color="warn" mat-card-icon class="shadow-none bg-success">
-								<mat-icon>person</mat-icon>
-							</button>
-						</div>
-						<!-- column -->
-						<div>
-							<h3 class="m-0">{{ leagueStat.teams * 14 }}+</h3>
-							<h6 class="text-muted m-0">Players</h6>
-						</div>
-
-					</div>
-				</mat-card-content>
-			</mat-card>
-		</div>
-		<div fxFlex.gt-sm="25" fxFlex.gt-xs="50" fxFlex="50">
-			<mat-card>
-				<mat-card-content>
-					<!-- Row -->
-					<div class="d-flex no-block">
-						<!-- column -->
-						<div class="m-r-10 no-shrink">
-							<button mat-fab color="accent" mat-card-icon class="shadow-none">
-								<mat-icon>map</mat-icon>
-							</button>
-						</div>
-						<!-- column -->
-						<div>
-							<h3 class="m-0">{{ leagueStat.fields }}</h3>
-							<h6 class="text-muted m-0">Locations</h6>
-						</div>
-
-					</div>
-				</mat-card-content>
-			</mat-card>
-		</div>
-	</ng-container>
 
 	<ng-template #loading>
 		<mat-spinner diameter="50"></mat-spinner>
@@ -129,7 +133,8 @@
 		<mat-card>
 			<mat-card-content>
 				<mat-card-title>League Information</mat-card-title>
-				<p>Benson's Empire State Sports Ltd. is a sports management organization located in Albany, NY which serves the greater Capital Region. The softball league plays from April to September and the Basketball league plays from October to April.
+				<p>Benson's Empire State Sports Ltd. is a sports management organization located in Albany, NY which serves the greater Capital Region. The softball league plays from April to September and the Basketball league plays from October to
+					April.
 				</p>
 				<mat-list class="compact-mat-list">
 					<mat-list-item>
@@ -164,7 +169,6 @@
 				</mat-list>
 			</mat-card-content>
 		</mat-card>
-
 	</div>
 
 	<div fxFlex.gt-sm="33.33" fxFlex.gt-xs="100" fxFlex="100">
