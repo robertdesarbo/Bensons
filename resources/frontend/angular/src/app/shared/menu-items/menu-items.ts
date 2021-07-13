@@ -52,6 +52,13 @@ export class MenuItems {
 			display: this.authenticationService.isAuthenticated
 		},
 		{
+			state: 'registered-teams',
+			name: 'Registered Teams',
+			type: 'link',
+			icon: 'people',
+			display: this.authenticationService.isAuthenticated
+		},
+		{
 			state: 'schedule',
 			name: 'Schedule',
 			type: 'link',
@@ -70,6 +77,13 @@ export class MenuItems {
 			name: 'Field Locations',
 			type: 'link',
 			icon: 'map',
+			display: true
+		},
+		{
+			state: 'free-agents',
+			name: 'Free Agents',
+			type: 'link',
+			icon: 'person_add',
 			display: true
 		},
 		{

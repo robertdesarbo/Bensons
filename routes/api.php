@@ -6,6 +6,8 @@ use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\LoginController;
 use App\Http\Controllers\ScheduleGameController;
 use App\Http\Controllers\FieldController;
+use App\Http\Controllers\FreeAgentController;
+use App\Http\Controllers\RegisteredTeamController;
 use App\Http\Controllers\StandingController;
 use App\Http\Controllers\TeamController;
 use App\Http\Controllers\UmpireController;
@@ -57,6 +59,8 @@ Route::get('standing', [StandingController::class, 'standing']);
 Route::get('field', [FieldController::class, 'field']);
 
 Route::get('team', [TeamController::class, 'team']);
+Route::get('free-agent', [FreeAgentController::class, 'freeAgent']);
+Route::get('registered-team', [RegisteredTeamController::class, 'registeredTeam']);
 
 Route::get('umpire', [UmpireController::class, 'umpire']);
 
