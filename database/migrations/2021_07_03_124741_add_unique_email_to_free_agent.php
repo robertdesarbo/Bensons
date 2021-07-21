@@ -7,7 +7,7 @@ use Illuminate\Support\Facades\Schema;
 use Illuminate\Support\Facades\DB;
 
 use App\Models\FreeAgent;
-use App\Models\FreeAgentDivision;
+use App\Models\DivisionFreeAgent;
 
 class AddUniqueEmailToFreeAgent extends Migration
 {
@@ -26,14 +26,15 @@ class AddUniqueEmailToFreeAgent extends Migration
                     ->get();
 
         foreach ($duplicate_free_agents as $duplicate) {
-            FreeAgentDivision::where('free_agent_id', $duplicate->id)->delete();
+            DivisionFreeAgent::where('free_agent_id', $duplicate->id)->delete();
             FreeAgent::where('id', $duplicate->id)->delete();
         }
 
         Schema::table('free_agents', function (Blueprint $table) {
             $table->unique('email');
-            $table->enum('gender', ['male', 'female'])->after('email');
-            $table->enum('status', ['looking', 'found'])->after('gender');
+            $table->enum('gender', ['male', 'female'])->after('email')->nullable();
+            $table->enum('status', ['looking', 'found'])->after('gender')->default('looking');
+            $table->dropForeign('free_agents_division_id_foreign');
             $table->dropColumn('division_id');
         });
     }
@@ -45,11 +46,11 @@ class AddUniqueEmailToFreeAgent extends Migration
      */
     public function down()
     {
-        Schema::table('free_agent', function (Blueprint $table) {
-            $table->dropUnique('email');
+        Schema::table('free_agents', function (Blueprint $table) {
+            $table->dropUnique('free_agents_email_unique');
             $table->dropColumn('gender');
             $table->dropColumn('status');
-            $table->foreignId('division_id')->constrained('divisions')->after('email');
+            $table->foreignId('division_id')->nullable()->after('email')->constrained('divisions');
         });
     }
 }

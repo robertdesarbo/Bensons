@@ -5,11 +5,11 @@ namespace App\Models;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 
-class FreeAgentDivision extends Model
+class DivisionFreeAgent extends Model
 {
     use HasFactory;
 
-    protected $table = 'free_agent_division';
+    protected $table = 'division_free_agent';
 
     protected $fillable = ['free_agent_id', 'division_id'];
 

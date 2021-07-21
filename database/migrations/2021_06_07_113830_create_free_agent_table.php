@@ -18,7 +18,7 @@ class CreateFreeAgentTable extends Migration
             $table->string('name');
             $table->string('phone');
             $table->string('email');
-            $table->foreignId('division_id')->constrained('divisions');
+            $table->foreignId('division_id')->nullable()->constrained('divisions');
             $table->timestamps();
         });
     }

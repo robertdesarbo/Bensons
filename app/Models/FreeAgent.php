@@ -13,6 +13,6 @@ class FreeAgent extends Model
 
     public function division()
     {
-        return $this->belongsTo(Division::class, 'division_id');
+        return $this->belongsToMany(Division::class);
     }
 }
