@@ -1,4 +1,4 @@
-import { Component, ViewChild } from '@angular/core';
+import { Component, ViewChild, OnInit } from '@angular/core';
 import { FormBuilder, FormGroupDirective, FormGroup, Validators } from '@angular/forms';
 import { MatDialogRef } from '@angular/material/dialog';
 import { HttpClient, HttpParams } from '@angular/common/http';
@@ -19,11 +19,11 @@ import { FreeAgentType } from 'src/app/models/enum/free-agent-type.enum';
 	templateUrl: 'looking-for-a-team-dialog.html',
 	styleUrls: ['looking-for-a-team-dialog.scss'],
 })
-export class DialogLookingForATeam {
+export class DialogLookingForATeam implements OnInit {
 
-	readonly reasonFormGroup: FormGroup;
-	readonly playerInformationFormGroup: FormGroup;
-	readonly contactInformationFormGroup: FormGroup;
+	public reasonFormGroup: FormGroup;
+	public playerInformationFormGroup: FormGroup;
+	public contactInformationFormGroup: FormGroup;
 	public errors: string[];
 
 	public positions = Object.values(Position);
@@ -34,7 +34,7 @@ export class DialogLookingForATeam {
 	@ViewChild('contactInformationFormDirective') contactInformationFormDirective: FormGroupDirective;
 
 	@ViewChild('stepper')
-	set pane(stepper: MatStepper) {
+	set stepper(stepper: MatStepper) {
 		setTimeout(() => {
 			this.childStepper$.next(stepper);
 			this.totalStepsCount = stepper._steps.length;
@@ -50,7 +50,9 @@ export class DialogLookingForATeam {
 		public http: HttpClient) {
 
 		this.division$ = this.http.get<Division[]>('/api/division');
+	}
 
+	ngOnInit() {
 		this.reasonFormGroup = this.formBuilder.group({
 			reason: ['', Validators.required]
 		});

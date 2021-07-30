@@ -3,7 +3,8 @@
 		<mat-step [stepControl]="reasonFormGroup">
 			<ng-template matStepLabel>Team or Player</ng-template>
 			<form [formGroup]="reasonFormGroup">
-				<mat-radio-group aria-label="Select an option" formControlName="reason" class="reason-radio-group">
+				<p>Are you looking for a team or players?</p>
+				<mat-radio-group formControlName="reason" class="reason-radio-group">
 					<mat-radio-button class="reason-radio-button" [value]="freeAgentType.player">Looking for a <b>Team</b></mat-radio-button>
 					<mat-radio-button class="reason-radio-button" [value]="freeAgentType.team">Looking for <b>Players</b></mat-radio-button>
 				</mat-radio-group>

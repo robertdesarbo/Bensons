@@ -61,6 +61,7 @@ Route::get('field', [FieldController::class, 'field']);
 
 Route::get('team', [TeamController::class, 'team']);
 Route::get('free-agent', [FreeAgentController::class, 'freeAgent']);
+Route::get('team-free-agent', [FreeAgentController::class, 'teamFreeAgent']);
 Route::get('registered-team', [RegisteredTeamController::class, 'registeredTeam']);
 
 Route::get('umpire', [UmpireController::class, 'umpire']);

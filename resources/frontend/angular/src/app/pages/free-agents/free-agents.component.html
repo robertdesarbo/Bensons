@@ -5,8 +5,9 @@
 	<div fxFlex="100">
 		<mat-card>
 			<mat-card-content>
+				<mat-card-title>Teams looking for players</mat-card-title>
 				<div>
-					<table mat-table [dataSource]="dataSource" matSort class="table" *ngIf="(freeAgent$ | async); else loading">
+					<table mat-table [dataSource]="teamsDataSource" matSort class="table" *ngIf="(freeAgentTeams$ | async); else loading">
 						<ng-container matColumnDef="name">
 							<th mat-header-cell *matHeaderCellDef mat-sort-header> Name </th>
 							<td mat-cell *matCellDef="let element"> {{element.name}} </td>
@@ -26,19 +27,94 @@
 							</td>
 						</ng-container>
 
-						<ng-container matColumnDef="division">
-							<th mat-header-cell *matHeaderCellDef mat-sort-header> Division </th>
+						<ng-container matColumnDef="genders">
+							<th mat-header-cell *matHeaderCellDef mat-sort-header> Genders </th>
 							<td mat-cell *matCellDef="let element">
-								<span *ngFor="let division of element.division;">{{division.name}}</span>
+								<ng-container *ngFor="let gender of element.genders;">
+									<span>{{gender}}</span>
+									<br />
+								</ng-container>
 							</td>
 						</ng-container>
 
-						<tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>
-						<tr mat-row *matRowDef="let row; columns: displayedColumns;"></tr>
+						<ng-container matColumnDef="positions">
+							<th mat-header-cell *matHeaderCellDef mat-sort-header> Position </th>
+							<td mat-cell *matCellDef="let element">
+								<ng-container *ngFor="let position of element.positions;">
+									<span>{{position}}</span>
+									<br />
+								</ng-container>
+							</td>
+						</ng-container>
+
+						<tr mat-header-row *matHeaderRowDef="teamsDisplayedColumns"></tr>
+						<tr mat-row *matRowDef="let row; columns: teamsDisplayedColumns;"></tr>
 					</table>
 
-					<div *ngIf="noData | async" class="no-records">
-						No free agents found
+					<div *ngIf="teamsNoData | async" class="no-records">
+						No team looking for free agents
+					</div>
+
+					<ng-template #loading>
+						<mat-spinner diameter="50"></mat-spinner>
+					</ng-template>
+				</div>
+			</mat-card-content>
+		</mat-card>
+	</div>
+</div>
+
+
+<!-- ============================================================== -->
+<div fxLayout="row wrap">
+	<div fxFlex="100">
+		<mat-card>
+			<mat-card-content>
+				<mat-card-title>Players looking for teams</mat-card-title>
+				<div>
+					<table mat-table [dataSource]="playersDataSource" matSort class="table" *ngIf="(freeAgent$ | async); else loading">
+						<ng-container matColumnDef="name">
+							<th mat-header-cell *matHeaderCellDef mat-sort-header> Name </th>
+							<td mat-cell *matCellDef="let element"> {{element.name}} </td>
+						</ng-container>
+
+						<ng-container matColumnDef="phone">
+							<th mat-header-cell *matHeaderCellDef mat-sort-header> Phone </th>
+							<td mat-cell *matCellDef="let element">
+								{{element.phone}}
+							</td>
+						</ng-container>
+
+						<ng-container matColumnDef="email">
+							<th mat-header-cell *matHeaderCellDef mat-sort-header> Email </th>
+							<td mat-cell *matCellDef="let element">
+								{{element.email}}
+							</td>
+						</ng-container>
+
+						<ng-container matColumnDef="gender">
+							<th mat-header-cell *matHeaderCellDef mat-sort-header> Gender </th>
+							<td mat-cell *matCellDef="let element">
+								{{element.gender}}
+							</td>
+						</ng-container>
+
+						<ng-container matColumnDef="division">
+							<th mat-header-cell *matHeaderCellDef mat-sort-header> Division </th>
+							<td mat-cell *matCellDef="let element">
+								<ng-container *ngFor="let division of element.division;">
+									<span>{{division.name}}</span>
+									<br />
+								</ng-container>
+							</td>
+						</ng-container>
+
+						<tr mat-header-row *matHeaderRowDef="playersDisplayedColumns"></tr>
+						<tr mat-row *matRowDef="let row; columns: playersDisplayedColumns;"></tr>
+					</table>
+
+					<div *ngIf="playersNoData | async" class="no-records">
+						No players looking for teams
 					</div>
 
 					<ng-template #loading>

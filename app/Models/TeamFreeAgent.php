@@ -11,6 +11,11 @@ class TeamFreeAgent extends Model
 
     protected $fillable = ['name', 'phone', 'email', 'positions', 'genders'];
 
+    protected $casts = [
+        'positions' => 'array',
+        'genders' => 'array'
+    ];
+
     public function team()
     {
         return $this->belongsTo(Team::class);

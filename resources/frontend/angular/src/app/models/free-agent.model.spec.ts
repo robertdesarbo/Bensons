@@ -1,7 +1,7 @@
-import { Field } from './field.model';
+import { FreeAgent } from './free-agent.model';
 
-describe('Field', () => {
-  it('should create an instance', () => {
-    expect(new Field()).toBeTruthy();
-  });
+describe('FreeAgent', () => {
+	it('should create an instance', () => {
+		expect(new FreeAgent()).toBeTruthy();
+	});
 });

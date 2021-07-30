@@ -15,6 +15,11 @@ class FreeAgentController extends Controller
         return FreeAgent::with('division')->get();
     }
 
+    public function teamFreeAgent(Request $request)
+    {
+        return TeamFreeAgent::get();
+    }
+
     public function findTeam(Request $request)
     {
         $validated = $request->validate([
