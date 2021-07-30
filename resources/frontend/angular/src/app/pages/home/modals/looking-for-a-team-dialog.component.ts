@@ -57,6 +57,7 @@ export class DialogLookingForATeam {
 
 		this.playerInformationFormGroup = this.formBuilder.group({
 			positions: [''],
+			gender: [''],
 			genders: [''],
 			division: ['']
 		});
@@ -81,10 +82,12 @@ export class DialogLookingForATeam {
 
 			// dynamically set validation
 			this.playerInformationFormGroup.controls["positions"].clearValidators();
+			this.playerInformationFormGroup.controls["gender"].clearValidators();
 			this.playerInformationFormGroup.controls["genders"].clearValidators();
 			this.playerInformationFormGroup.controls["division"].clearValidators();
 
 			this.playerInformationFormGroup.controls["positions"].updateValueAndValidity();
+			this.playerInformationFormGroup.controls["gender"].updateValueAndValidity();
 			this.playerInformationFormGroup.controls["genders"].updateValueAndValidity();
 			this.playerInformationFormGroup.controls["division"].updateValueAndValidity();
 
@@ -93,9 +96,11 @@ export class DialogLookingForATeam {
 				this.playerInformationFormGroup.controls["genders"].setValidators([Validators.required]);
 			} else {
 				this.playerInformationFormGroup.controls["division"].setValidators([Validators.required]);
+				this.playerInformationFormGroup.controls["gender"].setValidators([Validators.required]);
 			}
 
 			this.playerInformationFormGroup.controls["positions"].updateValueAndValidity();
+			this.playerInformationFormGroup.controls["gender"].updateValueAndValidity();
 			this.playerInformationFormGroup.controls["genders"].updateValueAndValidity();
 			this.playerInformationFormGroup.controls["division"].updateValueAndValidity();
 
@@ -146,6 +151,7 @@ export class DialogLookingForATeam {
 					phone: this.contactInformationFormGroup.get('phone').value,
 					email: this.contactInformationFormGroup.get('email').value,
 					division: this.playerInformationFormGroup.get('division').value,
+					gender: this.playerInformationFormGroup.get('gender').value
 				}
 
 				this.http.post<any>('/api/find-team', player)

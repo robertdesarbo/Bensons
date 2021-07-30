@@ -9,10 +9,10 @@ class FreeAgent extends Model
 {
     use HasFactory;
 
-    protected $fillable = ['name', 'phone', 'email', 'division_id'];
+    protected $fillable = ['name', 'phone', 'email', 'gender', 'division_id'];
 
     public function division()
     {
-        return $this->belongsToMany(Division::class);
+        return $this->belongsToMany(Division::class)->withTimestamps();
     }
 }

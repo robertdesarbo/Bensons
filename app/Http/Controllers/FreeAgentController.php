@@ -21,10 +21,11 @@ class FreeAgentController extends Controller
             'name' => 'required',
             'phone' => 'required',
             'email' => 'required|email',
-            'division' => 'required|exists:divisions,id'
+            'division' => 'required|exists:divisions,id',
+            'gender' => 'required',
         ]);
 
-        $schedule = FreeAgent::updateOrCreate(
+        $freeAgent = FreeAgent::updateOrCreate(
             [
                 'email' => $request->email,
             ],
@@ -32,9 +33,14 @@ class FreeAgentController extends Controller
                 'name' => $request->name,
                 'phone' => $request->phone,
                 'email' => $request->email,
-                'division_id' => $request->division
+                'gender' => $request->gender
             ]
         );
+
+        if (!empty($request->division)) {
+            $freeAgent->division()->detach();
+            $freeAgent->division()->attach($request->division);
+        }
     }
 
     public function findPlayers(Request $request)
@@ -48,7 +54,7 @@ class FreeAgentController extends Controller
             // 'team' => 'required|exists:teams,id'
         ]);
 
-        $schedule = TeamFreeAgent::updateOrCreate(
+        $freeAgent = TeamFreeAgent::updateOrCreate(
             [
                 'email' => $request->email,
             ],

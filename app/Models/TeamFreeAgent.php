@@ -13,6 +13,6 @@ class TeamFreeAgent extends Model
 
     public function team()
     {
-        return $this->belongsToMany(Team::class);
+        return $this->belongsTo(Team::class);
     }
 }

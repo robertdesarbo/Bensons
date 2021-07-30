@@ -24,6 +24,16 @@
 							Division is <strong>required</strong>
 						</mat-error>
 					</mat-form-field>
+					<mat-form-field *ngIf="reasonFormGroup.get('reason').value == freeAgentType.player">
+						<mat-label>Gender</mat-label>
+						<mat-select formControlName="gender" appearance="fill">
+							<mat-option value="Male">Male</mat-option>
+							<mat-option value="Female">Female</mat-option>
+						</mat-select>
+						<mat-error *ngIf="playerInformationFormGroup.get('gender').hasError('required')">
+							Genders is <strong>required</strong>
+						</mat-error>
+					</mat-form-field>
 					<mat-form-field *ngIf="reasonFormGroup.get('reason').value == freeAgentType.team">
 						<mat-label>Positions</mat-label>
 						<mat-select formControlName="positions" appearance="fill" multiple>
@@ -39,7 +49,7 @@
 							<mat-option value="Male">Male</mat-option>
 							<mat-option value="Female">Female</mat-option>
 						</mat-select>
-						<mat-error *ngIf="playerInformationFormGroup.get('positions').hasError('required')">
+						<mat-error *ngIf="playerInformationFormGroup.get('genders').hasError('required')">
 							Genders is <strong>required</strong>
 						</mat-error>
 					</mat-form-field>
