@@ -14,4 +14,18 @@ use App\Http\Controllers\AngularController;
 |
 */
 
+
+Route::get('download/{rule}', function ($rule) {
+    if ($rule == "Benson_Sunday") {
+        $file_name = "Empire-State-Sports-Sunday-League-Rules-2021.pdf";
+    } elseif ($rule == "Lynn_COED") {
+        $file_name = "Rules-LYN-Coed-2021.pdf";
+    } else {
+        $file_name = "Rules-LYN-Mens-2021.pdf";
+    }
+
+    return response()->download("build/assets/content/".$file_name);
+});
+
+
 Route::any('/{any}', [AngularController::class, 'index'])->where('any', '^(?!api).*$');
