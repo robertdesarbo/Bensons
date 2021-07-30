@@ -4,42 +4,42 @@
 			<ng-template matStepLabel>Team or Player</ng-template>
 			<form [formGroup]="reasonFormGroup">
 				<mat-radio-group aria-label="Select an option" formControlName="reason" class="reason-radio-group">
-					<mat-radio-button class="reason-radio-button" value="need_team">Looking for a <b>Team</b></mat-radio-button>
-					<mat-radio-button class="reason-radio-button" value="need_players">Looking for <b>Players</b></mat-radio-button>
+					<mat-radio-button class="reason-radio-button" [value]="freeAgentType.player">Looking for a <b>Team</b></mat-radio-button>
+					<mat-radio-button class="reason-radio-button" [value]="freeAgentType.team">Looking for <b>Players</b></mat-radio-button>
 				</mat-radio-group>
 			</form>
 		</mat-step>
-		<mat-step [stepControl]="playerInfoFormGroup">
+		<mat-step [stepControl]="playerInformationFormGroup">
 			<ng-template matStepLabel>Player Information</ng-template>
 			<div *ngIf="(division$ | async); else loading">
-				<p *ngIf="reasonFormGroup.get('reason').value=='need_team'">What skill level are you looking for?</p>
-				<p *ngIf="reasonFormGroup.get('reason').value=='need_players'">Tell us more about the players you are looking for.</p>
-				<form [formGroup]="playerInfoFormGroup">
-					<mat-form-field *ngIf="reasonFormGroup.get('reason').value=='need_team'">
+				<p *ngIf="reasonFormGroup.get('reason').value == freeAgentType.player">What skill level are you looking for?</p>
+				<p *ngIf="reasonFormGroup.get('reason').value == freeAgentType.team">Tell us more about the players you are looking for.</p>
+				<form [formGroup]="playerInformationFormGroup" #playerInformationFormDirective="ngForm">
+					<mat-form-field *ngIf="reasonFormGroup.get('reason').value == freeAgentType.player">
 						<mat-label>Preferred Division</mat-label>
 						<mat-select formControlName="division" appearance="fill" multiple>
 							<mat-option *ngFor="let division of division$ | async;" [value]="division.id">{{ division.league.name }} {{ division.name }}</mat-option>
 						</mat-select>
-						<mat-error *ngIf="playerInfoFormGroup.get('division').hasError('required')">
+						<mat-error *ngIf="playerInformationFormGroup.get('division').hasError('required')">
 							Division is <strong>required</strong>
 						</mat-error>
 					</mat-form-field>
-					<mat-form-field *ngIf="reasonFormGroup.get('reason').value=='need_players'">
+					<mat-form-field *ngIf="reasonFormGroup.get('reason').value == freeAgentType.team">
 						<mat-label>Positions</mat-label>
 						<mat-select formControlName="positions" appearance="fill" multiple>
-							<mat-option *ngFor="let position of positions$ | async;" [value]="position.id">{{ position.name }}</mat-option>
+							<mat-option *ngFor="let position of positions;" [value]="position">{{ position }}</mat-option>
 						</mat-select>
-						<mat-error *ngIf="playerInfoFormGroup.get('positions').hasError('required')">
+						<mat-error *ngIf="playerInformationFormGroup.get('positions').hasError('required')">
 							Positions is <strong>required</strong>
 						</mat-error>
 					</mat-form-field>
-					<mat-form-field *ngIf="reasonFormGroup.get('reason').value=='need_players'">
+					<mat-form-field *ngIf="reasonFormGroup.get('reason').value == freeAgentType.team">
 						<mat-label>Genders</mat-label>
 						<mat-select formControlName="genders" appearance="fill" multiple>
 							<mat-option value="Male">Male</mat-option>
 							<mat-option value="Female">Female</mat-option>
 						</mat-select>
-						<mat-error *ngIf="playerInfoFormGroup.get('positions').hasError('required')">
+						<mat-error *ngIf="playerInformationFormGroup.get('positions').hasError('required')">
 							Genders is <strong>required</strong>
 						</mat-error>
 					</mat-form-field>
@@ -49,8 +49,8 @@
 		<mat-step [stepControl]="contactInformationFormGroup">
 			<ng-template matStepLabel>Contact Information</ng-template>
 			<div *ngIf="(division$ | async); else loading">
-				<p>Provide this information so <b>{{ ( reasonFormGroup.get('reason').value=='need_players' ? 'teams' : 'players') }}</b> can contact you.</p>
-				<form [formGroup]="contactInformationFormGroup" (ngSubmit)="submit()">
+				<p>Provide this information so <b>{{ ( reasonFormGroup.get('reason').value == freeAgentType.team ? 'teams' : 'players') }}</b> can contact you.</p>
+				<form [formGroup]="contactInformationFormGroup" (ngSubmit)="submit()" #contactInformationFormDirective="ngForm">
 					<mat-form-field>
 						<mat-label>Name</mat-label>
 						<input matInput formControlName="name">

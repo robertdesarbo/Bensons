@@ -1,5 +1,5 @@
 import { Component, ViewChild } from '@angular/core';
-import { FormBuilder, FormGroup, Validators } from '@angular/forms';
+import { FormBuilder, FormGroupDirective, FormGroup, Validators } from '@angular/forms';
 import { MatDialogRef } from '@angular/material/dialog';
 import { HttpClient, HttpParams } from '@angular/common/http';
 import { MatStepper } from '@angular/material/stepper';
@@ -10,6 +10,10 @@ import { Observable, BehaviorSubject } from 'rxjs';
 import { tap } from 'rxjs/operators';
 import { MatSnackBar } from '@angular/material/snack-bar';
 
+import { Gender } from 'src/app/models/enum/gender.enum';
+import { Position } from 'src/app/models/enum/position.enum';
+import { FreeAgentType } from 'src/app/models/enum/free-agent-type.enum';
+
 @Component({
 	selector: 'looking-for-a-team-dialog',
 	templateUrl: 'looking-for-a-team-dialog.html',
@@ -18,11 +22,16 @@ import { MatSnackBar } from '@angular/material/snack-bar';
 export class DialogLookingForATeam {
 
 	readonly reasonFormGroup: FormGroup;
-	readonly playerInfoFormGroup: FormGroup;
+	readonly playerInformationFormGroup: FormGroup;
 	readonly contactInformationFormGroup: FormGroup;
 	public errors: string[];
 
+	public positions = Object.values(Position);
+	public freeAgentType = FreeAgentType;
 	public division$: Observable<Division[]>;
+
+	@ViewChild('playerInformationFormDirective') playerInformationFormDirective: FormGroupDirective;
+	@ViewChild('contactInformationFormDirective') contactInformationFormDirective: FormGroupDirective;
 
 	@ViewChild('stepper')
 	set pane(stepper: MatStepper) {
@@ -46,7 +55,7 @@ export class DialogLookingForATeam {
 			reason: ['', Validators.required]
 		});
 
-		this.playerInfoFormGroup = this.formBuilder.group({
+		this.playerInformationFormGroup = this.formBuilder.group({
 			positions: [''],
 			genders: [''],
 			division: ['']
@@ -63,20 +72,33 @@ export class DialogLookingForATeam {
 				return;
 			}
 
-			this.playerInfoFormGroup.controls["positions"].clearValidators();
-			this.playerInfoFormGroup.controls["genders"].clearValidators();
-			this.playerInfoFormGroup.controls["division"].clearValidators();
+			// reset forms
+			this.playerInformationFormGroup.reset();
+			this.playerInformationFormDirective.resetForm();
 
-			this.playerInfoFormGroup.controls["positions"].updateValueAndValidity();
-			this.playerInfoFormGroup.controls["genders"].updateValueAndValidity();
-			this.playerInfoFormGroup.controls["division"].updateValueAndValidity();
+			this.contactInformationFormGroup.reset();
+			this.contactInformationFormDirective.resetForm();
 
-			if (reason == "need_players") {
-				this.playerInfoFormGroup.controls["positions"].setValidators([Validators.required]);
-				this.playerInfoFormGroup.controls["genders"].setValidators([Validators.required]);
+			// dynamically set validation
+			this.playerInformationFormGroup.controls["positions"].clearValidators();
+			this.playerInformationFormGroup.controls["genders"].clearValidators();
+			this.playerInformationFormGroup.controls["division"].clearValidators();
+
+			this.playerInformationFormGroup.controls["positions"].updateValueAndValidity();
+			this.playerInformationFormGroup.controls["genders"].updateValueAndValidity();
+			this.playerInformationFormGroup.controls["division"].updateValueAndValidity();
+
+			if (reason == FreeAgentType.team) {
+				this.playerInformationFormGroup.controls["positions"].setValidators([Validators.required]);
+				this.playerInformationFormGroup.controls["genders"].setValidators([Validators.required]);
 			} else {
-				this.playerInfoFormGroup.controls["division"].setValidators([Validators.required]);
+				this.playerInformationFormGroup.controls["division"].setValidators([Validators.required]);
 			}
+
+			this.playerInformationFormGroup.controls["positions"].updateValueAndValidity();
+			this.playerInformationFormGroup.controls["genders"].updateValueAndValidity();
+			this.playerInformationFormGroup.controls["division"].updateValueAndValidity();
+
 		});
 	}
 
@@ -85,25 +107,29 @@ export class DialogLookingForATeam {
 	}
 
 	goForward() {
-		this.childStepper$.value.next();
+		if (this.childStepper$.value.selectedIndex === this.totalStepsCount - 1) {
+			this.submit();
+		} else {
+			this.childStepper$.value.next();
+		}
 	}
 
 	submit(): void {
-		if (this.reasonFormGroup.valid && this.playerInfoFormGroup.valid && this.contactInformationFormGroup.valid) {
-			if (this.reasonFormGroup.get('reason').value == 'need_players') {
+		if (this.reasonFormGroup.valid && this.playerInformationFormGroup.valid && this.contactInformationFormGroup.valid) {
+			if (this.reasonFormGroup.get('reason').value == FreeAgentType.team) {
 				let team: any = {
 					name: this.contactInformationFormGroup.get('name').value,
 					phone: this.contactInformationFormGroup.get('phone').value,
 					email: this.contactInformationFormGroup.get('email').value,
-					positions: this.playerInfoFormGroup.get('positions').value,
-					genders: this.playerInfoFormGroup.get('genders').value
+					positions: this.playerInformationFormGroup.get('positions').value,
+					genders: this.playerInformationFormGroup.get('genders').value
 				}
 
-				this.http.post<any>('/api/find-player', team)
+				this.http.post<any>('/api/find-players', team)
 					.subscribe(
 						() => {
 							this.snackBar.open('Your contact information has been added to the free agent list for finding players.', 'Dismiss', {
-								duration: 3000,
+								duration: 6000,
 								horizontalPosition: "right",
 								verticalPosition: "top",
 							});
@@ -119,14 +145,14 @@ export class DialogLookingForATeam {
 					name: this.contactInformationFormGroup.get('name').value,
 					phone: this.contactInformationFormGroup.get('phone').value,
 					email: this.contactInformationFormGroup.get('email').value,
-					division: this.playerInfoFormGroup.get('division').value,
+					division: this.playerInformationFormGroup.get('division').value,
 				}
 
 				this.http.post<any>('/api/find-team', player)
 					.subscribe(
 						() => {
 							this.snackBar.open('Your contact information has been added to the free agent list for finding a team.', 'Dismiss', {
-								duration: 3000,
+								duration: 6000,
 								horizontalPosition: "right",
 								verticalPosition: "top",
 							});

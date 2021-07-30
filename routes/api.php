@@ -49,7 +49,8 @@ Route::post('login', [LoginController::class, 'login']);
 Route::get('logout', [LoginController::class, 'logout']);
 
 Route::post('register-team', [SignUpController::class, 'registerTeam']);
-Route::post('find-team', [SignUpController::class, 'findTeam']);
+Route::post('find-team', [FreeAgentController::class, 'findTeam']);
+Route::post('find-players', [FreeAgentController::class, 'findPlayers']);
 
 Route::get('home/stats', [HomeController::class, 'stats']);
 Route::get('schedule', [ScheduleGameController::class, 'schedule']);

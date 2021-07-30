@@ -15,12 +15,12 @@ class CreateTeamFreeAgentTable extends Migration
     {
         Schema::create('team_free_agents', function (Blueprint $table) {
             $table->id();
-            $table->string('team_id')->constrained('teams')->unique();
-            $table->string('captain_name');
+            $table->string('team_id')->constrained('teams')->unique()->nullable();
+            $table->string('name');
             $table->string('phone');
-            $table->string('email');
+            $table->string('email')->unique();
             $table->json('positions');
-            $table->enum('genders', ['male', 'female', 'both']);
+            $table->json('genders');
             $table->timestamps();
         });
     }
