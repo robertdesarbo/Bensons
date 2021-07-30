@@ -45,10 +45,7 @@ export class HomeComponent implements AfterViewInit {
 	}
 
 	openLookingForATeamDialog(): void {
-		const dialogRef = this.dialog.open(DialogLookingForATeam, {
-			width: '375px',
-			data: {}
-		});
+		const dialogRef = this.dialog.open(DialogLookingForATeam);
 
 		dialogRef.afterClosed().subscribe((result) => {
 			console.log('The dialog was closed');

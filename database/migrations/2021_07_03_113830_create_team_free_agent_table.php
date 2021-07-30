@@ -19,8 +19,8 @@ class CreateTeamFreeAgentTable extends Migration
             $table->string('captain_name');
             $table->string('phone');
             $table->string('email');
-            $table->json('need_positions');
-            $table->json('need_genders');
+            $table->json('positions');
+            $table->enum('genders', ['male', 'female', 'both']);
             $table->timestamps();
         });
     }

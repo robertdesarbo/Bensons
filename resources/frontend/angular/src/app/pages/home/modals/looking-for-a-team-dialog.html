@@ -1,54 +1,92 @@
-<h1 mat-dialog-title>Looking for a Team?</h1>
-<form [formGroup]="formControl" *ngIf="(division$ | async); else loading" (ngSubmit)="findTeam()">
-	<div mat-dialog-content>
-		<p>Please fill out the following information to help us match you with a team.</p>
-		<p *ngIf="errors" style="margin-top: 0;">
-			<ng-container *ngFor="let errors of errors;">
-				<span class="text-danger">
-					{{ errors }}
-				</span>
-				<br />
-			</ng-container>
-		</p>
-		<mat-form-field>
-			<mat-label>Name</mat-label>
-			<input matInput formControlName="name">
-			<mat-error *ngIf="formControl.get('name').hasError('required')">
-				Name is <strong>required</strong>
-			</mat-error>
-		</mat-form-field>
-		<mat-form-field>
-			<mat-label>Phone Number</mat-label>
-			<input matInput formControlName="phone">
-			<mat-error *ngIf="formControl.get('phone').hasError('required')">
-				Phone is <strong>required</strong>
-			</mat-error>
-		</mat-form-field>
-		<mat-form-field>
-			<mat-label>Email</mat-label>
-			<input matInput formControlName="email">
-			<mat-error *ngIf="formControl.get('email').hasError('required')">
-				Email is <strong>required</strong>
-			</mat-error>
-			<mat-error *ngIf="formControl.get('email').hasError('email')">
-				Valid email is <strong>required</strong>
-			</mat-error>
-		</mat-form-field>
-		<mat-form-field>
-			<mat-label>Preferred Division</mat-label>
-			<mat-select formControlName="division" appearance="fill">
-				<mat-option *ngFor="let division of division$ | async;" [value]="division.id">{{ division.league.name }} {{ division.name }}</mat-option>
-			</mat-select>
-			<mat-error *ngIf="formControl.get('division').hasError('required')">
-				Division is <strong>required</strong>
-			</mat-error>
-		</mat-form-field>
-	</div>
-	<mat-dialog-actions align="end">
-		<button mat-raised-button type="button" (click)="onNoClick()">Cancel</button>
-		<button mat-raised-button color="primary" cdkFocusInitial>Find</button>
-	</mat-dialog-actions>
-</form>
+<mat-dialog-content>
+	<mat-horizontal-stepper linear #stepper>
+		<mat-step [stepControl]="reasonFormGroup">
+			<ng-template matStepLabel>Team or Player</ng-template>
+			<form [formGroup]="reasonFormGroup">
+				<mat-radio-group aria-label="Select an option" formControlName="reason" class="reason-radio-group">
+					<mat-radio-button class="reason-radio-button" value="need_team">Looking for a <b>Team</b></mat-radio-button>
+					<mat-radio-button class="reason-radio-button" value="need_players">Looking for <b>Players</b></mat-radio-button>
+				</mat-radio-group>
+			</form>
+		</mat-step>
+		<mat-step [stepControl]="playerInfoFormGroup">
+			<ng-template matStepLabel>Player Information</ng-template>
+			<div *ngIf="(division$ | async); else loading">
+				<p *ngIf="reasonFormGroup.get('reason').value=='need_team'">What skill level are you looking for?</p>
+				<p *ngIf="reasonFormGroup.get('reason').value=='need_players'">Tell us more about the players you are looking for.</p>
+				<form [formGroup]="playerInfoFormGroup">
+					<mat-form-field *ngIf="reasonFormGroup.get('reason').value=='need_team'">
+						<mat-label>Preferred Division</mat-label>
+						<mat-select formControlName="division" appearance="fill" multiple>
+							<mat-option *ngFor="let division of division$ | async;" [value]="division.id">{{ division.league.name }} {{ division.name }}</mat-option>
+						</mat-select>
+						<mat-error *ngIf="playerInfoFormGroup.get('division').hasError('required')">
+							Division is <strong>required</strong>
+						</mat-error>
+					</mat-form-field>
+					<mat-form-field *ngIf="reasonFormGroup.get('reason').value=='need_players'">
+						<mat-label>Positions</mat-label>
+						<mat-select formControlName="positions" appearance="fill" multiple>
+							<mat-option *ngFor="let position of positions$ | async;" [value]="position.id">{{ position.name }}</mat-option>
+						</mat-select>
+						<mat-error *ngIf="playerInfoFormGroup.get('positions').hasError('required')">
+							Positions is <strong>required</strong>
+						</mat-error>
+					</mat-form-field>
+					<mat-form-field *ngIf="reasonFormGroup.get('reason').value=='need_players'">
+						<mat-label>Genders</mat-label>
+						<mat-select formControlName="genders" appearance="fill" multiple>
+							<mat-option value="Male">Male</mat-option>
+							<mat-option value="Female">Female</mat-option>
+						</mat-select>
+						<mat-error *ngIf="playerInfoFormGroup.get('positions').hasError('required')">
+							Genders is <strong>required</strong>
+						</mat-error>
+					</mat-form-field>
+				</form>
+			</div>
+		</mat-step>
+		<mat-step [stepControl]="contactInformationFormGroup">
+			<ng-template matStepLabel>Contact Information</ng-template>
+			<div *ngIf="(division$ | async); else loading">
+				<p>Provide this information so <b>{{ ( reasonFormGroup.get('reason').value=='need_players' ? 'teams' : 'players') }}</b> can contact you.</p>
+				<form [formGroup]="contactInformationFormGroup" (ngSubmit)="submit()">
+					<mat-form-field>
+						<mat-label>Name</mat-label>
+						<input matInput formControlName="name">
+						<mat-error *ngIf="contactInformationFormGroup.get('name').hasError('required')">
+							Name is <strong>required</strong>
+						</mat-error>
+					</mat-form-field>
+					<mat-form-field>
+						<mat-label>Phone Number</mat-label>
+						<input matInput formControlName="phone">
+						<mat-error *ngIf="contactInformationFormGroup.get('phone').hasError('required')">
+							Phone is <strong>required</strong>
+						</mat-error>
+					</mat-form-field>
+					<mat-form-field>
+						<mat-label>Email</mat-label>
+						<input matInput formControlName="email">
+						<mat-error *ngIf="contactInformationFormGroup.get('email').hasError('required')">
+							Email is <strong>required</strong>
+						</mat-error>
+						<mat-error *ngIf="contactInformationFormGroup.get('email').hasError('email')">
+							Valid email is <strong>required</strong>
+						</mat-error>
+					</mat-form-field>
+				</form>
+			</div>
+		</mat-step>
+	</mat-horizontal-stepper>
+</mat-dialog-content>
+<mat-dialog-actions align="end" *ngIf="(this.childStepper$ | async) as stepper">
+	<button mat-raised-button (click)="goBack()" type="button" [disabled]="stepper.selectedIndex === 0">Back</button>
+	<button mat-raised-button (click)="goForward()" type="button" color="primary" cdkFocusInitial>
+		{{ stepper.selectedIndex === totalStepsCount - 1 ? 'Submit' : 'Next' }}
+	</button>
+</mat-dialog-actions>
+
 <ng-template #loading>
-	<mat-spinner diameter="50"></mat-spinner>
+	<mat-spinner diameter=" 50"></mat-spinner>
 </ng-template>
