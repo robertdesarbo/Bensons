@@ -12,6 +12,8 @@ import { SchedulesComponent } from './pages/schedules/schedules.component';
 import { StandingsComponent } from './pages/standings/standings.component';
 import { FieldsComponent } from './pages/fields/fields.component';
 import { RulesComponent } from './pages/rules/rules.component';
+import { SponsersComponent } from './pages/sponsers/sponsers.component';
+
 import { SchedulePreferenceComponent } from './pages/schedule-preference/schedule-preference.component';
 import { BulletinBoardComponent } from './pages/bulletin-board/bulletin-board.component';
 import { MvpVotingComponent } from './pages/mvp-voting/mvp-voting.component';
@@ -76,7 +78,7 @@ export const AppRoutes: Routes = [
 				}
 			},
 			{
-				path: 'field_locations',
+				path: 'field-locations',
 				component: FieldsComponent,
 				data: {
 					title: 'Field Locations',
@@ -90,21 +92,28 @@ export const AppRoutes: Routes = [
 				}
 			},
 			{
-				path: 'schedule_preference',
+				path: 'sponsers',
+				component: SponsersComponent,
+				data: {
+					title: 'Sponsers',
+				},
+			},
+			{
+				path: 'schedule-preference',
 				component: SchedulePreferenceComponent,
 				data: {
 					title: 'Schedule Preference',
 				}
 			},
 			{
-				path: 'bulletin_board',
+				path: 'bulletin-board',
 				component: BulletinBoardComponent,
 				data: {
 					title: 'Bulletin Board',
 				}
 			},
 			{
-				path: 'mvp_voting',
+				path: 'mvp-voting',
 				component: MvpVotingComponent,
 				data: {
 					title: 'MVP voting',

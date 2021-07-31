@@ -37,6 +37,11 @@ class Schedule extends Model
         return $this->belongsTo(Team::class, 'away_id');
     }
 
+    public function season()
+    {
+        return $this->belongsTo(Season::class, 'season_id');
+    }
+
     public function field()
     {
         return $this->belongsTo(Field::class, 'field_id');

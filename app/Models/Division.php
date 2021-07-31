@@ -15,4 +15,9 @@ class Division extends Model
     {
         return $this->belongsTo(League::class, 'league_id');
     }
+
+    public function season()
+    {
+        return $this->hasMany(Season::class);
+    }
 }

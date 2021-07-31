@@ -73,7 +73,7 @@ export class MenuItems {
 			display: true
 		},
 		{
-			state: 'field_locations',
+			state: 'field-locations',
 			name: 'Field Locations',
 			type: 'link',
 			icon: 'map',
@@ -94,21 +94,28 @@ export class MenuItems {
 			display: true
 		},
 		{
-			state: 'schedule_preference',
+			state: 'sponsers',
+			name: 'Sponsers',
+			type: 'link',
+			icon: 'business',
+			display: true
+		},
+		{
+			state: 'schedule-preference',
 			name: 'Schedule Preference',
 			type: 'link',
 			icon: 'quiz',
 			display: true
 		},
 		{
-			state: 'bulletin_board',
+			state: 'bulletin-board',
 			name: 'Bulletin Board',
 			type: 'link',
 			icon: 'description',
 			display: true
 		},
 		{
-			state: 'mvp_voting',
+			state: 'mvp-voting',
 			name: 'MVP voting',
 			type: 'link',
 			icon: 'ballot',
