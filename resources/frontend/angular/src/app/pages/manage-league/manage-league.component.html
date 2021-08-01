@@ -11,19 +11,18 @@
 					Configure League
 				</mat-card-title>
 
-				<mat-accordion class="example-headers-align" multi>
-					<mat-expansion-panel>
+				<mat-accordion multi #accordian>
+					<mat-expansion-panel [expanded]="step===0" (opened)="setStep(0)">
 						<mat-expansion-panel-header>
 							<mat-panel-title>
 								League
 							</mat-panel-title>
 							<mat-panel-description>
-								Select League to configure
-								<mat-icon>account_circle</mat-icon>
+								Settings for defining name & sport
 							</mat-panel-description>
 						</mat-expansion-panel-header>
 
-						<form [formGroup]="leagueFormGroup" (ngSubmit)="updateLeague()">
+						<form [formGroup]="leagueFormGroup">
 							<mat-form-field>
 								<mat-label>League</mat-label>
 								<mat-select formControlName="league" appearance="fill">
@@ -35,6 +34,15 @@
 							</mat-form-field>
 
 							<ng-container *ngIf="leagueFormGroup.get('league').value">
+								<p>Settings specific to this league.</p>
+								<mat-form-field>
+									<mat-label>Name</mat-label>
+									<input matInput formControlName="name">
+									<mat-error *ngIf="leagueFormGroup.get('name').hasError('required')">
+										Name is <strong>required</strong>
+									</mat-error>
+								</mat-form-field>
+
 								<mat-form-field>
 									<mat-label>Sport</mat-label>
 									<mat-select formControlName="sport" appearance="fill">
@@ -44,62 +52,87 @@
 										Sport is <strong>required</strong>
 									</mat-error>
 								</mat-form-field>
-
-								<button mat-raised-button color="primary" cdkFocusInitial>Next</button>
 							</ng-container>
 						</form>
+
+						<mat-action-row>
+							<button mat-raised-button color="primary" (click)="nextStep()">Update</button>
+							<button mat-raised-button color="primary" (click)="nextStep()">Update & Continue</button>
+						</mat-action-row>
 					</mat-expansion-panel>
-					<mat-expansion-panel [disabled]="!leagueFormGroup.get('league').value">
+
+					<mat-expansion-panel [expanded]="step === 1" (opened)="setStep(1)" [disabled]="step < 1">
 						<mat-expansion-panel-header>
 							<mat-panel-title>
 								Division
 							</mat-panel-title>
 							<mat-panel-description>
-								Type the country name
-								<mat-icon>map</mat-icon>
+								Settings for defining name of division
 							</mat-panel-description>
 						</mat-expansion-panel-header>
 
-						<mat-form-field appearance="fill">
-							<mat-label>Country</mat-label>
-							<input matInput>
-						</mat-form-field>
+						<form [formGroup]="divisionFormGroup">
+							<mat-form-field>
+								<mat-label>Division</mat-label>
+								<mat-select formControlName="division" appearance="fill">
+									<mat-option *ngFor="let division of division$ | async;" [value]="division.id">{{ division.name }}</mat-option>
+								</mat-select>
+								<mat-error *ngIf="divisionFormGroup.get('division').hasError('required')">
+									Division is <strong>required</strong>
+								</mat-error>
+							</mat-form-field>
+
+							<ng-container *ngIf="divisionFormGroup.get('division').value">
+								<p>Settings specific to this division.</p>
+								<mat-form-field>
+									<mat-label>Name</mat-label>
+									<input matInput formControlName="name">
+									<mat-error *ngIf="divisionFormGroup.get('name').hasError('required')">
+										Name is <strong>required</strong>
+									</mat-error>
+								</mat-form-field>
+							</ng-container>
+						</form>
+
+
+						<mat-action-row>
+							<button mat-raised-button (click)="prevStep()">Previous</button>
+							<button mat-raised-button color="primary" (click)="nextStep()">Update</button>
+							<button mat-raised-button color="primary" (click)="nextStep()">Update & Continue</button>
+						</mat-action-row>
 					</mat-expansion-panel>
 
-					<mat-expansion-panel disabled>
+					<mat-expansion-panel [expanded]="step === 2" (opened)="setStep(2)" [disabled]="step < 2">
 						<mat-expansion-panel-header>
 							<mat-panel-title>
 								Season
 							</mat-panel-title>
 							<mat-panel-description>
-								Inform the date you wish to travel
-								<mat-icon>date_range</mat-icon>
+								Settings for defining start date, number of games, cost, etc.
 							</mat-panel-description>
 						</mat-expansion-panel-header>
 
-						<mat-form-field appearance="fill">
-							<mat-label>Date</mat-label>
-							<input matInput [matDatepicker]="picker" (focus)="picker.open()" readonly>
-						</mat-form-field>
-						<mat-datepicker #picker></mat-datepicker>
+						<mat-action-row>
+							<button mat-raised-button (click)="prevStep()">Previous</button>
+							<button mat-raised-button color="primary" (click)="nextStep()">Update</button>
+							<button mat-raised-button color="primary" (click)="nextStep()">Update & Continue</button>
+						</mat-action-row>
 					</mat-expansion-panel>
 
-					<mat-expansion-panel disabled>
+					<mat-expansion-panel [expanded]="step === 3" (opened)="setStep(3)" [disabled]="step < 3">
 						<mat-expansion-panel-header>
 							<mat-panel-title>
 								Teams
 							</mat-panel-title>
 							<mat-panel-description>
-								Inform the date you wish to travel
-								<mat-icon>date_range</mat-icon>
+								Lists teams signed up for the selected season
 							</mat-panel-description>
 						</mat-expansion-panel-header>
 
-						<mat-form-field appearance="fill">
-							<mat-label>Date</mat-label>
-							<input matInput [matDatepicker]="picker" (focus)="picker.open()" readonly>
-						</mat-form-field>
-						<mat-datepicker #picker></mat-datepicker>
+						<mat-action-row>
+							<button mat-raised-button (click)="prevStep()">Previous</button>
+							<button mat-raised-button color="primary" (click)="nextStep()">Update</button>
+						</mat-action-row>
 					</mat-expansion-panel>
 				</mat-accordion>
 			</mat-card-content>
