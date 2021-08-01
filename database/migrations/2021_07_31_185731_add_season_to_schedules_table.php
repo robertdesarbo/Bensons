@@ -26,6 +26,7 @@ class AddSeasonToSchedulesTable extends Migration
     public function down()
     {
         Schema::table('schedules', function (Blueprint $table) {
+            $table->dropForeign('schedules_season_id_foreign');
             $table->dropColumn('season_id');
         });
     }

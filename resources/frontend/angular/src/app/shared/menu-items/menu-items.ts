@@ -45,6 +45,13 @@ export class MenuItems {
 			display: true
 		},
 		{
+			state: 'manage-league',
+			name: 'Manage League',
+			type: 'link',
+			icon: 'manage_search',
+			display: this.authenticationService.isAuthenticated
+		},
+		{
 			state: 'team',
 			name: 'Teams',
 			type: 'link',

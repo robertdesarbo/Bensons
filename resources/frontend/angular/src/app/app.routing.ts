@@ -6,6 +6,8 @@ import { AdminComponent } from './login/admin.component';
 import { HomeComponent } from './pages/home/home.component';
 import { TeamsComponent } from './pages/teams/teams.component';
 import { RegisteredTeamsComponent } from './pages/registered-teams/registered-teams.component';
+import { ManageLeagueComponent } from './pages/manage-league/manage-league.component';
+
 import { FreeAgentsComponent } from './pages/free-agents/free-agents.component';
 
 import { SchedulesComponent } from './pages/schedules/schedules.component';
@@ -53,6 +55,14 @@ export const AppRoutes: Routes = [
 				component: RegisteredTeamsComponent,
 				data: {
 					title: 'Registered Teams',
+				},
+				canActivate: [AuthGuard]
+			},
+			{
+				path: 'manage-league',
+				component: ManageLeagueComponent,
+				data: {
+					title: 'Manage League',
 				},
 				canActivate: [AuthGuard]
 			},

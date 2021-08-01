@@ -33,6 +33,6 @@ class PopulateSeasonForSchedule extends Migration
      */
     public function down()
     {
-        Schedule::update(['season_id' => null]);
+        Schedule::where('id', '>', 0)->update(['season_id' => null]);
     }
 }

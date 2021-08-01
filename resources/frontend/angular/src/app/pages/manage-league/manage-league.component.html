@@ -1,0 +1,109 @@
+<!-- ============================================================== -->
+<!-- Simple four boxes Row -->
+<!-- ============================================================== -->
+
+<div fxLayout="row" fxLayoutWrap="wrap">
+	<!-- column -->
+	<div fxFlex.gt-sm="100" fxFlex.gt-xs="100" fxFlex="100">
+		<mat-card>
+			<mat-card-content>
+				<mat-card-title>
+					Configure League
+				</mat-card-title>
+
+				<mat-accordion class="example-headers-align" multi>
+					<mat-expansion-panel>
+						<mat-expansion-panel-header>
+							<mat-panel-title>
+								League
+							</mat-panel-title>
+							<mat-panel-description>
+								Select League to configure
+								<mat-icon>account_circle</mat-icon>
+							</mat-panel-description>
+						</mat-expansion-panel-header>
+
+						<form [formGroup]="leagueFormGroup" (ngSubmit)="updateLeague()">
+							<mat-form-field>
+								<mat-label>League</mat-label>
+								<mat-select formControlName="league" appearance="fill">
+									<mat-option *ngFor="let league of league$ | async;" [value]="league.id">{{ league.name }}</mat-option>
+								</mat-select>
+								<mat-error *ngIf="leagueFormGroup.get('league').hasError('required')">
+									League is <strong>required</strong>
+								</mat-error>
+							</mat-form-field>
+
+							<ng-container *ngIf="leagueFormGroup.get('league').value">
+								<mat-form-field>
+									<mat-label>Sport</mat-label>
+									<mat-select formControlName="sport" appearance="fill">
+										<mat-option *ngFor="let sport of sports" [value]="sport">{{ sport }}</mat-option>
+									</mat-select>
+									<mat-error *ngIf="leagueFormGroup.get('sport').hasError('required')">
+										Sport is <strong>required</strong>
+									</mat-error>
+								</mat-form-field>
+
+								<button mat-raised-button color="primary" cdkFocusInitial>Next</button>
+							</ng-container>
+						</form>
+					</mat-expansion-panel>
+					<mat-expansion-panel [disabled]="!leagueFormGroup.get('league').value">
+						<mat-expansion-panel-header>
+							<mat-panel-title>
+								Division
+							</mat-panel-title>
+							<mat-panel-description>
+								Type the country name
+								<mat-icon>map</mat-icon>
+							</mat-panel-description>
+						</mat-expansion-panel-header>
+
+						<mat-form-field appearance="fill">
+							<mat-label>Country</mat-label>
+							<input matInput>
+						</mat-form-field>
+					</mat-expansion-panel>
+
+					<mat-expansion-panel disabled>
+						<mat-expansion-panel-header>
+							<mat-panel-title>
+								Season
+							</mat-panel-title>
+							<mat-panel-description>
+								Inform the date you wish to travel
+								<mat-icon>date_range</mat-icon>
+							</mat-panel-description>
+						</mat-expansion-panel-header>
+
+						<mat-form-field appearance="fill">
+							<mat-label>Date</mat-label>
+							<input matInput [matDatepicker]="picker" (focus)="picker.open()" readonly>
+						</mat-form-field>
+						<mat-datepicker #picker></mat-datepicker>
+					</mat-expansion-panel>
+
+					<mat-expansion-panel disabled>
+						<mat-expansion-panel-header>
+							<mat-panel-title>
+								Teams
+							</mat-panel-title>
+							<mat-panel-description>
+								Inform the date you wish to travel
+								<mat-icon>date_range</mat-icon>
+							</mat-panel-description>
+						</mat-expansion-panel-header>
+
+						<mat-form-field appearance="fill">
+							<mat-label>Date</mat-label>
+							<input matInput [matDatepicker]="picker" (focus)="picker.open()" readonly>
+						</mat-form-field>
+						<mat-datepicker #picker></mat-datepicker>
+					</mat-expansion-panel>
+				</mat-accordion>
+			</mat-card-content>
+		</mat-card>
+	</div>
+	<!-- column -->
+</div>

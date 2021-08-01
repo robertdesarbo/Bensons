@@ -16,10 +16,11 @@ class CreateSeasonsTable extends Migration
         Schema::create('seasons', function (Blueprint $table) {
             $table->id();
             $table->foreignId('division_id')->constrained('divisions');
-            $table->date('start');
+            $table->date('start_at');
+            $table->boolean('active');
             $table->integer('number_of_games');
-            $table->integer('team_cost');
-            $table->integer('officials_cost');
+            $table->integer('cost');
+            $table->integer('officials_cost_per_game');
             $table->softDeletes();
             $table->timestamps();
         });

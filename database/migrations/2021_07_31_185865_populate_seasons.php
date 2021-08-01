@@ -24,10 +24,11 @@ class PopulateSeasons extends Migration
         foreach ($divisions as $division) {
             Season::create([
                 'division_id' => $division->id,
-                'start' => Carbon::createFromDate('2021', '04', '19'),
+                'start_at' => Carbon::createFromDate('2021', '04', '19'),
+                'active' => true,
                 'number_of_games' => 14,
-                'team_cost' => 895,
-                'officials_cost' => 392,
+                'cost' => 895,
+                'officials_cost_per_game' => 28,
             ]);
         }
     }
@@ -39,6 +40,8 @@ class PopulateSeasons extends Migration
      */
     public function down()
     {
+        DB::statement('SET FOREIGN_KEY_CHECKS=0;');
         Season::truncate();
+        DB::statement('SET FOREIGN_KEY_CHECKS=1;');
     }
 }

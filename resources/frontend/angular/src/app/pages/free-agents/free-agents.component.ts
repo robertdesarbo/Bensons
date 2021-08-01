@@ -45,7 +45,6 @@ export class FreeAgentsComponent {
 			this.teamsNoData = this.teamsDataSource.connect().pipe(map(data => data.length === 0));
 		}));
 
-
 		// pull in data
 		this.freeAgent$ = this.http.get<FreeAgent[]>('/api/free-agent').pipe(tap((freeAgent: FreeAgent[]) => {
 			this.playersDataSource.data = freeAgent;

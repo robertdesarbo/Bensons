@@ -10,7 +10,7 @@ class Season extends Model
 {
     use HasFactory, SoftDeletes;
 
-    protected $fillable = ['division_id', 'start', 'number_of_games', 'team_cost', 'officials_cost'];
+    protected $fillable = ['division_id', 'start_at', 'active', 'number_of_games', 'cost', 'officials_cost_per_game'];
 
     public function league()
     {

@@ -97,6 +97,9 @@ import { FreeAgentsComponent } from './pages/free-agents/free-agents.component';
 import { SchedulePreferenceComponent } from './pages/schedule-preference/schedule-preference.component';
 import { BulletinBoardComponent } from './pages/bulletin-board/bulletin-board.component';
 import { MvpVotingComponent } from './pages/mvp-voting/mvp-voting.component';
+import { ManageLeagueComponent } from './pages/manage-league/manage-league.component';
+
+
 import { SchedulesComponent } from './pages/schedules/schedules.component';
 import { TeamsComponent } from './pages/teams/teams.component';
 
@@ -140,6 +143,7 @@ const DEFAULT_PERFECT_SCROLLBAR_CONFIG: PerfectScrollbarConfigInterface = {
 		FreeAgentsComponent,
 		BulletinBoardComponent,
 		MvpVotingComponent,
+		ManageLeagueComponent,
 		SchedulesComponent,
 		TeamsComponent
 	],

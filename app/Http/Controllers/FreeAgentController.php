@@ -67,8 +67,8 @@ class FreeAgentController extends Controller
                 'name' => $request->name,
                 'phone' => $request->phone,
                 'email' => $request->email,
-                'positions' => json_encode($request->positions),
-                'genders' => json_encode($request->genders),
+                'positions' => $request->positions,
+                'genders' => $request->genders,
                 // 'team_id' => $request->team
             ]
         );
