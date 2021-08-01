@@ -3,11 +3,13 @@ import { HttpClient } from '@angular/common/http';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 
 import { Observable, of } from 'rxjs';
-import { tap } from 'rxjs/operators';
+import { tap, shareReplay } from 'rxjs/operators';
 
-import { Team } from 'src/app/models/team.model';
 import { League } from 'src/app/models/league.model';
 import { Division } from 'src/app/models/division.model';
+import { Season } from 'src/app/models/season.model';
+import { Team } from 'src/app/models/team.model';
+
 import { Sport } from 'src/app/models/enum/sport.enum';
 
 @Component({
@@ -18,15 +20,19 @@ import { Sport } from 'src/app/models/enum/sport.enum';
 export class ManageLeagueComponent {
 	readonly leagueFormGroup: FormGroup;
 	readonly divisionFormGroup: FormGroup;
+	readonly seasonFormGroup: FormGroup;
 	readonly teamFormGroup: FormGroup;
 
-	public team$: Observable<Team>;
-	public division$: Observable<Division[]>;
 	public league$: Observable<League[]>;
+	public division$: Observable<Division[]>;
+	public season$: Observable<Season[]>;
+	public team$: Observable<Team[]>;
 
 	public sports = Object.values(Sport);
+
 	public leagues: League[];
 	public divisions: Division[];
+	public seasons: Season[];
 
 	public step = 0;
 
@@ -52,6 +58,15 @@ export class ManageLeagueComponent {
 			name: '',
 		});
 
+		this.seasonFormGroup = this.formBuilder.group({
+			season: '',
+			start_at: '',
+			active: '',
+			number_of_games: '',
+			league_fee: '',
+			offical_fee_per_game: '',
+		});
+
 		this.leagueFormGroup.get("league").valueChanges.subscribe(league_id => {
 			const option = {
 				params: {
@@ -65,6 +80,7 @@ export class ManageLeagueComponent {
 
 			this.division$ = this.http.get<Division[]>('/api/division-by-league', option);
 			this.division$.pipe(
+				shareReplay(),
 				tap((divisions) => {
 					this.divisions = divisions;
 				})
@@ -72,9 +88,32 @@ export class ManageLeagueComponent {
 		});
 
 		this.divisionFormGroup.get("division").valueChanges.subscribe(division_id => {
-			const division = this.divisions.find(division => division.id === division_id);
+			const option = {
+				params: {
+					division: division_id
+				}
+			}
 
+			const division = this.divisions.find(division => division.id === division_id);
 			this.divisionFormGroup.get('name').setValue(division.name);
+
+			this.season$ = this.http.get<Season[]>('/api/season-by-division', option);
+			this.season$.pipe(
+				shareReplay(),
+				tap((divisions) => {
+					this.seasons = divisions;
+				})
+			).subscribe();
+		});
+
+		this.seasonFormGroup.get("season").valueChanges.subscribe(season_id => {
+
+			const season = this.seasons.find(season => season.id === season_id);
+
+			this.seasonFormGroup.get('start_at').setValue(season.start_at);
+			this.seasonFormGroup.get('number_of_games').setValue(season.number_of_games);
+			this.seasonFormGroup.get('league_fee').setValue(season.league_fee);
+			this.seasonFormGroup.get('offical_fee_per_game').setValue(season.offical_fee_per_game);
 		});
 	}
 

@@ -27,8 +27,8 @@ class PopulateSeasons extends Migration
                 'start_at' => Carbon::createFromDate('2021', '04', '19'),
                 'active' => true,
                 'number_of_games' => 14,
-                'cost' => 895,
-                'officials_cost_per_game' => 28,
+                'league_fee' => 895,
+                'offical_fee_per_game' => 28,
             ]);
         }
     }

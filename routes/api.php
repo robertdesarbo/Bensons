@@ -13,6 +13,7 @@ use App\Http\Controllers\TeamController;
 use App\Http\Controllers\UmpireController;
 use App\Http\Controllers\DivisionController;
 use App\Http\Controllers\LeagueController;
+use App\Http\Controllers\SeasonController;
 use App\Http\Controllers\SignUpController;
 use App\Http\Controllers\HomeController;
 
@@ -68,3 +69,5 @@ Route::get('umpire', [UmpireController::class, 'umpire']);
 
 Route::get('division', [DivisionController::class, 'division']);
 Route::get('division-by-league', [DivisionController::class, 'division_by_league']);
+
+Route::get('season-by-division', [SeasonController::class, 'season_by_division']);

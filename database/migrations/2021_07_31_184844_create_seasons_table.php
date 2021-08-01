@@ -19,8 +19,8 @@ class CreateSeasonsTable extends Migration
             $table->date('start_at');
             $table->boolean('active');
             $table->integer('number_of_games');
-            $table->integer('cost');
-            $table->integer('officials_cost_per_game');
+            $table->integer('league_fee');
+            $table->integer('offical_fee_per_game');
             $table->softDeletes();
             $table->timestamps();
         });

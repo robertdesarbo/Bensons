@@ -94,7 +94,6 @@
 							</ng-container>
 						</form>
 
-
 						<mat-action-row>
 							<button mat-raised-button (click)="prevStep()">Previous</button>
 							<button mat-raised-button color="primary" (click)="nextStep()">Update</button>
@@ -111,6 +110,50 @@
 								Settings for defining start date, number of games, cost, etc.
 							</mat-panel-description>
 						</mat-expansion-panel-header>
+
+						<form [formGroup]="seasonFormGroup">
+							<mat-form-field>
+								<mat-label>Season</mat-label>
+								<mat-select formControlName="season" appearance="fill">
+									<mat-option *ngFor="let season of season$ | async;" [value]="season.id">{{ season.id }}</mat-option>
+								</mat-select>
+								<mat-error *ngIf="seasonFormGroup.get('season').hasError('required')">
+									Season is <strong>required</strong>
+								</mat-error>
+							</mat-form-field>
+
+							<ng-container *ngIf="seasonFormGroup.get('season').value">
+								<p>Settings specific to this season.</p>
+								<mat-form-field>
+									<mat-label>Start date</mat-label>
+									<input matInput formControlName="start_at">
+									<mat-error *ngIf="seasonFormGroup.get('start_at').hasError('required')">
+										Start Date is <strong>required</strong>
+									</mat-error>
+								</mat-form-field>
+								<mat-form-field>
+									<mat-label>Number of Games</mat-label>
+									<input matInput formControlName="number_of_games">
+									<mat-error *ngIf="seasonFormGroup.get('number_of_games').hasError('required')">
+										Number of Games is <strong>required</strong>
+									</mat-error>
+								</mat-form-field>
+								<mat-form-field>
+									<mat-label>League Fees</mat-label>
+									<input matInput formControlName="league_fee">
+									<mat-error *ngIf="seasonFormGroup.get('league_fee').hasError('required')">
+										League Fees is <strong>required</strong>
+									</mat-error>
+								</mat-form-field>
+								<mat-form-field>
+									<mat-label>Offical Fee Per Game</mat-label>
+									<input matInput formControlName="offical_fee_per_game">
+									<mat-error *ngIf="seasonFormGroup.get('offical_fee_per_game').hasError('required')">
+										Offical Fee Per Game is <strong>required</strong>
+									</mat-error>
+								</mat-form-field>
+							</ng-container>
+						</form>
 
 						<mat-action-row>
 							<button mat-raised-button (click)="prevStep()">Previous</button>
