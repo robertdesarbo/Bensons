@@ -41,7 +41,7 @@ class TeamController extends Controller
     public function editTeam(Request $request)
     {
         $validated = $request->validate([
-            'team' => 'required|',
+            'team' => 'required|exists:team,id',
             'name' => 'required',
             'abbreviation' => 'required',
             'league' => 'required|exists:leagues,id',

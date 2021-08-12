@@ -5,6 +5,8 @@ import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { Observable, of } from 'rxjs';
 import { tap, shareReplay, filter } from 'rxjs/operators';
 
+import { MatSnackBar } from '@angular/material/snack-bar';
+
 import { League } from 'src/app/models/league.model';
 import { Division } from 'src/app/models/division.model';
 import { Season } from 'src/app/models/season.model';
@@ -37,22 +39,19 @@ export class ManageLeagueComponent {
 	public step = 0;
 
 	public addLeague = false;
+	public leagueErrors: string[];
 
 	constructor(private formBuilder: FormBuilder,
+		private snackBar: MatSnackBar,
 		private http: HttpClient) {
 
 		// pull in data
-		this.league$ = this.http.get<League[]>('/api/league');
-		this.league$.pipe(
-			tap((leagues) => {
-				this.leagues = leagues;
-			})
-		).subscribe();
+		this.fetchLeagues().subscribe();
 
 		this.leagueFormGroup = this.formBuilder.group({
 			league: '',
-			name: '',
-			sport: ''
+			name: ['', Validators.required],
+			sport: ['', Validators.required],
 		});
 
 		this.divisionFormGroup = this.formBuilder.group({
@@ -85,17 +84,23 @@ export class ManageLeagueComponent {
 			this.seasonFormGroup.get("season").setValue(null);
 			this.teamFormGroup.get("team").setValue(null);
 
-			const league = this.leagues.find(league => league.id === league_id);
-			this.leagueFormGroup.get('name').setValue(league.name);
-			this.leagueFormGroup.get('sport').setValue(league.sport);
+			this.leagueFormGroup.get("name").setValue(null);
+			this.leagueFormGroup.get("sport").setValue(null);
 
-			this.division$ = this.http.get<Division[]>('/api/division-by-league', option);
-			this.division$.pipe(
-				shareReplay(),
-				tap((divisions) => {
-					this.divisions = divisions;
-				})
-			).subscribe();
+			if (league_id !== null) {
+				const league = this.leagues.find(league => league.id === league_id);
+				this.leagueFormGroup.get('name').setValue(league.name);
+				this.leagueFormGroup.get('sport').setValue(league.sport);
+
+				this.division$ = this.http.get<Division[]>('/api/division-by-league', option);
+				this.division$.pipe(
+					shareReplay(),
+					tap((divisions) => {
+						this.divisions = divisions;
+					})
+				).subscribe();
+			}
+
 		});
 
 		this.divisionFormGroup.get("division").valueChanges
@@ -140,8 +145,64 @@ export class ManageLeagueComponent {
 	}
 
 	toggleLeagueFormType() {
+		this.leagueFormGroup.get("league").setValue(null);
+
 		this.addLeague = !this.addLeague;
 	}
+
+	fetchLeagues() {
+		// pull in data
+		this.league$ = this.http.get<League[]>('/api/league');
+
+		return this.league$.pipe(
+			tap((leagues) => {
+				this.leagues = leagues;
+			})
+		);
+	}
+
+	saveLeague() {
+		let league: any = {
+			league: this.leagueFormGroup.get('league').value,
+			name: this.leagueFormGroup.get('name').value,
+			sport: this.leagueFormGroup.get('sport').value,
+		}
+
+		if (this.addLeague) {
+			// create new league
+			this.http.post<any>('/api/add-league', league).subscribe((league_id) => {
+				this.snackBar.open('League has been added', 'Dismiss', {
+					duration: 3000,
+					horizontalPosition: "right",
+					verticalPosition: "top",
+				});
+
+				this.fetchLeagues().subscribe(() => {
+					// Switch to Edit
+					this.toggleLeagueFormType();
+					this.leagueFormGroup.get("league").setValue(league_id);
+				})
+			},
+				errorMessage => {
+					this.leagueErrors = Object.values(errorMessage.error.errors);
+				});
+		} else {
+			// edit league
+			this.http.post<any>('/api/edit-league', league).subscribe((league_id) => {
+				this.snackBar.open('League has been updated', 'Dismiss', {
+					duration: 3000,
+					horizontalPosition: "right",
+					verticalPosition: "top",
+				});
+
+				this.fetchLeagues().subscribe();
+			},
+				errorMessage => {
+					this.leagueErrors = Object.values(errorMessage.error.errors);
+				});
+		}
+	}
+
 
 	setStep(index: number) {
 		this.step = index;

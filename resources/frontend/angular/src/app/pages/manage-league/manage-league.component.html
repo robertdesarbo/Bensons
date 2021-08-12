@@ -41,6 +41,14 @@
 								<div fxFlex.gt-sm="35" fxFlex.gt-xs="100" fxFlex="100" class="align-self-center">
 									<ng-container *ngIf="leagueFormGroup.get('league').value || addLeague">
 										<p class="subtitle m-t-15 m-b-0">Settings</p>
+										<p *ngIf="leagueErrors" style="margin-top: 0;">
+											<ng-container *ngFor="let errors of leagueErrors;">
+												<span class="text-danger">
+													{{ errors }}
+												</span>
+												<br />
+											</ng-container>
+										</p>
 										<mat-form-field>
 											<mat-label>Name</mat-label>
 											<input matInput formControlName="name">
@@ -64,7 +72,7 @@
 						</form>
 
 						<mat-action-row>
-							<button mat-raised-button color="primary" (click)="nextStep()" [disabled]="!leagueFormGroup.get('league').value">{{ addLeague ? 'Save' : 'Edit' }}</button>
+							<button mat-raised-button color="primary" (click)="saveLeague()" [disabled]="!leagueFormGroup.valid">{{ addLeague ? 'Save' : 'Update' }}</button>
 						</mat-action-row>
 					</mat-expansion-panel>
 

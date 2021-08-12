@@ -43,6 +43,9 @@ Route::middleware(['auth:sanctum'])->group(function () {
     Route::post('add-team', [TeamController::class, 'addTeam']);
     Route::post('edit-team', [TeamController::class, 'editTeam']);
     Route::post('remove-team', [TeamController::class, 'removeTeam']);
+
+    Route::post('add-league', [LeagueController::class, 'addLeague']);
+    Route::post('edit-league', [LeagueController::class, 'editLeague']);
 });
 
 Route::get('session', [LoginController::class, 'session']);

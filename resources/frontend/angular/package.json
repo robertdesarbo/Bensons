@@ -4,6 +4,7 @@
   "scripts": {
     "ng": "ng",
     "build": "ng build --configuration=dev",
+    "build:dev": "ng build --configuration=dev-laravel && cp ../../../public/build/index.html ../../views/angular.blade.php",
     "start": "cp ../../../public/build/index.html ../../views/angular.blade.php && ng build --configuration=dev-laravel",
     "build:prod": "ng build --configuration=production && cp ../../../public/build/index.html ../../views/angular.blade.php",
     "test": "ng test",

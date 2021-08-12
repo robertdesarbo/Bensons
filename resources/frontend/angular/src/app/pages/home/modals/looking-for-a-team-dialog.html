@@ -60,7 +60,7 @@
 		<mat-step [stepControl]="contactInformationFormGroup">
 			<ng-template matStepLabel>Contact Information</ng-template>
 			<div *ngIf="(division$ | async); else loading">
-				<p>Provide this information so <b>{{ ( reasonFormGroup.get('reason').value == freeAgentType.team ? 'teams' : 'players') }}</b> can contact you.</p>
+				<p>Provide this information so <b>{{ ( reasonFormGroup.get('reason').value == freeAgentType.team ? 'players' : 'teams') }}</b> can contact you.</p>
 				<form [formGroup]="contactInformationFormGroup" (ngSubmit)="submit()" #contactInformationFormDirective="ngForm">
 					<mat-form-field>
 						<mat-label>Name</mat-label>
