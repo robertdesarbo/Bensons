@@ -28,7 +28,7 @@ class LeagueController extends Controller
 
         return $league->id;
     }
-
+    
     public function editLeague(Request $request)
     {
         $validated = $request->validate([
@@ -40,9 +40,9 @@ class LeagueController extends Controller
         $league = League::where('id', $request->league)->first();
 
         $league->update([
-                'name' => $request->name,
-                'sport' => $request->sport
-            ]);
+            'name' => $request->name,
+            'sport' => $request->sport
+        ]);
 
         return $league->id;
     }

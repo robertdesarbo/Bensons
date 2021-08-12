@@ -41,6 +41,12 @@ export class ManageLeagueComponent {
 	public addLeague = false;
 	public leagueErrors: string[];
 
+	public addDivision = false;
+	public divisionErrors: string[];
+
+	public addSeason = false;
+	public seasonErrors: string[];
+
 	constructor(private formBuilder: FormBuilder,
 		private snackBar: MatSnackBar,
 		private http: HttpClient) {
@@ -56,87 +62,76 @@ export class ManageLeagueComponent {
 
 		this.divisionFormGroup = this.formBuilder.group({
 			division: '',
-			name: '',
+			name: ['', Validators.required],
 		});
 
 		this.seasonFormGroup = this.formBuilder.group({
 			season: '',
-			start_at: '',
-			active: '',
-			number_of_games: '',
-			league_fee: '',
-			offical_fee_per_game: '',
+			start_at: ['', Validators.required],
+			active: ['', Validators.required],
+			number_of_games: ['', Validators.required],
+			league_fee: ['', Validators.required],
+			offical_fee_per_game: ['', Validators.required],
 		});
 
 		this.teamFormGroup = this.formBuilder.group({
 			team: ''
 		});
 
-		this.leagueFormGroup.get("league").valueChanges.subscribe(league_id => {
-			const option = {
-				params: {
-					league: league_id
-				}
-			}
+		this.leagueFormGroup.get("league").valueChanges
+			.pipe(
+				tap(() => {
+					// reset other forms
+					this.divisionFormGroup.get("division").setValue(null);
+					this.seasonFormGroup.get("season").setValue(null);
+					this.teamFormGroup.get("team").setValue(null);
 
-			// reset other forms
-			this.divisionFormGroup.get("division").setValue(null);
-			this.seasonFormGroup.get("season").setValue(null);
-			this.teamFormGroup.get("team").setValue(null);
-
-			this.leagueFormGroup.get("name").setValue(null);
-			this.leagueFormGroup.get("sport").setValue(null);
-
-			if (league_id !== null) {
+					this.leagueFormGroup.get("name").setValue(null);
+					this.leagueFormGroup.get("sport").setValue(null);
+				}),
+				filter(league_id => league_id !== null))
+			.subscribe(league_id => {
 				const league = this.leagues.find(league => league.id === league_id);
 				this.leagueFormGroup.get('name').setValue(league.name);
 				this.leagueFormGroup.get('sport').setValue(league.sport);
 
-				this.division$ = this.http.get<Division[]>('/api/division-by-league', option);
-				this.division$.pipe(
-					shareReplay(),
-					tap((divisions) => {
-						this.divisions = divisions;
-					})
-				).subscribe();
-			}
-
-		});
+				this.fetchDivisions(league_id).subscribe();
+			});
 
 		this.divisionFormGroup.get("division").valueChanges
-			.pipe(filter(division_id => division_id !== null))
+			.pipe(
+				tap(() => {
+					// reset other forms
+					this.seasonFormGroup.get("season").setValue(null);
+					this.teamFormGroup.get("team").setValue(null);
+
+					this.divisionFormGroup.get("name").setValue(null);
+				}),
+				filter(division_id => division_id !== null))
 			.subscribe(division_id => {
-				const option = {
-					params: {
-						division: division_id
-					}
-				}
-
-				// reset other forms
-				this.seasonFormGroup.get("season").setValue(null);
-				this.teamFormGroup.get("team").setValue(null);
-
 				const division = this.divisions.find(division => division.id === division_id);
 				this.divisionFormGroup.get('name').setValue(division.name);
 
-				this.season$ = this.http.get<Season[]>('/api/season-by-division', option);
-				this.season$.pipe(
-					shareReplay(),
-					tap((divisions) => {
-						this.seasons = divisions;
-					})
-				).subscribe();
+				this.fetchSeasons(division_id).subscribe();
 			});
 
 		this.seasonFormGroup.get("season").valueChanges
-			.pipe(filter(season_id => season_id !== null))
+			.pipe(
+				tap(() => {
+					// reset other forms
+					this.teamFormGroup.get("team").setValue(null);
+
+					this.seasonFormGroup.get('active').setValue(null);
+					this.seasonFormGroup.get('start_at').setValue(null);
+					this.seasonFormGroup.get('number_of_games').setValue(null);
+					this.seasonFormGroup.get('league_fee').setValue(null);
+					this.seasonFormGroup.get('offical_fee_per_game').setValue(null);
+				}),
+				filter(season_id => season_id !== null))
 			.subscribe(season_id => {
-
-				// reset other forms
-				this.teamFormGroup.get("team").setValue(null);
-
 				const season = this.seasons.find(season => season.id === season_id);
 
+				this.seasonFormGroup.get('active').setValue(season.active);
 				this.seasonFormGroup.get('start_at').setValue(season.start_at);
 				this.seasonFormGroup.get('number_of_games').setValue(season.number_of_games);
 				this.seasonFormGroup.get('league_fee').setValue(season.league_fee);
@@ -150,6 +145,18 @@ export class ManageLeagueComponent {
 		this.addLeague = !this.addLeague;
 	}
 
+	toggleDivisionFormType() {
+		this.divisionFormGroup.get("division").setValue(null);
+
+		this.addDivision = !this.addDivision;
+	}
+
+	toggleSeasonFormType() {
+		this.seasonFormGroup.get("season").setValue(null);
+
+		this.addSeason = !this.addSeason;
+	}
+
 	fetchLeagues() {
 		// pull in data
 		this.league$ = this.http.get<League[]>('/api/league');
@@ -161,9 +168,44 @@ export class ManageLeagueComponent {
 		);
 	}
 
+	fetchDivisions(league_id) {
+		const params = {
+			params: {
+				league: league_id
+			}
+		}
+
+		// pull in data
+		this.division$ = this.http.get<Division[]>('/api/division-by-league', params);
+
+		return this.division$.pipe(
+			shareReplay(),
+			tap((divisions) => {
+				this.divisions = divisions;
+			})
+		);
+	}
+
+	fetchSeasons(division_id) {
+		const params = {
+			params: {
+				division: division_id
+			}
+		}
+
+		this.season$ = this.http.get<Season[]>('/api/season-by-division', params);
+		return this.season$.pipe(
+			shareReplay(),
+			tap((divisions) => {
+				this.seasons = divisions;
+			})
+		);
+	}
+
 	saveLeague() {
 		let league: any = {
 			league: this.leagueFormGroup.get('league').value,
+
 			name: this.leagueFormGroup.get('name').value,
 			sport: this.leagueFormGroup.get('sport').value,
 		}
@@ -203,6 +245,95 @@ export class ManageLeagueComponent {
 		}
 	}
 
+	saveDivision() {
+		let division: any = {
+			division: this.divisionFormGroup.get('division').value,
+			league: this.leagueFormGroup.get('league').value,
+
+			name: this.divisionFormGroup.get('name').value
+		}
+
+		if (this.addDivision) {
+			// create new division
+			this.http.post<any>('/api/add-division', division).subscribe((division_id) => {
+				this.snackBar.open('Division has been added', 'Dismiss', {
+					duration: 3000,
+					horizontalPosition: "right",
+					verticalPosition: "top",
+				});
+
+				this.fetchDivisions(this.leagueFormGroup.get('league').value).subscribe(() => {
+					// Switch to Edit
+					this.toggleDivisionFormType();
+					this.divisionFormGroup.get("division").setValue(division_id);
+				})
+			},
+				errorMessage => {
+					this.divisionErrors = Object.values(errorMessage.error.errors);
+				});
+		} else {
+			// edit division
+			this.http.post<any>('/api/edit-division', division).subscribe((division_id) => {
+				this.snackBar.open('Division has been updated', 'Dismiss', {
+					duration: 3000,
+					horizontalPosition: "right",
+					verticalPosition: "top",
+				});
+
+				this.fetchDivisions(this.leagueFormGroup.get('league').value).subscribe();
+			},
+				errorMessage => {
+					this.divisionErrors = Object.values(errorMessage.error.errors);
+				});
+		}
+	}
+
+	saveSeason() {
+		let season: any = {
+			season: this.seasonFormGroup.get('season').value,
+			division: this.divisionFormGroup.get('division').value,
+
+			start_at: this.seasonFormGroup.get('start_at').value,
+			active: this.seasonFormGroup.get('active').value,
+			number_of_games: this.seasonFormGroup.get('number_of_games').value,
+			league_fee: this.seasonFormGroup.get('league_fee').value,
+			offical_fee_per_game: this.seasonFormGroup.get('offical_fee_per_game').value
+		}
+
+		if (this.addSeason) {
+			// create new season
+			this.http.post<any>('/api/add-season', season).subscribe((season_id) => {
+				this.snackBar.open('Season has been added', 'Dismiss', {
+					duration: 3000,
+					horizontalPosition: "right",
+					verticalPosition: "top",
+				});
+
+				this.fetchSeasons(this.divisionFormGroup.get('division').value).subscribe(() => {
+					// Switch to Edit
+					this.toggleSeasonFormType();
+					this.seasonFormGroup.get("season").setValue(season_id);
+				})
+			},
+				errorMessage => {
+					this.seasonErrors = Object.values(errorMessage.error.errors);
+				});
+		} else {
+			// edit season
+			this.http.post<any>('/api/edit-season', season).subscribe((season_id) => {
+				this.snackBar.open('Season has been updated', 'Dismiss', {
+					duration: 3000,
+					horizontalPosition: "right",
+					verticalPosition: "top",
+				});
+
+				this.fetchSeasons(this.divisionFormGroup.get('division').value).subscribe();
+			},
+				errorMessage => {
+					this.seasonErrors = Object.values(errorMessage.error.errors);
+				});
+		}
+	}
 
 	setStep(index: number) {
 		this.step = index;

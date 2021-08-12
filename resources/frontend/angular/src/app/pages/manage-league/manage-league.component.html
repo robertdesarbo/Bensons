@@ -72,7 +72,7 @@
 						</form>
 
 						<mat-action-row>
-							<button mat-raised-button color="primary" (click)="saveLeague()" [disabled]="!leagueFormGroup.valid">{{ addLeague ? 'Save' : 'Update' }}</button>
+							<button mat-raised-button color="primary" (click)="saveLeague()" [disabled]="!leagueFormGroup.valid">{{ addLeague ? 'Create' : 'Update' }}</button>
 						</mat-action-row>
 					</mat-expansion-panel>
 
@@ -88,18 +88,23 @@
 
 						<form [formGroup]="divisionFormGroup">
 							<p class="subtitle m-0">Choose a division to start configuring its settings.</p>
-							<mat-form-field>
-								<mat-label>Division</mat-label>
-								<mat-select formControlName="division" appearance="fill">
-									<mat-option *ngFor="let division of division$ | async;" [value]="division.id">{{ division.name }}</mat-option>
-								</mat-select>
-								<mat-error *ngIf="divisionFormGroup.get('division').hasError('required')">
-									Division is <strong>required</strong>
-								</mat-error>
-							</mat-form-field>
 							<div fxLayout="row wrap">
+								<div fxFlex.gt-sm="35" fxFlex.gt-xs="60" fxFlex="60" class="align-self-center">
+									<mat-form-field>
+										<mat-label>Division</mat-label>
+										<mat-select formControlName="division" appearance="fill" [disabled]="addDivision">
+											<mat-option *ngFor="let division of division$ | async;" [value]="division.id">{{ division.name }}</mat-option>
+										</mat-select>
+										<mat-error *ngIf="divisionFormGroup.get('division').hasError('required')">
+											Division is <strong>required</strong>
+										</mat-error>
+									</mat-form-field>
+								</div>
+								<div fxFlex.gt-sm="65" fxFlex.gt-xs="40" fxFlex="40" class="align-self-center">
+									<button color="primary" mat-raised-button (click)="toggleDivisionFormType()">{{ !addDivision ? 'Add' : 'Edit' }} Division</button>
+								</div>
 								<div fxFlex.gt-sm="35" fxFlex.gt-xs="100" fxFlex="100" class="align-self-center">
-									<ng-container *ngIf="divisionFormGroup.get('division').value">
+									<ng-container *ngIf="divisionFormGroup.get('division').value || addDivision">
 										<p class="subtitle m-t-15 m-b-0">Settings</p>
 										<mat-form-field>
 											<mat-label>Name</mat-label>
@@ -114,7 +119,7 @@
 						</form>
 
 						<mat-action-row>
-							<button mat-raised-button color="primary" (click)="nextStep()" [disabled]="!divisionFormGroup.get('division').value">Update</button>
+							<button mat-raised-button color="primary" (click)="saveDivision()" [disabled]="!divisionFormGroup.valid">{{ addDivision ? 'Create' : 'Update' }}</button>
 						</mat-action-row>
 					</mat-expansion-panel>
 
@@ -130,44 +135,53 @@
 
 						<form [formGroup]="seasonFormGroup">
 							<p class="subtitle m-0">Choose a season to start configuring its settings.</p>
-							<mat-form-field>
-								<mat-label>Season</mat-label>
-								<mat-select formControlName="season" appearance="fill">
-									<mat-option *ngFor="let season of season$ | async;" [value]="season.id">{{ season.id }}</mat-option>
-								</mat-select>
-								<mat-error *ngIf="seasonFormGroup.get('season').hasError('required')">
-									Season is <strong>required</strong>
-								</mat-error>
-							</mat-form-field>
-
 							<div fxLayout="row wrap">
+								<div fxFlex.gt-sm="35" fxFlex.gt-xs="60" fxFlex="60" class="align-self-center">
+									<mat-form-field>
+										<mat-label>Season</mat-label>
+										<mat-select formControlName="season" appearance="fill" [disabled]="addSeason">
+											<mat-option *ngFor="let season of season$ | async;" [value]="season.id">{{ season.id }}</mat-option>
+										</mat-select>
+										<mat-error *ngIf="seasonFormGroup.get('season').hasError('required')">
+											Season is <strong>required</strong>
+										</mat-error>
+									</mat-form-field>
+								</div>
+								<div fxFlex.gt-sm="65" fxFlex.gt-xs="40" fxFlex="40" class="align-self-center">
+									<button color="primary" mat-raised-button (click)="toggleSeasonFormType()">{{ !addSeason ? 'Add' : 'Edit' }} Season</button>
+								</div>
 								<div fxFlex.gt-sm="35" fxFlex.gt-xs="100" fxFlex="100" class="align-self-center">
-									<ng-container *ngIf="seasonFormGroup.get('season').value">
+									<ng-container *ngIf="seasonFormGroup.get('season').value || addSeason">
 										<p class="subtitle m-t-15 m-b-0">Settings</p>
+										<mat-slide-toggle formControlName="active">
+											Active
+										</mat-slide-toggle>
 										<mat-form-field>
-											<mat-label>Start date</mat-label>
-											<input matInput formControlName="start_at">
+											<mat-label>Choose a start date</mat-label>
+											<input matInput [matDatepicker]="picker" formControlName="start_at">
+											<mat-datepicker-toggle matSuffix [for]="picker"></mat-datepicker-toggle>
+											<mat-datepicker #picker></mat-datepicker>
 											<mat-error *ngIf="seasonFormGroup.get('start_at').hasError('required')">
 												Start Date is <strong>required</strong>
 											</mat-error>
 										</mat-form-field>
 										<mat-form-field>
 											<mat-label>Number of Games</mat-label>
-											<input matInput formControlName="number_of_games">
+											<input type="number" matInput formControlName="number_of_games">
 											<mat-error *ngIf="seasonFormGroup.get('number_of_games').hasError('required')">
 												Number of Games is <strong>required</strong>
 											</mat-error>
 										</mat-form-field>
 										<mat-form-field>
 											<mat-label>League Fees</mat-label>
-											<input matInput formControlName="league_fee">
+											<input type="number" matInput formControlName="league_fee">
 											<mat-error *ngIf="seasonFormGroup.get('league_fee').hasError('required')">
 												League Fees is <strong>required</strong>
 											</mat-error>
 										</mat-form-field>
 										<mat-form-field>
 											<mat-label>Offical Fee Per Game</mat-label>
-											<input matInput formControlName="offical_fee_per_game">
+											<input type="number" matInput formControlName="offical_fee_per_game">
 											<mat-error *ngIf="seasonFormGroup.get('offical_fee_per_game').hasError('required')">
 												Offical Fee Per Game is <strong>required</strong>
 											</mat-error>
@@ -178,7 +192,7 @@
 						</form>
 
 						<mat-action-row>
-							<button mat-raised-button color="primary" (click)="nextStep()" [disabled]="!seasonFormGroup.get('season').value">Update</button>
+							<button mat-raised-button color="primary" (click)="saveSeason()" [disabled]="!seasonFormGroup.valid">{{ addSeason ? 'Create' : 'Update' }}</button>
 						</mat-action-row>
 					</mat-expansion-panel>
 

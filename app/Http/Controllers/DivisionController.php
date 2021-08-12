@@ -18,6 +18,37 @@ class DivisionController extends Controller
         }
     }
 
+    public function addDivision(Request $request)
+    {
+        $validated = $request->validate([
+            'league' => 'required|exists:leagues,id',
+            'name' => 'required'
+        ]);
+
+        $division = Division::create([
+            'league_id' => $request->league,
+            'name' => $request->name
+        ]);
+
+        return $division->id;
+    }
+
+    public function editDivision(Request $request)
+    {
+        $validated = $request->validate([
+            'division' => 'required|exists:divisions,id',
+            'name' => 'required'
+        ]);
+
+        $division = Division::where('id', $request->division)->first();
+
+        $division->update([
+            'name' => $request->name
+        ]);
+
+        return $division->id;
+    }
+
     public function division_by_league(Request $request)
     {
         return Division::with('league')->where('league_id', $request->league)->get();
