@@ -62,7 +62,7 @@ export class MenuItems {
 			state: 'registered-teams',
 			name: 'Registered Teams',
 			type: 'link',
-			icon: 'people',
+			icon: 'group_add',
 			display: this.authenticationService.isAuthenticated
 		},
 		{
@@ -90,7 +90,7 @@ export class MenuItems {
 			state: 'free-agents',
 			name: 'Free Agents',
 			type: 'link',
-			icon: 'person_add',
+			icon: 'person_add_alt',
 			display: true
 		},
 		{
