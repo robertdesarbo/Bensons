@@ -18,6 +18,9 @@ class ScheduleGameController extends Controller
     public function schedule(Request $request)
     {
         return Schedule::with('home_team', 'away_team', 'field', 'umpires', 'home_team.division', 'away_team.division')
+        ->where(function ($query) {
+            $query->has('home_team.division')->orHas('away_team.division');
+        })
         ->orderBy('game_date', 'ASC')
         ->get();
     }
@@ -41,7 +44,9 @@ class ScheduleGameController extends Controller
             'schedule' => 'required|exists:schedules,id'
         ]);
 
-        $schedule = Schedule::with('home_team.division', 'away_team', 'umpires')->where('id', $request->schedule)->first();
+        $schedule = Schedule::with('home_team.division', 'away_team', 'umpires')
+        ->has('home_team.division')
+        ->where('id', $request->schedule)->first();
 
         return $schedule;
     }

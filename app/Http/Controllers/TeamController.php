@@ -22,9 +22,9 @@ class TeamController extends Controller
     public function team(Request $request)
     {
         if ($request->team) {
-            return Team::with('division.league')->where('id', $request->team)->first();
+            return Team::with('division.league')->has('division.league')->where('id', $request->team)->first();
         } else {
-            return Team::with('division.league')->get();
+            return Team::with('division.league')->has('division.league')->get();
         }
     }
 

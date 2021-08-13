@@ -11,7 +11,7 @@ class SeasonController extends Controller
 {
     public function seasons_by_division(Request $request)
     {
-        return Season::with('division')->where('division_id', $request->division)->get();
+        return Season::with('division')->has('division')->where('division_id', $request->division)->get();
     }
 
     public function addSeason(Request $request)

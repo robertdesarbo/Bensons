@@ -12,7 +12,7 @@ class FreeAgentController extends Controller
 {
     public function freeAgent(Request $request)
     {
-        return FreeAgent::with('division')->get();
+        return FreeAgent::with('division')->has('division')->get();
     }
 
     public function teamFreeAgent(Request $request)

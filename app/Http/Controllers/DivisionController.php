@@ -12,9 +12,9 @@ class DivisionController extends Controller
     public function division(Request $request)
     {
         if ($request->division) {
-            return Division::with('league')->where('id', $request->division)->first();
+            return Division::with('league')->has('league')->where('id', $request->division)->first();
         } else {
-            return Division::with('league')->get();
+            return Division::with('league')->has('league')->get();
         }
     }
 
@@ -60,6 +60,6 @@ class DivisionController extends Controller
 
     public function division_by_league(Request $request)
     {
-        return Division::with('league')->where('league_id', $request->league)->get();
+        return Division::with('league')->has('league')->where('league_id', $request->league)->get();
     }
 }
