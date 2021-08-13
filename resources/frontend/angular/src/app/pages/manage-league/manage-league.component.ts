@@ -1,4 +1,4 @@
-import { Component, ViewChild } from '@angular/core';
+import { Component, OnInit, ChangeDetectorRef } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 
@@ -19,7 +19,7 @@ import { Sport } from 'src/app/models/enum/sport.enum';
 	templateUrl: './manage-league.component.html',
 	styleUrls: ['./manage-league.component.scss']
 })
-export class ManageLeagueComponent {
+export class ManageLeagueComponent implements OnInit {
 	readonly leagueFormGroup: FormGroup;
 	readonly divisionFormGroup: FormGroup;
 	readonly seasonFormGroup: FormGroup;
@@ -38,18 +38,19 @@ export class ManageLeagueComponent {
 
 	public step = 0;
 
-	public addLeague = false;
+	public addLeague = true;
 	public leagueErrors: string[];
 
-	public addDivision = false;
+	public addDivision = true;
 	public divisionErrors: string[];
 
-	public addSeason = false;
+	public addSeason = true;
 	public seasonErrors: string[];
 
 	constructor(private formBuilder: FormBuilder,
 		private snackBar: MatSnackBar,
-		private http: HttpClient) {
+		private http: HttpClient,
+		private changeDetectorRef: ChangeDetectorRef) {
 
 		// pull in data
 		this.fetchLeagues().subscribe();
@@ -77,7 +78,9 @@ export class ManageLeagueComponent {
 		this.teamFormGroup = this.formBuilder.group({
 			team: ''
 		});
+	}
 
+	ngOnInit(): void {
 		this.leagueFormGroup.get("league").valueChanges
 			.pipe(
 				tap(() => {
@@ -91,11 +94,15 @@ export class ManageLeagueComponent {
 				}),
 				filter(league_id => league_id !== null))
 			.subscribe(league_id => {
+				this.toggleLeagueForm(false);
+
 				const league = this.leagues.find(league => league.id === league_id);
 				this.leagueFormGroup.get('name').setValue(league.name);
 				this.leagueFormGroup.get('sport').setValue(league.sport);
 
 				this.fetchDivisions(league_id).subscribe();
+
+
 			});
 
 		this.divisionFormGroup.get("division").valueChanges
@@ -140,21 +147,50 @@ export class ManageLeagueComponent {
 	}
 
 	toggleLeagueFormType() {
+		this.leagueErrors = null;
 		this.leagueFormGroup.get("league").setValue(null);
 
 		this.addLeague = !this.addLeague;
+
+		// league is required if we are editting
+		this.leagueFormGroup.get("league").setValidators(this.addLeague ? null : [Validators.required]);
+		this.leagueFormGroup.get("league").updateValueAndValidity();
+
+		// disable enable forms
+		this.toggleLeagueForm(!this.addLeague);
+
+		this.changeDetectorRef.detectChanges();
 	}
 
+	toggleLeagueForm(disable: boolean) {
+		if (disable) {
+			this.leagueFormGroup.get("name").disable();
+			this.leagueFormGroup.get("sport").disable();
+		} else {
+			this.leagueFormGroup.get("name").enable();
+			this.leagueFormGroup.get("sport").enable();
+		}
+	}
+
+
+
 	toggleDivisionFormType() {
+		this.divisionErrors = null;
 		this.divisionFormGroup.get("division").setValue(null);
 
 		this.addDivision = !this.addDivision;
+
+		this.changeDetectorRef.detectChanges();
 	}
+
+
 
 	toggleSeasonFormType() {
 		this.seasonFormGroup.get("season").setValue(null);
 
 		this.addSeason = !this.addSeason;
+
+		this.changeDetectorRef.detectChanges();
 	}
 
 	fetchLeagues() {
@@ -202,6 +238,29 @@ export class ManageLeagueComponent {
 		);
 	}
 
+	deleteLeague() {
+		let league: any = {
+			league: this.leagueFormGroup.get('league').value
+		}
+
+		this.http.post<any>('/api/remove-league', league).subscribe(() => {
+			this.snackBar.open('League has been removed', 'Dismiss', {
+				duration: 3000,
+				horizontalPosition: "right",
+				verticalPosition: "top",
+			});
+
+			this.fetchLeagues().subscribe();
+		},
+			errorMessage => {
+				this.snackBar.open('Something went wrong, league was not removed', 'Dismiss', {
+					duration: 3000,
+					horizontalPosition: "right",
+					verticalPosition: "top",
+				});
+			});
+	}
+
 	saveLeague() {
 		let league: any = {
 			league: this.leagueFormGroup.get('league').value,
@@ -223,7 +282,7 @@ export class ManageLeagueComponent {
 					// Switch to Edit
 					this.toggleLeagueFormType();
 					this.leagueFormGroup.get("league").setValue(league_id);
-				})
+				});
 			},
 				errorMessage => {
 					this.leagueErrors = Object.values(errorMessage.error.errors);
@@ -243,6 +302,29 @@ export class ManageLeagueComponent {
 					this.leagueErrors = Object.values(errorMessage.error.errors);
 				});
 		}
+	}
+
+	deleteDivision() {
+		let division: any = {
+			division: this.leagueFormGroup.get('division').value
+		}
+
+		this.http.post<any>('/api/remove-division', division).subscribe(() => {
+			this.snackBar.open('Division has been removed', 'Dismiss', {
+				duration: 3000,
+				horizontalPosition: "right",
+				verticalPosition: "top",
+			});
+
+			this.fetchLeagues().subscribe();
+		},
+			errorMessage => {
+				this.snackBar.open('Something went wrong, division was not removed', 'Dismiss', {
+					duration: 3000,
+					horizontalPosition: "right",
+					verticalPosition: "top",
+				});
+			});
 	}
 
 	saveDivision() {

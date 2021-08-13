@@ -22,12 +22,13 @@
 						</mat-expansion-panel-header>
 
 						<form [formGroup]="leagueFormGroup">
-							<p class="subtitle m-0">Choose a league to start configuring its settings.</p>
-							<div fxLayout="row wrap">
-								<div fxFlex.gt-sm="35" fxFlex.gt-xs="60" fxFlex="60" class="align-self-center">
+							<h6 class="m-0">Settings</h6>
+							<div fxLayout="row wrap" *ngIf="!addLeague">
+								<div fxFlex.gt-sm="35" fxFlex.gt-xs="60" fxFlex="100" class="align-self-center">
+									<p class="subtitle m-t-2 m-b-0">Choose a league to start configuring the settings.</p>
 									<mat-form-field>
 										<mat-label>League</mat-label>
-										<mat-select formControlName="league" appearance="fill" [disabled]="addLeague">
+										<mat-select formControlName="league" [disabled]="addLeague">
 											<mat-option *ngFor="let league of league$ | async;" [value]="league.id">{{ league.name }}</mat-option>
 										</mat-select>
 										<mat-error *ngIf="leagueFormGroup.get('league').hasError('required')">
@@ -35,13 +36,16 @@
 										</mat-error>
 									</mat-form-field>
 								</div>
-								<div fxFlex.gt-sm="65" fxFlex.gt-xs="40" fxFlex="40" class="align-self-center">
-									<button color="primary" mat-raised-button (click)="toggleLeagueFormType()">{{ !addLeague ? 'Add' : 'Edit' }} League</button>
+							</div>
+							<div fxLayout="row wrap" *ngIf="addLeague">
+								<div fxFlex.gt-sm="35" fxFlex.gt-xs="60" fxFlex="100" class="align-self-center">
+									<p class="subtitle m-t-2 m-b-0">To create a league please configure the settings.</p>
 								</div>
-								<div fxFlex.gt-sm="35" fxFlex.gt-xs="100" fxFlex="100" class="align-self-center">
-									<ng-container *ngIf="leagueFormGroup.get('league').value || addLeague">
-										<p class="subtitle m-t-15 m-b-0">Settings</p>
-										<p *ngIf="leagueErrors" style="margin-top: 0;">
+							</div>
+							<div fxLayout="row wrap">
+								<div fxFlex.gt-sm="35" fxFlex.gt-xs="60" fxFlex="100" class="align-self-center">
+									<ng-container>
+										<p *ngIf="leagueErrors" class="m-0">
 											<ng-container *ngFor="let errors of leagueErrors;">
 												<span class="text-danger">
 													{{ errors }}
@@ -59,7 +63,7 @@
 
 										<mat-form-field>
 											<mat-label>Sport</mat-label>
-											<mat-select formControlName="sport" appearance="fill">
+											<mat-select formControlName="sport">
 												<mat-option *ngFor="let sport of sports" [value]="sport">{{ sport }}</mat-option>
 											</mat-select>
 											<mat-error *ngIf="leagueFormGroup.get('sport').hasError('required')">
@@ -72,7 +76,23 @@
 						</form>
 
 						<mat-action-row>
-							<button mat-raised-button color="primary" (click)="saveLeague()" [disabled]="!leagueFormGroup.valid">{{ addLeague ? 'Create' : 'Update' }}</button>
+							<button mat-button (click)="toggleLeagueFormType()">
+								<ng-container *ngIf="addLeague">
+									<mat-icon>edit</mat-icon> I want to Edit a League
+								</ng-container>
+								<ng-container *ngIf="!addLeague">
+									<mat-icon>add_box</mat-icon> I want to Create a League
+								</ng-container>
+							</button>
+
+							<div>
+								<button mat-button color="warn" (click)="deleteLeague()" [disabled]="!leagueFormGroup.get('league').value">
+									<mat-icon>delete</mat-icon> Delete
+								</button>
+								<button mat-button color="primary" (click)="saveLeague()" [disabled]="!leagueFormGroup.valid && !leagueFormGroup.get('league').value">
+									<mat-icon>upgrade</mat-icon> {{ addLeague ? 'Create' : 'Update' }}
+								</button>
+							</div>
 						</mat-action-row>
 					</mat-expansion-panel>
 
@@ -87,12 +107,13 @@
 						</mat-expansion-panel-header>
 
 						<form [formGroup]="divisionFormGroup">
-							<p class="subtitle m-0">Choose a division to start configuring its settings.</p>
-							<div fxLayout="row wrap">
-								<div fxFlex.gt-sm="35" fxFlex.gt-xs="60" fxFlex="60" class="align-self-center">
+							<h6 class="m-0">Settings</h6>
+							<div fxLayout="row wrap" *ngIf="!addDivision">
+								<div fxFlex.gt-sm="35" fxFlex.gt-xs="60" fxFlex="100" class="align-self-center">
+									<p class="subtitle m-t-2 m-b-0">Choose a division to start configuring its settings.</p>
 									<mat-form-field>
 										<mat-label>Division</mat-label>
-										<mat-select formControlName="division" appearance="fill" [disabled]="addDivision">
+										<mat-select formControlName="division" [disabled]="addDivision">
 											<mat-option *ngFor="let division of division$ | async;" [value]="division.id">{{ division.name }}</mat-option>
 										</mat-select>
 										<mat-error *ngIf="divisionFormGroup.get('division').hasError('required')">
@@ -100,12 +121,23 @@
 										</mat-error>
 									</mat-form-field>
 								</div>
-								<div fxFlex.gt-sm="65" fxFlex.gt-xs="40" fxFlex="40" class="align-self-center">
-									<button color="primary" mat-raised-button (click)="toggleDivisionFormType()">{{ !addDivision ? 'Add' : 'Edit' }} Division</button>
+							</div>
+							<div fxLayout="row wrap" *ngIf="addDivision">
+								<div fxFlex.gt-sm="35" fxFlex.gt-xs="60" fxFlex="100" class="align-self-center">
+									<p class="subtitle m-t-2 m-b-0">To create a league please configure the settings.</p>
 								</div>
-								<div fxFlex.gt-sm="35" fxFlex.gt-xs="100" fxFlex="100" class="align-self-center">
-									<ng-container *ngIf="divisionFormGroup.get('division').value || addDivision">
-										<p class="subtitle m-t-15 m-b-0">Settings</p>
+							</div>
+							<div fxLayout="row wrap">
+								<div fxFlex.gt-sm="35" fxFlex.gt-xs="60" fxFlex="100" class="align-self-center">
+									<ng-container>
+										<p *ngIf="divisionErrors" class="m-0">
+											<ng-container *ngFor="let errors of divisionErrors;">
+												<span class="text-danger">
+													{{ errors }}
+												</span>
+												<br />
+											</ng-container>
+										</p>
 										<mat-form-field>
 											<mat-label>Name</mat-label>
 											<input matInput formControlName="name">
@@ -119,7 +151,23 @@
 						</form>
 
 						<mat-action-row>
-							<button mat-raised-button color="primary" (click)="saveDivision()" [disabled]="!divisionFormGroup.valid">{{ addDivision ? 'Create' : 'Update' }}</button>
+							<button mat-button (click)="toggleDivisionFormType()">
+								<ng-container *ngIf="addDivision">
+									<mat-icon>edit</mat-icon> I want to Edit a Division
+								</ng-container>
+								<ng-container *ngIf="!addDivision">
+									<mat-icon>add_box</mat-icon> I want to Create a Division
+								</ng-container>
+							</button>
+
+							<div>
+								<button mat-button color="warn" (click)="deleteDivision()" [disabled]="!divisionFormGroup.get('division').value">
+									<mat-icon>delete</mat-icon> Delete
+								</button>
+								<button mat-button color="primary" (click)="saveDivision()" [disabled]="!divisionFormGroup.valid && !divisionFormGroup.get('division').value">
+									<mat-icon>upgrade</mat-icon> {{ addDivision ? 'Create' : 'Update' }}
+								</button>
+							</div>
 						</mat-action-row>
 					</mat-expansion-panel>
 
@@ -139,7 +187,7 @@
 								<div fxFlex.gt-sm="35" fxFlex.gt-xs="60" fxFlex="60" class="align-self-center">
 									<mat-form-field>
 										<mat-label>Season</mat-label>
-										<mat-select formControlName="season" appearance="fill" [disabled]="addSeason">
+										<mat-select formControlName="season" [disabled]="addSeason">
 											<mat-option *ngFor="let season of season$ | async;" [value]="season.id">{{ season.id }}</mat-option>
 										</mat-select>
 										<mat-error *ngIf="seasonFormGroup.get('season').hasError('required')">

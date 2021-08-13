@@ -1,3 +1,9 @@
+.mat-expansion-panel-header {
+	mat-panel-title {
+		font-size: 18px;
+	}
+}
+
 .mat-stepper-horizontal {
 	margin-top: 8px;
 }
@@ -8,4 +14,14 @@
 
 .subtitle {
 	color: rgba(0, 0, 0, 0.54);
+}
+
+.mat-action-row {
+	place-content: space-between;
+	padding      : 16px 10px 16px 8px;
+
+	button {
+		padding: 0 6px;
+		margin : 0 !important;
+	}
 }
