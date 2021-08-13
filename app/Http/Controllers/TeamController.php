@@ -14,7 +14,9 @@ class TeamController extends Controller
 {
     public function teams_by_season(Request $request)
     {
-        return Team::with('season')->where('season_id', $request->season)->get();
+        return Team::whereHas('season', function ($query) use ($request) {
+            $query->where('seasons.id', $request->season);
+        })->get();
     }
 
     public function team(Request $request)
@@ -69,17 +71,17 @@ class TeamController extends Controller
                             $fail('You need to cancel all remaining '.$unplayed_games.' game(s) for '.$team->name.' before changing division');
                         },
                     ],
-                ])->validate();
+                    ])->validate();
             }
         }
 
         $team = Team::where('id', $request->team);
 
         $team->update([
-            'name' => $request->name,
-            'abbreviation' => $request->abbreviation,
-            'division_id' => $request->division
-        ]);
+                'name' => $request->name,
+                'abbreviation' => $request->abbreviation,
+                'division_id' => $request->division
+            ]);
 
         if (!empty($request->umpire)) {
             $team->first()->umpires()->sync([$request->umpire]);
@@ -89,8 +91,8 @@ class TeamController extends Controller
     public function removeTeam(Request $request)
     {
         $validated = $request->validate([
-            'team' => 'required|exists:teams,id'
-        ]);
+                'team' => 'required|exists:teams,id'
+            ]);
 
         $team = Team::findOrFail($request->team);
 

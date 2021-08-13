@@ -12,7 +12,7 @@
 				</mat-card-title>
 
 				<mat-accordion multi #accordian>
-					<mat-expansion-panel [expanded]="step === 0" (opened)="setStep(0)">
+					<mat-expansion-panel [expanded]="step === 0 || step === 1" (opened)="setStep(0)">
 						<mat-expansion-panel-header>
 							<mat-panel-title>
 								League
@@ -22,10 +22,9 @@
 						</mat-expansion-panel-header>
 
 						<form [formGroup]="leagueFormGroup">
-							<h6 class="m-0">Settings</h6>
 							<div fxLayout="row wrap" *ngIf="!addLeague">
 								<div fxFlex.gt-md="40" fxFlex.gt-sm="60" fxFlex.gt-xs="100" fxFlex="100" class="align-self-center">
-									<p class="subtitle m-t-2 m-b-0">Choose a league to start configuring the settings.</p>
+									<p class="subtitle m-0">First choose a league, then you can update the settings.</p>
 									<mat-form-field>
 										<mat-label>League</mat-label>
 										<mat-select formControlName="league" [disabled]="addLeague">
@@ -39,7 +38,12 @@
 							</div>
 							<div fxLayout="row wrap" *ngIf="addLeague">
 								<div fxFlex.gt-md="40" fxFlex.gt-sm="60" fxFlex.gt-xs="100" fxFlex="100" class="align-self-center">
-									<p class="subtitle m-t-2 m-b-0">To create a league please configure the settings.</p>
+									<p class="subtitle m-0">To create a league please fill out all the fields below.</p>
+								</div>
+							</div>
+							<div fxLayout="row wrap">
+								<div fxFlex.gt-md="40" fxFlex.gt-sm="60" fxFlex.gt-xs="100" fxFlex="100" class="align-self-center">
+									<h5>Settings</h5>
 								</div>
 							</div>
 							<div fxLayout="row wrap">
@@ -96,7 +100,7 @@
 						</mat-action-row>
 					</mat-expansion-panel>
 
-					<mat-expansion-panel [expanded]="step === 1" (opened)="setStep(1)" [disabled]="!leagueFormGroup.get('league').value">
+					<mat-expansion-panel [expanded]="step === 1 || step === 2" (opened)="setStep(1)" [disabled]="!leagueFormGroup.get('league').value">
 						<mat-expansion-panel-header>
 							<mat-panel-title>
 								Division
@@ -107,10 +111,9 @@
 						</mat-expansion-panel-header>
 
 						<form [formGroup]="divisionFormGroup">
-							<h6 class="m-0">Settings</h6>
 							<div fxLayout="row wrap" *ngIf="!addDivision">
 								<div fxFlex.gt-md="40" fxFlex.gt-sm="60" fxFlex.gt-xs="100" fxFlex="100" class="align-self-center">
-									<p class="subtitle m-t-2 m-b-0">Choose a division to start configuring its settings.</p>
+									<p class="subtitle m-0">First choose a division, then you can update the settings.</p>
 									<mat-form-field>
 										<mat-label>Division</mat-label>
 										<mat-select formControlName="division" [disabled]="addDivision">
@@ -124,7 +127,12 @@
 							</div>
 							<div fxLayout="row wrap" *ngIf="addDivision">
 								<div fxFlex.gt-md="40" fxFlex.gt-sm="60" fxFlex.gt-xs="100" fxFlex="100" class="align-self-center">
-									<p class="subtitle m-t-2 m-b-0">To create a division please configure the settings.</p>
+									<p class="subtitle m-0">To create a division please fill out all the fields below.</p>
+								</div>
+							</div>
+							<div fxLayout="row wrap">
+								<div fxFlex.gt-md="40" fxFlex.gt-sm="60" fxFlex.gt-xs="100" fxFlex="100" class="align-self-center">
+									<h5>Settings</h5>
 								</div>
 							</div>
 							<div fxLayout="row wrap">
@@ -171,7 +179,7 @@
 						</mat-action-row>
 					</mat-expansion-panel>
 
-					<mat-expansion-panel [expanded]="step === 2" (opened)="setStep(2)" [disabled]="!divisionFormGroup.get('division').value">
+					<mat-expansion-panel [expanded]="step === 2 || step === 3" (opened)="setStep(2)" [disabled]="!divisionFormGroup.get('division').value">
 						<mat-expansion-panel-header>
 							<mat-panel-title>
 								Season
@@ -182,10 +190,9 @@
 						</mat-expansion-panel-header>
 
 						<form [formGroup]="seasonFormGroup">
-							<h6 class="m-0">Settings</h6>
 							<div fxLayout="row wrap" *ngIf="!addSeason">
 								<div fxFlex.gt-md="40" fxFlex.gt-sm="60" fxFlex.gt-xs="100" fxFlex="100" class="align-self-center">
-									<p class="subtitle m-t-2 m-b-0">Choose a season to start configuring the settings.</p>
+									<p class="subtitle m-0">First choose a season, then you can update the settings.</p>
 									<mat-form-field>
 										<mat-label>Season</mat-label>
 										<mat-select formControlName="season" [disabled]="addSeason">
@@ -199,7 +206,12 @@
 							</div>
 							<div fxLayout="row wrap" *ngIf="addSeason">
 								<div fxFlex.gt-md="40" fxFlex.gt-sm="60" fxFlex.gt-xs="100" fxFlex="100" class="align-self-center">
-									<p class="subtitle m-t-2 m-b-0">To create a season please configure the settings.</p>
+									<p class="subtitle m-0">To create a season please fill out all the fields below.</p>
+								</div>
+							</div>
+							<div fxLayout="row wrap">
+								<div fxFlex.gt-md="40" fxFlex.gt-sm="60" fxFlex.gt-xs="100" fxFlex="100" class="align-self-center">
+									<h5>Settings</h5>
 								</div>
 							</div>
 							<div fxLayout="row wrap">
@@ -275,17 +287,26 @@
 						</mat-action-row>
 					</mat-expansion-panel>
 
-					<mat-expansion-panel [expanded]="step === 3" (opened)="setStep(3)" [disabled]="!seasonFormGroup.get('season').value">
+					<mat-expansion-panel [expanded]="step === 3 || step === 4" (opened)="setStep(3)" [disabled]="!seasonFormGroup.get('season').value">
 						<mat-expansion-panel-header>
 							<mat-panel-title>
 								Teams
 							</mat-panel-title>
 							<mat-panel-description *ngIf="step < 3">
-								Lists teams signed up for the selected season
+								List of teams signed up for the selected season
 							</mat-panel-description>
-
-							<div *ngFor="let team of team$ | async;">team.name</div>
 						</mat-expansion-panel-header>
+
+						<div fxLayout="row wrap">
+							<div fxFlex.gt-md="40" fxFlex.gt-sm="60" fxFlex.gt-xs="100" fxFlex="100" class="align-self-center">
+								<p class="subtitle m-t-2 m-b-0">List of teams signed up for the selected season</p>
+								<ol>
+									<ng-container *ngFor="let team of team$ | async; let i=index">
+										<li>{{team.name}}</li>
+									</ng-container>
+								</ol>
+							</div>
+						</div>
 					</mat-expansion-panel>
 				</mat-accordion>
 			</mat-card-content>

@@ -98,6 +98,8 @@ export class ManageLeagueComponent implements OnInit {
 
 					this.leagueFormGroup.get("name").setValue(null);
 					this.leagueFormGroup.get("sport").setValue(null);
+
+					this.step = 0;
 				}),
 				filter(league_id => league_id !== null))
 			.subscribe(league_id => {
@@ -108,6 +110,8 @@ export class ManageLeagueComponent implements OnInit {
 				this.leagueFormGroup.get('sport').setValue(league.sport);
 
 				this.fetchDivisions(league_id).subscribe();
+
+				this.step = 1;
 			});
 
 		this.divisionFormGroup.get("division").valueChanges
@@ -118,6 +122,8 @@ export class ManageLeagueComponent implements OnInit {
 					this.teamFormGroup.get("team").setValue(null);
 
 					this.divisionFormGroup.get("name").setValue(null);
+
+					this.step = 1;
 				}),
 				filter(division_id => division_id !== null))
 			.subscribe(division_id => {
@@ -127,6 +133,8 @@ export class ManageLeagueComponent implements OnInit {
 				this.divisionFormGroup.get('name').setValue(division.name);
 
 				this.fetchSeasons(division_id).subscribe();
+
+				this.step = 2;
 			});
 
 		this.seasonFormGroup.get("season").valueChanges
@@ -141,6 +149,8 @@ export class ManageLeagueComponent implements OnInit {
 					this.seasonFormGroup.get('number_of_games').setValue(null);
 					this.seasonFormGroup.get('league_fee').setValue(null);
 					this.seasonFormGroup.get('offical_fee_per_game').setValue(null);
+
+					this.step = 2;
 				}),
 				filter(season_id => season_id !== null))
 			.subscribe(season_id => {
@@ -156,6 +166,8 @@ export class ManageLeagueComponent implements OnInit {
 				this.seasonFormGroup.get('offical_fee_per_game').setValue(season.offical_fee_per_game);
 
 				this.fetchTeams(season_id).subscribe();
+
+				this.step = 3;
 			});
 	}
 
