@@ -28,7 +28,7 @@ class LeagueController extends Controller
 
         return $league->id;
     }
-    
+
     public function editLeague(Request $request)
     {
         $validated = $request->validate([
@@ -45,5 +45,14 @@ class LeagueController extends Controller
         ]);
 
         return $league->id;
+    }
+
+    public function removeLeague(Request $request)
+    {
+        $validated = $request->validate([
+            'league' => 'required|exists:leagues,id'
+        ]);
+
+        League::where('id', $request->league)->delete();
     }
 }

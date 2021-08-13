@@ -35,16 +35,17 @@ export class ManageLeagueComponent implements OnInit {
 	public leagues: League[];
 	public divisions: Division[];
 	public seasons: Season[];
+	public teams: Team[];
 
 	public step = 0;
 
-	public addLeague = true;
+	public addLeague = false;
 	public leagueErrors: string[];
 
-	public addDivision = true;
+	public addDivision = false;
 	public divisionErrors: string[];
 
-	public addSeason = true;
+	public addSeason = false;
 	public seasonErrors: string[];
 
 	constructor(private formBuilder: FormBuilder,
@@ -68,8 +69,9 @@ export class ManageLeagueComponent implements OnInit {
 
 		this.seasonFormGroup = this.formBuilder.group({
 			season: '',
+			active: [false, Validators.required],
+			complete: [false, Validators.required],
 			start_at: ['', Validators.required],
-			active: ['', Validators.required],
 			number_of_games: ['', Validators.required],
 			league_fee: ['', Validators.required],
 			offical_fee_per_game: ['', Validators.required],
@@ -81,6 +83,11 @@ export class ManageLeagueComponent implements OnInit {
 	}
 
 	ngOnInit(): void {
+		// Init to value defined aboev (toggle negates so we negate param)
+		this.toggleLeagueFormType(!this.addLeague);
+		this.toggleDivisionFormType(!this.addDivision);
+		this.toggleSeasonFormType(!this.addSeason);
+
 		this.leagueFormGroup.get("league").valueChanges
 			.pipe(
 				tap(() => {
@@ -101,8 +108,6 @@ export class ManageLeagueComponent implements OnInit {
 				this.leagueFormGroup.get('sport').setValue(league.sport);
 
 				this.fetchDivisions(league_id).subscribe();
-
-
 			});
 
 		this.divisionFormGroup.get("division").valueChanges
@@ -116,6 +121,8 @@ export class ManageLeagueComponent implements OnInit {
 				}),
 				filter(division_id => division_id !== null))
 			.subscribe(division_id => {
+				this.toggleDivisionForm(false);
+
 				const division = this.divisions.find(division => division.id === division_id);
 				this.divisionFormGroup.get('name').setValue(division.name);
 
@@ -128,7 +135,8 @@ export class ManageLeagueComponent implements OnInit {
 					// reset other forms
 					this.teamFormGroup.get("team").setValue(null);
 
-					this.seasonFormGroup.get('active').setValue(null);
+					this.seasonFormGroup.get('active').setValue(false);
+					this.seasonFormGroup.get('complete').setValue(false);
 					this.seasonFormGroup.get('start_at').setValue(null);
 					this.seasonFormGroup.get('number_of_games').setValue(null);
 					this.seasonFormGroup.get('league_fee').setValue(null);
@@ -136,21 +144,26 @@ export class ManageLeagueComponent implements OnInit {
 				}),
 				filter(season_id => season_id !== null))
 			.subscribe(season_id => {
+				this.toggleSeasonForm(false);
+
 				const season = this.seasons.find(season => season.id === season_id);
 
 				this.seasonFormGroup.get('active').setValue(season.active);
+				this.seasonFormGroup.get('complete').setValue(season.complete);
 				this.seasonFormGroup.get('start_at').setValue(season.start_at);
 				this.seasonFormGroup.get('number_of_games').setValue(season.number_of_games);
 				this.seasonFormGroup.get('league_fee').setValue(season.league_fee);
 				this.seasonFormGroup.get('offical_fee_per_game').setValue(season.offical_fee_per_game);
+
+				this.fetchTeams(season_id).subscribe();
 			});
 	}
 
-	toggleLeagueFormType() {
+	toggleLeagueFormType(addLeague: boolean) {
 		this.leagueErrors = null;
 		this.leagueFormGroup.get("league").setValue(null);
 
-		this.addLeague = !this.addLeague;
+		this.addLeague = !addLeague;
 
 		// league is required if we are editting
 		this.leagueFormGroup.get("league").setValidators(this.addLeague ? null : [Validators.required]);
@@ -174,24 +187,66 @@ export class ManageLeagueComponent implements OnInit {
 
 
 
-	toggleDivisionFormType() {
+	toggleDivisionFormType(addDivision: boolean) {
 		this.divisionErrors = null;
 		this.divisionFormGroup.get("division").setValue(null);
 
-		this.addDivision = !this.addDivision;
+		this.addDivision = !addDivision;
+
+		// division is required if we are editting
+		this.divisionFormGroup.get("division").setValidators(this.addDivision ? null : [Validators.required]);
+		this.divisionFormGroup.get("division").updateValueAndValidity();
+
+		// disable enable forms
+		this.toggleDivisionForm(!this.addDivision);
 
 		this.changeDetectorRef.detectChanges();
 	}
 
+	toggleDivisionForm(disable: boolean) {
+		if (disable) {
+			this.divisionFormGroup.get("name").disable();
+		} else {
+			this.divisionFormGroup.get("name").enable();
+		}
+	}
 
 
-	toggleSeasonFormType() {
+
+	toggleSeasonFormType(addSeason: boolean) {
+		this.seasonErrors = null;
 		this.seasonFormGroup.get("season").setValue(null);
 
-		this.addSeason = !this.addSeason;
+		this.addSeason = !addSeason;
+
+		// season is required if we are editting
+		this.seasonFormGroup.get("season").setValidators(this.addSeason ? null : [Validators.required]);
+		this.seasonFormGroup.get("season").updateValueAndValidity();
+
+		// disable enable forms
+		this.toggleSeasonForm(!this.addSeason);
 
 		this.changeDetectorRef.detectChanges();
 	}
+
+	toggleSeasonForm(disable: boolean) {
+		if (disable) {
+			this.seasonFormGroup.get('active').disable();
+			this.seasonFormGroup.get('complete').disable();
+			this.seasonFormGroup.get('start_at').disable();
+			this.seasonFormGroup.get('number_of_games').disable();
+			this.seasonFormGroup.get('league_fee').disable();
+			this.seasonFormGroup.get('offical_fee_per_game').disable();
+		} else {
+			this.seasonFormGroup.get('active').enable();
+			this.seasonFormGroup.get('complete').enable();
+			this.seasonFormGroup.get('start_at').enable();
+			this.seasonFormGroup.get('number_of_games').enable();
+			this.seasonFormGroup.get('league_fee').enable();
+			this.seasonFormGroup.get('offical_fee_per_game').enable();
+		}
+	}
+
 
 	fetchLeagues() {
 		// pull in data
@@ -229,11 +284,27 @@ export class ManageLeagueComponent implements OnInit {
 			}
 		}
 
-		this.season$ = this.http.get<Season[]>('/api/season-by-division', params);
+		this.season$ = this.http.get<Season[]>('/api/seasons-by-division', params);
 		return this.season$.pipe(
 			shareReplay(),
-			tap((divisions) => {
-				this.seasons = divisions;
+			tap((seasons) => {
+				this.seasons = seasons;
+			})
+		);
+	}
+
+	fetchTeams(season_id) {
+		const params = {
+			params: {
+				season: season_id
+			}
+		}
+
+		this.team$ = this.http.get<Team[]>('/api/teams-by-season', params);
+		return this.team$.pipe(
+			shareReplay(),
+			tap((teams) => {
+				this.teams = teams;
 			})
 		);
 	}
@@ -250,7 +321,9 @@ export class ManageLeagueComponent implements OnInit {
 				verticalPosition: "top",
 			});
 
-			this.fetchLeagues().subscribe();
+			this.fetchLeagues().subscribe(() => {
+				this.leagueFormGroup.get("league").setValue(null);
+			});
 		},
 			errorMessage => {
 				this.snackBar.open('Something went wrong, league was not removed', 'Dismiss', {
@@ -280,7 +353,7 @@ export class ManageLeagueComponent implements OnInit {
 
 				this.fetchLeagues().subscribe(() => {
 					// Switch to Edit
-					this.toggleLeagueFormType();
+					this.toggleLeagueFormType(this.addLeague);
 					this.leagueFormGroup.get("league").setValue(league_id);
 				});
 			},
@@ -306,7 +379,7 @@ export class ManageLeagueComponent implements OnInit {
 
 	deleteDivision() {
 		let division: any = {
-			division: this.leagueFormGroup.get('division').value
+			division: this.divisionFormGroup.get('division').value
 		}
 
 		this.http.post<any>('/api/remove-division', division).subscribe(() => {
@@ -316,7 +389,9 @@ export class ManageLeagueComponent implements OnInit {
 				verticalPosition: "top",
 			});
 
-			this.fetchLeagues().subscribe();
+			this.fetchDivisions(this.leagueFormGroup.get('league').value).subscribe(() => {
+				this.divisionFormGroup.get("division").setValue(null);
+			});
 		},
 			errorMessage => {
 				this.snackBar.open('Something went wrong, division was not removed', 'Dismiss', {
@@ -346,7 +421,7 @@ export class ManageLeagueComponent implements OnInit {
 
 				this.fetchDivisions(this.leagueFormGroup.get('league').value).subscribe(() => {
 					// Switch to Edit
-					this.toggleDivisionFormType();
+					this.toggleDivisionFormType(this.addDivision);
 					this.divisionFormGroup.get("division").setValue(division_id);
 				})
 			},
@@ -370,13 +445,39 @@ export class ManageLeagueComponent implements OnInit {
 		}
 	}
 
+	deleteSeason() {
+		let season: any = {
+			season: this.seasonFormGroup.get('season').value
+		}
+
+		this.http.post<any>('/api/remove-season', season).subscribe(() => {
+			this.snackBar.open('Season has been removed', 'Dismiss', {
+				duration: 3000,
+				horizontalPosition: "right",
+				verticalPosition: "top",
+			});
+
+			this.fetchSeasons(this.divisionFormGroup.get('division').value).subscribe(() => {
+				this.seasonFormGroup.get("season").setValue(null);
+			});
+		},
+			errorMessage => {
+				this.snackBar.open('Something went wrong, season was not removed', 'Dismiss', {
+					duration: 3000,
+					horizontalPosition: "right",
+					verticalPosition: "top",
+				});
+			});
+	}
+
 	saveSeason() {
 		let season: any = {
 			season: this.seasonFormGroup.get('season').value,
 			division: this.divisionFormGroup.get('division').value,
 
-			start_at: this.seasonFormGroup.get('start_at').value,
 			active: this.seasonFormGroup.get('active').value,
+			complete: this.seasonFormGroup.get('complete').value,
+			start_at: this.seasonFormGroup.get('start_at').value,
 			number_of_games: this.seasonFormGroup.get('number_of_games').value,
 			league_fee: this.seasonFormGroup.get('league_fee').value,
 			offical_fee_per_game: this.seasonFormGroup.get('offical_fee_per_game').value
@@ -393,9 +494,9 @@ export class ManageLeagueComponent implements OnInit {
 
 				this.fetchSeasons(this.divisionFormGroup.get('division').value).subscribe(() => {
 					// Switch to Edit
-					this.toggleSeasonFormType();
+					this.toggleSeasonFormType(this.addSeason);
 					this.seasonFormGroup.get("season").setValue(season_id);
-				})
+				});
 			},
 				errorMessage => {
 					this.seasonErrors = Object.values(errorMessage.error.errors);

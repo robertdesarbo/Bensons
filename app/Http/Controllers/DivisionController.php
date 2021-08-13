@@ -49,6 +49,15 @@ class DivisionController extends Controller
         return $division->id;
     }
 
+    public function removeDivision(Request $request)
+    {
+        $validated = $request->validate([
+                'division' => 'required|exists:divisions,id'
+            ]);
+
+        Division::where('id', $request->division)->delete();
+    }
+
     public function division_by_league(Request $request)
     {
         return Division::with('league')->where('league_id', $request->league)->get();

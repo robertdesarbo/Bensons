@@ -9,7 +9,7 @@ use App\Models\Season;
 
 class SeasonController extends Controller
 {
-    public function season_by_division(Request $request)
+    public function seasons_by_division(Request $request)
     {
         return Season::with('division')->where('division_id', $request->division)->get();
     }
@@ -18,8 +18,9 @@ class SeasonController extends Controller
     {
         $validated = $request->validate([
             'division' => 'required|exists:divisions,id',
+            'active' => 'required|boolean',
+            'complete' => 'required|boolean',
             'start_at' => 'required',
-            'active' => 'required',
             'number_of_games' => 'required',
             'league_fee' => 'required',
             'offical_fee_per_game' => 'required'
@@ -27,8 +28,9 @@ class SeasonController extends Controller
 
         $season = Season::create([
             'division_id' => $request->division,
-            'start_at' => $request->start_at,
             'active' => $request->active,
+            'complete' => $request->complete,
+            'start_at' => $request->start_at,
             'number_of_games' => $request->number_of_games,
             'league_fee' => $request->league_fee,
             'offical_fee_per_game' => $request->offical_fee_per_game
@@ -41,8 +43,9 @@ class SeasonController extends Controller
     {
         $validated = $request->validate([
             'season' => 'required|exists:seasons,id',
+            'active' => 'required|boolean',
+            'complete' => 'required|boolean',
             'start_at' => 'required',
-            'active' => 'required',
             'number_of_games' => 'required',
             'league_fee' => 'required',
             'offical_fee_per_game' => 'required'
@@ -51,13 +54,23 @@ class SeasonController extends Controller
         $season = Season::where('id', $request->season)->first();
 
         $season->update([
-            'start_at' => $request->start_at,
             'active' => $request->active,
+            'complete' => $request->complete,
+            'start_at' => $request->start_at,
             'number_of_games' => $request->number_of_games,
             'league_fee' => $request->league_fee,
             'offical_fee_per_game' => $request->offical_fee_per_game
         ]);
 
         return $season->id;
+    }
+
+    public function removeSeason(Request $request)
+    {
+        $validated = $request->validate([
+            'season' => 'required|exists:seasons,id'
+        ]);
+
+        Season::where('id', $request->season)->delete();
     }
 }

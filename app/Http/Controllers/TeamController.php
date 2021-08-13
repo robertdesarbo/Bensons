@@ -12,6 +12,11 @@ use Illuminate\Support\Facades\Validator;
 
 class TeamController extends Controller
 {
+    public function teams_by_season(Request $request)
+    {
+        return Team::with('season')->where('season_id', $request->season)->get();
+    }
+
     public function team(Request $request)
     {
         if ($request->team) {
