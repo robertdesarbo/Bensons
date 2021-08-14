@@ -41,10 +41,14 @@
 	<app-standings-table (searchHasResultsEmitter)="setSearchHasResults()" [season]="season" [teamSearch]="formControl.get('team').value" [divisionSearch]="formControl.get('division').value" [divisionBadgeName]="divisionBadgeName">
 	</app-standings-table>
 </ng-container>
-<div fxLayout="row wrap" *ngIf="!searchHasResults && (formControl.get('team').value || formControl.get('division').value)">
+<div fxLayout="row wrap" *ngIf="!searchHasResults">
 	<div fxFlex="100">
 		<mat-card>
 			<mat-card-content>
+				<p *ngIf="!searchHasResults && !formControl.get('team').value && !formControl.get('division').value">
+					No active seasons found
+				</p>
+
 				<p *ngIf="formControl.get('team').value && formControl.get('division').value; else singleError">
 					No active season found for team <b>{{ formControl.get('team').value }}</b> in division <b>{{ divisionBadgeName }}</b>
 				</p>

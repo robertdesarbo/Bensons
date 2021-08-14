@@ -149,7 +149,15 @@ export class DialogScheduleGame {
 				}
 			}
 
-			this.season$ = this.http.get<any>('/api/active-seasons-by-division', params);;
+			this.season$ = this.http.get<any>('/api/active-seasons-by-division', params);
+		});
+
+		this.formControl.get("season").valueChanges.subscribe(season => {
+			const params = {
+				params: {
+					season: season
+				}
+			}
 
 			this.game$ = this.http.get<any>('/api/schedule-game-set-up', params).pipe(
 				tap((game) => {
@@ -160,6 +168,7 @@ export class DialogScheduleGame {
 					}
 				}));
 		});
+
 
 		this.formControl.get("field").valueChanges.subscribe(fieldId => {
 			if (!this.listOfFields) {

@@ -67,8 +67,8 @@ export class StandingsTableComponent implements OnInit {
 
 		this.division_name = this.season.division.league.name + " " + this.season.division.name + " (" + season_name.charAt(0).toUpperCase() + season_name.slice(1) + ")";
 
-		const division = { params: new HttpParams().set('season', this.season.id) };
-		this.standings$ = this.http.get<Standings[]>('/api/standing', division).pipe(tap((standing: Standings[]) => {
+		const season = { params: new HttpParams().set('season', this.season.id) };
+		this.standings$ = this.http.get<Standings[]>('/api/standing', season).pipe(tap((standing: Standings[]) => {
 			this.dataSource.data = this.addRank(standing);
 			this.notData$ = this.dataSource.connect().pipe(
 				tap((data) => {

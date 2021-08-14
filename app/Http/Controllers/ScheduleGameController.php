@@ -31,10 +31,13 @@ class ScheduleGameController extends Controller
     public function scheduleForm(Request $request)
     {
         $validated = $request->validate([
-            'division' => 'required|exists:divisions,id'
+            'season' => 'required|exists:seasons,id'
         ]);
 
-        $teams = Team::where('division_id', $request->division)->get();
+        $teams = Team::whereHas('season', function ($query) use ($request) {
+            $query->where('seasons.id', $request->season);
+        })->get();
+
         $fields = Field::all();
         $umpires = Umpire::all();
 
@@ -53,8 +56,6 @@ class ScheduleGameController extends Controller
 
         return $schedule;
     }
-
-
 
     public function scheduleGame(Request $request)
     {
