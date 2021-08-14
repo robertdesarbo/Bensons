@@ -9,6 +9,15 @@ use App\Models\Season;
 
 class SeasonController extends Controller
 {
+    public function season(Request $request)
+    {
+        if ($request->season) {
+            return Season::with('division.league')->has('division.league')->where('id', $request->season)->first();
+        } else {
+            return Season::with('division.league')->has('division.league')->get();
+        }
+    }
+
     public function seasons_by_division(Request $request)
     {
         return Season::with('division')->has('division')->where('division_id', $request->division)->get();

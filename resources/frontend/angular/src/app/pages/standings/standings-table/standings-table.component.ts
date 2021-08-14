@@ -9,6 +9,9 @@ import { map, tap } from 'rxjs/operators';
 
 import { Standings } from 'src/app/models/standings.model';
 import { Division } from 'src/app/models/division.model';
+import { Season } from 'src/app/models/season.model';
+
+import spacetime from 'spacetime';
 
 @Component({
 	selector: 'app-standings-table',
@@ -16,8 +19,7 @@ import { Division } from 'src/app/models/division.model';
 	styleUrls: ['./standings-table.component.scss']
 })
 export class StandingsTableComponent implements OnInit {
-
-	@Input() division: Division;
+	@Input() season: Season;
 
 	@Input() teamSearch: string;
 	@Input() divisionSearch: string;
@@ -45,7 +47,6 @@ export class StandingsTableComponent implements OnInit {
 	}
 
 	ngOnChanges(changes: SimpleChanges) {
-
 		if (changes.teamSearch || changes.divisionSearch) {
 			if (changes.teamSearch) {
 				this.searchValues = { ...this.searchValues, team: changes ?.teamSearch ?.currentValue.trim().toLowerCase() };
@@ -60,10 +61,11 @@ export class StandingsTableComponent implements OnInit {
 	}
 
 	ngOnInit(): void {
+		const season_name = spacetime(this.season.start_at, 'America/New_York').season();
 
-		this.division_name = this.division.league.name + " " + this.division.name;
+		this.division_name = this.season.division.league.name + " " + this.season.division.name + " (" + season_name.charAt(0).toUpperCase() + season_name.slice(1) + ")";
 
-		const division = { params: new HttpParams().set('division', this.division.id) };
+		const division = { params: new HttpParams().set('season', this.season.id) };
 		this.standings$ = this.http.get<Standings[]>('/api/standing', division).pipe(tap((standing: Standings[]) => {
 			this.dataSource.data = this.addRank(standing);
 			this.notData$ = this.dataSource.connect().pipe(

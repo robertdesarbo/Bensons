@@ -37,6 +37,6 @@
 	</div>
 	<!-- column -->
 </div>
-<ng-container *ngFor="let division of division$ | async;">
-	<app-standings-table [division]="division" [teamSearch]="formControl.get('team').value" [divisionSearch]="formControl.get('division').value" [divisionBadgeName]="divisionBadgeName"></app-standings-table>
+<ng-container *ngFor="let season of season$ | async;">
+	<app-standings-table [season]="season" [teamSearch]="formControl.get('team').value" [divisionSearch]="formControl.get('division').value" [divisionBadgeName]="divisionBadgeName"></app-standings-table>
 </ng-container>

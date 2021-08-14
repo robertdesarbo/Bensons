@@ -15,13 +15,19 @@ class StandingController extends Controller
     public function standing(Request $request)
     {
         $validated = $request->validate([
-            'division' => 'required|exists:divisions,id'
+            'season' => 'required|exists:seasons,id'
         ]);
 
         $division_stats = [];
-        Team::where('division_id', $request->division)->chunk(50, function ($teams) use (&$division_stats) {
+        Team::whereHas('season', function ($query) use ($request) {
+            $query->where('seasons.id', $request->season)
+            ->where('seasons.active', true)
+            ->where('seasons.complete', false);
+        })->chunk(50, function ($teams) use (&$division_stats) {
             foreach ($teams as $team) {
-                $games = Schedule::orWhere(function ($query) use ($team) {
+                $games = Schedule::has('home_team.division.league')
+                ->has('away_team.division.league')
+                ->where(function ($query) use ($team) {
                     $query->where('home_id', $team->id)->orWhere('away_id', $team->id);
                 })
                 ->where('completed', 1)

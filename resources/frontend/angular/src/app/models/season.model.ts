@@ -1,3 +1,5 @@
+import { Division } from 'src/app/models/division.model';
+
 export class Season {
 	protected constructor(
 		public id: number,
@@ -6,11 +8,13 @@ export class Season {
 		public start_at: Date,
 		public number_of_games: number,
 		public league_fee: number,
-		public offical_fee_per_game: number) {
+		public offical_fee_per_game: number,
+		public division?: Division) {
 	}
 
 	public static from(season: Season): Season {
 		return new Season(season.id, season.active, season.complete, season.start_at,
-			season.number_of_games, season.league_fee, season.offical_fee_per_game);
+			season.number_of_games, season.league_fee, season.offical_fee_per_game,
+			season.division);
 	}
 }

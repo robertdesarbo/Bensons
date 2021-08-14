@@ -17,10 +17,14 @@ class ScheduleGameController extends Controller
 {
     public function schedule(Request $request)
     {
+        //Game with Active Season
         return Schedule::with('home_team', 'away_team', 'field', 'umpires', 'home_team.division', 'away_team.division')
-        ->where(function ($query) {
-            $query->has('home_team.division')->orHas('away_team.division');
+        ->whereHas('season', function ($query) {
+            $query->where('seasons.active', true)
+            ->where('seasons.complete', false);
         })
+        ->has('home_team.division.league')
+        ->has('away_team.division.league')
         ->orderBy('game_date', 'ASC')
         ->get();
     }

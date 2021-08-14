@@ -7,6 +7,7 @@ import { Observable } from 'rxjs';
 import { tap } from 'rxjs/operators';
 
 import { Division } from 'src/app/models/division.model';
+import { Season } from 'src/app/models/season.model';
 
 @Component({
 	selector: 'app-standings',
@@ -18,6 +19,8 @@ export class StandingsComponent {
 	readonly formControl: FormGroup;
 
 	public division$: Observable<Division[]>;
+	public season$: Observable<Season[]>;
+
 	public listOfDivisions: Division[];
 
 	public divisionBadgeName: string;
@@ -30,6 +33,8 @@ export class StandingsComponent {
 			})
 		);
 
+		this.season$ = this.http.get<Season[]>('/api/season');
+
 		this.formControl = this.formBuilder.group({
 			team: '',
 			division: null,
@@ -38,7 +43,6 @@ export class StandingsComponent {
 
 		this.formControl.get('division').valueChanges.subscribe(value => {
 			this.divisionBadgeName = this.getDivisionName(value);
-
 		});
 	}
 
