@@ -531,7 +531,11 @@ export class ManageLeagueComponent implements OnInit {
 	}
 
 	setStep(index: number) {
-		this.step = index;
+		if (this.step > index) {
+			this.step = index + 1;
+		} else {
+			this.step = index;
+		}
 	}
 
 	nextStep() {
