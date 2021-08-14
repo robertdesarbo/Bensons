@@ -9,13 +9,13 @@ use App\Models\Season;
 
 class SeasonController extends Controller
 {
-    public function season(Request $request)
+    public function activeSeasons(Request $request)
     {
-        if ($request->season) {
-            return Season::with('division.league')->has('division.league')->where('id', $request->season)->first();
-        } else {
-            return Season::with('division.league')->has('division.league')->get();
-        }
+        return Season::with('division.league')
+        ->has('division.league')
+        ->where('active', true)
+        ->where('complete', false)
+        ->get();
     }
 
     public function seasons_by_division(Request $request)

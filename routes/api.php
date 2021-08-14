@@ -82,7 +82,7 @@ Route::get('registered-team', [RegisteredTeamController::class, 'registeredTeam'
 
 Route::get('umpire', [UmpireController::class, 'umpire']);
 
-Route::get('season', [SeasonController::class, 'season']);
+Route::get('active-seasons', [SeasonController::class, 'activeSeasons']);
 
 Route::get('division', [DivisionController::class, 'division']);
 Route::get('division-by-league', [DivisionController::class, 'division_by_league']);

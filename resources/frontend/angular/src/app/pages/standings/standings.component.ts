@@ -33,7 +33,7 @@ export class StandingsComponent {
 			})
 		);
 
-		this.season$ = this.http.get<Season[]>('/api/season');
+		this.season$ = this.http.get<Season[]>('/api/active-seasons');
 
 		this.formControl = this.formBuilder.group({
 			team: '',
