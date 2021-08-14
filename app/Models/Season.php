@@ -16,4 +16,9 @@ class Season extends Model
     {
         return $this->belongsTo(Division::class, 'division_id');
     }
+
+    public function scopeActive($query)
+    {
+        return $query->where('active', true)->where('complete', false);
+    }
 }

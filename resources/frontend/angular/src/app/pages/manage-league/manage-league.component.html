@@ -196,7 +196,7 @@
 									<mat-form-field>
 										<mat-label>Season</mat-label>
 										<mat-select formControlName="season" [disabled]="addSeason">
-											<mat-option *ngFor="let season of season$ | async;" [value]="season.id">{{season.start_at | date:'MMMM yyyy'}} ({{ season.id }})</mat-option>
+											<mat-option *ngFor="let season of season$ | async;" [value]="season.id">{{season.start_at | date:'MMMM yyyy'}} ({{ spacetime(season.start_at, 'America/New_York').season() | titlecase }})</mat-option>
 										</mat-select>
 										<mat-error *ngIf="seasonFormGroup.get('season').hasError('required')">
 											Season is <strong>required</strong>

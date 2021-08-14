@@ -21,8 +21,7 @@ class StandingController extends Controller
         $division_stats = [];
         Team::whereHas('season', function ($query) use ($request) {
             $query->where('seasons.id', $request->season)
-            ->where('seasons.active', true)
-            ->where('seasons.complete', false);
+            ->active();
         })->chunk(50, function ($teams) use (&$division_stats) {
             foreach ($teams as $team) {
                 $games = Schedule::has('home_team.division.league')

@@ -20,8 +20,7 @@ class ScheduleGameController extends Controller
         //Game with Active Season
         return Schedule::with('home_team', 'away_team', 'field', 'umpires', 'home_team.division', 'away_team.division')
         ->whereHas('season', function ($query) {
-            $query->where('seasons.active', true)
-            ->where('seasons.complete', false);
+            $query->active();
         })
         ->has('home_team.division.league')
         ->has('away_team.division.league')

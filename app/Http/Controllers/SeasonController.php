@@ -13,9 +13,21 @@ class SeasonController extends Controller
     {
         return Season::with('division.league')
         ->has('division.league')
-        ->where('active', true)
-        ->where('complete', false)
+        ->active()
         ->get();
+    }
+
+    public function activeSeasonsByDivisionId(Request $request)
+    {
+        $validated = $request->validate([
+            'division' => 'required|exists:divisions,id',
+        ]);
+
+        return Season::with('division.league')
+            ->has('division.league')
+            ->active()
+            ->where('division_id', $request->division)
+            ->get();
     }
 
     public function seasons_by_division(Request $request)

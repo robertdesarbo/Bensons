@@ -14,12 +14,16 @@ import { Team } from 'src/app/models/team.model';
 
 import { Sport } from 'src/app/models/enum/sport.enum';
 
+import spacetime from 'spacetime';
+
 @Component({
 	selector: 'app-manage-league',
 	templateUrl: './manage-league.component.html',
 	styleUrls: ['./manage-league.component.scss']
 })
 export class ManageLeagueComponent implements OnInit {
+	readonly spacetime = spacetime;
+
 	readonly leagueFormGroup: FormGroup;
 	readonly divisionFormGroup: FormGroup;
 	readonly seasonFormGroup: FormGroup;

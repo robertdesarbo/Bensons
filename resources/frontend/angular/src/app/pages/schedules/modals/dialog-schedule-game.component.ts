@@ -8,6 +8,7 @@ import { tap } from 'rxjs/operators';
 
 import { Schedule } from 'src/app/models/schedule.model';
 import { Division } from 'src/app/models/division.model';
+import { Season } from 'src/app/models/season.model';
 import { Field } from 'src/app/models/field.model';
 
 import { MatSnackBar } from '@angular/material/snack-bar';
@@ -16,6 +17,7 @@ import { NgxMatMomentModule, NgxMatMomentAdapter, NGX_MAT_MOMENT_DATE_ADAPTER_OP
 import { NgxMatDatetimePickerModule, NgxMatTimepickerModule, NGX_MAT_DATE_FORMATS, NgxMatDateAdapter } from '@angular-material-components/datetime-picker';
 
 import * as moment from 'moment';
+import spacetime from 'spacetime';
 
 export const CUSTOM_MOMENT_FORMATS = {
 	parse: {
@@ -41,15 +43,18 @@ export const CUSTOM_MOMENT_FORMATS = {
 })
 export class DialogScheduleGame {
 
+	readonly spacetime = spacetime;
 	readonly formControl: FormGroup;
 
 	public errors: string[];
 
 	public scheduledGame$: Observable<Schedule>;
 	public division$: Observable<Division[]>;
+	public season$: Observable<Season[]>;
 	public game$: Observable<any[]>;
 
 	public listOfFields: Field[];
+
 	public totalFields: number;
 	public fieldAlphaDisplay: boolean;
 
@@ -62,6 +67,7 @@ export class DialogScheduleGame {
 		@Inject(MAT_DIALOG_DATA) public injectedData: any) {
 		this.formControl = this.formBuilder.group({
 			division: ['', Validators.required],
+			season: ['', Validators.required],
 			homeTeam: ['', Validators.required],
 			awayTeam: ['', Validators.required],
 			date: ['', Validators.required],
@@ -81,6 +87,7 @@ export class DialogScheduleGame {
 
 			this.scheduledGame$.subscribe((scheduledGame: Schedule) => {
 				this.formControl.get('division').setValue(scheduledGame.home_team.division.id);
+				this.formControl.get('season').setValue(scheduledGame.season_id);
 				this.formControl.get('homeTeam').setValue(scheduledGame.home_id);
 				this.formControl.get('awayTeam').setValue(scheduledGame.away_id);
 				this.formControl.get('date').setValue(moment(scheduledGame.game_date));
@@ -128,16 +135,18 @@ export class DialogScheduleGame {
 		}
 
 		// pull in data
-		this.division$ = this.http.get<Division[]>('/api/division');
+		this.division$ = this.http.get<Division[]>('/api/divisions-with-active-seasons');
 
 		this.formControl.get("division").valueChanges.subscribe(division => {
-			const config = {
+			const params = {
 				params: {
 					division: division
 				}
 			}
 
-			this.game$ = this.http.get<any>('/api/schedule-game-set-up', config).pipe(
+			this.season$ = this.http.get<any>('/api/active-seasons-by-division', params);;
+
+			this.game$ = this.http.get<any>('/api/schedule-game-set-up', params).pipe(
 				tap((game) => {
 					this.listOfFields = game.fields;
 

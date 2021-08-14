@@ -18,6 +18,15 @@ class DivisionController extends Controller
         }
     }
 
+    public function divisionsActiveSeasons(Request $request)
+    {
+        return Division::with('league')
+                ->has('league')
+                ->whereHas('season', function ($query) {
+                    $query->active();
+                })->get();
+    }
+
     public function addDivision(Request $request)
     {
         $validated = $request->validate([
@@ -52,8 +61,8 @@ class DivisionController extends Controller
     public function removeDivision(Request $request)
     {
         $validated = $request->validate([
-                'division' => 'required|exists:divisions,id'
-            ]);
+            'division' => 'required|exists:divisions,id'
+        ]);
 
         Division::where('id', $request->division)->delete();
     }
