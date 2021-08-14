@@ -67,7 +67,7 @@ export class SchedulesComponent implements OnInit {
 			shareReplay()
 		);
 
-		this.loadSchedule();
+		this.loadScheduleWithFilters();
 
 		this.formControl = this.formBuilder.group({
 			team: '',
@@ -87,7 +87,7 @@ export class SchedulesComponent implements OnInit {
 
 	}
 
-	loadSchedule() {
+	loadScheduleWithFilters() {
 		this.schedule$ = this.http.get<Schedule[]>('/api/schedule').pipe(tap((schedule: Schedule[]) => {
 			this.dataSource.data = schedule;
 
@@ -148,6 +148,12 @@ export class SchedulesComponent implements OnInit {
 		}));
 
 		return this.schedule$;
+	}
+
+	loadSchedule() {
+		this.schedule$ = this.http.get<Schedule[]>('/api/schedule').pipe(tap((schedule: Schedule[]) => {
+			this.dataSource.data = schedule;
+		}));
 	}
 
 	getDivisionName(divisionId: number | string): string {

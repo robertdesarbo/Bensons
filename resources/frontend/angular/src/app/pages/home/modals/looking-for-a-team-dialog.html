@@ -13,11 +13,11 @@
 		<mat-step [stepControl]="playerInformationFormGroup">
 			<ng-template matStepLabel>Player Information</ng-template>
 			<div *ngIf="(division$ | async); else loading">
-				<p *ngIf="reasonFormGroup.get('reason').value == freeAgentType.player">What skill level are you looking for?</p>
+				<p *ngIf="reasonFormGroup.get('reason').value == freeAgentType.player">Tell us more about you.</p>
 				<p *ngIf="reasonFormGroup.get('reason').value == freeAgentType.team">Tell us more about the players you are looking for.</p>
 				<form [formGroup]="playerInformationFormGroup" #playerInformationFormDirective="ngForm">
 					<mat-form-field *ngIf="reasonFormGroup.get('reason').value == freeAgentType.player">
-						<mat-label>Preferred Division</mat-label>
+						<mat-label>Preferred League & Division</mat-label>
 						<mat-select formControlName="division" appearance="fill" multiple>
 							<mat-option *ngFor="let division of division$ | async;" [value]="division.id">{{ division.league.name }} {{ division.name }}</mat-option>
 						</mat-select>

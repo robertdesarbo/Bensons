@@ -127,6 +127,11 @@ export class DialogScheduleGame {
 				this.isLoading = false;
 			});
 
+			if (this.injectedData.type === 'edit') {
+				// do not allow to change
+				this.formControl.get('division').disable();
+			}
+
 		} else {
 			this.scheduledGame$ = of(null);
 			this.scheduledGame$.subscribe(() => {
@@ -219,6 +224,7 @@ export class DialogScheduleGame {
 		if (this.formControl.valid) {
 
 			let game: any = {
+				season: this.formControl.get('season').value,
 				homeTeam: this.formControl.get('homeTeam').value,
 				awayTeam: this.formControl.get('awayTeam').value,
 				date: this.formControl.get('date').value.format('YYYY-MM-DD HH:mm:ss'),

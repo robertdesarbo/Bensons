@@ -52,7 +52,7 @@
 							<mat-form-field>
 								<mat-label>Division</mat-label>
 								<mat-select formControlName="division" appearance="fill">
-									<mat-option *ngFor="let division of divisions" [value]="division.id">{{ division.league.name }} {{ division.name }}</mat-option>
+									<mat-option *ngFor="let division of divisions" [value]="division.id">{{ division.name }}</mat-option>
 								</mat-select>
 								<mat-error *ngIf="formControl.get('division').hasError('required')">
 									Division is <strong>required</strong>

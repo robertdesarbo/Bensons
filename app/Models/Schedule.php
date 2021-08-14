@@ -10,7 +10,7 @@ class Schedule extends Model
 {
     use HasFactory, SoftDeletes;
 
-    protected $fillable = ['home_id', 'away_id', 'game_date', 'field_id', 'field_number', 'home_score',
+    protected $fillable = ['season_id', 'home_id', 'away_id', 'game_date', 'field_id', 'field_number', 'home_score',
     'away_score', 'delayed', 'completed', 'rescheduled', 'canceled', 'notes'];
 
     protected $casts = [

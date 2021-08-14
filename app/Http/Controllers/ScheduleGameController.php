@@ -59,6 +59,7 @@ class ScheduleGameController extends Controller
     public function scheduleGame(Request $request)
     {
         $validated = $request->validate([
+            'season' => 'required|exists:seasons,id',
             'homeTeam' => 'required|exists:teams,id',
             'awayTeam' => 'required|exists:teams,id',
             'date' => 'required',
@@ -73,6 +74,7 @@ class ScheduleGameController extends Controller
 
 
         $schedule = Schedule::create([
+            'season_id' => $request->season,
             'home_id' => $request->homeTeam,
             'away_id' => $request->awayTeam,
             'game_date' => Carbon::parse($request->date),
@@ -96,6 +98,7 @@ class ScheduleGameController extends Controller
     {
         $validated = $request->validate([
             'schedule' => 'required|exists:schedules,id',
+            'season' => 'required|exists:seasons,id',
             'homeTeam' => 'required|exists:teams,id',
             'awayTeam' => 'required|exists:teams,id',
             'date' => 'required',
@@ -112,6 +115,7 @@ class ScheduleGameController extends Controller
         $schedule = Schedule::where('id', $request->schedule);
 
         $schedule->update([
+            'season_id' => $request->season,
             'home_id' => $request->homeTeam,
             'away_id' => $request->awayTeam,
             'game_date' => Carbon::parse($request->date),

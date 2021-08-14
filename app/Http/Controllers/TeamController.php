@@ -48,7 +48,7 @@ class TeamController extends Controller
     public function editTeam(Request $request)
     {
         $validated = $request->validate([
-            'team' => 'required|exists:team,id',
+            'team' => 'required|exists:teams,id',
             'name' => 'required',
             'abbreviation' => 'required',
             'league' => 'required|exists:leagues,id',
@@ -68,7 +68,7 @@ class TeamController extends Controller
                 $validator = Validator::make($request->all(), [
                     'team' => [
                         function ($attribute, $value, $fail) use ($unplayed_games, $team) {
-                            $fail('You need to cancel all remaining '.$unplayed_games.' game(s) for '.$team->name.' before changing division');
+                            $fail('You need to cancel the remaining '.$unplayed_games.' game(s) for '.$team->name.' before changing division');
                         },
                     ],
                     ])->validate();

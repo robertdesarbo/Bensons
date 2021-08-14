@@ -24,7 +24,9 @@
 						</mat-error>
 					</mat-form-field>
 				</div>
+			</div>
 
+			<div fxLayout="row wrap" class="align-items-center" *ngIf="formControl.get('division').value">
 				<div fxFlex.gt-md="100" fxFlex="100" class="p-10">
 					<mat-form-field>
 						<mat-label>Season</mat-label>
@@ -38,7 +40,7 @@
 				</div>
 			</div>
 
-			<ng-container *ngIf="formControl.get('division').value">
+			<ng-container *ngIf="formControl.get('season').value">
 				<ng-container *ngIf="(this.game$ | async) as game; else loading">
 					<div fxLayout="row wrap" class="align-items-center">
 						<div fxFlex.gt-md="50" fxFlex="50" class="p-10">

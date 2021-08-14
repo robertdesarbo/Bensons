@@ -50,7 +50,7 @@
 					<ng-container *ngIf="(division$ | async) as divisions; else loading">
 						<div fxFlex.gt-md="50" fxFlex="50" class="p-10">
 							<mat-form-field>
-								<mat-label>Division</mat-label>
+								<mat-label>League & Division</mat-label>
 								<mat-select formControlName="division" appearance="fill">
 									<mat-option *ngFor="let division of divisions" [value]="division.id">{{ division.league.name }} {{ division.name }}</mat-option>
 								</mat-select>
