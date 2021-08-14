@@ -1,4 +1,4 @@
-import { Component, OnInit, ViewChild, Input, SimpleChanges, ChangeDetectorRef } from '@angular/core';
+import { Component, OnInit, ViewChild, Input, Output, EventEmitter, SimpleChanges, ChangeDetectorRef } from '@angular/core';
 import { MatTableDataSource, MatTable } from '@angular/material/table';
 import { MatSort } from '@angular/material/sort';
 
@@ -25,6 +25,8 @@ export class StandingsTableComponent implements OnInit {
 	@Input() divisionSearch: string;
 	@Input() divisionBadgeName: string;
 
+	@Output() searchHasResultsEmitter = new EventEmitter<boolean>();
+
 	@ViewChild(MatTable, { static: true }) table: MatTable<Standings> = Object.create(null);
 	@ViewChild(MatSort, { static: true }) sort: MatSort = Object.create(null);
 	searchText: any;
@@ -41,8 +43,8 @@ export class StandingsTableComponent implements OnInit {
 
 	public showTable = true;
 
-	constructor(public http: HttpClient,
-		public changeDetector: ChangeDetectorRef) {
+	constructor(private http: HttpClient,
+		private changeDetector: ChangeDetectorRef) {
 		//
 	}
 
@@ -74,6 +76,7 @@ export class StandingsTableComponent implements OnInit {
 						this.showTable = false;
 					} else {
 						this.showTable = true;
+						this.searchHasResultsEmitter.emit(true);
 					}
 
 					this.changeDetector.detectChanges();

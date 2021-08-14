@@ -38,5 +38,25 @@
 	<!-- column -->
 </div>
 <ng-container *ngFor="let season of season$ | async;">
-	<app-standings-table [season]="season" [teamSearch]="formControl.get('team').value" [divisionSearch]="formControl.get('division').value" [divisionBadgeName]="divisionBadgeName"></app-standings-table>
+	<app-standings-table (searchHasResultsEmitter)="setSearchHasResults()" [season]="season" [teamSearch]="formControl.get('team').value" [divisionSearch]="formControl.get('division').value" [divisionBadgeName]="divisionBadgeName">
+	</app-standings-table>
 </ng-container>
+<div fxLayout="row wrap" *ngIf="!searchHasResults && (formControl.get('team').value || formControl.get('division').value)">
+	<div fxFlex="100">
+		<mat-card>
+			<mat-card-content>
+				<p *ngIf="formControl.get('team').value && formControl.get('division').value; else singleError">
+					No active season found for team <b>{{ formControl.get('team').value }}</b> in division <b>{{ divisionBadgeName }}</b>
+				</p>
+				<ng-template #singleError>
+					<p *ngIf="formControl.get('team').value">
+						No active season found for team <b>{{ formControl.get('team').value }}</b>
+					</p>
+					<p *ngIf="formControl.get('division').value">
+						No active season found for division <b>{{ divisionBadgeName }}</b>
+					</p>
+				</ng-template>
+			</mat-card-content>
+		</mat-card>
+	</div>
+</div>

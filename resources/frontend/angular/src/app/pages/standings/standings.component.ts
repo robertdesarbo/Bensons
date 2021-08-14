@@ -1,9 +1,9 @@
-import { Component } from '@angular/core';
+import { Component, ChangeDetectorRef } from '@angular/core';
 import { FormBuilder, FormGroup } from '@angular/forms';
 
 import { HttpClient } from '@angular/common/http';
 
-import { Observable } from 'rxjs';
+import { Observable, merge } from 'rxjs';
 import { tap } from 'rxjs/operators';
 
 import { Division } from 'src/app/models/division.model';
@@ -18,6 +18,8 @@ export class StandingsComponent {
 
 	readonly formControl: FormGroup;
 
+	public searchHasResults = false;
+
 	public division$: Observable<Division[]>;
 	public season$: Observable<Season[]>;
 
@@ -26,7 +28,8 @@ export class StandingsComponent {
 	public divisionBadgeName: string;
 
 	constructor(public http: HttpClient,
-		private formBuilder: FormBuilder) {
+		private formBuilder: FormBuilder,
+		private changeDetector: ChangeDetectorRef) {
 		this.division$ = this.http.get<Division[]>('/api/division').pipe(
 			tap((divisions) => {
 				this.listOfDivisions = divisions;
@@ -44,6 +47,22 @@ export class StandingsComponent {
 		this.formControl.get('division').valueChanges.subscribe(value => {
 			this.divisionBadgeName = this.getDivisionName(value);
 		});
+
+		merge(
+			this.formControl.get('team').valueChanges,
+			this.formControl.get('division').valueChanges
+		).subscribe(() => {
+			this.searchHasResults = false;
+
+			this.changeDetector.detectChanges();
+		});
+
+	}
+
+	setSearchHasResults() {
+		this.searchHasResults = true;
+
+		this.changeDetector.detectChanges();
 	}
 
 	getDivisionName(divisionId: number | string): string {
