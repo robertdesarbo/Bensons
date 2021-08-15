@@ -30,7 +30,7 @@ class SeasonController extends Controller
             ->get();
     }
 
-    public function seasons_by_division(Request $request)
+    public function seasonsByDivision(Request $request)
     {
         return Season::with('division')->has('division')->where('division_id', $request->division)->get();
     }

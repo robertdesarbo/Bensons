@@ -34,7 +34,7 @@ class ScheduleGameController extends Controller
             'season' => 'required|exists:seasons,id'
         ]);
 
-        $teams = Team::whereHas('season', function ($query) use ($request) {
+        $teams = Team::whereHas('seasons', function ($query) use ($request) {
             $query->where('seasons.id', $request->season);
         })->get();
 

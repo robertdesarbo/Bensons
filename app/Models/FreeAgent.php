@@ -11,7 +11,7 @@ class FreeAgent extends Model
 
     protected $fillable = ['name', 'phone', 'email', 'gender', 'division_id'];
 
-    public function division()
+    public function divisions()
     {
         return $this->belongsToMany(Division::class)->withTimestamps();
     }

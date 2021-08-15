@@ -67,7 +67,7 @@ class DivisionController extends Controller
         Division::where('id', $request->division)->delete();
     }
 
-    public function division_by_league(Request $request)
+    public function divisionByLeague(Request $request)
     {
         return Division::with('league')->has('league')->where('league_id', $request->league)->get();
     }

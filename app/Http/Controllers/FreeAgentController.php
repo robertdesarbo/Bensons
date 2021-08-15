@@ -30,7 +30,7 @@ class FreeAgentController extends Controller
             'gender' => 'required',
         ]);
 
-        $freeAgent = FreeAgent::updateOrCreate(
+        $free_agent = FreeAgent::updateOrCreate(
             [
                 'email' => $request->email,
             ],
@@ -43,8 +43,8 @@ class FreeAgentController extends Controller
         );
 
         if (!empty($request->division)) {
-            $freeAgent->division()->detach();
-            $freeAgent->division()->attach($request->division);
+            $free_agent->divisions()->detach();
+            $free_agent->divisions()->attach($request->division);
         }
     }
 
@@ -59,7 +59,7 @@ class FreeAgentController extends Controller
             // 'team' => 'required|exists:teams,id'
         ]);
 
-        $freeAgent = TeamFreeAgent::updateOrCreate(
+        $free_agent = TeamFreeAgent::updateOrCreate(
             [
                 'email' => $request->email,
             ],

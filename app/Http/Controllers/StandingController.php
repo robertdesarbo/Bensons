@@ -19,7 +19,7 @@ class StandingController extends Controller
         ]);
 
         $division_stats = [];
-        Team::whereHas('season', function ($query) use ($request) {
+        Team::whereHas('seasons', function ($query) use ($request) {
             $query->where('seasons.id', $request->season)
             ->active();
         })->chunk(50, function ($teams) use (&$division_stats) {

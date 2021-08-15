@@ -8,8 +8,11 @@ import { Observable, of } from 'rxjs';
 import { Team } from 'src/app/models/team.model';
 import { League } from 'src/app/models/league.model';
 import { Division } from 'src/app/models/division.model';
+import { Season } from 'src/app/models/season.model';
 
 import { MatSnackBar } from '@angular/material/snack-bar';
+
+import spacetime from 'spacetime';
 
 @Component({
 	selector: 'dialog-team-dialog',
@@ -17,6 +20,7 @@ import { MatSnackBar } from '@angular/material/snack-bar';
 	styleUrls: ['./dialog-team.scss']
 })
 export class DialogTeam {
+	readonly spacetime = spacetime;
 
 	readonly formControl: FormGroup;
 
@@ -24,8 +28,9 @@ export class DialogTeam {
 	public errors: string[];
 
 	public team$: Observable<Team>;
-	public division$: Observable<Division[]>;
 	public league$: Observable<League[]>;
+	public division$: Observable<Division[]>;
+	public activeSeason$: Observable<Season[]>;
 
 	public isLoading: boolean = true;
 
@@ -39,7 +44,8 @@ export class DialogTeam {
 			name: ['', Validators.required],
 			abbreviation: ['', Validators.required],
 			league: ['', Validators.required],
-			division: ['', Validators.required]
+			division: ['', Validators.required],
+			activeSeason: ['']
 		});
 
 		if (this.injectedData.type === 'remove') {
@@ -64,6 +70,7 @@ export class DialogTeam {
 				this.formControl.get('abbreviation').setValue(team.abbreviation);
 				this.formControl.get('league').setValue(team.division.league.id);
 				this.formControl.get('division').setValue(team.division.id);
+				this.formControl.get('activeSeason').setValue(team.seasons.map(function(season) { return season.id; }));
 
 				this.isLoading = false;
 			});
@@ -79,14 +86,26 @@ export class DialogTeam {
 		this.league$ = this.http.get<League[]>('/api/league');
 
 		this.formControl.get("league").valueChanges.subscribe(league => {
-			const option = {
+			const params = {
 				params: {
 					league: league
 				}
 			}
 
 			this.formControl.get('division').setValue(null);
-			this.division$ = this.http.get<Division[]>('/api/division-by-league', option);
+			this.formControl.get('activeSeason').setValue(null);
+			this.division$ = this.http.get<Division[]>('/api/division-by-league', params);
+		});
+
+		this.formControl.get("division").valueChanges.subscribe(division => {
+			const params = {
+				params: {
+					division: division
+				}
+			}
+
+			this.formControl.get('activeSeason').setValue(null);
+			this.activeSeason$ = this.http.get<Season[]>('/api/active-seasons-by-division', params);
 		});
 
 	}
@@ -122,6 +141,7 @@ export class DialogTeam {
 				abbreviation: this.formControl.get('abbreviation').value,
 				league: this.formControl.get('league').value,
 				division: this.formControl.get('division').value,
+				active_seasons: this.formControl.get('activeSeason').value,
 			}
 
 			if (this.injectedData.teamId) {

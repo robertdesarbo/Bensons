@@ -28,7 +28,7 @@ class CreateSeasonsTeamsTable extends Migration
 
         foreach ($teams as $team) {
             //first works here because there is only 1 season
-            $team->season()->attach($team->division->season->first()->id);
+            $team->seasons()->attach($team->division->season->first()->id);
         }
     }
 

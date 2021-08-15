@@ -44,8 +44,8 @@ Route::middleware(['auth:sanctum'])->group(function () {
     Route::post('edit-team', [TeamController::class, 'editTeam']);
     Route::post('remove-team', [TeamController::class, 'removeTeam']);
 
-    Route::get('seasons-by-division', [SeasonController::class, 'seasons_by_division']);
-    Route::get('teams-by-season', [TeamController::class, 'teams_by_season']);
+    Route::get('seasons-by-division', [SeasonController::class, 'seasonsByDivision']);
+    Route::get('teams-by-season', [TeamController::class, 'teamsBySeason']);
 
     Route::post('add-league', [LeagueController::class, 'addLeague']);
     Route::post('edit-league', [LeagueController::class, 'editLeague']);
@@ -88,4 +88,4 @@ Route::get('active-seasons-by-division', [SeasonController::class, 'activeSeason
 Route::get('division', [DivisionController::class, 'division']);
 Route::get('divisions-with-active-seasons', [DivisionController::class, 'divisionsActiveSeasons']);
 
-Route::get('division-by-league', [DivisionController::class, 'division_by_league']);
+Route::get('division-by-league', [DivisionController::class, 'divisionByLeague']);

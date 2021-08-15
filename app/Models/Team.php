@@ -17,7 +17,7 @@ class Team extends Model
         return $this->belongsTo(Division::class, 'division_id');
     }
 
-    public function season()
+    public function seasons()
     {
         return $this->belongsToMany(Season::class)->withTimestamps();
     }

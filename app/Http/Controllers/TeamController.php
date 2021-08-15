@@ -12,9 +12,9 @@ use Illuminate\Support\Facades\Validator;
 
 class TeamController extends Controller
 {
-    public function teams_by_season(Request $request)
+    public function teamsBySeason(Request $request)
     {
-        return Team::whereHas('season', function ($query) use ($request) {
+        return Team::whereHas('seasons', function ($query) use ($request) {
             $query->where('seasons.id', $request->season);
         })->get();
     }
@@ -22,9 +22,13 @@ class TeamController extends Controller
     public function team(Request $request)
     {
         if ($request->team) {
-            return Team::with('division.league')->has('division.league')->where('id', $request->team)->first();
+            return Team::with('division.league')->with('seasons')
+            ->has('division.league')
+            ->where('id', $request->team)
+            ->first();
         } else {
-            return Team::with('division.league')->has('division.league')->get();
+            return Team::with('division.league')->with('seasons')
+            ->has('division.league')->get();
         }
     }
 
@@ -34,15 +38,19 @@ class TeamController extends Controller
             'name' => 'required',
             'abbreviation' => 'required',
             'league' => 'required|exists:leagues,id',
-            'division' => 'required|exists:divisions,id'
+            'division' => 'required|exists:divisions,id',
+            'active_seasons' => 'nullable|exists:seasons,id',
         ]);
-
 
         $team = Team::create([
             'name' => $request->name,
             'abbreviation' => $request->abbreviation,
             'division_id' => $request->division
         ]);
+
+        if (!empty($request->active_seasons)) {
+            $team->seasons()->attach($request->active_seasons);
+        }
     }
 
     public function editTeam(Request $request)
@@ -83,8 +91,8 @@ class TeamController extends Controller
                 'division_id' => $request->division
             ]);
 
-        if (!empty($request->umpire)) {
-            $team->first()->umpires()->sync([$request->umpire]);
+        if (!empty($request->active_seasons)) {
+            $team->first()->seasons()->sync($request->active_seasons);
         }
     }
 

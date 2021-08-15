@@ -61,6 +61,19 @@
 						</div>
 					</ng-container>
 				</ng-container>
+
+				<ng-container *ngIf="formControl.get('division').value">
+					<ng-container *ngIf="(activeSeason$ | async) as activeSeasons; else loading">
+						<div fxFlex.gt-md="50" fxFlex="50" class="p-10">
+							<mat-form-field>
+								<mat-label>Active Seasons</mat-label>
+								<mat-select formControlName="activeSeason" appearance="fill" multiple>
+									<mat-option *ngFor="let activeSeason of activeSeasons" [value]="activeSeason.id">{{activeSeason.start_at | date:'MMMM yyyy'}} ({{ spacetime(activeSeason.start_at, 'America/New_York').season() | titlecase }})</mat-option>
+								</mat-select>
+							</mat-form-field>
+						</div>
+					</ng-container>
+				</ng-container>
 			</div>
 		</ng-container>
 	</div>
