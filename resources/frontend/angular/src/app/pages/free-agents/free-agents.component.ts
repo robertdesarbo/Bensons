@@ -23,11 +23,11 @@ export class FreeAgentsComponent {
 
 	searchText: any;
 
-	teamsDisplayedColumns: string[] = ['name', 'phone', 'email', 'genders', 'positions'];
+	teamsDisplayedColumns: string[] = ['name', 'phone', 'email', 'genders', 'positions', 'updated'];
 	teamsDataSource = new MatTableDataSource<TeamFreeAgent>();
 	teamsNoData: Observable<boolean>;
 
-	playersDisplayedColumns: string[] = ['name', 'phone', 'email', 'gender', 'division'];
+	playersDisplayedColumns: string[] = ['name', 'phone', 'email', 'gender', 'divisions', 'updated'];
 	playersDataSource = new MatTableDataSource<FreeAgent>();
 	playersNoData: Observable<boolean>;
 

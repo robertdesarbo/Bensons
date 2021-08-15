@@ -6,6 +6,7 @@
 		<mat-card>
 			<mat-card-content>
 				<mat-card-title>Teams looking for players</mat-card-title>
+				<p class="font-12 text-muted">This will only show teams that have been added/updated within the last 30 days</p>
 				<div>
 					<table mat-table [dataSource]="teamsDataSource" matSort class="table" *ngIf="(freeAgentTeams$ | async); else loading">
 						<ng-container matColumnDef="name">
@@ -47,6 +48,13 @@
 							</td>
 						</ng-container>
 
+						<ng-container matColumnDef="updated">
+							<th mat-header-cell *matHeaderCellDef mat-sort-header> Last Update </th>
+							<td mat-cell *matCellDef="let element">
+								{{element.updated_at | date: 'MMMM d'}}
+							</td>
+						</ng-container>
+
 						<tr mat-header-row *matHeaderRowDef="teamsDisplayedColumns"></tr>
 						<tr mat-row *matRowDef="let row; columns: teamsDisplayedColumns;"></tr>
 					</table>
@@ -71,6 +79,7 @@
 		<mat-card>
 			<mat-card-content>
 				<mat-card-title>Players looking for teams</mat-card-title>
+				<p class="font-12 text-muted">This will only show players that have been added/updated within the last 30 days</p>
 				<div>
 					<table mat-table [dataSource]="playersDataSource" matSort class="table" *ngIf="(freeAgent$ | async); else loading">
 						<ng-container matColumnDef="name">
@@ -95,17 +104,24 @@
 						<ng-container matColumnDef="gender">
 							<th mat-header-cell *matHeaderCellDef mat-sort-header> Gender </th>
 							<td mat-cell *matCellDef="let element">
-								{{element.gender}}
+								{{element.gender | titlecase}}
 							</td>
 						</ng-container>
 
-						<ng-container matColumnDef="division">
-							<th mat-header-cell *matHeaderCellDef mat-sort-header> Division </th>
+						<ng-container matColumnDef="divisions">
+							<th mat-header-cell *matHeaderCellDef mat-sort-header> League & Division </th>
 							<td mat-cell *matCellDef="let element">
-								<ng-container *ngFor="let division of element.division;">
-									<span>{{division.name}}</span>
+								<ng-container *ngFor="let division of element.divisions;">
+									<span>{{division.league.name}} {{division.name}}</span>
 									<br />
 								</ng-container>
+							</td>
+						</ng-container>
+
+						<ng-container matColumnDef="updated">
+							<th mat-header-cell *matHeaderCellDef mat-sort-header> Last Update </th>
+							<td mat-cell *matCellDef="let element">
+								{{element.updated_at | date: 'MMMM d'}}
 							</td>
 						</ng-container>
 

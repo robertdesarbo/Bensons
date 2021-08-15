@@ -12,12 +12,15 @@ class FreeAgentController extends Controller
 {
     public function freeAgent(Request $request)
     {
-        return FreeAgent::with('divisions')->has('divisions')->get();
+        return FreeAgent::with('divisions.league')
+        ->has('divisions')
+        ->whereDate('updated_at', '>', Carbon::now()->subDays(30))
+        ->get();
     }
 
     public function teamFreeAgent(Request $request)
     {
-        return TeamFreeAgent::get();
+        return TeamFreeAgent::whereDate('updated_at', '>', Carbon::now()->subDays(30))->get();
     }
 
     public function findTeam(Request $request)

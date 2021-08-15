@@ -26,14 +26,14 @@
 		</mat-form-field>
 		<mat-form-field>
 			<mat-label>Phone Number</mat-label>
-			<input matInput formControlName="phone">
+			<input type="tel" matInput formControlName="phone">
 			<mat-error *ngIf="formControl.get('phone').hasError('required')">
 				Phone Number is <strong>required</strong>
 			</mat-error>
 		</mat-form-field>
 		<mat-form-field>
 			<mat-label>Email</mat-label>
-			<input matInput formControlName="email">
+			<input type="email" matInput formControlName="email">
 			<mat-error *ngIf="formControl.get('email').hasError('required')">
 				Email is <strong>required</strong>
 			</mat-error>
