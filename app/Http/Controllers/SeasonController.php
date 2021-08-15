@@ -29,7 +29,7 @@ class SeasonController extends Controller
                     $query->previouslyCompleted();
                 })
                 ->where('id', $request->team)
-                ->first()->seasons;
+                ->first()->seasons ?? null;
     }
 
     public function activeSeasonsByDivisionId(Request $request)
