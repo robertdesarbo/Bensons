@@ -16,10 +16,29 @@ import { Sport } from 'src/app/models/enum/sport.enum';
 
 import spacetime from 'spacetime';
 
+import { DateAdapter, MAT_DATE_FORMATS, MAT_DATE_LOCALE } from '@angular/material/core';
+import { MomentDateModule, MomentDateAdapter } from '@angular/material-moment-adapter';
+
+export const MY_FORMATS = {
+	parse: {
+		dateInput: 'LL'
+	},
+	display: {
+		dateInput: 'dddd MMMM Do',
+		monthYearLabel: 'YYYY',
+		dateA11yLabel: 'LL',
+		monthYearA11yLabel: 'YYYY'
+	}
+};
+
 @Component({
 	selector: 'app-manage-league',
 	templateUrl: './manage-league.component.html',
-	styleUrls: ['./manage-league.component.scss']
+	styleUrls: ['./manage-league.component.scss'],
+	providers: [
+		{ provide: DateAdapter, useClass: MomentDateAdapter, deps: [MAT_DATE_LOCALE] },
+		{ provide: MAT_DATE_FORMATS, useValue: MY_FORMATS }
+	],
 })
 export class ManageLeagueComponent implements OnInit {
 	readonly spacetime = spacetime;
