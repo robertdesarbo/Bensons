@@ -22,13 +22,14 @@ class StandingController extends Controller
         Team::whereHas('seasons', function ($query) use ($request) {
             $query->where('seasons.id', $request->season)
             ->active();
-        })->chunk(50, function ($teams) use (&$division_stats) {
+        })->chunk(50, function ($teams) use (&$division_stats, $request) {
             foreach ($teams as $team) {
                 $games = Schedule::has('home_team.division.league')
                 ->has('away_team.division.league')
-                ->where(function ($query) use ($team) {
+                ->where(function ($query) use ($team, $request) {
                     $query->where('home_id', $team->id)->orWhere('away_id', $team->id);
                 })
+                ->where('season_id', $request->season)
                 ->where('completed', 1)
                 ->get();
 
