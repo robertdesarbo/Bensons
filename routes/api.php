@@ -84,6 +84,7 @@ Route::get('umpire', [UmpireController::class, 'umpire']);
 
 Route::get('active-seasons', [SeasonController::class, 'activeSeasons']);
 Route::get('active-seasons-by-division', [SeasonController::class, 'activeSeasonsByDivisionId']);
+Route::get('previous-seasons-by-team', [SeasonController::class, 'previousSeasonsByTeamId']);
 
 Route::get('division', [DivisionController::class, 'division']);
 Route::get('divisions-with-active-seasons', [DivisionController::class, 'divisionsActiveSeasons']);

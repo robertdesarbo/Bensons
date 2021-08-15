@@ -31,6 +31,7 @@ export class DialogTeam {
 	public league$: Observable<League[]>;
 	public division$: Observable<Division[]>;
 	public activeSeason$: Observable<Season[]>;
+	public previousSeason$: Observable<Season[]>;
 
 	public isLoading: boolean = true;
 
@@ -57,13 +58,14 @@ export class DialogTeam {
 		}
 
 		if (this.injectedData.type === 'remove' || this.injectedData.type === 'edit') {
-			const option = {
+			const params = {
 				params: {
 					team: this.injectedData.teamId
 				}
 			}
 
-			this.team$ = this.http.get<Team>('/api/team', option);
+			this.team$ = this.http.get<Team>('/api/team', params);
+			this.previousSeason$ = this.http.get<Season[]>('/api/previous-seasons-by-team', params);
 
 			this.team$.subscribe((team: Team) => {
 				this.formControl.get('name').setValue(team.name);

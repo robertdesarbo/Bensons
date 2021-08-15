@@ -17,8 +17,18 @@ class Season extends Model
         return $this->belongsTo(Division::class, 'division_id');
     }
 
+    public function teams()
+    {
+        return $this->belongsToMany(Team::class)->withTimestamps();
+    }
+
     public function scopeActive($query)
     {
         return $query->where('active', true)->where('complete', false);
+    }
+
+    public function scopePreviouslyCompleted($query)
+    {
+        return $query->where('active', true)->where('complete', true);
     }
 }

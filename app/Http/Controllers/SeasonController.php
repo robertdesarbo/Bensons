@@ -6,6 +6,7 @@ use Carbon\Carbon;
 
 use Illuminate\Http\Request;
 use App\Models\Season;
+use App\Models\Team;
 
 class SeasonController extends Controller
 {
@@ -15,6 +16,20 @@ class SeasonController extends Controller
         ->has('division.league')
         ->active()
         ->get();
+    }
+
+    public function previousSeasonsByTeamId(Request $request)
+    {
+        $validated = $request->validate([
+            'team' => 'required|exists:teams,id',
+        ]);
+
+        return Team::with('seasons')
+                ->whereHas('seasons', function ($query) {
+                    $query->previouslyCompleted();
+                })
+                ->where('id', $request->team)
+                ->first()->seasons;
     }
 
     public function activeSeasonsByDivisionId(Request $request)
