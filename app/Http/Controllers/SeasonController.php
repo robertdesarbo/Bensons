@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use Carbon\Carbon;
 
 use Illuminate\Http\Request;
+use App\Models\League;
 use App\Models\Season;
 use App\Models\Team;
 
@@ -15,6 +16,17 @@ class SeasonController extends Controller
         return Season::with('division.league')
         ->has('division.league')
         ->active()
+        ->get();
+    }
+
+    public function activeSeasonsByLeague(Request $request)
+    {
+        return League::with(['divisions.season' => function ($query) {
+            $query->active();
+        }])
+        ->whereHas('divisions.season', function ($query) {
+            $query->active();
+        })
         ->get();
     }
 

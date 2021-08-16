@@ -22,10 +22,8 @@
 			</mat-card-content>
 		</mat-card>
 	</div>
-</div>
 
-<div fxLayout="row wrap">
-	<div fxFlex.gt-sm="100" fxFlex.gt-xs="100" fxFlex.gt-md="66.66" fxFlex="100">
+	<div fxFlex.gt-sm="100" fxFlex.gt-xs="100" fxFlex.gt-md="100" fxFlex="100">
 		<ng-container *ngIf="(leagueStat$ | async) as leagueStat; else loading">
 			<div fxLayout="row wrap">
 				<div fxFlex.gt-sm="50" fxFlex.gt-xs="50" fxFlex.gt-md="50" fxFlex="50">
@@ -112,182 +110,70 @@
 				</div>
 			</div>
 		</ng-container>
+
+		<ng-template #loading>
+			<mat-spinner diameter="50"></mat-spinner>
+		</ng-template>
 	</div>
 
-	<div fxFlex.gt-sm="100" fxFlex.gt-xs="100" fxFlex.gt-md="33.33" fxFlex="100">
+	<div fxFlex.gt-sm="100" fxFlex.gt-xs="100" fxFlex.gt-md="100" fxFlex="100">
 		<mat-card>
 			<mat-card-content>
-				<a class="twitter-timeline" data-tweet-limit="1" data-lang="en" data-chrome="noheader,nofooter,noborders" data-dnt="true" data-theme="light" href="https://twitter.com/BensonsESS">Tweets by BensonsESS</a>
+				<div class="row-content" fxLayout="row wrap">
+					<div fxFlex.gt-sm="30" fxFlex.gt-xs="100" fxFlex="100">
+						<h4>League Updates</h4>
+						<a class="twitter-timeline" data-tweet-limit="1" data-lang="en" data-chrome="noheader,nofooter,noborders" data-dnt="true" data-theme="light" href="https://twitter.com/BensonsESS">Tweets by BensonsESS</a>
+					</div>
+
+					<div fxFlex.gt-sm="70" fxFlex.gt-xs="100" fxFlex="100">
+						<h4>League Information</h4>
+						<p>Benson's Empire State Sports Ltd. is a sports management organization located in Albany, NY which serves the greater Capital Region. The softball league plays from April to September and the Basketball league plays from October to
+							April.
+						</p>
+						<mat-list class="compact-mat-list">
+							<mat-list-item>
+								<mat-icon class="material-icons-two-tone">location_on</mat-icon> Access to over {{ (leagueStat$ | async)?.fields }}+ locations
+							</mat-list-item>
+							<mat-list-item>
+								<mat-icon class="material-icons-two-tone">badge</mat-icon> Minimum of 1 umpire/referee per game
+							</mat-list-item>
+							<mat-list-item>
+								<mat-icon class="material-icons-two-tone">schedule</mat-icon> Flexible scheduling & multiple start times
+							</mat-list-item>
+							<mat-list-item>
+								<mat-icon class="material-icons-two-tone">monetization_on</mat-icon> Free web advertising for team sponsers
+							</mat-list-item>
+							<mat-list-item>
+								<mat-icon class="material-icons-two-tone">shield</mat-icon> $2 million liability insurance policy
+							</mat-list-item>
+						</mat-list>
+					</div>
+				</div>
 			</mat-card-content>
 		</mat-card>
 	</div>
 
-
-	<ng-template #loading>
-		<mat-spinner diameter="50"></mat-spinner>
-	</ng-template>
-</div>
-
-<div fxLayout="row wrap">
-	<div fxFlex.gt-sm="66.66" fxFlex.gt-xs="100" fxFlex="100">
+	<div fxFlex.gt-sm="100" fxFlex.gt-xs="100" fxFlex.gt-md="100" fxFlex="100" *ngFor="let league of activeSeasons$ | async;">
 		<mat-card>
 			<mat-card-content>
-				<mat-card-title>League Information</mat-card-title>
-				<p>Benson's Empire State Sports Ltd. is a sports management organization located in Albany, NY which serves the greater Capital Region. The softball league plays from April to September and the Basketball league plays from October to
-					April.
-				</p>
-				<mat-list class="compact-mat-list">
-					<mat-list-item>
-						<mat-icon class="material-icons-two-tone">location_on</mat-icon> Access to over {{ (leagueStat$ | async)?.fields }}+ locations
-					</mat-list-item>
-					<mat-list-item>
-						<mat-icon class="material-icons-two-tone">badge</mat-icon> Minimum of 1 umpire/referee per game
-					</mat-list-item>
-					<mat-list-item>
-						<mat-icon class="material-icons-two-tone">schedule</mat-icon> Flexible scheduling & multiple start times
-					</mat-list-item>
-					<mat-list-item>
-						<mat-icon class="material-icons-two-tone">monetization_on</mat-icon> Free web advertising for team sponsers
-					</mat-list-item>
-					<mat-list-item>
-						<mat-icon class="material-icons-two-tone">shield</mat-icon> $2 million liability insurance policy
-					</mat-list-item>
-				</mat-list>
-			</mat-card-content>
-		</mat-card>
-
-		<mat-card>
-			<mat-card-content>
-				<mat-card-title>Softball League Divisions</mat-card-title>
-				<p>We offer slow pitch, 7&3 and modified fast pitch divisions. Every division follows the USA Softball (ASA) rulebook.</p>
-				<mat-list class="compact-mat-list">
-					<mat-list-item> Coed - Slow-Pitch - 7 & 3 </mat-list-item>
-					<mat-list-item> Coed - Slow-Pitch - C</mat-list-item>
-					<mat-list-item> Coed - Slow-Pitch - D</mat-list-item>
-					<mat-list-item> Coed - Slow-Pitch - E </mat-list-item>
-					<mat-list-item> Men’s - Modified "B" </mat-list-item>
-				</mat-list>
+				<div class="row-content" fxLayout="row wrap">
+					<div fxFlex.gt-sm="100" fxFlex.gt-xs="100" fxFlex="100">
+						<h4>{{ league.name }} Seasons ({{ league.sport | titlecase }})</h4>
+						<ng-container *ngFor="let division of league.divisions">
+							<ng-container *ngFor="let activeSeason of division.season">
+								<p>
+									<b>Division {{ division.name }} ({{ spacetime(activeSeason.start_at, 'America/New_York').season() | titlecase }})</b>
+								</p>
+								<ul>
+									<li>Starts on {{ activeSeason.start_at | date:'fullDate' }}</li>
+									<li>{{ activeSeason.number_of_games }} games</li>
+									<li>{{ activeSeason.league_fee | currency }} per team</li>
+									<li>{{ activeSeason.offical_fee_per_game | currency }} per offical per game</li>
+								</ul>
+							</ng-container>
+						</ng-container>
+					</div>
+				</div>
 			</mat-card-content>
 		</mat-card>
 	</div>
-
-	<div fxFlex.gt-sm="33.33" fxFlex.gt-xs="100" fxFlex="100">
-		<mat-card>
-			<mat-card-content>
-				<mat-card-title>League Timeline</mat-card-title>
-				<ul class="timeline">
-					<li>
-						<div class="timeline-badge primary">
-							<mat-icon class="material-icons-outlined">import_contacts</mat-icon>
-						</div>
-						<div class="timeline-panel">
-							<div class="timeline-heading">
-								<h5 class="timeline-title">Registration Starts</h5>
-								<p>
-									<small class="text-muted">
-										<i class="fa fa-clock-o"></i> 4/10/2021
-									</small>
-								</p>
-							</div>
-							<div class="timeline-body">
-								<p>Registration for Sunday Softball Opens!</p>
-							</div>
-						</div>
-					</li>
-					<li class="timeline-inverted">
-						<div class="timeline-badge info">
-							<mat-icon class="material-icons-outlined">sports_baseball</mat-icon>
-						</div>
-						<div class="timeline-panel">
-							<div class="timeline-heading">
-								<h5 class="timeline-title">Opening Day</h5>
-								<p>
-									<small class="text-muted">
-										<i class="fa fa-clock-o"></i> 4/25/2021
-									</small>
-								</p>
-							</div>
-							<div class="timeline-body">
-								<p>Tentative start date for first week of games</p>
-							</div>
-						</div>
-					</li>
-					<li>
-						<div class="timeline-badge danger">
-							<mat-icon class="material-icons-outlined">event_busy</mat-icon>
-						</div>
-						<div class="timeline-panel">
-							<div class="timeline-heading">
-								<h5 class="timeline-title">Registration Closed</h5>
-								<p>
-									<small class="text-muted">
-										<i class="fa fa-clock-o"></i> 5/01/2021
-									</small>
-								</p>
-							</div>
-							<div class="timeline-body">
-								<p>No new teams can be added to the season.</p>
-							</div>
-						</div>
-					</li>
-					<li class="timeline-inverted">
-						<div class="timeline-badge warning">
-							<mat-icon class="material-icons-outlined">paid</mat-icon>
-						</div>
-						<div class="timeline-panel">
-							<div class="timeline-heading">
-								<h5 class="timeline-title">Paid in Full</h5>
-								<p>
-									<small class="text-muted">
-										<i class="fa fa-clock-o"></i> 5/05/2021
-									</small>
-								</p>
-							</div>
-							<div class="timeline-body">
-								<p>All teams must be paid in full before this point.</p>
-							</div>
-						</div>
-					</li>
-					<li>
-						<div class="timeline-badge info">
-							<mat-icon class="material-icons-outlined">groups</mat-icon>
-						</div>
-						<div class="timeline-panel">
-							<div class="timeline-heading">
-								<h5 class="timeline-title">Rosters Due</h5>
-								<p>
-									<small class="text-muted">
-										<i class="fa fa-clock-o"></i> 5/10/2021
-									</small>
-								</p>
-							</div>
-							<div class="timeline-body">
-								<p>Final updated rosters are due, no new players beyond this date.</p>
-							</div>
-						</div>
-					</li>
-					<li class="timeline-inverted">
-						<div class="timeline-badge primary">
-							<mat-icon class="material-icons-outlined">emoji_events</mat-icon>
-						</div>
-						<div class="timeline-panel">
-							<div class="timeline-heading">
-								<h5 class="timeline-title">Playoffs</h5>
-								<p>
-									<small class="text-muted">
-										<i class="fa fa-clock-o"></i> August
-									</small>
-								</p>
-							</div>
-							<div class="timeline-body">
-								<p>Top 4 teams from each division make playoffs, best 2 or 3 series.</p>
-							</div>
-						</div>
-					</li>
-				</ul>
-			</mat-card-content>
-		</mat-card>
-	</div>
-
-
-</div>

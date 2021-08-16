@@ -69,6 +69,7 @@ Route::post('find-team', [FreeAgentController::class, 'findTeam']);
 Route::post('find-players', [FreeAgentController::class, 'findPlayers']);
 
 Route::get('home/stats', [HomeController::class, 'stats']);
+Route::get('season/stats', [SeasonController::class, 'stats']);
 Route::get('schedule', [ScheduleGameController::class, 'schedule']);
 Route::get('league', [LeagueController::class, 'league']);
 Route::get('standing', [StandingController::class, 'standing']);
@@ -84,6 +85,7 @@ Route::get('umpire', [UmpireController::class, 'umpire']);
 
 Route::get('active-seasons', [SeasonController::class, 'activeSeasons']);
 Route::get('active-seasons-by-division', [SeasonController::class, 'activeSeasonsByDivisionId']);
+Route::get('active-seasons-by-league', [SeasonController::class, 'activeSeasonsByLeague']);
 Route::get('previous-seasons-by-team', [SeasonController::class, 'previousSeasonsByTeamId']);
 
 Route::get('division', [DivisionController::class, 'division']);

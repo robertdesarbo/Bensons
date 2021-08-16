@@ -11,4 +11,9 @@ class League extends Model
     use HasFactory, SoftDeletes;
 
     protected $fillable = ['name', 'sport'];
+
+    public function divisions()
+    {
+        return $this->hasMany(Division::class);
+    }
 }

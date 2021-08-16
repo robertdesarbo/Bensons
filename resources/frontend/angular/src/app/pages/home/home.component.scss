@@ -290,10 +290,6 @@ Timeline page
 	line-height  : 50px;
 	color        : #fff;
 	overflow     : hidden;
-
-	mat-icon {
-		margin-top: 12px;
-	}
 }
 
 .timeline > li.timeline-inverted > .timeline-panel {
@@ -349,7 +345,24 @@ Timeline page
 .timeline-body > p + p {
 	margin-top: 5px;
 }
-//This is for the responsive timeline
+
+h4 {
+	margin-top: 0;
+}
+
+div.row-content {
+	div {
+		padding: 10px;
+	}
+}
+@media (max-width: 415px) {
+	.mat-list-base {
+		.mat-list-item {
+			line-height: 16px;
+			margin     : 6px 0;
+		}
+	}
+}
 @media (max-width: 767px) {
 	/*Timeline*/
 	ul.timeline:before {
