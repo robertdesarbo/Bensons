@@ -82,15 +82,15 @@
 						<mat-action-row>
 							<button mat-button (click)="toggleLeagueFormType(addLeague)">
 								<ng-container *ngIf="addLeague">
-									<mat-icon>edit</mat-icon> I want to Edit a League
+									<mat-icon>edit</mat-icon> Edit a League
 								</ng-container>
 								<ng-container *ngIf="!addLeague">
-									<mat-icon>add_box</mat-icon> I want to Create a League
+									<mat-icon>add_box</mat-icon> Create a League
 								</ng-container>
 							</button>
 
-							<div>
-								<button mat-button color="warn" (click)="deleteLeague()" [disabled]="!leagueFormGroup.get('league').value">
+							<div class="text-right">
+								<button mat-button color="warn" (click)="deletePrompt(DeleteType.LEAGUE)" [disabled]="!leagueFormGroup.get('league').value">
 									<mat-icon>delete</mat-icon> Delete
 								</button>
 								<button mat-button color="primary" (click)="saveLeague()" [disabled]="!leagueFormGroup.valid && !leagueFormGroup.get('league').value">
@@ -161,15 +161,15 @@
 						<mat-action-row>
 							<button mat-button (click)="toggleDivisionFormType(addDivision)">
 								<ng-container *ngIf="addDivision">
-									<mat-icon>edit</mat-icon> I want to Edit a Division
+									<mat-icon>edit</mat-icon> Edit a Division
 								</ng-container>
 								<ng-container *ngIf="!addDivision">
-									<mat-icon>add_box</mat-icon> I want to Create a Division
+									<mat-icon>add_box</mat-icon> Create a Division
 								</ng-container>
 							</button>
 
-							<div>
-								<button mat-button color="warn" (click)="deleteDivision()" [disabled]="!divisionFormGroup.get('division').value">
+							<div class="text-right">
+								<button mat-button color="warn" (click)="deletePrompt(DeleteType.DIVISION)" [disabled]="!divisionFormGroup.get('division').value">
 									<mat-icon>delete</mat-icon> Delete
 								</button>
 								<button mat-button color="primary" (click)="saveDivision()" [disabled]="!divisionFormGroup.valid && !divisionFormGroup.get('division').value">
@@ -269,15 +269,15 @@
 						<mat-action-row>
 							<button mat-button (click)="toggleSeasonFormType(addSeason)">
 								<ng-container *ngIf="addSeason">
-									<mat-icon>edit</mat-icon> I want to Edit a Season
+									<mat-icon>edit</mat-icon> Edit a Season
 								</ng-container>
 								<ng-container *ngIf="!addSeason">
-									<mat-icon>add_box</mat-icon> I want to Create a Season
+									<mat-icon>add_box</mat-icon> Create a Season
 								</ng-container>
 							</button>
 
-							<div>
-								<button mat-button color="warn" (click)="deleteSeason()" [disabled]="!seasonFormGroup.get('season').value">
+							<div class="text-right">
+								<button mat-button color="warn" (click)="deletePrompt(DeleteType.SEASON)" [disabled]="!seasonFormGroup.get('season').value">
 									<mat-icon>delete</mat-icon> Delete
 								</button>
 								<button mat-button color="primary" (click)="saveSeason()" [disabled]="!seasonFormGroup.valid && !seasonFormGroup.get('season').value">

@@ -1,0 +1,10 @@
+<h1 mat-dialog-title> {{ this.injectedData.title }}</h1>
+<ng-container>
+	<p mat-dialog-content>
+		{{ this.injectedData.message }}
+	</p>
+	<mat-dialog-actions align="end">
+		<button type="button" mat-raised-button (click)="cancel()">Cancel</button>
+		<button mat-raised-button color="primary" cdkFocusInitial (click)="confirm()">Delete</button>
+	</mat-dialog-actions>
+</ng-container>

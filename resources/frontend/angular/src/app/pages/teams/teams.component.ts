@@ -37,9 +37,10 @@ export class TeamsComponent {
 	public league$: Observable<League[]>;
 
 	constructor(
-		private formBuilder: FormBuilder, public dialog: MatDialog,
-		public authenticationService: AuthenticationService,
-		public http: HttpClient) {
+		private formBuilder: FormBuilder,
+		private dialog: MatDialog,
+		private http: HttpClient,
+		public authenticationService: AuthenticationService) {
 
 		// pull in data
 		this.division$ = this.http.get<Division[]>('/api/division');

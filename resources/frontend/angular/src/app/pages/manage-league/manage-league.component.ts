@@ -1,11 +1,14 @@
 import { Component, OnInit, ChangeDetectorRef } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
+import { MatDialog } from '@angular/material/dialog';
 
 import { Observable, of } from 'rxjs';
 import { tap, shareReplay, filter } from 'rxjs/operators';
 
 import { MatSnackBar } from '@angular/material/snack-bar';
+
+import { DialogConfirm } from './modals/dialog-confirm.component';
 
 import { League } from 'src/app/models/league.model';
 import { Division } from 'src/app/models/division.model';
@@ -31,6 +34,12 @@ export const MY_FORMATS = {
 	}
 };
 
+export enum DeleteType {
+	LEAGUE = 'league',
+	DIVISION = 'division',
+	SEASON = 'season'
+}
+
 @Component({
 	selector: 'app-manage-league',
 	templateUrl: './manage-league.component.html',
@@ -42,6 +51,7 @@ export const MY_FORMATS = {
 })
 export class ManageLeagueComponent implements OnInit {
 	readonly spacetime = spacetime;
+	readonly DeleteType = DeleteType;
 
 	readonly leagueFormGroup: FormGroup;
 	readonly divisionFormGroup: FormGroup;
@@ -72,6 +82,7 @@ export class ManageLeagueComponent implements OnInit {
 	public seasonErrors: string[];
 
 	constructor(private formBuilder: FormBuilder,
+		private dialog: MatDialog,
 		private snackBar: MatSnackBar,
 		private http: HttpClient,
 		private changeDetectorRef: ChangeDetectorRef) {
@@ -344,6 +355,51 @@ export class ManageLeagueComponent implements OnInit {
 		);
 	}
 
+	deletePrompt(deleteType: DeleteType) {
+
+		let data;
+		if (deleteType === DeleteType.LEAGUE) {
+			data = {
+				'title': 'Delete League',
+				'message': 'Are you sure you want to remove this League?'
+			};
+		} else if (deleteType === DeleteType.DIVISION) {
+			data = {
+				'title': 'Delete Division',
+				'message': 'Are you sure you want to remove this Division?'
+			};
+		} else if (deleteType === DeleteType.SEASON) {
+			data = {
+				'title': 'Delete Season',
+				'message': 'Are you sure you want to remove this Season?'
+			};
+		} else {
+			this.snackBar.open('Something went wrong', 'Dismiss', {
+				duration: 3000,
+				horizontalPosition: "right",
+				verticalPosition: "top",
+			});
+			return;
+		}
+
+		const dialogRef = this.dialog.open(DialogConfirm, {
+			width: '475px',
+			data: data
+		});
+
+		dialogRef.afterClosed().subscribe((deleteData) => {
+			if (deleteData) {
+				if (deleteType === DeleteType.LEAGUE) {
+					this.deleteLeague();
+				} else if (deleteType === DeleteType.DIVISION) {
+					this.deleteDivision();
+				} else if (deleteType === DeleteType.SEASON) {
+					this.deleteSeason();
+				}
+			}
+		});
+	}
+
 	deleteLeague() {
 		let league: any = {
 			league: this.leagueFormGroup.get('league').value
@@ -368,6 +424,7 @@ export class ManageLeagueComponent implements OnInit {
 				});
 			});
 	}
+
 
 	saveLeague() {
 		let league: any = {
