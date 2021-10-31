@@ -20,6 +20,14 @@ Route::get('download/{rule}', function ($rule) {
         $file_name = "Empire-State-Sports-Sunday-League-Rules-2021.pdf";
     } elseif ($rule == "Lynn_COED") {
         $file_name = "Rules-LYN-Coed-2021.pdf";
+    } elseif ($rule == "Basketball_Sponser_Letter") {
+        $file_name = "Sponsor-Letter-BESS-BBall-2021-22.doc";
+    } elseif ($rule == "ASA_Not_Approved") {
+        $file_name = "ASA-Non-Approved-BatList-1Page.pdf";
+    } elseif ($rule == "Basketball_Info_Sheet") {
+        $file_name = "Basketball-Information-Sheet-2021.jpg";
+    } elseif ($rule == "Basketball_Sign_Up_Sheet") {
+        $file_name = "Basketball-Sign-Up-Sheet-2021.jpg";
     } else {
         $file_name = "Rules-LYN-Mens-2021.pdf";
     }
