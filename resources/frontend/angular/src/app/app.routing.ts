@@ -95,10 +95,10 @@ export const AppRoutes: Routes = [
 				}
 			},
 			{
-				path: 'rules',
+				path: 'forms-and-rules',
 				component: RulesComponent,
 				data: {
-					title: 'Rules',
+					title: 'Forms & Rules',
 				}
 			},
 			{

@@ -94,8 +94,8 @@ export class MenuItems {
 			display: true
 		},
 		{
-			state: 'rules',
-			name: 'Rules',
+			state: 'forms-and-rules',
+			name: 'Forms & Rules',
 			type: 'link',
 			icon: 'gavel',
 			display: true
