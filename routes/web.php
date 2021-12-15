@@ -28,6 +28,8 @@ Route::get('download/{rule}', function ($rule) {
         $file_name = "Basketball-Information-Sheet-2021.jpg";
     } elseif ($rule == "Basketball_Sign_Up_Sheet") {
         $file_name = "Basketball-Sign-Up-Sheet-2021.jpg";
+    } elseif ($rule == "Basketball_Rules") {
+        $file_name = "Rules-Bensons-Basketball-2021.pdf";
     } else {
         $file_name = "Rules-LYN-Mens-2021.pdf";
     }
