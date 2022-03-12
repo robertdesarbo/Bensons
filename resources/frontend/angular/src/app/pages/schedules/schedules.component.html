@@ -170,7 +170,7 @@
 
 					<div *ngIf="noData | async" class="no-records">
 						<span *ngIf="this.dateStart !== null && this.dateEnd !== null; else notWeekly">No games found</span>
-						<ng-template #notWeekly>No games this week</ng-template>
+						<ng-template #notWeekly>No games the next 2 weeks</ng-template>
 					</div>
 
 					<ng-template #loading>

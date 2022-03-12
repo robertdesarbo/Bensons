@@ -30,6 +30,14 @@ Route::get('download/{rule}', function ($rule) {
         $file_name = "Basketball-Sign-Up-Sheet-2021.jpg";
     } elseif ($rule == "Basketball_Rules") {
         $file_name = "Rules-Bensons-Basketball-2021.pdf";
+    } elseif ($rule == "2022_BESS_Softball_Info_Sheet_And_Signup_Sheet") {
+        $file_name = "2022/bensons-softball/2022-BESS-Softball-Info-Sheet-And-Signup-Sheet.pdf";
+    } elseif ($rule == "2022_BESS_Softball_Sponsor_Letter") {
+        $file_name = "2022/bensons-softball/2022-BESS-Softball-Sponsor-Letter.pdf";
+    } elseif ($rule == "2022_Lynns_Softball_Info_Sheet_And_Signup_Sheet") {
+        $file_name = "2022/lynns-softball/2022-Lynns-Softball-Info-Sheet-And-Signup-Sheet.pdf";
+    } elseif ($rule == "2022_Lynns_Softball_Sponsor_Letter") {
+        $file_name = "2022/lynns-softball/2022-Lynns-Softball-Sponsor-Letter.pdf";
     } else {
         $file_name = "Rules-LYN-Mens-2021.pdf";
     }
