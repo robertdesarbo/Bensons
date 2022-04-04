@@ -14,6 +14,15 @@ use App\Http\Controllers\AngularController;
 |
 */
 
+Route::get('download-sponser/{sponser}', function ($sponser) {
+    if ($sponser == "Contemporary-Designs") {
+        $file_name = "Contemporary-Designs-star.jpg";
+    } elseif ($sponser == "Gettysburg-Flag-Works") {
+        $file_name = "Gettysburg-Flag-Works.png";
+    }
+
+    return response()->file("build/assets/content/sponsers/".$file_name);
+});
 
 Route::get('download/{rule}', function ($rule) {
     if ($rule == "Benson_Sunday") {
