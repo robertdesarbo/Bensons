@@ -91,7 +91,7 @@ import { StandingsComponent } from './pages/standings/standings.component';
 import { StandingsTableComponent } from './pages/standings/standings-table/standings-table.component';
 import { FieldsComponent } from './pages/fields/fields.component';
 import { RulesComponent } from './pages/rules/rules.component';
-import { SponsersComponent } from './pages/sponsers/sponsers.component';
+import { SponsorsComponent } from './pages/sponsors/sponsors.component';
 import { RegisteredTeamsComponent } from './pages/registered-teams/registered-teams.component';
 import { FreeAgentsComponent } from './pages/free-agents/free-agents.component';
 import { SchedulePreferenceComponent } from './pages/schedule-preference/schedule-preference.component';
@@ -138,7 +138,7 @@ const DEFAULT_PERFECT_SCROLLBAR_CONFIG: PerfectScrollbarConfigInterface = {
 		StandingsTableComponent,
 		FieldsComponent,
 		RulesComponent,
-		SponsersComponent,
+		SponsorsComponent,
 		SchedulePreferenceComponent,
 		RegisteredTeamsComponent,
 		FreeAgentsComponent,

@@ -14,7 +14,7 @@ import { SchedulesComponent } from './pages/schedules/schedules.component';
 import { StandingsComponent } from './pages/standings/standings.component';
 import { FieldsComponent } from './pages/fields/fields.component';
 import { RulesComponent } from './pages/rules/rules.component';
-import { SponsersComponent } from './pages/sponsers/sponsers.component';
+import { SponsorsComponent } from './pages/sponsors/sponsors.component';
 
 import { SchedulePreferenceComponent } from './pages/schedule-preference/schedule-preference.component';
 import { BulletinBoardComponent } from './pages/bulletin-board/bulletin-board.component';
@@ -102,10 +102,10 @@ export const AppRoutes: Routes = [
 				}
 			},
 			{
-				path: 'sponsers',
-				component: SponsersComponent,
+				path: 'sponsors',
+				component: SponsorsComponent,
 				data: {
-					title: 'Sponsers',
+					title: 'Sponsors',
 				},
 			},
 			{

@@ -101,8 +101,8 @@ export class MenuItems {
 			display: true
 		},
 		{
-			state: 'sponsers',
-			name: 'Sponsers',
+			state: 'sponsors',
+			name: 'Sponsors',
 			type: 'link',
 			icon: 'business',
 			display: true

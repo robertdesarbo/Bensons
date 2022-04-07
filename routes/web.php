@@ -14,14 +14,16 @@ use App\Http\Controllers\AngularController;
 |
 */
 
-Route::get('download-sponser/{sponser}', function ($sponser) {
-    if ($sponser == "Contemporary-Designs") {
+Route::get('download-sponsor/{sponsor}', function ($sponsor) {
+    if ($sponsor == "Contemporary-Designs") {
         $file_name = "Contemporary-Designs-star.jpg";
-    } elseif ($sponser == "Gettysburg-Flag-Works") {
+    } elseif ($sponsor == "Gettysburg-Flag-Works") {
         $file_name = "Gettysburg-Flag-Works.png";
+    } elseif ($sponsor == "Wyatts-Wicked-Goods") {
+        $file_name = "Wyatts-Wicked-Goods.png";
     }
 
-    return response()->file("build/assets/content/sponsers/".$file_name);
+    return response()->file("build/assets/content/sponsors/".$file_name);
 });
 
 Route::get('download/{rule}', function ($rule) {
@@ -29,7 +31,7 @@ Route::get('download/{rule}', function ($rule) {
         $file_name = "Empire-State-Sports-Sunday-League-Rules-2021.pdf";
     } elseif ($rule == "Lynn_COED") {
         $file_name = "Rules-LYN-Coed-2021.pdf";
-    } elseif ($rule == "Basketball_Sponser_Letter") {
+    } elseif ($rule == "Basketball_Sponsor_Letter") {
         $file_name = "Sponsor-Letter-BESS-BBall-2021-22.doc";
     } elseif ($rule == "ASA_Not_Approved") {
         $file_name = "ASA-Non-Approved-BatList-1Page.pdf";

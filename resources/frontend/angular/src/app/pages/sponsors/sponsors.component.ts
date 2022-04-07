@@ -3,17 +3,17 @@ import 'keen-slider/keen-slider.min.css'
 import KeenSlider from 'keen-slider'
 
 @Component({
-	selector: 'app-sponsers',
-	templateUrl: './sponsers.component.html',
-	styleUrls: ['./sponsers.component.scss']
+	selector: 'app-sponsors',
+	templateUrl: './sponsors.component.html',
+	styleUrls: ['./sponsors.component.scss']
 })
-export class SponsersComponent implements OnInit {
+export class SponsorsComponent implements OnInit {
 
 	constructor() { }
 
 	ngOnInit(): void {
 		let slider = new KeenSlider(
-			'#sponser-slider',
+			'#sponsor-slider',
 			{
 				loop: true,
 				created: () => {
