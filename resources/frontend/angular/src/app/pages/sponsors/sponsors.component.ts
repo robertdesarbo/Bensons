@@ -1,6 +1,6 @@
 import { Component, OnInit } from '@angular/core';
-import 'keen-slider/keen-slider.min.css'
-import KeenSlider from 'keen-slider'
+import 'keen-slider/keen-slider.min.css';
+import KeenSlider from 'keen-slider';
 
 @Component({
 	selector: 'app-sponsors',
