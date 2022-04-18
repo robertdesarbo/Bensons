@@ -21,6 +21,8 @@ Route::get('download-sponsor/{sponsor}', function ($sponsor) {
         $file_name = "Gettysburg-Flag-Works.png";
     } elseif ($sponsor == "Wyatts-Wicked-Goods") {
         $file_name = "Wyatts-Wicked-Goods.png";
+    } elseif ($sponsor == "Spinners-Pizza") {
+        $file_name = "Spinners-Pizza.jpeg";
     }
 
     return response()->file("build/assets/content/sponsors/".$file_name);
