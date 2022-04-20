@@ -17,7 +17,9 @@ use App\Http\Controllers\AngularController;
 Route::get('download-sponsor/{sponsor}', function ($sponsor) {
     if ($sponsor == "Contemporary-Designs") {
         $file_name = "Contemporary-Designs-star.jpg";
-    } elseif ($sponsor == "Gettysburg-Flag-Works") {
+    } elseif ($sponsor == "Pella") {
+        $file_name = "Pella.png";
+    }  elseif ($sponsor == "Gettysburg-Flag-Works") {
         $file_name = "Gettysburg-Flag-Works.png";
     } elseif ($sponsor == "Wyatts-Wicked-Goods") {
         $file_name = "Wyatts-Wicked-Goods.png";
