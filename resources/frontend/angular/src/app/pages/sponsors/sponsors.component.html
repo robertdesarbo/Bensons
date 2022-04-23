@@ -9,26 +9,110 @@
 				<!-- Row -->
 				<div fxLayout="row" fxLayoutWrap="wrap" style="justify-content: center;">
 					<!-- column -->
-					<div fxFlex.gt-sm="50" fxFlex.gt-xs="50">
-						<div id="sponsor-slider">
-              <div className="keen-slider__slide" style="text-align: center; margin-bottom: 75px;">
-                <img src="download-sponsor/Spinners-Pizza" style="max-width:100%; max-height:250px;" />
+					<div fxFlex.gt-sm="100" fxFlex.gt-xs="100">
+            <div class="navigation-wrapper">
+              <div class="keen-slider" #sliderRef>
+                <div class="keen-slider__slide">
+                  <img src="build/assets/content/sponsors/Spinners-Pizza.jpeg"/>
+                </div>
+                <div class="keen-slider__slide">
+                  <img src="build/assets/content/sponsors/Atlas-Copco.png"/>
+                </div>
+                <div class="keen-slider__slide">
+                  <img src="build/assets/content/sponsors/Blasch-Precision-Ceramics.jpeg"/>
+                </div>
+                <div class="keen-slider__slide">
+                  <img src="build/assets/content/sponsors/CIS.png"/>
+                </div>
+                <div class="keen-slider__slide">
+                  <img src="build/assets/content/sponsors/CDPHP.jpeg"/>
+                </div>
+                <div class="keen-slider__slide">
+                  <img src="build/assets/content/sponsors/Contemporary-Designs-star.jpg"/>
+                </div>
+                <div class="keen-slider__slide">
+                  <img src="build/assets/content/sponsors/Crisafulli-Bros.png"/>
+                </div>
+                <div class="keen-slider__slide">
+                  <img src="build/assets/content/sponsors/FrankAdamsJewelers.jpeg"/>
+                </div>
+                <div class="keen-slider__slide">
+                  <img src="build/assets/content/sponsors/Frozen-Ropes.png"/>
+                </div>
+                <div class="keen-slider__slide">
+                  <img src="build/assets/content/sponsors/Gettysburg-Flag-Works.png"/>
+                </div>
+                <div class="keen-slider__slide">
+                  <img src="build/assets/content/sponsors/Grapeville.png"/>
+                </div>
+                <div class="keen-slider__slide">
+                  <img src="build/assets/content/sponsors/HeritageCapitalG.jpg"/>
+                </div>
+                <div class="keen-slider__slide">
+                  <img src="build/assets/content/sponsors/ibew236.png"/>
+                </div>
+                <div class="keen-slider__slide">
+                  <img src="build/assets/content/sponsors/LynnsUptown.jpeg"/>
+                </div>
+                <div class="keen-slider__slide">
+                  <img src="build/assets/content/sponsors/Marvin-And-Company.jpg"/>
+                </div>
+                <div class="keen-slider__slide">
+                  <img src="build/assets/content/sponsors/OConnell-And-Aronowitz.jpeg"/>
+                </div>
+                <div class="keen-slider__slide">
+                  <img src="build/assets/content/sponsors/Paulies-Pizza.jpeg"/>
+                </div>
+                <div class="keen-slider__slide">
+                  <img src="build/assets/content/sponsors/Pella.png"/>
+                </div>
+                <div class="keen-slider__slide">
+                  <img src="build/assets/content/sponsors/Regeneron.jpg"/>
+                </div>
+                <div class="keen-slider__slide">
+                  <img src="build/assets/content/sponsors/Roots-Barber-Company.jpg"/>
+                </div>
+                <div class="keen-slider__slide">
+                  <img src="build/assets/content/sponsors/Singlecut-Beersmiths.jpg"/>
+                </div>
+                <div class="keen-slider__slide">
+                  <img src="build/assets/content/sponsors/StaierLaw.jpeg"/>
+                </div>
+                <div class="keen-slider__slide">
+                  <img src="build/assets/content/sponsors/The-Hair-Loft.jpg"/>
+                </div>
+                <div class="keen-slider__slide">
+                  <img src="build/assets/content/sponsors/Tipsymoose.png"/>
+                </div>
+                <div class="keen-slider__slide">
+                  <img src="build/assets/content/sponsors/Whiteman-Osterman-Hanna.png"/>
+                </div>
+                <div class="keen-slider__slide">
+                    <img src="build/assets/content/sponsors/Wyatts-Wicked-Goods.png"/>
+                    <a href="https://www.wyattswickedgoods.com" target="_blank">https://www.wyattswickedgoods.com</a>
+                </div>
               </div>
-              <div className="keen-slider__slide" style="text-align: center; margin-bottom: 75px;">
-                <img src="download-sponsor/Pella" style="max-width:100%; max-height:250px;" />
-              </div>
-							<div className="keen-slider__slide" style="text-align: center; margin-bottom: 75px;">
-								<img src="download-sponsor/Contemporary-Designs" style="max-width:100%; max-height:250px;" />
-							</div>
-							<div className="keen-slider__slide" style="text-align: center; margin-bottom: 75px;">
-								<img src="download-sponsor/Gettysburg-Flag-Works" style="max-width:100%; max-height:250px;" />
-							</div>
-							<div className="keen-slider__slide" style="text-align: center;">
-								<img src="download-sponsor/Wyatts-Wicked-Goods" style="max-width:100%; max-height:250px;" />
-								<br />
-								<a href="https://www.wyattswickedgoods.com" style="margin-left: -50px;" target="_blank">https://www.wyattswickedgoods.com</a>
-							</div>
-						</div>
+              <svg [ngClass]="'arrow arrow--left ' + (currentSlide === 0 ? 'arrow--disabled' : '')"
+                (click)="slider.prev()"
+                xmlns="http://www.w3.org/2000/svg"
+                viewBox="0 0 24 24"
+              >
+                <path
+                  d="M16.67 0l2.83 2.829-9.339 9.175 9.339 9.167-2.83 2.829-12.17-11.996z"
+                />
+              </svg>
+              <svg *ngIf="slider" [ngClass]="'arrow arrow--right ' +
+                (slider.track.details.slides.length - 1 === currentSlide
+                  ? 'arrow--disabled'
+                  : '')
+              "
+                (click)="slider.next()"
+                xmlns="http://www.w3.org/2000/svg"
+                viewBox="0 0 24 24"
+              >
+                <path d="M5 3l3.057-3 11.943 12-11.943 12-3.057-3 9-9z" />
+              </svg>
+            </div>
 					</div>
 				</div>
 			</mat-card-content>
