@@ -5,12 +5,8 @@
 	<!-- column -->
 	<div fxFlex.gt-sm="100" fxFlex.gt-xs="100" fxFlex="100">
 		<mat-card>
-			<mat-card-content>
-				<!-- Row -->
-				<div fxLayout="row" fxLayoutWrap="wrap" style="justify-content: center;">
-					<!-- column -->
-					<div fxFlex.gt-sm="100" fxFlex.gt-xs="100">
-            <div class="navigation-wrapper">
+      <mat-card-content>
+        <div class="navigation-wrapper">
               <div class="keen-slider" #sliderRef>
                 <div class="keen-slider__slide">
                   <img src="build/assets/content/sponsors/Spinners-Pizza.jpeg"/>
@@ -92,29 +88,24 @@
                     <a href="https://www.wyattswickedgoods.com" target="_blank">https://www.wyattswickedgoods.com</a>
                 </div>
               </div>
-              <svg [ngClass]="'arrow arrow--left ' + (currentSlide === 0 ? 'arrow--disabled' : '')"
-                (click)="slider.prev()"
-                xmlns="http://www.w3.org/2000/svg"
-                viewBox="0 0 24 24"
+
+              <svg class='arrow arrow--left'
+                   (click)="slider.prev()"
+                   xmlns="http://www.w3.org/2000/svg"
+                   viewBox="0 0 24 24"
               >
                 <path
                   d="M16.67 0l2.83 2.829-9.339 9.175 9.339 9.167-2.83 2.829-12.17-11.996z"
                 />
               </svg>
-              <svg *ngIf="slider" [ngClass]="'arrow arrow--right ' +
-                (slider.track.details.slides.length - 1 === currentSlide
-                  ? 'arrow--disabled'
-                  : '')
-              "
-                (click)="slider.next()"
-                xmlns="http://www.w3.org/2000/svg"
-                viewBox="0 0 24 24"
+              <svg class="arrow arrow--right"
+                   (click)="slider.next()"
+                   xmlns="http://www.w3.org/2000/svg"
+                   viewBox="0 0 24 24"
               >
                 <path d="M5 3l3.057-3 11.943 12-11.943 12-3.057-3 9-9z" />
               </svg>
             </div>
-					</div>
-				</div>
 			</mat-card-content>
 		</mat-card>
 	</div>
