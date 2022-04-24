@@ -93,14 +93,31 @@ mat-list {
 				filter: drop-shadow(2px 4px 2px black);
 				text-align    : center;
 				width         : 100%;
+
+        &.small-text {
+          font-size     : .85rem;
+          line-height   : .85rem;
+          margin-top    : -15px;
+        }
+
 				@media (max-width: 1023px) {
 					font-size  : 1.55rem;
 					line-height: 1.55rem;
+
+          &.small-text {
+            font-size     : .75rem;
+            line-height   : .75rem;
+          }
 				}
+
 				@media (max-height: 500px) {
 					font-size  : 1.45rem;
 					line-height: 1.45rem;
-					margin-top : -10px;
+
+          &.small-text {
+            font-size     : .65rem;
+            line-height   : .65rem;
+          }
 				}
 
 				span.company-name {
@@ -115,12 +132,6 @@ mat-list {
 				span.bensons-brand {
 					color: #e5651e;
 				}
-
-        .small-text {
-          font-size: .5em;
-          display: block;
-        }
-
 			}
 
 			h1 {

@@ -21,10 +21,10 @@ export class SponsorsComponent implements AfterViewInit, OnDestroy {
       slides: { perView: 1 },
       breakpoints: {
         "(min-width: 400px)": {
-          slides: { perView: 4, spacing: 5 },
+          slides: { perView: 3, spacing: 5 },
         },
         "(min-width: 800px)": {
-          slides: { perView: 8, spacing: 10 },
+          slides: { perView: 6, spacing: 10 },
         },
       },
     });
