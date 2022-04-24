@@ -12,8 +12,8 @@ import KeenSlider, { KeenSliderInstance } from 'keen-slider';
 export class SponsorsComponent implements AfterViewInit, OnDestroy {
   @ViewChild('sliderRef') sliderRef: ElementRef<HTMLElement>;
 
-  slider: KeenSliderInstance = null;
-  currentSlide = 1;
+  public numberOfSponsors = 0;
+  public slider: KeenSliderInstance = null;
 
   ngAfterViewInit() {
     this.slider = new KeenSlider(this.sliderRef.nativeElement, {
@@ -28,6 +28,8 @@ export class SponsorsComponent implements AfterViewInit, OnDestroy {
         },
       },
     });
+
+    this.numberOfSponsors = this.sliderRef.nativeElement.childElementCount;
   }
 
   ngOnDestroy() {
