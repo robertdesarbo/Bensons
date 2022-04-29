@@ -22,7 +22,9 @@ Route::get('download/{rule}', function ($rule) {
         $file_name = "2022/2022-Ground-Rules.pdf";
     } else if ($rule == "Roster_Sheet") {
         $file_name = "2022/2022-Roster-Sheet.xlsx";
-    } else if ($rule == "2022_BESS_Softball_COED_Rules") {
+    } else if ($rule == "Lineup_Card") {
+        $file_name = "2022/2022-Blank-Lineup-Card.pdf";
+    }  else if ($rule == "2022_BESS_Softball_COED_Rules") {
         $file_name = "2022/bensons-softball/2022-BESS-Softball-Coed-Rules.pdf";
     } elseif ($rule == "2022_BESS_Softball_Info_Sheet_And_Signup_Sheet") {
         $file_name = "2022/bensons-softball/2022-BESS-Softball-Info-Sheet-And-Signup-Sheet.pdf";
