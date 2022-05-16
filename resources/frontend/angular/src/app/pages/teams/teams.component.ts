@@ -1,4 +1,4 @@
-import { Component, ViewChild } from '@angular/core';
+import {AfterViewInit, Component, ViewChild} from '@angular/core';
 import { MatTableDataSource, MatTable } from '@angular/material/table';
 import { MatSort } from '@angular/material/sort';
 import { FormBuilder, FormGroup } from '@angular/forms';
@@ -21,7 +21,7 @@ import { League } from 'src/app/models/league.model';
 	templateUrl: './teams.component.html',
 	styleUrls: ['./teams.component.scss']
 })
-export class TeamsComponent {
+export class TeamsComponent  implements AfterViewInit {
 
 	@ViewChild(MatTable, { static: true }) table: MatTable<Team> = Object.create(null);
 	@ViewChild(MatSort, { static: true }) sort: MatSort = Object.create(null);

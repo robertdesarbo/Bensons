@@ -6,7 +6,7 @@ import { MatSort } from '@angular/material/sort';
 import { HttpClient } from '@angular/common/http';
 
 import { Observable } from 'rxjs';
-import { map, tap, shareReplay } from 'rxjs/operators';
+import { map, tap } from 'rxjs/operators';
 
 import { FreeAgent } from 'src/app/models/free-agent.model';
 import { TeamFreeAgent } from 'src/app/models/team-free-agent.model';

@@ -2,14 +2,17 @@
 
 namespace App\Http\Controllers;
 
-use Carbon\Carbon;
-
 use Illuminate\Http\Request;
 
 use App\Models\RegisterTeam;
 
 class SignUpController extends Controller
 {
+    public function registeredTeam(Request $request)
+    {
+        return RegisterTeam::with('division.league')->orderByDesc('id')->get();
+    }
+
     public function registerTeam(Request $request)
     {
         $validated = $request->validate([

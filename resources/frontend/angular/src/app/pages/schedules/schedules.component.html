@@ -124,14 +124,14 @@
 							</td>
 						</ng-container>
 
-						<ng-container matColumnDef="field">
+						<ng-container matColumnDef="fieldLocation">
 							<th mat-header-cell *matHeaderCellDef mat-sort-header> Field </th>
 							<td mat-cell *matCellDef="let element">
 								<span class="mobile-label">Field:</span>
 								<div style="display: inline-block; vertical-align: top;">
-									<a target="_blank" [href]="getAddress(element.field)" *ngIf="!inThePast(element.game_date)">{{element.field.name}}</a>
-									<ng-container *ngIf="inThePast(element.game_date)">{{element.field.name}}</ng-container>
-									<div *ngIf="element.field_number">Field {{ getFieldDisplay(element.field.field_alpha_display, element.field_number) }}</div>
+									<a target="_blank" [href]="getAddress(element.field.field_location)" *ngIf="!inThePast(element.game_date)">{{ element.field.field_location.name }}</a>
+									<ng-container *ngIf="inThePast(element.game_date)">{{ element.field.field_location.name }}</ng-container>
+									<div>{{ element.field.name }}</div>
 								</div>
 							</td>
 						</ng-container>
@@ -147,20 +147,24 @@
 						<ng-container matColumnDef="outcome">
 							<th mat-header-cell *matHeaderCellDef> Outcome </th>
 							<td mat-cell *matCellDef="let element">
-								<span class="mobile-label" *ngIf="element.completed || element.delayed || element.rescheduled || element.canceled">Outcome:</span>
+								<span class="mobile-label" *ngIf="element.completed || element.delayed || element.rescheduled || element.canceled || element.makeup">Outcome:</span>
 								<mat-icon class="material-icons-outlined game-delayed" *ngIf="element.delayed || element.rescheduled || element.canceled">event_busy</mat-icon>
+                <mat-icon class="material-icons-outlined game-make-up" *ngIf="element.makeup">today</mat-icon>
 								<p *ngIf="element.completed || element.delayed">
 									{{element.home_score}} - {{element.away_score}}
 								</p>
 								<p *ngIf="element.delayed">
-									Game was incomplete
+									Game is incomplete
 								</p>
 								<p *ngIf="element.rescheduled">
-									Game was rescheduled
+                  Game is to be rescheduled
 								</p>
 								<p *ngIf="element.canceled">
-									Game was canceled
+									Game is canceled
 								</p>
+                <p *ngIf="element.makeup">
+                  Makeup game
+                </p>
 							</td>
 						</ng-container>
 

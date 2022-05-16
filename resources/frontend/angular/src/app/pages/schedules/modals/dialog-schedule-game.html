@@ -89,12 +89,12 @@
 
 						<div fxFlex.gt-md="50" fxFlex="50" class="p-10">
 							<mat-form-field>
-								<mat-label>Field</mat-label>
-								<mat-select formControlName="field" appearance="fill">
-									<mat-option *ngFor="let field of game.fields;" [value]="field.id">{{field.name }}</mat-option>
+								<mat-label>Field Location</mat-label>
+								<mat-select formControlName="fieldLocation" appearance="fill">
+									<mat-option *ngFor="let fieldLocation of fieldLocations;" [value]="fieldLocation.id">{{ fieldLocation.name }}</mat-option>
 								</mat-select>
-								<mat-error *ngIf="formControl.get('field').hasError('required')">
-									Field is <strong>required</strong>
+								<mat-error *ngIf="formControl.get('fieldLocation').hasError('required')">
+									Field Location is <strong>required</strong>
 								</mat-error>
 							</mat-form-field>
 						</div>
@@ -102,9 +102,12 @@
 						<div fxFlex.gt-md="50" fxFlex="50" class="p-10">
 							<mat-form-field>
 								<mat-label>Field #</mat-label>
-								<mat-select formControlName="field_number" appearance="fill">
-									<mat-option *ngFor="let field of getFieldNumberCollection(totalFields);" [value]="field">{{ getFieldDisplay(field) }}</mat-option>
+								<mat-select formControlName="field" appearance="fill">
+									<mat-option *ngFor="let field of fields" [value]="field.id">{{ field.name }}</mat-option>
 								</mat-select>
+                <mat-error *ngIf="formControl.get('field').hasError('required')">
+                  Field # is <strong>required</strong>
+                </mat-error>
 							</mat-form-field>
 						</div>
 
@@ -126,10 +129,11 @@
 								<mat-label>Outcome</mat-label>
 								<mat-select formControlName="outcome" appearance="Select an outcome">
 									<mat-option>None</mat-option>
-									<mat-option value="completed">completed</mat-option>
-									<mat-option value="delayed">delayed</mat-option>
-									<mat-option value="rescheduled">rescheduled</mat-option>
-									<mat-option value="canceled">canceled</mat-option>
+									<mat-option value="completed">Completed</mat-option>
+									<mat-option value="delayed">Delayed</mat-option>
+									<mat-option value="rescheduled">Rescheduled</mat-option>
+									<mat-option value="canceled">Canceled</mat-option>
+                  <mat-option value="makeup">Makeup</mat-option>
 								</mat-select>
 							</mat-form-field>
 						</div>

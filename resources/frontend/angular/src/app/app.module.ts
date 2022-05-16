@@ -75,6 +75,9 @@ import { DialogLookingForATeam } from './pages/home/modals/looking-for-a-team-di
 import { DialogScheduleGame } from './pages/schedules/modals/dialog-schedule-game.component';
 import { DialogTeam } from './pages/teams/modals/dialog-team.component';
 
+import { DialogFieldLocation } from './pages/fields/modals/dialog-field-location.component';
+import { DialogField } from './pages/fields/modals/dialog-field.component';
+
 import { AuthGuard } from './shared/security/auth.guard';
 import { LoginActiveGuard } from './shared/security/login-active.guard';
 
@@ -134,6 +137,8 @@ const DEFAULT_PERFECT_SCROLLBAR_CONFIG: PerfectScrollbarConfigInterface = {
 		DialogLookingForATeam,
 		DialogScheduleGame,
 		DialogTeam,
+    DialogFieldLocation,
+    DialogField,
 		StandingsComponent,
 		StandingsTableComponent,
 		FieldsComponent,

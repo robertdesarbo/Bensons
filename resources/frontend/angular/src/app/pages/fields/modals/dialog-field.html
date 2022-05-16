@@ -1,0 +1,114 @@
+<h1 mat-dialog-title>{{ dialogTitle }} Field</h1>
+<form *ngIf="injectedData.type !== 'remove'" [formGroup]="formControl" (ngSubmit)="addField()">
+  <div mat-dialog-content>
+    <ng-container *ngIf="!isLoading; else loading">
+      <p *ngIf="errors" style="margin-top: 0;">
+        <ng-container *ngFor="let errors of errors;">
+					<span class="text-danger">
+						{{ errors }}
+					</span>
+          <br />
+        </ng-container>
+      </p>
+
+      <div fxLayout="row wrap" class="align-items-center">
+        <div fxFlex.gt-md="50" fxFlex="50" class="p-10">
+          <mat-form-field>
+            <mat-label>Name</mat-label>
+            <input matInput formControlName="name">
+            <mat-error *ngIf="formControl.get('name').hasError('required')">
+              Name is <strong>required</strong>
+            </mat-error>
+          </mat-form-field>
+        </div>
+
+        <div fxFlex.gt-md="50" fxFlex="50" class="p-10">
+          <mat-form-field>
+            <mat-label>Number</mat-label>
+            <input matInput formControlName="number">
+            <mat-error *ngIf="formControl.get('number').hasError('required')">
+              Number is <strong>required</strong>
+            </mat-error>
+          </mat-form-field>
+        </div>
+      </div>
+
+      <div fxLayout="row wrap" class="align-items-center">
+        <div fxFlex.gt-md="50" fxFlex="50" class="p-10">
+          <mat-form-field>
+            <mat-label>Sport</mat-label>
+            <mat-select placeholder="Sport" formControlName="sport">
+              <mat-option value="softball">Softball</mat-option>
+              <mat-option value="basketball">Basketball</mat-option>
+            </mat-select>
+            <mat-error *ngIf="formControl.get('sport').hasError('required')">
+              Sport is <strong>required</strong>
+            </mat-error>
+          </mat-form-field>
+        </div>
+
+        <div fxFlex.gt-md="25" fxFlex="25" class="p-10">
+          <mat-slide-toggle formControlName="active">
+            Active
+          </mat-slide-toggle>
+        </div>
+
+        <div fxFlex.gt-md="25" fxFlex="25" class="p-10">
+          <mat-slide-toggle formControlName="lights">
+            Lights
+          </mat-slide-toggle>
+        </div>
+      </div>
+      <div fxLayout="row wrap" class="align-items-center">
+        <div fxFlex.gt-md="100" fxFlex="100" class="p-10">
+          <mat-form-field>
+            <mat-label>Ground rules</mat-label>
+            <textarea matInput formControlName="ground_rules"></textarea>
+          </mat-form-field>
+        </div>
+      </div>
+      <div fxLayout="row wrap" class="align-items-center">
+          <div fxFlex.gt-md="50" fxFlex="50" class="p-10">
+            <mat-slide-toggle formControlName="private_property">
+              Private Property
+            </mat-slide-toggle>
+          </div>
+
+          <div fxFlex.gt-md="50" fxFlex="50" class="p-10">
+            <mat-slide-toggle formControlName="alcohol">
+              Alcohol
+            </mat-slide-toggle>
+          </div>
+        </div>
+      <div fxLayout="row wrap" class="align-items-center">
+        <div fxFlex.gt-md="50" fxFlex="20" class="p-10">
+          <mat-slide-toggle formControlName="smoking">
+            Smoking
+          </mat-slide-toggle>
+        </div>
+        <div fxFlex.gt-md="50" fxFlex="20" class="p-10">
+          <mat-slide-toggle formControlName="pets">
+            Pets
+          </mat-slide-toggle>
+        </div>
+      </div>
+    </ng-container>
+  </div>
+  <mat-dialog-actions align="end">
+    <button type="button" mat-raised-button (click)="cancel()">Cancel</button>
+    <button mat-raised-button color="primary" cdkFocusInitial>{{ injectedData.type === 'add' ? 'Add' : 'Update' }}</button>
+  </mat-dialog-actions>
+</form>
+<ng-container *ngIf="injectedData.type === 'remove'">
+  <p mat-dialog-content *ngIf="!isLoading; else loading">
+    Are you sure you want to remove <b>{{ (field$ | async)?.name }}</b>?
+  </p>
+  <mat-dialog-actions align="end">
+    <button type="button" mat-raised-button (click)="cancel()">Cancel</button>
+    <button mat-raised-button color="primary" cdkFocusInitial (click)="removeField()">Remove</button>
+  </mat-dialog-actions>
+</ng-container>
+<ng-template #loading>
+  <mat-spinner diameter="50"></mat-spinner>
+</ng-template>
+

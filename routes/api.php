@@ -5,6 +5,7 @@ use Illuminate\Support\Facades\Route;
 
 use App\Http\Controllers\LoginController;
 use App\Http\Controllers\ScheduleGameController;
+use App\Http\Controllers\FieldLocationController;
 use App\Http\Controllers\FieldController;
 use App\Http\Controllers\FreeAgentController;
 use App\Http\Controllers\RegisteredTeamController;
@@ -33,6 +34,8 @@ Route::middleware(['auth:sanctum'])->group(function () {
         return $request->user();
     });
 
+    Route::get('registered-teams', [SignUpController::class, 'registeredTeam']);
+
     Route::get('schedule-get-scheduled-game', [ScheduleGameController::class, 'getScheduledGame']);
     Route::get('schedule-game-set-up', [ScheduleGameController::class, 'scheduleForm']);
 
@@ -43,6 +46,14 @@ Route::middleware(['auth:sanctum'])->group(function () {
     Route::post('add-team', [TeamController::class, 'addTeam']);
     Route::post('edit-team', [TeamController::class, 'editTeam']);
     Route::post('remove-team', [TeamController::class, 'removeTeam']);
+
+    Route::post('add-field-location', [FieldLocationController::class, 'addFieldLocation']);
+    Route::post('edit-field-location', [FieldLocationController::class, 'editFieldLocation']);
+    Route::post('remove-field-location', [FieldLocationController::class, 'removeFieldLocation']);
+
+    Route::post('add-field', [FieldController::class, 'addField']);
+    Route::post('edit-field', [FieldController::class, 'editField']);
+    Route::post('remove-field', [FieldController::class, 'removeField']);
 
     Route::get('seasons-by-division', [SeasonController::class, 'seasonsByDivision']);
     Route::get('teams-by-season', [TeamController::class, 'teamsBySeason']);
@@ -74,6 +85,7 @@ Route::get('schedule', [ScheduleGameController::class, 'schedule']);
 Route::get('league', [LeagueController::class, 'league']);
 Route::get('standing', [StandingController::class, 'standing']);
 
+Route::get('field-location', [FieldLocationController::class, 'fieldLocation']);
 Route::get('field', [FieldController::class, 'field']);
 
 Route::get('team', [TeamController::class, 'team']);

@@ -11,9 +11,10 @@ import { map, tap, shareReplay } from 'rxjs/operators';
 import { AuthenticationService } from 'src/app/authentication/authentication.service';
 
 import { Schedule } from 'src/app/models/schedule.model';
-import { Field } from 'src/app/models/field.model';
+import { FieldLocation } from 'src/app/models/field-location.model';
 import { Umpire } from 'src/app/models/umpire.model';
 import { Division } from 'src/app/models/division.model';
+import { FormAction } from 'src/app/models/enum/form-action.enum';
 
 import { DialogScheduleGame } from './modals/dialog-schedule-game.component';
 
@@ -27,7 +28,7 @@ export class SchedulesComponent implements OnInit {
 	@ViewChild(MatTable, { static: true }) table: MatTable<Schedule> = Object.create(null);
 	@ViewChild(MatSort, { static: true }) sort: MatSort = Object.create(null);
 	searchText: any;
-	displayedColumns: string[] = ['home', 'away', 'date', 'field', 'umpires', 'outcome'];
+	displayedColumns: string[] = ['home', 'away', 'date', 'fieldLocation', 'umpires', 'outcome'];
 	dataSource = new MatTableDataSource<Schedule>();
 	noData: Observable<boolean>;
 
@@ -50,7 +51,7 @@ export class SchedulesComponent implements OnInit {
 		public http: HttpClient) {
 
 		if (this.authenticationService.isAuthenticated) {
-			this.displayedColumns = ['action', 'home', 'away', 'date', 'field', 'umpires', 'outcome'];
+			this.displayedColumns = ['action', 'home', 'away', 'date', 'fieldLocation', 'umpires', 'outcome'];
 		}
 
 		// pull in data
@@ -157,7 +158,7 @@ export class SchedulesComponent implements OnInit {
 	}
 
 	getDivisionName(divisionId: number | string): string {
-		if (divisionId === "All") {
+		if (divisionId === 'All') {
 			return divisionId;
 		}
 
@@ -168,16 +169,16 @@ export class SchedulesComponent implements OnInit {
 		return this.listOfUmpires.find(umpire => umpire.id === umpireId) ?.name;
 	}
 
-	getAddress(field: Field) {
+	getAddress(fieldLocation: FieldLocation): string {
 		return 'https://www.google.com/maps/dir/?api=1&destination='
-			+ field.address + ' '
-			+ field.city + ' '
-			+ field.state + ' '
-			+ field.zip;
+			+ fieldLocation.address + ' '
+			+ fieldLocation.city + ' '
+			+ fieldLocation.state + ' '
+			+ fieldLocation.zip;
 	}
 
 	inThePast(date: string): boolean {
-		let firstday = this.getMonday(new Date); // get current date
+		const firstday = this.getMonday(new Date); // get current date
 		firstday.setHours(0, 0, 0, 0);
 
 		return Date.parse(date) <= firstday.getTime();
@@ -185,8 +186,7 @@ export class SchedulesComponent implements OnInit {
 
 	getMonday(d: Date) {
 		d = new Date(d);
-		var day = d.getDay(),
-			diff = d.getDate() - day + (day == 0 ? -6 : 1); // adjust when day is sunday
+		let day = d.getDay(), diff = d.getDate() - day + (day == 0 ? -6 : 1); // adjust when day is sunday
 		return new Date(d.setDate(diff));
 	}
 
@@ -198,7 +198,6 @@ export class SchedulesComponent implements OnInit {
 		//         default: return item[property] as any;
 		//     }
 		// };
-
 	}
 
 	ngAfterViewInit(): void {
@@ -209,7 +208,7 @@ export class SchedulesComponent implements OnInit {
 		if (fieldAlphaDisplay) {
 			return String.fromCharCode(96 + parseInt(fieldNumber, 10)).toUpperCase();
 		} else {
-			return "#" + fieldNumber;
+			return '#' + fieldNumber;
 		}
 	}
 
@@ -221,15 +220,15 @@ export class SchedulesComponent implements OnInit {
 		this.dataSource.filter = filterValue.trim().toLowerCase();
 	}
 
-	openScheduleGame(type, scheduleId): void {
-		let data = {};
-
-		data['type'] = type;
-		data['scheduleId'] = scheduleId;
+	openScheduleGame(type: FormAction, scheduleId?: number): void {
+		const data = {
+      type,
+      scheduleId
+    };
 
 		const dialogRef = this.dialog.open(DialogScheduleGame, {
 			width: '575px',
-			data: data
+			data
 		});
 
 		dialogRef.afterClosed().subscribe((refreshData) => {

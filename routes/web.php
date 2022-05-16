@@ -30,7 +30,9 @@ Route::get('download/{rule}', function ($rule) {
         $file_name = "2022/bensons-softball/2022-BESS-Softball-Info-Sheet-And-Signup-Sheet.pdf";
     } elseif ($rule == "2022_BESS_Softball_Sponsor_Letter") {
         $file_name = "2022/bensons-softball/2022-BESS-Softball-Sponsor-Letter.pdf";
-    } else if ($rule == "2022_Lynns_Softball_COED_Rules") {
+    } else if ($rule == "2022_BESS_Softball_Friday_Night_Rules") {
+        $file_name = "2022/bensons-softball/2022-Bess-Softball-Friday-Night-Rules.pdf";
+    }  else if ($rule == "2022_Lynns_Softball_COED_Rules") {
         $file_name = "2022/lynns-softball/2022-Lynns-Softball-Coed-Rules.pdf";
     } else if ($rule == "2022_Lynns_Softball_Mens_Rules") {
         $file_name = "2022/lynns-softball/2022-Lynns-Softball-Mens-Rules.pdf";

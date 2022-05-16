@@ -13,6 +13,10 @@
 							<input matInput (keyup)="applyFilter($event.target.value)" placeholder="Search Fields">
 						</mat-form-field>
 					</div>
+
+          <div fxFlex.gt-md="75" fxFlex.gt-lg="75" fxFlex="100" class="p-10" *ngIf="authenticationService.isAuthenticated" style="text-align:right">
+              <button color="primary" mat-raised-button (click)="openFieldLocation(FormActionList.add)">Add Field Location</button>
+          </div>
 				</div>
 			</mat-card-content>
 		</mat-card>
@@ -24,46 +28,95 @@
 		<mat-card>
 			<mat-card-content>
 				<div>
-					<table mat-table [dataSource]="dataSource" matSort class="table" *ngIf="(field$ | async); else loading">
+					<table mat-table [dataSource]="dataSource" matSort class="table" *ngIf="(fieldLocation$ | async); else loading" multiTemplateDataRows>
+            <ng-container matColumnDef="action" *ngIf="authenticationService.isAuthenticated">
+              <th mat-header-cell *matHeaderCellDef mat-sort-header> Actions </th>
+              <td mat-cell *matCellDef="let element">
+                <button color="warn" mat-icon-button (click)="$event.stopPropagation(); openFieldLocation(FormActionList.remove, element.id)">
+                  <mat-icon class="material-icons-outlined">delete</mat-icon>
+                </button>
+                <button color="primary" mat-icon-button (click)="$event.stopPropagation(); openFieldLocation(FormActionList.edit, element.id)">
+                  <mat-icon class="material-icons-outlined">edit</mat-icon>
+                </button>
+                <button color="primary" mat-icon-button (click)="$event.stopPropagation(); openField(FormActionList.add, element.id)">
+                  <mat-icon class="material-icons-outlined">add</mat-icon>
+                </button>
+              </td>
+            </ng-container>
+
 						<ng-container matColumnDef="name">
 							<th mat-header-cell *matHeaderCellDef mat-sort-header> Name </th>
-							<td mat-cell *matCellDef="let element"> {{element.name}} </td>
+							<td mat-cell *matCellDef="let element">
+                {{element.name}}
+              </td>
 						</ng-container>
 
 						<ng-container matColumnDef="address">
 							<th mat-header-cell *matHeaderCellDef mat-sort-header> Address </th>
 							<td mat-cell *matCellDef="let element">
 								<a target="_blank" [href]="getAddress(element)">{{element.address}} {{element.city}} {{element.state}} {{element.zip}} </a>
-
 							</td>
 						</ng-container>
 
-						<ng-container matColumnDef="ground-rules">
-							<th mat-header-cell *matHeaderCellDef> Ground Rules </th>
-							<td mat-cell *matCellDef="let element">
-								<mat-expansion-panel (opened)="panelOpenState = true" (closed)="panelOpenState = false" *ngIf='element.ground_rules'>
-									<mat-expansion-panel-header>
-										<mat-panel-title>
-											{{element.ground_rules | slice:0:20 }}...
-										</mat-panel-title>
-									</mat-expansion-panel-header>
-									<p>{{element.ground_rules}}</p>
-								</mat-expansion-panel>
-							</td>
-						</ng-container>
+            <ng-container matColumnDef="number-of-fields">
+              <th mat-header-cell *matHeaderCellDef mat-sort-header> Number of Fields </th>
+              <td mat-cell *matCellDef="let element">
+                {{element.fields.length}}
+              </td>
+            </ng-container>
 
-						<ng-container matColumnDef="information">
-							<th mat-header-cell *matHeaderCellDef> Information </th>
-							<td mat-cell *matCellDef="let element">
-								<mat-icon class="material-icons-outlined" *ngIf=element.alcohol matTooltip="Drinking allowed">sports_bar</mat-icon>
-								<mat-icon class="material-icons-outlined" *ngIf=element.private_property matTooltip="Private property">public_off</mat-icon>
-								<mat-icon class="material-icons-outlined" *ngIf=element.pets matTooltip="Pets allowed">pets</mat-icon>
-								<mat-icon class="material-icons-outlined" *ngIf=!element.smoking matTooltip="No smoking">smoke_free</mat-icon>
-							</td>
+            <ng-container matColumnDef="icon">
+              <th mat-header-cell *matHeaderCellDef mat-sort-header></th>
+              <td mat-cell *matCellDef="let element" class="text-right">
+                <mat-icon *ngIf="element == expandedFieldElement">expand_less</mat-icon>
+                <mat-icon *ngIf="element != expandedFieldElement">expand_more</mat-icon>
+              </td>
+            </ng-container>
+
+						<ng-container matColumnDef="expandedDetail">
+              <td mat-cell *matCellDef="let element" [attr.colspan]="displayedColumns.length">
+                <div class="field-detail"
+                     [@detailExpand]="element == expandedFieldElement ? 'expanded' : 'collapsed'">
+                  <mat-list-item *ngFor="let field of element.fields">
+                    <div>
+                      <h4 class="m-t-20 m-b-0">
+                        {{ field.name }}
+                      </h4>
+                      <p matLine class="m-0 m-t-5" *ngIf="field.alcohol || field.private_property || field.pets || !field.smoking;">
+                        Field Rules:
+                        <span class="vm text-muted">
+                          <mat-icon class="m-r-5 material-icons-outlined" *ngIf=field.alcohol matTooltip="Drinking allowed">sports_bar</mat-icon>
+                          <mat-icon class="m-r-5 material-icons-outlined" *ngIf=field.private_property matTooltip="Private property">public_off</mat-icon>
+                          <mat-icon class="m-r-5 material-icons-outlined" *ngIf=field.pets matTooltip="Pets allowed">pets</mat-icon>
+                          <mat-icon class="m-r-5 material-icons-outlined" *ngIf=!field.smoking matTooltip="No smoking">smoke_free</mat-icon>
+                        </span>
+                      </p>
+                      <p matLine class="m-0" *ngIf="field.ground_rules; else noGroundRules">
+                        Ground Rules: <span class="text-muted">{{ field.ground_rules }}</span>
+                      </p>
+                      <ng-template #noGroundRules>
+                        Ground Rules: <span matLine class="text-muted">No ground rules provided.</span>
+                      </ng-template>
+                      <ng-container *ngIf="authenticationService.isAuthenticated">
+                        <button mat-raised-button color="warn" (click)="$event.stopPropagation(); openField(FormActionList.remove, element.id, field.id)" style="margin-left: 0; margin-top: 5px;">
+                          Remove
+                        </button>
+                        <button mat-raised-button color="primary" (click)="$event.stopPropagation(); openField(FormActionList.edit, element.id, field.id)">
+                          Edit
+                        </button>
+                      </ng-container>
+                    </div>
+                  </mat-list-item>
+                </div>
+              </td>
 						</ng-container>
 
 						<tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>
-						<tr mat-row *matRowDef="let row; columns: displayedColumns;"></tr>
+						<tr mat-row *matRowDef="let element; columns: displayedColumns;"
+                class="field-row"
+                [class.field-expanded-row]="expandedFieldElement === element"
+                (click)="expandedFieldElement = expandedFieldElement === element ? null : element">
+            <tr mat-row *matRowDef="let row; columns: ['expandedDetail']" class="field-detail-row"></tr>
 					</table>
 
 					<div *ngIf="noData | async" class="no-records">

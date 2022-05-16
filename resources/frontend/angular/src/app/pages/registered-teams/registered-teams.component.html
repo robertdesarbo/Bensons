@@ -6,13 +6,50 @@
 	<div fxFlex.gt-sm="100" fxFlex.gt-xs="100" fxFlex="100">
 		<mat-card>
 			<mat-card-content>
-				<!-- Row -->
-				<div fxLayout="row" fxLayoutWrap="wrap">
-					<!-- column -->
-					<div fxFlex.gt-sm="50" fxFlex.gt-xs="50">
-						Coming soon...
-					</div>
-				</div>
+        <div>
+          <table mat-table [dataSource]="dataSource" matSort class="table" *ngIf="(registeredTeam$ | async); else loading">
+            <ng-container matColumnDef="name">
+              <th mat-header-cell *matHeaderCellDef mat-sort-header> Name </th>
+              <td mat-cell *matCellDef="let element">
+                {{element.team_name}}
+              </td>
+            </ng-container>
+
+            <ng-container matColumnDef="captain">
+              <th mat-header-cell *matHeaderCellDef mat-sort-header> Captain </th>
+              <td mat-cell *matCellDef="let element">
+                <p>{{element.captain_name}}</p>
+                <p *ngIf='element.phone !== null'>{{element.phone}}</p>
+                <p *ngIf='element.email !== null'>{{element.email}}</p>
+              </td>
+            </ng-container>
+
+            <ng-container matColumnDef="division">
+              <th mat-header-cell *matHeaderCellDef mat-sort-header> Division </th>
+              <td mat-cell *matCellDef="let element">
+                {{element.division?.league?.name}} {{element.division?.name}}
+              </td>
+            </ng-container>
+
+            <ng-container matColumnDef="registered">
+              <th mat-header-cell *matHeaderCellDef mat-sort-header> Registered </th>
+              <td mat-cell *matCellDef="let element">
+                {{ element.created_at | date: 'fullDate' }}
+              </td>
+            </ng-container>
+
+            <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>
+            <tr mat-row *matRowDef="let row; columns: displayedColumns;"></tr>
+          </table>
+
+          <div *ngIf="noData | async" class="no-records">
+            No Registered Teams found
+          </div>
+
+          <ng-template #loading>
+            <mat-spinner diameter="50"></mat-spinner>
+          </ng-template>
+        </div>
 			</mat-card-content>
 		</mat-card>
 	</div>

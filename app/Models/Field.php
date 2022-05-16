@@ -9,7 +9,10 @@ class Field extends Model
 {
     use HasFactory;
 
-    protected $fillable = ['name', 'address', 'address', 'city', 'state', 'zip',
-    'alcohol', 'private_property', 'pets', 'smoking', 'ground_rules'];
-        
+    protected $fillable = ['field_location_id', 'number', 'name', 'alcohol', 'private_property', 'pets', 'smoking', 'ground_rules', 'sport', 'lights', 'active'];
+
+    public function field_location()
+    {
+        return $this->belongsTo(FieldLocation::class, 'field_location_id');
+    }
 }
