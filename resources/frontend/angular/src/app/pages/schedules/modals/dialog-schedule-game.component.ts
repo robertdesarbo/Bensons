@@ -9,6 +9,7 @@ import { tap } from 'rxjs/operators';
 import { Schedule } from 'src/app/models/schedule.model';
 import { Division } from 'src/app/models/division.model';
 import { Season } from 'src/app/models/season.model';
+import { FieldLocation } from 'src/app/models/field-location.model';
 import { Field } from 'src/app/models/field.model';
 
 import { MatSnackBar } from '@angular/material/snack-bar';
@@ -21,13 +22,13 @@ import spacetime from 'spacetime';
 
 export const CUSTOM_MOMENT_FORMATS = {
 	parse: {
-		dateInput: "dddd MMMM Do @ h:mm a"
+		dateInput: 'dddd MMMM Do @ h:mm a'
 	},
 	display: {
-		dateInput: "dddd MMMM Do @ h:mm a",
-		monthYearLabel: "MMM YYYY",
-		dateA11yLabel: "LL",
-		monthYearA11yLabel: "MMMM YYYY"
+		dateInput: 'dddd MMMM Do @ h:mm a',
+		monthYearLabel: 'MMM YYYY',
+		dateA11yLabel: 'LL',
+		monthYearA11yLabel: 'MMMM YYYY'
 	}
 };
 
@@ -53,26 +54,24 @@ export class DialogScheduleGame {
 	public season$: Observable<Season[]>;
 	public game$: Observable<any[]>;
 
-	public listOfFields: Field[];
+	public fieldLocations: FieldLocation[];
+	public fields: Field[];
 
-	public totalFields: number;
-	public fieldAlphaDisplay: boolean;
-
-	public isLoading: boolean = true;
+	public isLoading = true;
 
 	constructor(private formBuilder: FormBuilder,
-		private snackBar: MatSnackBar,
-		public dialogRef: MatDialogRef<DialogScheduleGame>,
-		private http: HttpClient,
-		@Inject(MAT_DIALOG_DATA) public injectedData: any) {
+		           private snackBar: MatSnackBar,
+		           public dialogRef: MatDialogRef<DialogScheduleGame>,
+		           private http: HttpClient,
+		           @Inject(MAT_DIALOG_DATA) public injectedData: any) {
 		this.formControl = this.formBuilder.group({
 			division: ['', Validators.required],
 			season: ['', Validators.required],
 			homeTeam: ['', Validators.required],
 			awayTeam: ['', Validators.required],
 			date: ['', Validators.required],
-			field: ['', Validators.required],
-			field_number: [{ value: '', disabled: true }],
+      fieldLocation: ['', Validators.required],
+			field: [{ value: '', disabled: true }],
 			umpire: [''],
 			homeScore: [''],
 			awayScore: [''],
@@ -91,13 +90,14 @@ export class DialogScheduleGame {
 				this.formControl.get('homeTeam').setValue(scheduledGame.home_id);
 				this.formControl.get('awayTeam').setValue(scheduledGame.away_id);
 				this.formControl.get('date').setValue(moment(scheduledGame.game_date));
+        this.formControl.get('fieldLocation').setValue(scheduledGame.field_location_id);
 				this.formControl.get('field').setValue(scheduledGame.field_id);
-				this.formControl.get('umpire').setValue((scheduledGame.umpires === undefined || scheduledGame.umpires.length == 0 ? null : scheduledGame.umpires[0].id));
+				this.formControl.get('umpire').setValue((scheduledGame.umpires === undefined || scheduledGame.umpires.length === 0 ? null : scheduledGame.umpires[0].id));
 				this.formControl.get('notes').setValue(scheduledGame.notes);
 
-				if (scheduledGame.field_number !== null) {
-					this.formControl.get('field_number').setValue(scheduledGame.field_number);
-					this.formControl.get('field_number').enable();
+				if (scheduledGame.field_id !== null) {
+					this.formControl.get('field').setValue(scheduledGame.field_id);
+					this.formControl.get('field').enable();
 				}
 
 				if (scheduledGame.home_score !== null) {
@@ -124,6 +124,10 @@ export class DialogScheduleGame {
 					this.formControl.get('outcome').setValue('canceled');
 				}
 
+        if (scheduledGame.makeup === 1) {
+          this.formControl.get('outcome').setValue('makeup');
+        }
+
 				this.isLoading = false;
 			});
 
@@ -142,49 +146,53 @@ export class DialogScheduleGame {
 		// pull in data
 		this.division$ = this.http.get<Division[]>('/api/divisions-with-active-seasons');
 
-		this.formControl.get("division").valueChanges.subscribe(division => {
+		this.formControl.get('division').valueChanges.subscribe(division => {
 			const params = {
 				params: {
-					division: division
+					division
 				}
-			}
+			};
 
 			this.season$ = this.http.get<any>('/api/active-seasons-by-division', params);
 		});
 
-		this.formControl.get("season").valueChanges.subscribe(season => {
+		this.formControl.get('season').valueChanges.subscribe(season => {
 			const params = {
 				params: {
-					season: season
+					season
 				}
-			}
+			};
 
 			this.game$ = this.http.get<any>('/api/schedule-game-set-up', params).pipe(
 				tap((game) => {
-					this.listOfFields = game.fields;
+          this.fieldLocations = game.fieldLocations;
 
-					if (this.formControl.get("field").value) {
-						this.updateFieldNumbers(this.formControl.get("field").value);
-					}
+          if (this.formControl.get('fieldLocation').value) {
+            this.updateFields(this.formControl.get('fieldLocation').value);
+          }
 				}));
 		});
 
 
-		this.formControl.get("field").valueChanges.subscribe(fieldId => {
-			if (!this.listOfFields) {
+		this.formControl.get('fieldLocation').valueChanges.subscribe(fieldLocationId => {
+			if (!this.fieldLocations) {
 				return;
 			}
 
-			this.updateFieldNumbers(fieldId);
+			this.updateFields(fieldLocationId);
+
+      if (this.fields.length === 1) {
+        this.formControl.get('field').setValue(this.fields[0].id);
+      }
 		});
 
-		this.formControl.get("homeScore").valueChanges.subscribe(() => {
+		this.formControl.get('homeScore').valueChanges.subscribe(() => {
 			if (!this.formControl.get('outcome').value) {
 				this.formControl.get('outcome').setValue('completed');
 			}
 		});
 
-		this.formControl.get("awayScore").valueChanges.subscribe(() => {
+		this.formControl.get('awayScore').valueChanges.subscribe(() => {
 			if (!this.formControl.get('outcome').value) {
 				this.formControl.get('outcome').setValue('completed');
 			}
@@ -192,30 +200,29 @@ export class DialogScheduleGame {
 
 	}
 
-	updateFieldNumbers(fieldId): void {
-		const field = this.listOfFields.find(field => field.id === fieldId);
+  updateFields(fieldLocationId): void {
+    this.fields = this.fieldLocations.find(fieldLocation => fieldLocation.id === fieldLocationId).fields;
 
-		this.totalFields = field ?.total_fields;
-		this.fieldAlphaDisplay = field ?.field_alpha_display;
-
-		if (this.totalFields === 1) {
-			this.formControl.get('field_number').disable();
-			this.formControl.get('field_number').setValue('');
-		} else {
-			this.formControl.get('field_number').enable();
-		}
-	}
+    if (this.fields.length >= 1) {
+      this.formControl.get('field').enable();
+      this.formControl.get('field').setValidators([Validators.required]);
+      this.formControl.get('field').updateValueAndValidity();
+    } else {
+      this.formControl.get('field').disable();
+      this.formControl.get('field').setValidators([ ]);
+    }
+  }
 
 	removeGame(): void {
-		let game: any = {
+		const game: any = {
 			schedule: this.injectedData.scheduleId
-		}
+		};
 
 		this.http.post<any>('/api/remove-game', game).subscribe(() => {
 			this.snackBar.open('Game has been removed', 'Dismiss', {
 				duration: 3000,
-				horizontalPosition: "right",
-				verticalPosition: "top",
+				horizontalPosition: 'right',
+				verticalPosition: 'top',
 			});
 
 			this.dialogRef.close(true);
@@ -223,8 +230,8 @@ export class DialogScheduleGame {
 			errorMessage => {
 				this.snackBar.open('Something went wrong, game was not removed', 'Dismiss', {
 					duration: 3000,
-					horizontalPosition: "right",
-					verticalPosition: "top",
+					horizontalPosition: 'right',
+					verticalPosition: 'top',
 				});
 			});
 	}
@@ -237,27 +244,27 @@ export class DialogScheduleGame {
 				homeTeam: this.formControl.get('homeTeam').value,
 				awayTeam: this.formControl.get('awayTeam').value,
 				date: this.formControl.get('date').value.format('YYYY-MM-DD HH:mm:ss'),
-				field: this.formControl.get('field').value,
-				field_number: this.formControl.get('field_number').value,
+        fieldLocation: this.formControl.get('fieldLocation').value,
+        field: this.formControl.get('field').value,
 				umpire: this.formControl.get('umpire').value,
 				homeScore: this.formControl.get('homeScore').value,
 				awayScore: this.formControl.get('awayScore').value,
 				outcome: this.formControl.get('outcome').value,
 				notes: this.formControl.get('notes').value
-			}
+			};
 
 			if (this.injectedData.scheduleId) {
 				game = {
 					...game,
 					schedule: this.injectedData.scheduleId
-				}
+				};
 
 				// editting a games
 				this.http.post<any>('/api/edit-game', game).subscribe(() => {
 					this.snackBar.open('Game has been edited', 'Dismiss', {
 						duration: 3000,
-						horizontalPosition: "right",
-						verticalPosition: "top",
+						horizontalPosition: 'right',
+						verticalPosition: 'top',
 					});
 
 					this.dialogRef.close(true);
@@ -269,8 +276,8 @@ export class DialogScheduleGame {
 				this.http.post<any>('/api/schedule-game', game).subscribe(() => {
 					this.snackBar.open('Game has been added', 'Dismiss', {
 						duration: 3000,
-						horizontalPosition: "right",
-						verticalPosition: "top",
+						horizontalPosition: 'right',
+						verticalPosition: 'top',
 					});
 
 					this.dialogRef.close(true);
@@ -280,18 +287,6 @@ export class DialogScheduleGame {
 					});
 			}
 		}
-	}
-
-	getFieldDisplay(fieldNumber) {
-		if (this.fieldAlphaDisplay) {
-			return String.fromCharCode(96 + parseInt(fieldNumber, 10)).toUpperCase();
-		} else {
-			return fieldNumber;
-		}
-	}
-
-	getFieldNumberCollection(total_fields: number) {
-		return Array(total_fields).fill(1).map((x, i) => i + 1);
 	}
 
 	cancel(): void {

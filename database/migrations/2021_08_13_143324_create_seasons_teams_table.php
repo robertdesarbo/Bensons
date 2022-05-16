@@ -4,8 +4,6 @@ use Illuminate\Database\Migrations\Migration;
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Support\Facades\Schema;
 
-use Carbon\Carbon;
-
 use App\Models\Team;
 
 class CreateSeasonsTeamsTable extends Migration
@@ -39,6 +37,6 @@ class CreateSeasonsTeamsTable extends Migration
      */
     public function down()
     {
-        Schema::dropIfExists('seasons_teams');
+        Schema::dropIfExists('season_team');
     }
 }

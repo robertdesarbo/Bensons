@@ -2,26 +2,71 @@ table {
 	width: 100%;
 }
 
-.mat-column-ground-rules {
-	mat-expansion-panel {
-		max-width: 300px;
-		margin   : 15px 0;
-	}
-
-	p {
-		word-wrap      : break-word !important;
-		white-space    : normal !important;
-		overflow-wrap  : break-word;
-		word-wrap      : break-word;
-		word-break     : break-word;
-		-ms-hyphens    : auto;
-		-moz-hyphens   : auto;
-		-webkit-hyphens: auto;
-		hyphens        : auto;
-		margin         : 0;
-	}
+.mat-column-number-of-fields {
+  text-align: center;
 }
 
-.mat-column-information {
-	text-align: right;
+th.mat-column-number-of-fields {
+  ::ng-deep .mat-sort-header-container {
+    padding-left: 18px;
+    justify-content: center;
+  }
+}
+
+.mat-column-icon mat-icon
+{
+  vertical-align: middle;
+}
+
+@media (min-width: 768px){
+  .mat-column-icon mat-icon
+  {
+    display: none;
+  }
+
+  tr:hover {
+    .mat-column-icon mat-icon
+    {
+      display: unset;
+    }
+  }
+}
+
+table {
+  width: 100%;
+}
+
+tr.field-detail-row {
+  height: 0;
+  background: whitesmoke;
+
+  mat-list-item {
+    padding: 5px 0 5px 0;
+  }
+
+  mat-list-item:first-child {
+    padding: 10px 0 5px 0;
+  }
+
+  mat-list-item:last-child {
+    padding: 5px 0 10px 0;
+  }
+}
+
+tr.field-row:not(.field-expanded-row):hover {
+  background: whitesmoke;
+}
+
+tr.field-row:not(.field-expanded-row):active {
+  background: #efefef;
+}
+
+.field-row td {
+  border-bottom-width: 0;
+}
+
+.field-detail {
+  overflow: hidden;
+  display: flex;
+  flex-direction: column;
 }

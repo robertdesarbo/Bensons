@@ -5,20 +5,17 @@ namespace App\Http\Controllers;
 use Carbon\Carbon;
 
 use Illuminate\Http\Request;
-use App\Models\Division;
 use App\Models\Team;
-use App\Models\Field;
 use App\Models\Umpire;
 use App\Models\Schedule;
-
-use Illuminate\Support\Facades\Auth;
+use App\Models\FieldLocation;
 
 class ScheduleGameController extends Controller
 {
     public function schedule(Request $request)
     {
         //Game with Active Season
-        return Schedule::with('home_team', 'away_team', 'field', 'umpires', 'home_team.division', 'away_team.division')
+        return Schedule::with('home_team', 'away_team', 'field.field_location', 'umpires', 'home_team.division', 'away_team.division')
         ->whereHas('season', function ($query) {
             $query->active();
         })
@@ -38,10 +35,10 @@ class ScheduleGameController extends Controller
             $query->where('seasons.id', $request->season);
         })->get();
 
-        $fields = Field::all();
+        $fieldLocations = FieldLocation::with('fields')->get();
         $umpires = Umpire::all();
 
-        return ['teams' => $teams, 'fields' => $fields, 'umpires' => $umpires];
+        return ['teams' => $teams, 'fieldLocations' => $fieldLocations, 'umpires' => $umpires];
     }
 
     public function getScheduledGame(Request $request)
@@ -64,12 +61,12 @@ class ScheduleGameController extends Controller
             'homeTeam' => 'required|exists:teams,id',
             'awayTeam' => 'required|exists:teams,id',
             'date' => 'required',
+            'fieldLocation' => 'required|exists:field_locations,id',
             'field' => 'required|exists:fields,id',
-            'field_number' => 'nullable|integer',
             'umpire' => 'nullable|exists:umpires,id',
             'homeScore' => 'nullable|integer',
             'awayScore' => 'nullable|integer',
-            'outcome' => 'nullable|in:delayed,completed,rescheduled,canceled',
+            'outcome' => 'nullable|in:delayed,completed,rescheduled,makeup,canceled',
             'notes' => 'nullable|string',
         ]);
 
@@ -79,14 +76,15 @@ class ScheduleGameController extends Controller
             'home_id' => $request->homeTeam,
             'away_id' => $request->awayTeam,
             'game_date' => Carbon::parse($request->date),
+            'field_location_id' => $request->fieldLocation,
             'field_id' => $request->field,
-            'field_number' => $request->field_number,
             'home_score' => $request->homeScore,
             'away_score' => $request->awayScore,
             'delayed' => ($request->outcome === 'delayed'),
             'completed' => ($request->outcome === 'completed'),
             'rescheduled' => ($request->outcome === 'rescheduled'),
             'canceled' => ($request->outcome === 'canceled'),
+            'makeup' => ($request->outcome === 'makeup'),
             'notes' => $request->notes,
         ]);
 
@@ -103,12 +101,12 @@ class ScheduleGameController extends Controller
             'homeTeam' => 'required|exists:teams,id',
             'awayTeam' => 'required|exists:teams,id',
             'date' => 'required',
+            'fieldLocation' => 'required|exists:field_locations,id',
             'field' => 'required|exists:fields,id',
-            'field_number' => 'nullable|integer',
             'umpire' => 'nullable|exists:umpires,id',
             'homeScore' => 'nullable|integer',
             'awayScore' => 'nullable|integer',
-            'outcome' => 'nullable|in:delayed,completed,rescheduled,canceled',
+            'outcome' => 'nullable|in:delayed,completed,rescheduled,makeup,canceled',
             'notes' => 'nullable|string',
         ]);
 
@@ -120,14 +118,15 @@ class ScheduleGameController extends Controller
             'home_id' => $request->homeTeam,
             'away_id' => $request->awayTeam,
             'game_date' => Carbon::parse($request->date),
+            'field_location_id' => $request->fieldLocation,
             'field_id' => $request->field,
-            'field_number' => $request->field_number,
             'home_score' => $request->homeScore,
             'away_score' => $request->awayScore,
             'delayed' => ($request->outcome === 'delayed'),
             'completed' => ($request->outcome === 'completed'),
             'rescheduled' => ($request->outcome === 'rescheduled'),
             'canceled' => ($request->outcome === 'canceled'),
+            'makeup' => ($request->outcome === 'makeup'),
             'notes' => $request->notes,
         ]);
 

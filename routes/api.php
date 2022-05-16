@@ -5,7 +5,7 @@ use Illuminate\Support\Facades\Route;
 
 use App\Http\Controllers\LoginController;
 use App\Http\Controllers\ScheduleGameController;
-use App\Http\Controllers\FieldController;
+use App\Http\Controllers\FieldLocationController;
 use App\Http\Controllers\FreeAgentController;
 use App\Http\Controllers\RegisteredTeamController;
 use App\Http\Controllers\StandingController;
@@ -44,6 +44,10 @@ Route::middleware(['auth:sanctum'])->group(function () {
     Route::post('edit-team', [TeamController::class, 'editTeam']);
     Route::post('remove-team', [TeamController::class, 'removeTeam']);
 
+    Route::post('add-field-location', [FieldLocationController::class, 'addFieldLocation']);
+    Route::post('edit-field-location', [FieldLocationController::class, 'editFieldLocation']);
+    Route::post('remove-field-location', [FieldLocationController::class, 'removeFieldLocation']);
+
     Route::get('seasons-by-division', [SeasonController::class, 'seasonsByDivision']);
     Route::get('teams-by-season', [TeamController::class, 'teamsBySeason']);
 
@@ -74,7 +78,7 @@ Route::get('schedule', [ScheduleGameController::class, 'schedule']);
 Route::get('league', [LeagueController::class, 'league']);
 Route::get('standing', [StandingController::class, 'standing']);
 
-Route::get('field', [FieldController::class, 'field']);
+Route::get('field-location', [FieldLocationController::class, 'fieldLocation']);
 
 Route::get('team', [TeamController::class, 'team']);
 Route::get('free-agent', [FreeAgentController::class, 'freeAgent']);

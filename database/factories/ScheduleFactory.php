@@ -8,9 +8,6 @@ use App\Models\Field;
 use App\Models\Division;
 
 use Illuminate\Database\Eloquent\Factories\Factory;
-use Illuminate\Support\Str;
-
-use Carbon\Carbon;
 
 class ScheduleFactory extends Factory
 {
@@ -45,28 +42,16 @@ class ScheduleFactory extends Factory
         $dt = $this->faker->dateTimeBetween($startDate = '-6 months', $endDate = '6 months');
         $game_date = $dt->format("Y-m-d H:i:s");
 
+        $field_id = $this->faker->randomElement($field);
+
         return [
             'home_id' => $this->faker->randomElement($team),
             'away_id' => $this->faker->randomElement($team),
             'game_date' => $game_date,
-            'field_id' => $this->faker->randomElement($field),
+            'field_id' => $field_id,
             'home_score' => $home_score,
             'away_score' => $away_score,
             'completed' => $completed
         ];
-    }
-
-    /**
-     * Indicate that the model's email address should be unverified.
-     *
-     * @return \Illuminate\Database\Eloquent\Factories\Factory
-     */
-    public function unverified()
-    {
-        return $this->state(function (array $attributes) {
-            return [
-                'email_verified_at' => null,
-            ];
-        });
     }
 }

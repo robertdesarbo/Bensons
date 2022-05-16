@@ -27,13 +27,13 @@ export class DialogTeam {
 	public division$: Observable<Division[]>;
 	public league$: Observable<League[]>;
 
-	public isLoading: boolean = true;
+	public isLoading = true;
 
 	constructor(private formBuilder: FormBuilder,
-		private snackBar: MatSnackBar,
-		public dialogRef: MatDialogRef<DialogTeam>,
-		private http: HttpClient,
-		@Inject(MAT_DIALOG_DATA) public injectedData: any) {
+		           private snackBar: MatSnackBar,
+		           public dialogRef: MatDialogRef<DialogTeam>,
+		           private http: HttpClient,
+		           @Inject(MAT_DIALOG_DATA) public injectedData: any) {
 
 		this.formControl = this.formBuilder.group({
 			name: ['', Validators.required],
@@ -43,11 +43,11 @@ export class DialogTeam {
 		});
 
 		if (this.injectedData.type === 'remove') {
-			this.dialogTitle = "Remove"
+			this.dialogTitle = 'Remove';
 		} else if (this.injectedData.type === 'edit') {
-			this.dialogTitle = "Update"
+			this.dialogTitle = 'Update';
 		} else {
-			this.dialogTitle = "Add"
+			this.dialogTitle = 'Add';
 		}
 
 		if (this.injectedData.type === 'remove' || this.injectedData.type === 'edit') {
@@ -55,7 +55,7 @@ export class DialogTeam {
 				params: {
 					team: this.injectedData.teamId
 				}
-			}
+			};
 
 			this.team$ = this.http.get<Team>('/api/team', option);
 
@@ -78,12 +78,12 @@ export class DialogTeam {
 		// pull in data
 		this.league$ = this.http.get<League[]>('/api/league');
 
-		this.formControl.get("league").valueChanges.subscribe(league => {
+		this.formControl.get('league').valueChanges.subscribe(league => {
 			const option = {
 				params: {
-					league: league
+					league
 				}
-			}
+			};
 
 			this.formControl.get('division').setValue(null);
 			this.division$ = this.http.get<Division[]>('/api/division-by-league', option);
@@ -92,15 +92,15 @@ export class DialogTeam {
 	}
 
 	removeTeam(): void {
-		let team: any = {
+		const team: any = {
 			team: this.injectedData.teamId
-		}
+		};
 
 		this.http.post<any>('/api/remove-team', team).subscribe(() => {
 			this.snackBar.open('Team has been removed', 'Dismiss', {
 				duration: 3000,
-				horizontalPosition: "right",
-				verticalPosition: "top",
+				horizontalPosition: 'right',
+				verticalPosition: 'top',
 			});
 
 			this.dialogRef.close(true);
@@ -108,8 +108,8 @@ export class DialogTeam {
 			errorMessage => {
 				this.snackBar.open('Something went wrong, team was not removed', 'Dismiss', {
 					duration: 3000,
-					horizontalPosition: "right",
-					verticalPosition: "top",
+					horizontalPosition: 'right',
+					verticalPosition: 'top',
 				});
 			});
 	}
@@ -122,20 +122,20 @@ export class DialogTeam {
 				abbreviation: this.formControl.get('abbreviation').value,
 				league: this.formControl.get('league').value,
 				division: this.formControl.get('division').value,
-			}
+			};
 
 			if (this.injectedData.teamId) {
 				team = {
 					...team,
 					team: this.injectedData.teamId
-				}
+				};
 
 				// editting a teams
 				this.http.post<any>('/api/edit-team', team).subscribe(() => {
 					this.snackBar.open('Team has been edited', 'Dismiss', {
 						duration: 3000,
-						horizontalPosition: "right",
-						verticalPosition: "top",
+						horizontalPosition: 'right',
+						verticalPosition: 'top',
 					});
 
 					this.dialogRef.close(true);
@@ -147,8 +147,8 @@ export class DialogTeam {
 				this.http.post<any>('/api/add-team', team).subscribe(() => {
 					this.snackBar.open('Team has been added', 'Dismiss', {
 						duration: 3000,
-						horizontalPosition: "right",
-						verticalPosition: "top",
+						horizontalPosition: 'right',
+						verticalPosition: 'top',
 					});
 
 					this.dialogRef.close(true);
