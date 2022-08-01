@@ -34,8 +34,10 @@ Route::get('download/{rule}', function ($rule) {
         $file_name = "2022/lynns-softball/2022-Lynns-Softball-Coed-Rules.pdf";
     } else if ($rule == "2022_Lynns_Softball_Mens_Rules") {
         $file_name = "2022/lynns-softball/2022-Lynns-Softball-Mens-Rules.pdf";
-    } elseif ($rule == "2022_Lynns_Softball_Info_Sheet_And_Signup_Sheet") {
-        $file_name = "2022/lynns-softball/2022-Lynns-Softball-Info-Sheet-And-Signup-Sheet.pdf";
+    } elseif ($rule == "2022_Lynns_Softball_Info_Sheet_Fall") {
+        $file_name = "2022/lynns-softball/2022-Lynns-Softball-Info-Sheet-Fall.pdf";
+    } elseif ($rule == "2022_Lynns_Softball_Signup_Sheet_Fall") {
+        $file_name = "2022/lynns-softball/2022-Lynns-Softball-Signup-Sheet-Fall.pdf";
     } elseif ($rule == "2022_Lynns_Softball_Sponsor_Letter") {
         $file_name = "2022/lynns-softball/2022-Lynns-Softball-Sponsor-Letter.pdf";
     }
