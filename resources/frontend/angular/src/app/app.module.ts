@@ -93,13 +93,11 @@ import { TranslateHttpLoader } from '@ngx-translate/http-loader';
 import { StandingsComponent } from './pages/standings/standings.component';
 import { StandingsTableComponent } from './pages/standings/standings-table/standings-table.component';
 import { FieldsComponent } from './pages/fields/fields.component';
+import { LynnsComponent } from './pages/lynns/lynns.component';
 import { RulesComponent } from './pages/rules/rules.component';
 import { SponsorsComponent } from './pages/sponsors/sponsors.component';
 import { RegisteredTeamsComponent } from './pages/registered-teams/registered-teams.component';
 import { FreeAgentsComponent } from './pages/free-agents/free-agents.component';
-import { SchedulePreferenceComponent } from './pages/schedule-preference/schedule-preference.component';
-import { BulletinBoardComponent } from './pages/bulletin-board/bulletin-board.component';
-import { MvpVotingComponent } from './pages/mvp-voting/mvp-voting.component';
 
 import { ManageLeagueComponent } from './pages/manage-league/manage-league.component';
 import { DialogConfirm } from './pages/manage-league/modals/dialog-confirm.component';
@@ -142,13 +140,11 @@ const DEFAULT_PERFECT_SCROLLBAR_CONFIG: PerfectScrollbarConfigInterface = {
 		StandingsComponent,
 		StandingsTableComponent,
 		FieldsComponent,
+    LynnsComponent,
 		RulesComponent,
 		SponsorsComponent,
-		SchedulePreferenceComponent,
 		RegisteredTeamsComponent,
 		FreeAgentsComponent,
-		BulletinBoardComponent,
-		MvpVotingComponent,
 		ManageLeagueComponent,
 		DialogConfirm,
 		SchedulesComponent,

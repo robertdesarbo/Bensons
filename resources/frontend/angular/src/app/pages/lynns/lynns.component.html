@@ -1,0 +1,31 @@
+<!-- ============================================================== -->
+<!-- Simple four boxes Row -->
+<!-- ============================================================== -->
+<ng-container fxLayout="row wrap">
+	<div fxFlex="100" fxFlex.gt-md="50" *ngIf="(posts$ | async)?.posts.length > 0; else elseBlock">
+		<mat-card *ngFor="let post of (posts$ | async)?.posts">
+        <mat-card-header>
+          <mat-card-title>{{ post.title }}</mat-card-title>
+          <mat-card-subtitle>{{ post.subtitle }}</mat-card-subtitle>
+        </mat-card-header>
+      <mat-card-content>
+        <div [innerHTML]="post.description"></div>
+        <div class="text-center">
+          <img src="{{ post.custom_images }}" style="min-width: 80%;"/>
+        </div>
+        <mat-card-footer>
+          <span class="text-muted p-t-10 p-b-5 p-l-5 p-r-5">Published on: {{ post.publish_start_date |date }}</span>
+        </mat-card-footer>
+      </mat-card-content>
+		</mat-card>
+	</div>
+  <ng-template #elseBlock>
+    <div fxFlex="100" fxFlex.gt-md="50">
+      <mat-card>
+        <mat-card-content>
+          No posts found
+        </mat-card-content>
+      </mat-card>
+    </div>
+  </ng-template>
+</ng-container>

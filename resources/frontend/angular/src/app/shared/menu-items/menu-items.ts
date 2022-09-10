@@ -87,6 +87,13 @@ export class MenuItems {
 			display: true
 		},
 		{
+			state: 'lynns',
+			name: 'Lynn\'s Uptown Tavern',
+			type: 'link',
+			icon: 'sports_bar',
+			display: true
+		},
+		{
 			state: 'free-agents',
 			name: 'Free Agents',
 			type: 'link',
@@ -104,30 +111,9 @@ export class MenuItems {
 			state: 'sponsors',
 			name: 'Sponsors',
 			type: 'link',
-			icon: 'business',
+			icon: 'storefront',
 			display: true
 		},
-		{
-			state: 'schedule-preference',
-			name: 'Schedule Preference',
-			type: 'link',
-			icon: 'quiz',
-			display: true
-		},
-		{
-			state: 'bulletin-board',
-			name: 'Bulletin Board',
-			type: 'link',
-			icon: 'description',
-			display: true
-		},
-		{
-			state: 'mvp-voting',
-			name: 'MVP voting',
-			type: 'link',
-			icon: 'ballot',
-			display: true
-		}
 	];
 
 	constructor(public authenticationService: AuthenticationService) {

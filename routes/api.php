@@ -17,6 +17,7 @@ use App\Http\Controllers\LeagueController;
 use App\Http\Controllers\SeasonController;
 use App\Http\Controllers\SignUpController;
 use App\Http\Controllers\HomeController;
+use App\Http\Controllers\BlogController;
 
 /*
 |--------------------------------------------------------------------------
@@ -74,6 +75,10 @@ Route::middleware(['auth:sanctum'])->group(function () {
 Route::get('session', [LoginController::class, 'session']);
 Route::post('login', [LoginController::class, 'login']);
 Route::get('logout', [LoginController::class, 'logout']);
+
+Route::get('posts', [BlogController::class, 'index']);
+Route::get('posts/{slug}', [BlogController::class, 'show']);
+Route::get('posts/{slug}/image', [BlogController::class, 'image']);
 
 Route::post('register-team', [SignUpController::class, 'registerTeam']);
 Route::post('find-team', [FreeAgentController::class, 'findTeam']);

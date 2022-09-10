@@ -13,12 +13,9 @@ import { FreeAgentsComponent } from './pages/free-agents/free-agents.component';
 import { SchedulesComponent } from './pages/schedules/schedules.component';
 import { StandingsComponent } from './pages/standings/standings.component';
 import { FieldsComponent } from './pages/fields/fields.component';
+import { LynnsComponent } from './pages/lynns/lynns.component';
 import { RulesComponent } from './pages/rules/rules.component';
 import { SponsorsComponent } from './pages/sponsors/sponsors.component';
-
-import { SchedulePreferenceComponent } from './pages/schedule-preference/schedule-preference.component';
-import { BulletinBoardComponent } from './pages/bulletin-board/bulletin-board.component';
-import { MvpVotingComponent } from './pages/mvp-voting/mvp-voting.component';
 
 import { LoginActiveGuard } from './shared/security/login-active.guard';
 import { AuthGuard } from './shared/security/auth.guard';
@@ -95,6 +92,13 @@ export const AppRoutes: Routes = [
 				}
 			},
 			{
+				path: 'lynns',
+				component: LynnsComponent,
+				data: {
+					title: 'Lynn\'s Uptown Tavern',
+				}
+			},
+			{
 				path: 'forms-and-rules',
 				component: RulesComponent,
 				data: {
@@ -107,27 +111,6 @@ export const AppRoutes: Routes = [
 				data: {
 					title: 'Sponsors',
 				},
-			},
-			{
-				path: 'schedule-preference',
-				component: SchedulePreferenceComponent,
-				data: {
-					title: 'Schedule Preference',
-				}
-			},
-			{
-				path: 'bulletin-board',
-				component: BulletinBoardComponent,
-				data: {
-					title: 'Bulletin Board',
-				}
-			},
-			{
-				path: 'mvp-voting',
-				component: MvpVotingComponent,
-				data: {
-					title: 'MVP voting',
-				}
 			},
 		]
 	},
