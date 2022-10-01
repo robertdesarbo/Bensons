@@ -5,12 +5,12 @@
 	<div fxFlex="100" fxFlex.gt-md="50" *ngIf="(posts$ | async)?.posts.length > 0; else elseBlock">
 		<mat-card *ngFor="let post of (posts$ | async)?.posts">
         <mat-card-header>
-          <mat-card-title>{{ post.title }}</mat-card-title>
-          <mat-card-subtitle>{{ post.subtitle }}</mat-card-subtitle>
+          <mat-card-title *ngIf="post?.title">{{ post.title }}</mat-card-title>
+          <mat-card-subtitle *ngIf="post?.subtitle">{{ post.subtitle }}</mat-card-subtitle>
         </mat-card-header>
       <mat-card-content>
         <div [innerHTML]="post.description"></div>
-        <div class="text-center">
+        <div class="text-center" *ngIf="post?.custom_images">
           <img src="{{ post.custom_images }}" style="min-width: 80%;"/>
         </div>
         <mat-card-footer>
@@ -23,7 +23,7 @@
     <div fxFlex="100" fxFlex.gt-md="50">
       <mat-card>
         <mat-card-content>
-          No posts found
+          There are no new posts this week.
         </mat-card-content>
       </mat-card>
     </div>
