@@ -42,6 +42,8 @@ Route::get('download/{rule}', function ($rule) {
         $file_name = "2022/lynns-softball/2022-Lynns-Softball-Signup-Sheet-Fall.pdf";
     } elseif ($rule == "2022_Lynns_Softball_Sponsor_Letter") {
         $file_name = "2022/lynns-softball/2022-Lynns-Softball-Sponsor-Letter.pdf";
+    } elseif ($rule == "2022_BESS_Basketball_Rules") {
+        $file_name = "2022/bensons-basketball/2022-BESS-Basketball-Rules.pdf";
     } elseif ($rule == "2022_BESS_Basketball_Info_Sheet") {
         $file_name = "2022/bensons-basketball/2022-BESS-Basketball-Info-Sheet.pdf";
     } elseif ($rule == "2022_BESS_Basketball_Signup_Sheet") {
