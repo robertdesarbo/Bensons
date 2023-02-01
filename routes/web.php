@@ -48,6 +48,8 @@ Route::get('download/{rule}', function ($rule) {
         $file_name = "2022/bensons-basketball/2022-BESS-Basketball-Info-Sheet.pdf";
     } elseif ($rule == "2022_BESS_Basketball_Signup_Sheet") {
         $file_name = "2022/bensons-basketball/2022-BESS-Basketball-Signup-Sheet.pdf";
+    } elseif ($rule == "2022_BESS_Basketball_Sponsor_Letter") {
+        $file_name = "2022/bensons-basketball/2022-BESS-Basketball-Sponsor-Letter.pdf";
     }
 
     return response()->download("build/assets/content/".$file_name);
