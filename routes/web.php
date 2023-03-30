@@ -62,6 +62,8 @@ Route::get('download/{rule}', function ($rule) {
         $file_name = "2023/lynns-softball/2023-Lynns-Softball-Info-Sheet-And-Signup-Sheet.pdf";
     } elseif ($rule == "2023_Lynns_Softball_Sponsor_Letter") {
         $file_name = "2023/lynns-softball/2023-Lynns-Softball-Sponsor-Sheet.pdf";
+    } elseif ($rule == "2023_BESS_Code_of_Conduct_Policy") {
+        $file_name = "2023/2023-BESS-Code-of-Conduct-Policy.pdf";
     }
 
     return response()->download("build/assets/content/".$file_name);
