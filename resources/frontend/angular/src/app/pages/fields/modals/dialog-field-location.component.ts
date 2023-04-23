@@ -92,11 +92,19 @@ export class DialogFieldLocation {
         this.dialogRef.close(true);
       },
       errorMessage => {
-        this.snackBar.open('Something went wrong, field location was not removed', 'Dismiss', {
-          duration: 3000,
-          horizontalPosition: 'right',
-          verticalPosition: 'top',
-        });
+        if (errorMessage?.error?.errors?.server) {
+          this.snackBar.open(`${errorMessage?.error?.errors?.server.toString()}, field location was not removed`, 'Dismiss', {
+            duration: 3000,
+            horizontalPosition: 'right',
+            verticalPosition: 'top',
+          });
+        } else {
+          this.snackBar.open('Something went wrong, field location was not removed', 'Dismiss', {
+            duration: 3000,
+            horizontalPosition: 'right',
+            verticalPosition: 'top',
+          });
+        }
       });
   }
 
