@@ -19,7 +19,7 @@ Route::get('download/{rule}', function ($rule) {
     if ($rule == "ASA_Not_Approved") {
         $file_name = "2022/2022-ASA-Non-Approved-BatList.pdf";
     } else if ($rule == "Ground_Rules") {
-        $file_name = "2022/2022-Ground-Rules.pdf";
+        $file_name = "2023/2023-Ground-Rules.pdf";
     } else if ($rule == "Roster_Sheet") {
         $file_name = "2022/2022-Roster-Sheet.xlsx";
     } else if ($rule == "Lineup_Card") {
@@ -31,9 +31,9 @@ Route::get('download/{rule}', function ($rule) {
     } elseif ($rule == "2022_BESS_Softball_Sponsor_Letter") {
         $file_name = "2022/bensons-softball/2022-BESS-Softball-Sponsor-Letter.pdf";
     } else if ($rule == "2022_BESS_Softball_Friday_Night_Rules") {
-        $file_name = "2022/bensons-softball/2022-Bess-Softball-Friday-Night-Rules.pdf";
-    }  else if ($rule == "2022_Lynns_Softball_COED_Rules") {
-        $file_name = "2022/lynns-softball/2022-Lynns-Softball-Coed-Rules.pdf";
+        $file_name = "20223/bensons-softball/2022-Bess-Softball-Friday-Night-Rules.pdf";
+    }  else if ($rule == "2023_Lynns_Softball_COED_Rules") {
+        $file_name = "2023/lynns-softball/2023-Lynns-Softball-Coed-Rules.pdf";
     } else if ($rule == "2022_Lynns_Softball_Mens_Rules") {
         $file_name = "2022/lynns-softball/2022-Lynns-Softball-Mens-Rules.pdf";
     } elseif ($rule == "2022_Lynns_Softball_Info_Sheet_Fall") {
