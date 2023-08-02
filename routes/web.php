@@ -58,10 +58,12 @@ Route::get('download/{rule}', function ($rule) {
         $file_name = "2023/lynns-legislative-softball/2023-Lynns-Legislative-Softball-Info-Sheet-And-Signup-Sheet.pdf";
     } elseif ($rule == "2023_BESS_Softball_Legislative_Sponsor_Letter") {
         $file_name = "2023/lynns-legislative-softball/2023-Lynns-Legislative-Softball-Sponsor-Sheet.pdf";
-    } elseif ($rule == "2023_Lynns_Softball_Info_Sheet_And_Signup_Sheet_Spring") {
-        $file_name = "2023/lynns-softball/2023-Lynns-Softball-Info-Sheet-And-Signup-Sheet.pdf";
-    } elseif ($rule == "2023_Lynns_Softball_Sponsor_Letter") {
-        $file_name = "2023/lynns-softball/2023-Lynns-Softball-Sponsor-Sheet.pdf";
+    } elseif ($rule == "2023_Fall_Lynns_Softball_Signup_Sheet") {
+        $file_name = "2023/lynns-softball/2023-Fall-Lynns-Softball-Signup-Sheet.pdf";
+    } elseif ($rule == "2023_Fall_Lynns_Softball_Info_Sheet") {
+        $file_name = "2023/lynns-softball/2023-Fall-Lynns-Softball-Info-Sheet.pdf";
+    } elseif ($rule == "2023_Fall_Lynns_Softball_Sponsor_Letter") {
+        $file_name = "2023/lynns-softball/2023-Fall-Lynns-Softball-Sponsor-Sheet.pdf";
     } elseif ($rule == "2023_BESS_Code_of_Conduct_Policy") {
         $file_name = "2023/2023-BESS-Code-of-Conduct-Policy.pdf";
     }
