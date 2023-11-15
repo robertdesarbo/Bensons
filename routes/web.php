@@ -44,13 +44,13 @@ Route::get('download/{rule}', function ($rule) {
         $file_name = "2022/lynns-softball/2022-Lynns-Softball-Sponsor-Letter.pdf";
     } elseif ($rule == "2022_BESS_Basketball_Rules") {
         $file_name = "2022/bensons-basketball/2022-BESS-Basketball-Rules.pdf";
-    } elseif ($rule == "2023_BESS_Basketball_Info_Sheet") {
-        $file_name = "2023/bensons-basketball/2023-BESS-Basketball-Info-Sheet.pdf";
-    } elseif ($rule == "2023_BESS_Basketball_Signup_Sheet") {
-        $file_name = "2023/bensons-basketball/2023-BESS-Basketball-Signup-Sheet.pdf";
-    } elseif ($rule == "2023_BESS_Basketball_Sponsor_Letter") {
-        $file_name = "2023/bensons-basketball/2023-BESS-Basketball-Sponsor-Letter.pdf";
-    } elseif ($rule == "2023_BESS_Softball_Info_Sheet_And_Signup_Sheet") {
+    } elseif ($rule == "2024_BESS_Basketball_Info_Sheet") {
+        $file_name = "2024/bensons-basketball/2024-BESS-Basketball-Info-Sheet.pdf";
+    } elseif ($rule == "2024_BESS_Basketball_Signup_Sheet") {
+        $file_name = "2024/bensons-basketball/2024-BESS-Basketball-Signup-Sheet.pdf";
+    } elseif ($rule == "2024_BESS_Basketball_Sponsor_Letter") {
+        $file_name = "2024/bensons-basketball/2024-BESS-Basketball-Sponsor-Letter.pdf";
+    } elseif ($rule == "2024_BESS_Softball_Info_Sheet_And_Signup_Sheet") {
         $file_name = "2023/bensons-softball/2023-BESS-Softball-Info-Sheet-And-Signup-Sheet.pdf";
     } elseif ($rule == "2023_BESS_Softball_Sponsor_Letter") {
         $file_name = "2023/bensons-softball/2023-BESS-Softball-Sponsor-Letter.pdf";
@@ -66,6 +66,8 @@ Route::get('download/{rule}', function ($rule) {
         $file_name = "2023/lynns-softball/2023-Fall-Lynns-Softball-Sponsor-Sheet.pdf";
     } elseif ($rule == "2023_BESS_Code_of_Conduct_Policy") {
         $file_name = "2023/2023-BESS-Code-of-Conduct-Policy.pdf";
+    } elseif ($rule == "2024_BESS_Basketball_Rules") {
+        $file_name = "2024/bensons-basketball/2024-BESS-Basketball-Rules.pdf";
     }
 
     return response()->download("build/assets/content/".$file_name);
