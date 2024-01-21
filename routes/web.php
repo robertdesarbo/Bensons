@@ -46,8 +46,12 @@ Route::get('download/{rule}', function ($rule) {
         $file_name = "2022/bensons-basketball/2022-BESS-Basketball-Rules.pdf";
     } elseif ($rule == "2024_BESS_Basketball_Info_Sheet") {
         $file_name = "2024/bensons-basketball/2024-BESS-Basketball-Info-Sheet.pdf";
+    } elseif ($rule == "2024_BESS_Basketball_Info_Sheet_Winter") {
+        $file_name = "2024/bensons-basketball/2024-BESS-Basketball-Info-Sheet-Winter.pdf";
     } elseif ($rule == "2024_BESS_Basketball_Signup_Sheet") {
         $file_name = "2024/bensons-basketball/2024-BESS-Basketball-Signup-Sheet.pdf";
+    } elseif ($rule == "2024_BESS_Basketball_Signup_Sheet_Winter") {
+        $file_name = "2024/bensons-basketball/2024-BESS-Basketball-Signup-Sheet-Winter.pdf";
     } elseif ($rule == "2024_BESS_Basketball_Sponsor_Letter") {
         $file_name = "2024/bensons-basketball/2024-BESS-Basketball-Sponsor-Letter.pdf";
     } elseif ($rule == "2024_BESS_Softball_Info_Sheet_And_Signup_Sheet") {
