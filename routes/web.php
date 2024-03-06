@@ -74,6 +74,26 @@ Route::get('download/{rule}', function ($rule) {
         $file_name = "2024/bensons-basketball/2024-BESS-Basketball-Rules.pdf";
     }
 
+    // START - 2024
+    if ($rule == "2024_Lynns_Softball_Info_Sheet_And_Signup_Sheet") {
+        $file_name = "2024/lynns-softball/2024-Lynns-Softball-Info-Sheet-And-Signup-Sheet.pdf";
+    } else if ($rule == "2024_Lynns_Softball_Sponsor_Letter") {
+        $file_name = "2024/lynns-softball/2024-Lynns-Softball-Sponsor-Letter.pdf";
+    }
+
+    if ($rule == "2024_BESS_Softball_Legislative_Info_Sheet_And_Signup_Sheet") {
+        $file_name = "2024/lynns-legislative-softball/2024-Lynns-Legislative-Softball-Info-Sheet-And-Signup-Sheet.pdf";
+    } else if ($rule == "2024_BESS_Softball_Legislative_Sponsor_Letter") {
+        $file_name = "2024/lynns-legislative-softball/2024-Lynns-Legislative-Softball-Sponsor-Letter.pdf";
+    }
+
+    if ($rule == "2024_BESS_Softball_Info_Sheet_And_Signup_Sheet") {
+        $file_name = "2024/bensons-softball/2024-BESS-Softball-Info-Sheet-And-Signup-Sheet.pdf";
+    } else if ($rule == "2024_BESS_Softball_Sponsor_Letter") {
+        $file_name = "2024/bensons-softball/2024-BESS-Softball-Sponsor-Letter.pdf";
+    }
+    // END - 2024
+
     return response()->download("build/assets/content/".$file_name);
 });
 
