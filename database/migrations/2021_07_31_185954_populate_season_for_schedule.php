@@ -4,7 +4,7 @@ use App\Models\Schedule;
 use App\Models\Team;
 use Illuminate\Database\Migrations\Migration;
 
-class PopulateSeasonForSchedule extends Migration
+return new class extends Migration
 {
     /**
      * Run the migrations.
@@ -30,4 +30,4 @@ class PopulateSeasonForSchedule extends Migration
     {
         Schedule::where('id', '>', 0)->update(['season_id' => null]);
     }
-}
+};

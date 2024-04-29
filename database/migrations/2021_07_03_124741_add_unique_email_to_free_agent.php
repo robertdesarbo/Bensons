@@ -7,7 +7,7 @@ use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Schema;
 
-class AddUniqueEmailToFreeAgent extends Migration
+return new class extends Migration
 {
     /**
      * Run the migrations.
@@ -51,4 +51,4 @@ class AddUniqueEmailToFreeAgent extends Migration
             $table->foreignId('division_id')->nullable()->after('email')->constrained('divisions');
         });
     }
-}
+};

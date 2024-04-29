@@ -2,7 +2,7 @@
 
 use Illuminate\Database\Migrations\Migration;
 
-class PopulateScheduleFields extends Migration
+return new class extends Migration
 {
     /**
      * Run the migrations.
@@ -43,4 +43,4 @@ class PopulateScheduleFields extends Migration
     {
         DB::table('schedules')->update(['field_id' => null]);
     }
-}
+};

@@ -4,7 +4,7 @@ use App\Models\Field;
 use App\Models\FieldLocation;
 use Illuminate\Database\Migrations\Migration;
 
-class PopulateNewFields extends Migration
+return new class extends Migration
 {
     /**
      * Run the migrations.
@@ -61,4 +61,4 @@ class PopulateNewFields extends Migration
     {
         //
     }
-}
+};
