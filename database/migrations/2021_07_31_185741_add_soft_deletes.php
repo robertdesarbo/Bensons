@@ -4,11 +4,7 @@ use Illuminate\Database\Migrations\Migration;
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Support\Facades\Schema;
 
-use Carbon\Carbon;
-
-use App\Models\Team;
-
-class AddSoftDeletes extends Migration
+return new class extends Migration
 {
     /**
      * Run the migrations.
@@ -41,4 +37,4 @@ class AddSoftDeletes extends Migration
             $table->dropSoftDeletes();
         });
     }
-}
+};

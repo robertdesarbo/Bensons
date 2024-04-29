@@ -8,8 +8,8 @@ File: scss
 
 $bodyfont: 'Roboto', sans-serif;
 $headingfont: 'Poppins', sans-serif;
-@use '~@angular/material' as mat;
-@import '~@angular/material/theming';
+@use '@angular/material' as mat;
+@import '@angular/material/theming';
 
 /*Material Theme Colors*/
 

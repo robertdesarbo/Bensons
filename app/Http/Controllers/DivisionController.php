@@ -2,10 +2,8 @@
 
 namespace App\Http\Controllers;
 
-use Carbon\Carbon;
-
-use Illuminate\Http\Request;
 use App\Models\Division;
+use Illuminate\Http\Request;
 
 class DivisionController extends Controller
 {
@@ -21,22 +19,22 @@ class DivisionController extends Controller
     public function divisionsActiveSeasons(Request $request)
     {
         return Division::with('league')
-                ->has('league')
-                ->whereHas('season', function ($query) {
-                    $query->active();
-                })->get();
+            ->has('league')
+            ->whereHas('season', function ($query) {
+                $query->active();
+            })->get();
     }
 
     public function addDivision(Request $request)
     {
         $validated = $request->validate([
             'league' => 'required|exists:leagues,id',
-            'name' => 'required'
+            'name' => 'required',
         ]);
 
         $division = Division::create([
             'league_id' => $request->league,
-            'name' => $request->name
+            'name' => $request->name,
         ]);
 
         return $division->id;
@@ -46,13 +44,13 @@ class DivisionController extends Controller
     {
         $validated = $request->validate([
             'division' => 'required|exists:divisions,id',
-            'name' => 'required'
+            'name' => 'required',
         ]);
 
         $division = Division::where('id', $request->division)->first();
 
         $division->update([
-            'name' => $request->name
+            'name' => $request->name,
         ]);
 
         return $division->id;
@@ -61,7 +59,7 @@ class DivisionController extends Controller
     public function removeDivision(Request $request)
     {
         $validated = $request->validate([
-            'division' => 'required|exists:divisions,id'
+            'division' => 'required|exists:divisions,id',
         ]);
 
         Division::where('id', $request->division)->delete();

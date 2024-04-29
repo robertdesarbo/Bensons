@@ -2,8 +2,8 @@
 
 namespace App\Http\Controllers;
 
-use Illuminate\Http\Request;
 use App\Models\FieldLocation;
+use Illuminate\Http\Request;
 use Illuminate\Validation\ValidationException;
 
 class FieldLocationController extends Controller
@@ -29,7 +29,7 @@ class FieldLocationController extends Controller
             'zip' => 'required',
         ]);
 
-         FieldLocation::create([
+        FieldLocation::create([
             'name' => $request->name,
             'address' => $request->address,
             'state' => $request->state,
@@ -63,18 +63,18 @@ class FieldLocationController extends Controller
     public function removeFieldLocation(Request $request)
     {
         $validated = $request->validate([
-            'fieldLocation' => 'required|exists:field_locations,id'
+            'fieldLocation' => 'required|exists:field_locations,id',
         ]);
 
-        $FieldLocation = FieldLocation::withCount(array('schedule as active_games' => function($query) {
+        $FieldLocation = FieldLocation::withCount(['schedule as active_games' => function ($query) {
             $query->active();
-        }))
-        ->withCount('schedule')
-        ->findOrFail($request->fieldLocation);
+        }])
+            ->withCount('schedule')
+            ->findOrFail($request->fieldLocation);
 
-        if($FieldLocation->active_games) {
+        if ($FieldLocation->active_games) {
             throw ValidationException::withMessages(['server' => 'This field has an active game']);
-        } else if($FieldLocation->schedule_count > 0) {
+        } elseif ($FieldLocation->schedule_count > 0) {
             // Hide field since it was used in the past
             $FieldLocation->delete();
         } else {

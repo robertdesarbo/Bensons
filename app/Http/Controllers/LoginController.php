@@ -3,8 +3,6 @@
 namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
-use App\Models\User;
-
 use Illuminate\Support\Facades\Auth;
 
 class LoginController extends Controller
@@ -21,7 +19,7 @@ class LoginController extends Controller
 
         return response()->json([
             'success' => $session,
-            'user' => $user
+            'user' => $user,
         ]);
     }
 
@@ -38,7 +36,7 @@ class LoginController extends Controller
 
         return response()->json([
             'success' => $session,
-            'user' => $user
+            'user' => $user,
         ]);
     }
 

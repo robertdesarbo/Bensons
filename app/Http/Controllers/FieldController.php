@@ -2,8 +2,8 @@
 
 namespace App\Http\Controllers;
 
-use Illuminate\Http\Request;
 use App\Models\Field;
+use Illuminate\Http\Request;
 use Illuminate\Validation\Rule;
 
 class FieldController extends Controller
@@ -33,12 +33,12 @@ class FieldController extends Controller
             'smoking' => 'required|boolean',
         ]);
 
-         Field::create([
+        Field::create([
             'field_location_id' => $request->field_location_id,
             'name' => $request->name,
             'number' => $request->number,
             'sport' => $request->sport,
-             'active' => $request->active,
+            'active' => $request->active,
             'lights' => $request->lights,
             'ground_rules' => $request->ground_rules,
             'alcohol' => $request->alcohol,
@@ -83,7 +83,7 @@ class FieldController extends Controller
     public function removeField(Request $request)
     {
         $validated = $request->validate([
-            'field' => 'required|exists:fields,id'
+            'field' => 'required|exists:fields,id',
         ]);
 
         $Field = Field::findOrFail($request->field);

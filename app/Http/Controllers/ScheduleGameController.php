@@ -2,13 +2,12 @@
 
 namespace App\Http\Controllers;
 
-use Carbon\Carbon;
-
-use Illuminate\Http\Request;
+use App\Models\FieldLocation;
+use App\Models\Schedule;
 use App\Models\Team;
 use App\Models\Umpire;
-use App\Models\Schedule;
-use App\Models\FieldLocation;
+use Carbon\Carbon;
+use Illuminate\Http\Request;
 
 class ScheduleGameController extends Controller
 {
@@ -16,19 +15,19 @@ class ScheduleGameController extends Controller
     {
         //Game with Active Season
         return Schedule::with('home_team', 'away_team', 'field.field_location', 'umpires', 'home_team.division', 'away_team.division')
-        ->whereHas('season', function ($query) {
-            $query->active();
-        })
-        ->has('home_team.division.league')
-        ->has('away_team.division.league')
-        ->orderBy('game_date', 'ASC')
-        ->get();
+            ->whereHas('season', function ($query) {
+                $query->active();
+            })
+            ->has('home_team.division.league')
+            ->has('away_team.division.league')
+            ->orderBy('game_date', 'ASC')
+            ->get();
     }
 
     public function scheduleForm(Request $request)
     {
         $validated = $request->validate([
-            'season' => 'required|exists:seasons,id'
+            'season' => 'required|exists:seasons,id',
         ]);
 
         $teams = Team::whereHas('seasons', function ($query) use ($request) {
@@ -44,12 +43,12 @@ class ScheduleGameController extends Controller
     public function getScheduledGame(Request $request)
     {
         $validated = $request->validate([
-            'schedule' => 'required|exists:schedules,id'
+            'schedule' => 'required|exists:schedules,id',
         ]);
 
         $schedule = Schedule::with('home_team.division', 'away_team', 'umpires')
-        ->has('home_team.division')
-        ->where('id', $request->schedule)->first();
+            ->has('home_team.division')
+            ->where('id', $request->schedule)->first();
 
         return $schedule;
     }
@@ -70,7 +69,6 @@ class ScheduleGameController extends Controller
             'notes' => 'nullable|string',
         ]);
 
-
         $schedule = Schedule::create([
             'season_id' => $request->season,
             'home_id' => $request->homeTeam,
@@ -88,7 +86,7 @@ class ScheduleGameController extends Controller
             'notes' => $request->notes,
         ]);
 
-        if (!empty($request->umpire)) {
+        if (! empty($request->umpire)) {
             $schedule->umpires()->attach($request->umpire);
         }
     }
@@ -110,7 +108,6 @@ class ScheduleGameController extends Controller
             'notes' => 'nullable|string',
         ]);
 
-
         $schedule = Schedule::where('id', $request->schedule);
 
         $schedule->update([
@@ -130,7 +127,7 @@ class ScheduleGameController extends Controller
             'notes' => $request->notes,
         ]);
 
-        if (!empty($request->umpire)) {
+        if (! empty($request->umpire)) {
             $schedule->first()->umpires()->sync([$request->umpire]);
         }
     }
@@ -138,7 +135,7 @@ class ScheduleGameController extends Controller
     public function removeGame(Request $request)
     {
         $validated = $request->validate([
-            'schedule' => 'required|exists:schedules,id'
+            'schedule' => 'required|exists:schedules,id',
         ]);
 
         Schedule::where('id', $request->schedule)->delete();

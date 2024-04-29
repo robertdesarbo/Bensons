@@ -2,10 +2,8 @@
 
 namespace App\Http\Controllers;
 
-use Carbon\Carbon;
-
-use Illuminate\Http\Request;
 use App\Models\League;
+use Illuminate\Http\Request;
 
 class LeagueController extends Controller
 {
@@ -18,12 +16,12 @@ class LeagueController extends Controller
     {
         $validated = $request->validate([
             'name' => 'required',
-            'sport' => 'required'
+            'sport' => 'required',
         ]);
 
         $league = League::create([
             'name' => $request->name,
-            'sport' => $request->sport
+            'sport' => $request->sport,
         ]);
 
         return $league->id;
@@ -34,14 +32,14 @@ class LeagueController extends Controller
         $validated = $request->validate([
             'league' => 'required|exists:leagues,id',
             'name' => 'required',
-            'sport' => 'required'
+            'sport' => 'required',
         ]);
 
         $league = League::where('id', $request->league)->first();
 
         $league->update([
             'name' => $request->name,
-            'sport' => $request->sport
+            'sport' => $request->sport,
         ]);
 
         return $league->id;
@@ -50,7 +48,7 @@ class LeagueController extends Controller
     public function removeLeague(Request $request)
     {
         $validated = $request->validate([
-            'league' => 'required|exists:leagues,id'
+            'league' => 'required|exists:leagues,id',
         ]);
 
         League::where('id', $request->league)->delete();

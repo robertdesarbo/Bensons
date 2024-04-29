@@ -4,7 +4,7 @@ use Illuminate\Database\Migrations\Migration;
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Support\Facades\Schema;
 
-class CleanUpFields extends Migration
+return new class extends Migration
 {
     /**
      * Run the migrations.
@@ -21,7 +21,7 @@ class CleanUpFields extends Migration
                 'private_property',
                 'pets',
                 'smoking',
-                'ground_rules'
+                'ground_rules',
             ]);
         });
     }
@@ -43,4 +43,4 @@ class CleanUpFields extends Migration
             $table->text('ground_rules')->nullable()->after('smoking');
         });
     }
-}
+};

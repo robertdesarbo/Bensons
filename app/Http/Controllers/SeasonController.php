@@ -2,21 +2,19 @@
 
 namespace App\Http\Controllers;
 
-use Carbon\Carbon;
-
-use Illuminate\Http\Request;
 use App\Models\League;
 use App\Models\Season;
 use App\Models\Team;
+use Illuminate\Http\Request;
 
 class SeasonController extends Controller
 {
     public function activeSeasons(Request $request)
     {
         return Season::with('division.league')
-        ->has('division.league')
-        ->active()
-        ->get();
+            ->has('division.league')
+            ->active()
+            ->get();
     }
 
     public function activeSeasonsByLeague(Request $request)
@@ -24,10 +22,10 @@ class SeasonController extends Controller
         return League::with(['divisions.season' => function ($query) {
             $query->active();
         }])
-        ->whereHas('divisions.season', function ($query) {
-            $query->active();
-        })
-        ->get();
+            ->whereHas('divisions.season', function ($query) {
+                $query->active();
+            })
+            ->get();
     }
 
     public function previousSeasonsByTeamId(Request $request)
@@ -37,11 +35,11 @@ class SeasonController extends Controller
         ]);
 
         return Team::with('seasons')
-                ->whereHas('seasons', function ($query) {
-                    $query->previouslyCompleted();
-                })
-                ->where('id', $request->team)
-                ->first()->seasons ?? null;
+            ->whereHas('seasons', function ($query) {
+                $query->previouslyCompleted();
+            })
+            ->where('id', $request->team)
+            ->first()->seasons ?? null;
     }
 
     public function activeSeasonsByDivisionId(Request $request)
@@ -71,7 +69,7 @@ class SeasonController extends Controller
             'start_at' => 'required',
             'number_of_games' => 'required',
             'league_fee' => 'required',
-            'offical_fee_per_game' => 'required'
+            'offical_fee_per_game' => 'required',
         ]);
 
         $season = Season::create([
@@ -81,7 +79,7 @@ class SeasonController extends Controller
             'start_at' => $request->start_at,
             'number_of_games' => $request->number_of_games,
             'league_fee' => $request->league_fee,
-            'offical_fee_per_game' => $request->offical_fee_per_game
+            'offical_fee_per_game' => $request->offical_fee_per_game,
         ]);
 
         return $season->id;
@@ -96,7 +94,7 @@ class SeasonController extends Controller
             'start_at' => 'required',
             'number_of_games' => 'required',
             'league_fee' => 'required',
-            'offical_fee_per_game' => 'required'
+            'offical_fee_per_game' => 'required',
         ]);
 
         $season = Season::where('id', $request->season)->first();
@@ -107,7 +105,7 @@ class SeasonController extends Controller
             'start_at' => $request->start_at,
             'number_of_games' => $request->number_of_games,
             'league_fee' => $request->league_fee,
-            'offical_fee_per_game' => $request->offical_fee_per_game
+            'offical_fee_per_game' => $request->offical_fee_per_game,
         ]);
 
         return $season->id;
@@ -116,7 +114,7 @@ class SeasonController extends Controller
     public function removeSeason(Request $request)
     {
         $validated = $request->validate([
-            'season' => 'required|exists:seasons,id'
+            'season' => 'required|exists:seasons,id',
         ]);
 
         Season::where('id', $request->season)->delete();

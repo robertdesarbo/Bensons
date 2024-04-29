@@ -1,15 +1,11 @@
 <?php
 
-use Illuminate\Database\Migrations\Migration;
-use Illuminate\Database\Schema\Blueprint;
-use Illuminate\Support\Facades\Schema;
-
-use Carbon\Carbon;
-
 use App\Models\Division;
 use App\Models\Season;
+use Carbon\Carbon;
+use Illuminate\Database\Migrations\Migration;
 
-class PopulateSeasons extends Migration
+return new class extends Migration
 {
     /**
      * Run the migrations.
@@ -44,4 +40,4 @@ class PopulateSeasons extends Migration
         Season::truncate();
         DB::statement('SET FOREIGN_KEY_CHECKS=1;');
     }
-}
+};
