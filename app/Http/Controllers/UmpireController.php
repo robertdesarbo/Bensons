@@ -2,10 +2,8 @@
 
 namespace App\Http\Controllers;
 
-use Carbon\Carbon;
-
-use Illuminate\Http\Request;
 use App\Models\Umpire;
+use Illuminate\Http\Request;
 
 class UmpireController extends Controller
 {

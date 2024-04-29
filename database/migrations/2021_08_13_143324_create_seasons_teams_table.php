@@ -1,10 +1,9 @@
 <?php
 
+use App\Models\Team;
 use Illuminate\Database\Migrations\Migration;
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Support\Facades\Schema;
-
-use App\Models\Team;
 
 class CreateSeasonsTeamsTable extends Migration
 {

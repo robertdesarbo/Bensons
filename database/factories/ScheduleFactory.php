@@ -2,11 +2,10 @@
 
 namespace Database\Factories;
 
+use App\Models\Division;
+use App\Models\Field;
 use App\Models\Schedule;
 use App\Models\Team;
-use App\Models\Field;
-use App\Models\Division;
-
 use Illuminate\Database\Eloquent\Factories\Factory;
 
 class ScheduleFactory extends Factory
@@ -40,7 +39,7 @@ class ScheduleFactory extends Factory
         }
 
         $dt = $this->faker->dateTimeBetween($startDate = '-6 months', $endDate = '6 months');
-        $game_date = $dt->format("Y-m-d H:i:s");
+        $game_date = $dt->format('Y-m-d H:i:s');
 
         $field_id = $this->faker->randomElement($field);
 
@@ -51,7 +50,7 @@ class ScheduleFactory extends Factory
             'field_id' => $field_id,
             'home_score' => $home_score,
             'away_score' => $away_score,
-            'completed' => $completed
+            'completed' => $completed,
         ];
     }
 }

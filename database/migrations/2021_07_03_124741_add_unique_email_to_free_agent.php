@@ -1,13 +1,11 @@
 <?php
 
+use App\Models\DivisionFreeAgent;
+use App\Models\FreeAgent;
 use Illuminate\Database\Migrations\Migration;
 use Illuminate\Database\Schema\Blueprint;
-use Illuminate\Support\Facades\Schema;
-
 use Illuminate\Support\Facades\DB;
-
-use App\Models\FreeAgent;
-use App\Models\DivisionFreeAgent;
+use Illuminate\Support\Facades\Schema;
 
 class AddUniqueEmailToFreeAgent extends Migration
 {
@@ -20,10 +18,10 @@ class AddUniqueEmailToFreeAgent extends Migration
     {
         // Get records from old column.
         $duplicate_free_agents = DB::table('free_agents')
-                    ->select('id', DB::raw('count(`email`) as occurences'))
-                    ->groupBy('email')
-                    ->having('occurences', '>', 1)
-                    ->get();
+            ->select('id', DB::raw('count(`email`) as occurences'))
+            ->groupBy('email')
+            ->having('occurences', '>', 1)
+            ->get();
 
         foreach ($duplicate_free_agents as $duplicate) {
             DivisionFreeAgent::where('free_agent_id', $duplicate->id)->delete();

@@ -2,12 +2,9 @@
 
 namespace App\Http\Controllers;
 
-use Carbon\Carbon;
-
-use Illuminate\Http\Request;
-use App\Models\Team;
 use App\Models\Schedule;
-
+use App\Models\Team;
+use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Validator;
 
 class TeamController extends Controller
@@ -23,12 +20,12 @@ class TeamController extends Controller
     {
         if ($request->team) {
             return Team::with('division.league')->with('seasons')
-            ->has('division.league')
-            ->where('id', $request->team)
-            ->first();
+                ->has('division.league')
+                ->where('id', $request->team)
+                ->first();
         } else {
             return Team::with('division.league')->with('seasons')
-            ->has('division.league')->get();
+                ->has('division.league')->get();
         }
     }
 
@@ -45,10 +42,10 @@ class TeamController extends Controller
         $team = Team::create([
             'name' => $request->name,
             'abbreviation' => $request->abbreviation,
-            'division_id' => $request->division
+            'division_id' => $request->division,
         ]);
 
-        if (!empty($request->active_seasons)) {
+        if (! empty($request->active_seasons)) {
             $team->seasons()->attach($request->active_seasons);
         }
     }
@@ -60,7 +57,7 @@ class TeamController extends Controller
             'name' => 'required',
             'abbreviation' => 'required',
             'league' => 'required|exists:leagues,id',
-            'division' => 'required|exists:divisions,id'
+            'division' => 'required|exists:divisions,id',
         ]);
 
         $team = Team::where('id', $request->team)->first();
@@ -79,19 +76,19 @@ class TeamController extends Controller
                             $fail('You need to cancel the remaining '.$unplayed_games.' game(s) for '.$team->name.' before changing division');
                         },
                     ],
-                    ])->validate();
+                ])->validate();
             }
         }
 
         $team = Team::where('id', $request->team);
 
         $team->update([
-                'name' => $request->name,
-                'abbreviation' => $request->abbreviation,
-                'division_id' => $request->division
-            ]);
+            'name' => $request->name,
+            'abbreviation' => $request->abbreviation,
+            'division_id' => $request->division,
+        ]);
 
-        if (!empty($request->active_seasons)) {
+        if (! empty($request->active_seasons)) {
             $team->first()->seasons()->sync($request->active_seasons);
         }
     }
@@ -99,8 +96,8 @@ class TeamController extends Controller
     public function removeTeam(Request $request)
     {
         $validated = $request->validate([
-                'team' => 'required|exists:teams,id'
-            ]);
+            'team' => 'required|exists:teams,id',
+        ]);
 
         $team = Team::findOrFail($request->team);
 

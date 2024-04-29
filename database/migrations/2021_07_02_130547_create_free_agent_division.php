@@ -1,10 +1,9 @@
 <?php
 
+use Carbon\Carbon;
 use Illuminate\Database\Migrations\Migration;
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Support\Facades\Schema;
-
-use Carbon\Carbon;
 
 class CreateFreeAgentDivision extends Migration
 {
@@ -27,10 +26,10 @@ class CreateFreeAgentDivision extends Migration
         foreach ($free_agents as $free_agent) {
             // Insert the split values into new columns.
             DB::table('division_free_agent')->insert([
-                "free_agent_id" =>  $free_agent->id,
-                "division_id" =>  $free_agent->division_id,
+                'free_agent_id' => $free_agent->id,
+                'division_id' => $free_agent->division_id,
                 'created_at' => Carbon::now()->format('Y-m-d H:i:s'),
-                'updated_at' => Carbon::now()->format('Y-m-d H:i:s')
+                'updated_at' => Carbon::now()->format('Y-m-d H:i:s'),
             ]);
         }
     }

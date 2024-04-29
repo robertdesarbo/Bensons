@@ -13,7 +13,7 @@ class TeamFreeAgent extends Model
 
     protected $casts = [
         'positions' => 'array',
-        'genders' => 'array'
+        'genders' => 'array',
     ];
 
     public function team()

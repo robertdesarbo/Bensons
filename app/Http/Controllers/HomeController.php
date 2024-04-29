@@ -2,12 +2,10 @@
 
 namespace App\Http\Controllers;
 
-use Illuminate\Http\Request;
-
 use App\Models\Division;
-use App\Models\Season;
-use App\Models\Team;
 use App\Models\FieldLocation;
+use App\Models\Season;
+use Illuminate\Http\Request;
 
 class HomeController extends Controller
 {

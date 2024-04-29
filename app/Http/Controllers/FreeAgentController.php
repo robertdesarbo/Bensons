@@ -2,20 +2,19 @@
 
 namespace App\Http\Controllers;
 
-use Carbon\Carbon;
-
-use Illuminate\Http\Request;
 use App\Models\FreeAgent;
 use App\Models\TeamFreeAgent;
+use Carbon\Carbon;
+use Illuminate\Http\Request;
 
 class FreeAgentController extends Controller
 {
     public function freeAgent(Request $request)
     {
         return FreeAgent::with('divisions.league')
-        ->has('divisions')
-        ->whereDate('updated_at', '>', Carbon::now()->subDays(30))
-        ->get();
+            ->has('divisions')
+            ->whereDate('updated_at', '>', Carbon::now()->subDays(30))
+            ->get();
     }
 
     public function teamFreeAgent(Request $request)
@@ -41,11 +40,11 @@ class FreeAgentController extends Controller
                 'name' => $request->name,
                 'phone' => $request->phone,
                 'email' => $request->email,
-                'gender' => $request->gender
+                'gender' => $request->gender,
             ]
         );
 
-        if (!empty($request->division)) {
+        if (! empty($request->division)) {
             $free_agent->divisions()->detach();
             $free_agent->divisions()->attach($request->division);
         }

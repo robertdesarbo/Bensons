@@ -1,9 +1,8 @@
 <?php
 
-use Illuminate\Database\Migrations\Migration;
-
-use App\Models\FieldLocation;
 use App\Models\Field;
+use App\Models\FieldLocation;
+use Illuminate\Database\Migrations\Migration;
 
 class PopulateNewFields extends Migration
 {
@@ -31,14 +30,14 @@ class PopulateNewFields extends Migration
             FieldLocation::where('id', $field_location->id)->update(['active' => true]);
 
             for ($x = 0; $x < $field_location->total_fields; $x++) {
-                $name = 'Field '. $x+1;
-                if($field_location->field_alpha_display) {
-                    $name = 'Field '. $alphabet[$x];
+                $name = 'Field '.$x + 1;
+                if ($field_location->field_alpha_display) {
+                    $name = 'Field '.$alphabet[$x];
                 }
 
                 Field::firstOrCreate([
                     'field_location_id' => $field_location->id,
-                    'number' => $x+1,
+                    'number' => $x + 1,
                     'name' => $name,
                     'alcohol' => $field_location->alcohol,
                     'private_property' => $field_location->private_property,
@@ -47,7 +46,7 @@ class PopulateNewFields extends Migration
                     'ground_rules' => $field_location->ground_rules,
                     'sport' => in_array($field_location->name, $basketball_courts) ? 'basketball' : 'softball',
                     'lights' => true,
-                    'active' => true
+                    'active' => true,
                 ]);
             }
         }

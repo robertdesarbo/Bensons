@@ -21,7 +21,7 @@ class CleanUpFields extends Migration
                 'private_property',
                 'pets',
                 'smoking',
-                'ground_rules'
+                'ground_rules',
             ]);
         });
     }

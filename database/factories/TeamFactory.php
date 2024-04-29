@@ -2,12 +2,11 @@
 
 namespace Database\Factories;
 
-use App\Models\Team;
 use App\Models\Division;
+use App\Models\Team;
+use Carbon\Carbon;
 use Illuminate\Database\Eloquent\Factories\Factory;
 use Illuminate\Support\Str;
-
-use Carbon\Carbon;
 
 class TeamFactory extends Factory
 {
@@ -32,7 +31,7 @@ class TeamFactory extends Factory
             'abbreviation' => strtoupper(Str::random(3)),
             'division_id' => $this->faker->randomElement($division),
             'created_at' => Carbon::now()->format('Y-m-d H:i:s'),
-            'updated_at' => Carbon::now()->format('Y-m-d H:i:s')
+            'updated_at' => Carbon::now()->format('Y-m-d H:i:s'),
 
         ];
     }

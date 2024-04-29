@@ -4,10 +4,6 @@ use Illuminate\Database\Migrations\Migration;
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Support\Facades\Schema;
 
-use Carbon\Carbon;
-
-use App\Models\Team;
-
 class AddSoftDeletes extends Migration
 {
     /**

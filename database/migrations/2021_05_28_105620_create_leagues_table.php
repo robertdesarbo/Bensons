@@ -20,7 +20,7 @@ class CreateLeaguesTable extends Migration
             $table->timestamps();
         });
     }
-    
+
     /**
      * Reverse the migrations.
      *
