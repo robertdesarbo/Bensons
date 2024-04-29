@@ -4,7 +4,6 @@ namespace Database\Factories;
 
 use App\Models\Division;
 use App\Models\Field;
-use App\Models\Schedule;
 use App\Models\Team;
 use Illuminate\Database\Eloquent\Factories\Factory;
 
