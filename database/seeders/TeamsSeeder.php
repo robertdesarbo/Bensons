@@ -9,10 +9,8 @@ class TeamsSeeder extends Seeder
 {
     /**
      * Run the database seeds.
-     *
-     * @return void
      */
-    public function run()
+    public function run(): void
     {
         Team::factory()->count(100)->create();
     }

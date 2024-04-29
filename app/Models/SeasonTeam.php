@@ -4,6 +4,7 @@ namespace App\Models;
 
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
+use Illuminate\Database\Eloquent\Relations\BelongsTo;
 
 class SeasonTeam extends Model
 {
@@ -13,12 +14,12 @@ class SeasonTeam extends Model
 
     protected $fillable = ['season_id', 'team_id'];
 
-    public function season()
+    public function season(): BelongsTo
     {
         return $this->belongsTo(Season::class, 'season_id');
     }
 
-    public function team()
+    public function team(): BelongsTo
     {
         return $this->belongsTo(Team::class, 'team_id');
     }

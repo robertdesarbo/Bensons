@@ -11,10 +11,8 @@ return new class extends Migration
 {
     /**
      * Run the migrations.
-     *
-     * @return void
      */
-    public function up()
+    public function up(): void
     {
         // Get records from old column.
         $duplicate_free_agents = DB::table('free_agents')
@@ -39,10 +37,8 @@ return new class extends Migration
 
     /**
      * Reverse the migrations.
-     *
-     * @return void
      */
-    public function down()
+    public function down(): void
     {
         Schema::table('free_agents', function (Blueprint $table) {
             $table->dropUnique('free_agents_email_unique');

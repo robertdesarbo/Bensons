@@ -4,6 +4,8 @@ namespace App\Models;
 
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
+use Illuminate\Database\Eloquent\Relations\BelongsTo;
+use Illuminate\Database\Eloquent\Relations\BelongsToMany;
 use Illuminate\Database\Eloquent\SoftDeletes;
 
 class Schedule extends Model
@@ -22,27 +24,27 @@ class Schedule extends Model
         return $query->where('completed', 0)->where('rescheduled', 0)->where('canceled', 0);
     }
 
-    public function umpires()
+    public function umpires(): BelongsToMany
     {
         return $this->belongsToMany(Umpire::class);
     }
 
-    public function home_team()
+    public function home_team(): BelongsTo
     {
         return $this->belongsTo(Team::class, 'home_id');
     }
 
-    public function away_team()
+    public function away_team(): BelongsTo
     {
         return $this->belongsTo(Team::class, 'away_id');
     }
 
-    public function season()
+    public function season(): BelongsTo
     {
         return $this->belongsTo(Season::class, 'season_id');
     }
 
-    public function field()
+    public function field(): BelongsTo
     {
         return $this->belongsTo(Field::class, 'field_id');
     }

@@ -4,6 +4,7 @@ namespace App\Models;
 
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
+use Illuminate\Database\Eloquent\Relations\BelongsTo;
 
 class DivisionFreeAgent extends Model
 {
@@ -13,12 +14,12 @@ class DivisionFreeAgent extends Model
 
     protected $fillable = ['free_agent_id', 'division_id'];
 
-    public function freeAgent()
+    public function freeAgent(): BelongsTo
     {
         return $this->belongsTo(FreeAgent::class, 'free_agent_id');
     }
 
-    public function division()
+    public function division(): BelongsTo
     {
         return $this->belongsTo(Division::class, 'division_id');
     }

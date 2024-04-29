@@ -8,10 +8,8 @@ return new class extends Migration
 {
     /**
      * Run the migrations.
-     *
-     * @return void
      */
-    public function up()
+    public function up(): void
     {
         Schema::create('seasons', function (Blueprint $table) {
             $table->id();
@@ -29,10 +27,8 @@ return new class extends Migration
 
     /**
      * Reverse the migrations.
-     *
-     * @return void
      */
-    public function down()
+    public function down(): void
     {
         DB::statement('SET FOREIGN_KEY_CHECKS=0;');
         Schema::dropIfExists('seasons');

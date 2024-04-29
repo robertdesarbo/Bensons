@@ -8,14 +8,14 @@
     ],
     "license": "MIT",
     "require": {
-        "php": "^8.0",
-        "area17/twill": "^2.8",
-        "doctrine/dbal": "^3.3",
+        "php": "^8.1",
+        "area17/twill": "^3.0",
+        "doctrine/dbal": "^3.5",
         "guzzlehttp/guzzle": "^7.2",
         "kalnoy/nestedset": "^6.0",
-        "laravel/framework": "^9.52",
-        "laravel/sanctum": "^3.0",
-        "laravel/tinker": "^2.7",
+        "laravel/framework": "^10.48",
+        "laravel/sanctum": "^3.3",
+        "laravel/tinker": "^2.8",
         "league/flysystem-aws-s3-v3": "^3.0",
         "predis/predis": "^2.2",
         "symfony/http-client": "^7.0",
@@ -23,11 +23,12 @@
     },
     "require-dev": {
         "fakerphp/faker": "^1.9.1",
-        "laravel/sail": "^1.15",
+        "laravel/sail": "^1.18",
         "mockery/mockery": "^1.4.4",
-        "nunomaduro/collision": "^6.3",
-        "phpunit/phpunit": "^9.5.10",
-        "spatie/laravel-ignition": "^1.4"
+        "nunomaduro/collision": "^7.0",
+        "phpunit/phpunit": "^10.1",
+        "rector/rector": "^0.14",
+        "spatie/laravel-ignition": "^2.0"
     },
     "autoload": {
         "psr-4": {
@@ -66,6 +67,6 @@
         "preferred-install": "dist",
         "sort-packages": true
     },
-    "minimum-stability": "dev",
+    "minimum-stability": "stable",
     "prefer-stable": true
 }

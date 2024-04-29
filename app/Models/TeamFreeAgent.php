@@ -4,6 +4,7 @@ namespace App\Models;
 
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
+use Illuminate\Database\Eloquent\Relations\BelongsTo;
 
 class TeamFreeAgent extends Model
 {
@@ -16,7 +17,7 @@ class TeamFreeAgent extends Model
         'genders' => 'array',
     ];
 
-    public function team()
+    public function team(): BelongsTo
     {
         return $this->belongsTo(Team::class);
     }
