@@ -31,7 +31,7 @@ class FieldFactory extends Factory
             'private_property' => $this->faker->boolean(),
             'pets' => $this->faker->boolean(),
             'smoking' => $this->faker->boolean(),
-            'ground_rules' => $this->faker->boolean() ? $this->faker->text : null,
+            'ground_rules' => $this->faker->boolean() ? $this->faker->text() : null,
             'sport' => $this->faker->boolean() ? 'basketball' : 'softball',
             'lights' => $this->faker->boolean(),
             'active' => $this->faker->boolean(),
