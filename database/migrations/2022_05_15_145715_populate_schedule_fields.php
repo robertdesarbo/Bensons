@@ -9,7 +9,7 @@ return new class extends Migration
      *
      * @return void
      */
-    public function up()
+    public function up(): void
     {
         //Get All Fields
         $fields = DB::table('fields')->get();
@@ -39,7 +39,7 @@ return new class extends Migration
      *
      * @return void
      */
-    public function down()
+    public function down(): void
     {
         DB::table('schedules')->update(['field_id' => null]);
     }

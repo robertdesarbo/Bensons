@@ -14,7 +14,7 @@ class TeamFactory extends Factory
      *
      * @return array
      */
-    public function definition()
+    public function definition(): array
     {
         $division = Division::pluck('id')->toArray();
 

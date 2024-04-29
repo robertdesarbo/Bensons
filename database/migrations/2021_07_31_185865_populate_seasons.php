@@ -12,7 +12,7 @@ return new class extends Migration
      *
      * @return void
      */
-    public function up()
+    public function up(): void
     {
         $divisions = Division::get();
 
@@ -34,7 +34,7 @@ return new class extends Migration
      *
      * @return void
      */
-    public function down()
+    public function down(): void
     {
         DB::statement('SET FOREIGN_KEY_CHECKS=0;');
         Season::truncate();

@@ -11,7 +11,7 @@ return new class extends Migration
      *
      * @return void
      */
-    public function up()
+    public function up(): void
     {
         Schema::table('fields', function (Blueprint $table) {
             $table->integer('field_alpha_display')->default(false)->after('total_fields');
@@ -23,7 +23,7 @@ return new class extends Migration
      *
      * @return void
      */
-    public function down()
+    public function down(): void
     {
         Schema::table('fields', function (Blueprint $table) {
             $table->dropColumn('field_alpha_display');

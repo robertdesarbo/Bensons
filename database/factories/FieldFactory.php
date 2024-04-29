@@ -12,7 +12,7 @@ class FieldFactory extends Factory
      *
      * @return array
      */
-    public function definition()
+    public function definition(): array
     {
         $fieldLocationIDs = DB::table('field_locations')->pluck('id');
 

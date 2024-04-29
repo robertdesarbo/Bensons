@@ -11,7 +11,7 @@ return new class extends Migration
      *
      * @return void
      */
-    public function up()
+    public function up(): void
     {
         Schema::table('schedules', function (Blueprint $table) {
             $table->integer('field_number')->nullable()->after('field_id');
@@ -23,7 +23,7 @@ return new class extends Migration
      *
      * @return void
      */
-    public function down()
+    public function down(): void
     {
         Schema::table('schedules', function (Blueprint $table) {
             $table->dropColumn('field_number');

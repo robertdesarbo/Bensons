@@ -11,7 +11,7 @@ return new class extends Migration
      *
      * @return void
      */
-    public function up()
+    public function up(): void
     {
         Schema::create('schedule_umpire', function (Blueprint $table) {
             $table->foreignId('umpire_id')->constrained('umpires');
@@ -25,7 +25,7 @@ return new class extends Migration
      *
      * @return void
      */
-    public function down()
+    public function down(): void
     {
         Schema::dropIfExists('schedule_umpire');
     }

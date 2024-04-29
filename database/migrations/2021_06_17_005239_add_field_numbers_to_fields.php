@@ -11,7 +11,7 @@ return new class extends Migration
      *
      * @return void
      */
-    public function up()
+    public function up(): void
     {
         Schema::table('fields', function (Blueprint $table) {
             $table->integer('total_fields')->default(1)->after('zip');
@@ -23,7 +23,7 @@ return new class extends Migration
      *
      * @return void
      */
-    public function down()
+    public function down(): void
     {
         Schema::table('fields', function (Blueprint $table) {
             $table->dropColumn('total_fields');
