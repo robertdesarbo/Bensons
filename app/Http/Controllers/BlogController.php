@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use Illuminate\Http\JsonResponse;
 use App\Repositories\LynnRepository;
 use Illuminate\Http\Request;
 
@@ -38,7 +39,7 @@ class BlogController extends Controller
         ];
     }
 
-    public function image(Request $request, $slug)
+    public function image(Request $request, $slug): JsonResponse
     {
         $post = $this->repository->forSlug($slug);
 
