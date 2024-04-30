@@ -22,9 +22,9 @@
                         "polyfills": "src/polyfills.ts",
                         "tsConfig": "tsconfig.app.json",
                         "allowedCommonJsDependencies": [
+                            "moment",
                             "rxjs",
                             "date-fns",
-                            "rxjs-compat",
                             "ngx-quill",
                             "lodash",
                             "c3",
@@ -76,7 +76,7 @@
                                 }
                             ],
                             "outputPath": "../../../public/build",
-                            "deployUrl": "build/",
+                            "baseHref": "build/",
                             "outputHashing": "all",
                             "sourceMap": false,
                             "namedChunks": false,
@@ -99,7 +99,7 @@
                         },
                         "dev-laravel": {
                             "outputPath": "../../../public/build",
-                            "deployUrl": "build/",
+                            "baseHref": "build/",
                             "outputHashing": "none",
                             "watch": true
 
@@ -159,7 +159,6 @@
             }
         }
     },
-    "defaultProject": "project",
     "cli": {
         "analytics": "9301ccc3-a05e-44c2-a9df-b081f23d06e3"
     }

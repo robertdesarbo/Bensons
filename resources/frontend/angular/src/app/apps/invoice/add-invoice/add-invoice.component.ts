@@ -1,5 +1,5 @@
 import { Component, OnInit } from '@angular/core';
-import { FormGroup, FormBuilder, Validators, FormControl, FormArray, NgForm } from '@angular/forms';
+import { UntypedFormGroup, UntypedFormBuilder, Validators, FormControl, UntypedFormArray, NgForm } from '@angular/forms';
 import { order, InvoiceList } from '../invoice';
 import { ServiceinvoiceService } from '../serviceinvoice.service';
 import { Router } from '@angular/router';
@@ -14,8 +14,8 @@ import { AddedDialogComponent } from './added-dialog/added-dialog.component';
 })
 export class AddInvoiceComponent implements OnInit {
 
-  addForm: FormGroup;
-  rows: FormArray;
+  addForm: UntypedFormGroup;
+  rows: UntypedFormArray;
   invoice: InvoiceList = new InvoiceList();
 
   ///////////////////////////////////////////////////////////
@@ -23,7 +23,7 @@ export class AddInvoiceComponent implements OnInit {
   vat = 0;
   grandTotal = 0;
 
-  constructor(private fb: FormBuilder, private invoiceService: ServiceinvoiceService, private router: Router, public dialog: MatDialog) {
+  constructor(private fb: UntypedFormBuilder, private invoiceService: ServiceinvoiceService, private router: Router, public dialog: MatDialog) {
     // tslint:disable-next-line - Disables all
     this.invoice.id = Math.max.apply(Math, this.invoiceService.getInvoiceList().map(function (o: any) { return o.id; })) + 1;
     this.invoice.status = 'Pending';
@@ -58,7 +58,7 @@ export class AddInvoiceComponent implements OnInit {
     this.rows.removeAt(rowIndex);
   }
 
-  createItemFormGroup(): FormGroup {
+  createItemFormGroup(): UntypedFormGroup {
     return this.fb.group({
       itemName: ['', Validators.required],
       units: ['', Validators.required],
@@ -70,7 +70,7 @@ export class AddInvoiceComponent implements OnInit {
   itemsChanged(): void {
     let total: number = 0;
     // tslint:disable-next-line - Disables all
-    for (let t = 0; t < (<FormArray>this.addForm.get('rows')).length; t++) {
+    for (let t = 0; t < (<UntypedFormArray>this.addForm.get('rows')).length; t++) {
       if (this.addForm.get('rows')?.value[t].unitPrice !== '' && this.addForm.get('rows')?.value[t].units) {
         total = (this.addForm.get('rows')?.value[t].unitPrice * this.addForm.get('rows')?.value[t].units) + total;
       }
@@ -86,7 +86,7 @@ export class AddInvoiceComponent implements OnInit {
     this.invoice.totalCost = this.subTotal;
     this.invoice.vat = this.vat;
     // tslint:disable-next-line - Disables all
-    for (let t = 0; t < (<FormArray>this.addForm.get('rows')).length; t++) {
+    for (let t = 0; t < (<UntypedFormArray>this.addForm.get('rows')).length; t++) {
       const o: order = new order();
       o.itemName = this.addForm.get('rows')?.value[t].itemName;
       o.unitPrice = this.addForm.get('rows')?.value[t].unitPrice;

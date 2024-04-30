@@ -3,7 +3,7 @@ import {
   AfterContentChecked
 } from '@angular/core';
 import { Router, NavigationEnd } from '@angular/router';
-import 'rxjs/add/operator/filter';
+import { filter } from 'rxjs/operators';
 
 import { AccordionLinkDirective } from './accordionlink.directive';
 
@@ -46,7 +46,7 @@ export class AccordionDirective implements AfterContentChecked {
   }
 
   ngAfterContentChecked(): void {
-    
+
   }
 
   constructor(private router: Router) {

@@ -1,5 +1,5 @@
 import { Component, ChangeDetectorRef } from '@angular/core';
-import { FormBuilder, FormGroup } from '@angular/forms';
+import { UntypedFormBuilder, UntypedFormGroup } from '@angular/forms';
 
 import { HttpClient } from '@angular/common/http';
 
@@ -16,7 +16,7 @@ import { Season } from 'src/app/models/season.model';
 })
 export class StandingsComponent {
 
-	readonly formControl: FormGroup;
+	readonly formControl: UntypedFormGroup;
 
 	public searchHasResults = false;
 
@@ -28,7 +28,7 @@ export class StandingsComponent {
 	public divisionBadgeName: string;
 
 	constructor(public http: HttpClient,
-		private formBuilder: FormBuilder,
+		private formBuilder: UntypedFormBuilder,
 		private changeDetector: ChangeDetectorRef) {
 		this.division$ = this.http.get<Division[]>('/api/division').pipe(
 			tap((divisions) => {

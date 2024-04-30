@@ -23,7 +23,6 @@ import { PaginatiorComponent } from './paginator/paginator.component';
 import { SortheaderComponent } from './sortheader/sortheader.component';
 import { SelectfieldComponent } from './select/select.component';
 import { EditorComponent } from './editor/editor.component';
-import { FormValidationComponent } from './form-validation/form-validation.component';
 import { UploadComponent } from './file-upload/upload.component';
 import { WizardComponent } from './wizard/wizard.component';
 import { MultiselectComponent } from './multiselect/multiselect.component';
@@ -52,7 +51,6 @@ import { MultiselectComponent } from './multiselect/multiselect.component';
         SelectfieldComponent,
         EditorComponent,
         PaginatiorComponent,
-        FormValidationComponent,
         UploadComponent,
         WizardComponent,
         MultiselectComponent

@@ -1,7 +1,7 @@
 import {AfterViewInit, Component, ViewChild} from '@angular/core';
 import { MatTableDataSource, MatTable } from '@angular/material/table';
 import { MatSort } from '@angular/material/sort';
-import { FormBuilder, FormGroup } from '@angular/forms';
+import { UntypedFormBuilder, UntypedFormGroup } from '@angular/forms';
 import { MatDialog } from '@angular/material/dialog';
 import { HttpClient } from '@angular/common/http';
 
@@ -30,14 +30,14 @@ export class TeamsComponent  implements AfterViewInit {
 	dataSource = new MatTableDataSource<Team>();
 	noData: Observable<boolean>;
 
-	readonly formControl: FormGroup;
+	readonly formControl: UntypedFormGroup;
 
 	public team$: Observable<Team[]>;
 	public division$: Observable<Division[]>;
 	public league$: Observable<League[]>;
 
 	constructor(
-		private formBuilder: FormBuilder,
+		private formBuilder: UntypedFormBuilder,
 		private dialog: MatDialog,
 		private http: HttpClient,
 		public authenticationService: AuthenticationService) {

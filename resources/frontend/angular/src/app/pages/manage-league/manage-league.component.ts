@@ -1,6 +1,6 @@
 import { Component, OnInit, ChangeDetectorRef } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
-import { FormBuilder, FormGroup, Validators } from '@angular/forms';
+import { UntypedFormBuilder, UntypedFormGroup, Validators } from '@angular/forms';
 import { MatDialog } from '@angular/material/dialog';
 
 import { Observable, of } from 'rxjs';
@@ -53,10 +53,10 @@ export class ManageLeagueComponent implements OnInit {
 	readonly spacetime = spacetime;
 	readonly DeleteType = DeleteType;
 
-	readonly leagueFormGroup: FormGroup;
-	readonly divisionFormGroup: FormGroup;
-	readonly seasonFormGroup: FormGroup;
-	readonly teamFormGroup: FormGroup;
+	readonly leagueFormGroup: UntypedFormGroup;
+	readonly divisionFormGroup: UntypedFormGroup;
+	readonly seasonFormGroup: UntypedFormGroup;
+	readonly teamFormGroup: UntypedFormGroup;
 
 	public league$: Observable<League[]>;
 	public division$: Observable<Division[]>;
@@ -81,7 +81,7 @@ export class ManageLeagueComponent implements OnInit {
 	public addSeason = false;
 	public seasonErrors: string[];
 
-	constructor(private formBuilder: FormBuilder,
+	constructor(private formBuilder: UntypedFormBuilder,
 		private dialog: MatDialog,
 		private snackBar: MatSnackBar,
 		private http: HttpClient,

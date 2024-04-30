@@ -1,5 +1,5 @@
 import { Component } from '@angular/core';
-import { FormBuilder, FormGroup, Validators } from '@angular/forms';
+import { UntypedFormBuilder, UntypedFormGroup, Validators } from '@angular/forms';
 import { MatDialogRef } from '@angular/material/dialog';
 import { HttpClient, HttpParams } from '@angular/common/http';
 
@@ -15,12 +15,12 @@ import { MatSnackBar } from '@angular/material/snack-bar';
 })
 export class DialogRegisterTeam {
 
-	readonly formControl: FormGroup;
+	readonly formControl: UntypedFormGroup;
 	public errors: string[];
 
 	public division$: Observable<Division[]>;
 
-	constructor(private formBuilder: FormBuilder,
+	constructor(private formBuilder: UntypedFormBuilder,
 		private snackBar: MatSnackBar,
 		public dialogRef: MatDialogRef<DialogRegisterTeam>,
 		public http: HttpClient) {

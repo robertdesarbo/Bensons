@@ -1,7 +1,7 @@
 import { Component, OnInit, ViewChild } from '@angular/core';
 import { MatTableDataSource, MatTable } from '@angular/material/table';
 import { MatSort } from '@angular/material/sort';
-import { FormBuilder, FormGroup } from '@angular/forms';
+import { UntypedFormBuilder, UntypedFormGroup } from '@angular/forms';
 import { MatDialog } from '@angular/material/dialog';
 import { HttpClient } from '@angular/common/http';
 
@@ -32,7 +32,7 @@ export class SchedulesComponent implements OnInit {
 	dataSource = new MatTableDataSource<Schedule>();
 	noData: Observable<boolean>;
 
-	readonly formControl: FormGroup;
+	readonly formControl: UntypedFormGroup;
 
 	public schedule$: Observable<Schedule[]>;
 	public umpire$: Observable<Umpire[]>;
@@ -45,7 +45,7 @@ export class SchedulesComponent implements OnInit {
 	public dateEnd: Date;
 
 	constructor(
-		private formBuilder: FormBuilder,
+		private formBuilder: UntypedFormBuilder,
 		public dialog: MatDialog,
 		public authenticationService: AuthenticationService,
 		public http: HttpClient) {

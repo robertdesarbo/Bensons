@@ -1,5 +1,5 @@
 import { Component, Inject } from '@angular/core';
-import { FormBuilder, FormGroup, Validators } from '@angular/forms';
+import { UntypedFormBuilder, UntypedFormGroup, Validators } from '@angular/forms';
 import { MatDialogRef } from '@angular/material/dialog';
 import { HttpClient, HttpParams } from '@angular/common/http';
 import { MAT_DIALOG_DATA } from '@angular/material/dialog';
@@ -45,7 +45,7 @@ export const CUSTOM_MOMENT_FORMATS = {
 export class DialogScheduleGame {
 
 	readonly spacetime = spacetime;
-	readonly formControl: FormGroup;
+	readonly formControl: UntypedFormGroup;
 
 	public errors: string[];
 
@@ -59,7 +59,7 @@ export class DialogScheduleGame {
 
 	public isLoading = true;
 
-	constructor(private formBuilder: FormBuilder,
+	constructor(private formBuilder: UntypedFormBuilder,
 		           private snackBar: MatSnackBar,
 		           public dialogRef: MatDialogRef<DialogScheduleGame>,
 		           private http: HttpClient,

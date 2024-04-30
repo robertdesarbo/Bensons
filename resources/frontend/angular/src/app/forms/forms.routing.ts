@@ -11,7 +11,6 @@ import { SortheaderComponent } from './sortheader/sortheader.component';
 import { SelectfieldComponent } from './select/select.component';
 import { InputfieldComponent } from './input/input.component';
 import { EditorComponent } from './editor/editor.component';
-import { FormValidationComponent } from './form-validation/form-validation.component';
 import { WizardComponent } from './wizard/wizard.component';
 import { MultiselectComponent } from './multiselect/multiselect.component';
 
@@ -126,17 +125,6 @@ export const FormRoutes: Routes = [
                     urls: [
                         { title: 'Dashboard', url: '/dashboard' },
                         { title: 'Form Editor' }
-                    ]
-                }
-            },
-            {
-                path: 'form-validation',
-                component: FormValidationComponent,
-                data: {
-                    title: 'Form Validation',
-                    urls: [
-                        { title: 'Dashboard', url: '/dashboard' },
-                        { title: 'Form Validation' }
                     ]
                 }
             },

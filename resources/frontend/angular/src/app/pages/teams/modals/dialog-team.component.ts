@@ -1,5 +1,5 @@
 import { Component, Inject } from '@angular/core';
-import { FormBuilder, FormGroup, Validators } from '@angular/forms';
+import { UntypedFormBuilder, UntypedFormGroup, Validators } from '@angular/forms';
 import { MatDialogRef } from '@angular/material/dialog';
 import { HttpClient } from '@angular/common/http';
 import { MAT_DIALOG_DATA } from '@angular/material/dialog';
@@ -22,7 +22,7 @@ import spacetime from 'spacetime';
 export class DialogTeam {
 	readonly spacetime = spacetime;
 
-	readonly formControl: FormGroup;
+	readonly formControl: UntypedFormGroup;
 
 	public dialogTitle: string;
 	public errors: string[];
@@ -35,7 +35,7 @@ export class DialogTeam {
 
 	public isLoading: boolean = true;
 
-	constructor(private formBuilder: FormBuilder,
+	constructor(private formBuilder: UntypedFormBuilder,
 		private snackBar: MatSnackBar,
 		public dialogRef: MatDialogRef<DialogTeam>,
 		private http: HttpClient,

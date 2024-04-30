@@ -1,5 +1,5 @@
 import { Component, Inject } from '@angular/core';
-import { FormBuilder, FormGroup, Validators} from '@angular/forms';
+import { UntypedFormBuilder, UntypedFormGroup, Validators} from '@angular/forms';
 import { MatDialogRef } from '@angular/material/dialog';
 import { HttpClient } from '@angular/common/http';
 import { MAT_DIALOG_DATA } from '@angular/material/dialog';
@@ -19,7 +19,7 @@ import { FieldLocation } from 'src/app/models/field-location.model';
 export class DialogFieldLocation {
   readonly spacetime = spacetime;
 
-  readonly formControl: FormGroup;
+  readonly formControl: UntypedFormGroup;
 
   public dialogTitle: string;
   public errors: string[];
@@ -28,7 +28,7 @@ export class DialogFieldLocation {
 
   public isLoading = true;
 
-  constructor(private formBuilder: FormBuilder,
+  constructor(private formBuilder: UntypedFormBuilder,
               private snackBar: MatSnackBar,
               public dialogRef: MatDialogRef<DialogFieldLocation>,
               private http: HttpClient,

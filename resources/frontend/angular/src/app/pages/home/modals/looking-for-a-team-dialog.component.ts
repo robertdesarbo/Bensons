@@ -1,5 +1,5 @@
 import { Component, ViewChild, OnInit } from '@angular/core';
-import { FormBuilder, FormGroupDirective, FormGroup, Validators } from '@angular/forms';
+import { UntypedFormBuilder, FormGroupDirective, UntypedFormGroup, Validators } from '@angular/forms';
 import { MatDialogRef } from '@angular/material/dialog';
 import { HttpClient, HttpParams } from '@angular/common/http';
 import { MatStepper } from '@angular/material/stepper';
@@ -21,9 +21,9 @@ import { FreeAgentType } from 'src/app/models/enum/free-agent-type.enum';
 })
 export class DialogLookingForATeam implements OnInit {
 
-	public reasonFormGroup: FormGroup;
-	public playerInformationFormGroup: FormGroup;
-	public contactInformationFormGroup: FormGroup;
+	public reasonFormGroup: UntypedFormGroup;
+	public playerInformationFormGroup: UntypedFormGroup;
+	public contactInformationFormGroup: UntypedFormGroup;
 	public errors: string[];
 
 	public positions = Object.values(Position);
@@ -44,7 +44,7 @@ export class DialogLookingForATeam implements OnInit {
 	public childStepper$ = new BehaviorSubject<MatStepper>(null);
 	public totalStepsCount: number;
 
-	constructor(private formBuilder: FormBuilder,
+	constructor(private formBuilder: UntypedFormBuilder,
 		private snackBar: MatSnackBar,
 		public dialogRef: MatDialogRef<DialogLookingForATeam>,
 		public http: HttpClient) {
