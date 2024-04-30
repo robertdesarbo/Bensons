@@ -15,9 +15,12 @@ class Schedule extends Model
     protected $fillable = ['season_id', 'home_id', 'away_id', 'game_date', 'field_location_id', 'field_id', 'field_number', 'home_score',
         'away_score', 'delayed', 'completed', 'rescheduled', 'canceled', 'notes'];
 
-    protected $casts = [
-        'game_date' => 'datetime:m/d/Y H:i:s',
-    ];
+    protected function casts(): array
+    {
+        return [
+            'game_date' => 'datetime:m/d/Y H:i:s',
+        ];
+    }
 
     public function scopeActive($query)
     {
