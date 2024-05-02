@@ -35,12 +35,14 @@ return new class extends Migration
 
         Schema::table('schedules', function (Blueprint $table) {
             $table->dropForeign('schedules_field_id_foreign');
+        });
+
+        Schema::table('schedules', function (Blueprint $table) {
             $table->renameColumn('field_id', 'field_location_id');
             $table->foreign('field_location_id')
                 ->references('id')
                 ->on('field_locations')
                 ->onDelete('cascade');
-            $table->renameIndex('schedules_field_id_foreign', 'schedules_field_location_id_foreign');
         });
 
         Schema::table('schedules', function (Blueprint $table) {
