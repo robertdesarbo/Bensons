@@ -12,10 +12,13 @@ class TeamFreeAgent extends Model
 
     protected $fillable = ['name', 'phone', 'email', 'positions', 'genders'];
 
-    protected $casts = [
-        'positions' => 'array',
-        'genders' => 'array',
-    ];
+    protected function casts(): array
+    {
+        return [
+            'positions' => 'array',
+            'genders' => 'array',
+        ];
+    }
 
     public function team(): BelongsTo
     {
