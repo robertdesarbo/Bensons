@@ -17,7 +17,7 @@ use App\Http\Controllers\AngularController;
 Route::get('download/{rule}', function ($rule) {
 
     if ($rule == "ASA_Not_Approved") {
-        $file_name = "2022/2022-ASA-Non-Approved-BatList.pdf";
+        $file_name = "2024/2024-ASA-Non-Approved-BatList.pdf";
     } else if ($rule == "Ground_Rules") {
         $file_name = "2024/2024-Ground-Rules.pdf";
     } else if ($rule == "Roster_Sheet") {
