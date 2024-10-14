@@ -104,6 +104,15 @@ Route::get('download/{rule}', function ($rule) {
     }
     // END - 2024
 
+    // START - 2025
+    if ($rule == "2025_BESS_Basketball_Signup_Sheet") {
+        $file_name = "2025/bensons-basketball/2025-BESS-Basketball-Signup-Sheet.pdf";
+    } else if ($rule == "2025_BESS_Basketball_Info_Sheet") {
+        $file_name = "2025/bensons-basketball/2025-BESS-Basketball-Info-Sheet.pdf";
+    } else if ($rule == "2025_BESS_Basketball_Sponsor_Letter") {
+        $file_name = "2025/bensons-basketball/2025-BESS-Basketball-Sponsor-Letter.pdf";
+    }
+
     return response()->download("build/assets/content/".$file_name);
 });
 
