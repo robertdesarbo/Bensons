@@ -111,6 +111,8 @@ Route::get('download/{rule}', function ($rule) {
         $file_name = "2025/bensons-basketball/2025-BESS-Basketball-Info-Sheet.pdf";
     } else if ($rule == "2025_BESS_Basketball_Sponsor_Letter") {
         $file_name = "2025/bensons-basketball/2025-BESS-Basketball-Sponsor-Letter.pdf";
+    } else if ($rule == "2025_BESS_Basketball_Rules") {
+        $file_name = "2025/bensons-basketball/2025-BESS-Basketball-Rules.pdf";
     }
 
     return response()->download("build/assets/content/".$file_name);
