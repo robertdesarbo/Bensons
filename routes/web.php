@@ -113,7 +113,14 @@ Route::get('download/{rule}', function ($rule) {
         $file_name = "2025/bensons-basketball/2025-BESS-Basketball-Sponsor-Letter.pdf";
     } else if ($rule == "2025_BESS_Basketball_Rules") {
         $file_name = "2025/bensons-basketball/2025-BESS-Basketball-Rules.pdf";
+    } else if ($rule == "2024_BESS_Waiver") {
+        $file_name = "2024/2024-BESS-Waiver.pdf";
     }
+
+    if ($rule == "2024_Lynns_Softball_Waiver") {
+        $file_name = "2024/2024-Lynns-Softball-Waiver.pdf";
+    }
+
 
     return response()->download("build/assets/content/".$file_name);
 });
