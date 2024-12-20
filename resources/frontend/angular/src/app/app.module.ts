@@ -107,6 +107,7 @@ import { TeamsComponent } from './pages/teams/teams.component';
 
 import { AuthenticationService } from 'src/app/authentication/authentication.service';
 import { AuthenticationResolver } from 'src/app/shared/authenticate-resolver.service';
+import { TermsComponent } from './pages/terms/terms.component';
 
 
 export function HttpLoaderFactory(http: HttpClient) {
@@ -143,6 +144,7 @@ const DEFAULT_PERFECT_SCROLLBAR_CONFIG: PerfectScrollbarConfigInterface = {
     LynnsComponent,
 		RulesComponent,
 		SponsorsComponent,
+		TermsComponent,
 		RegisteredTeamsComponent,
 		FreeAgentsComponent,
 		ManageLeagueComponent,

@@ -15,6 +15,7 @@ import { StandingsComponent } from './pages/standings/standings.component';
 import { FieldsComponent } from './pages/fields/fields.component';
 import { LynnsComponent } from './pages/lynns/lynns.component';
 import { RulesComponent } from './pages/rules/rules.component';
+import { TermsComponent } from './pages/terms/terms.component';
 import { SponsorsComponent } from './pages/sponsors/sponsors.component';
 
 import { LoginActiveGuard } from './shared/security/login-active.guard';
@@ -112,6 +113,13 @@ export const AppRoutes: Routes = [
 					title: 'Sponsors',
 				},
 			},
+      {
+        path: 'terms',
+        component: TermsComponent,
+        data: {
+          title: 'Terms',
+        },
+      },
 		]
 	},
 	{

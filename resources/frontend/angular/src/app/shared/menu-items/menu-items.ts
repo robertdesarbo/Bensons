@@ -114,6 +114,13 @@ export class MenuItems {
 			icon: 'storefront',
 			display: true
 		},
+		{
+			state: 'terms',
+			name: 'Terms',
+			type: 'link',
+			icon: 'article',
+			display: true
+		},
 	];
 
 	constructor(public authenticationService: AuthenticationService) {
